@@ -1,0 +1,225 @@
+{
+  "common": {
+    "appName": "RURAL-CONNECT",
+    "loading": "Ielādē...",
+    "save": "Saglabāt",
+    "cancel": "Atcelt",
+    "delete": "Dzēst",
+    "edit": "Rediģēt",
+    "close": "Aizvērt",
+    "back": "Atpakaļ",
+    "next": "Tālāk",
+    "submit": "Iesniegt",
+    "confirm": "Apstiprināt",
+    "yes": "Jā",
+    "no": "Nē",
+    "search": "Meklēt",
+    "filter": "Filtrēt",
+    "export": "Eksportēt",
+    "share": "Kopīgot",
+    "download": "Lejupielādēt",
+    "upload": "Augšupielādēt",
+    "view": "Skatīt",
+    "learnMore": "Uzzināt vairāk",
+    "getStarted": "Sākt",
+    "viewAll": "Skatīt visu",
+    "noData": "Nav pieejamu datu",
+    "error": "Radās kļūda",
+    "success": "Veiksmīgi",
+    "required": "Šis lauks ir obligāts",
+    "invalidEmail": "Nederīga e-pasta adrese",
+    "language": "Valoda"
+  },
+  "nav": {
+    "home": "Sākums",
+    "dashboard": "Panelis",
+    "counseling": "Konsultāciju sesija",
+    "portfolio": "Digitālais portfolio",
+    "library": "E-bibliotēka un moduļi",
+    "laborMarket": "Darba tirgus saites",
+    "myProfile": "Mans profils",
+    "logout": "Izrakstīties",
+    "settings": "Iestatījumi",
+    "admin": "Administratora panelis"
+  },
+  "auth": {
+    "login": "Pieteikties",
+    "logout": "Izrakstīties",
+    "email": "E-pasta adrese",
+    "password": "Parole",
+    "loginTitle": "Laipni atgriezušies",
+    "loginSubtitle": "Piesakieties savā RURAL-CONNECT kontā",
+    "forgotPassword": "Aizmirsi paroli?",
+    "noAccount": "Nav konta?",
+    "contactAdmin": "Sazinieties ar savu konsultantu vai administratoru",
+    "invalidCredentials": "Nepareiza e-pasta adrese vai parole",
+    "loginError": "Pieteikšanās neizdevās. Lūdzu, mēģiniet vēlreiz.",
+    "loggingIn": "Piesakās..."
+  },
+  "dashboard": {
+    "title": "Panelis",
+    "welcome": "Laipni atgriezušies",
+    "counselorCard": {
+      "title": "Jūsu konsultants",
+      "noSession": "Nav ieplānotu sesiju",
+      "nextSession": "Nākamā sesija",
+      "bookSession": "Rezervēt sesiju",
+      "viewProfile": "Skatīt profilu"
+    },
+    "progress": {
+      "title": "E-mācību progress",
+      "modulesCompleted": "moduļi pabeigti",
+      "continueLeaning": "Turpināt mācības",
+      "viewAll": "Skatīt visus moduļus"
+    },
+    "portfolio": {
+      "title": "Digitālais portfolio",
+      "status": "Statuss",
+      "lastUpdated": "Pēdējo reizi atjaunināts",
+      "complete": "Pabeigts",
+      "incomplete": "Nepabeigts",
+      "viewPortfolio": "Skatīt portfolio",
+      "updatePortfolio": "Atjaunināt portfolio"
+    },
+    "toolkit": {
+      "title": "Ātrās piekļuves rīki",
+      "resumeBuilder": "CV veidotājs",
+      "interviewPrep": "Intervijas sagatavošana",
+      "jobSearch": "Darba meklēšana",
+      "skillsAssessment": "Prasmju novērtēšana",
+      "careerExplorer": "Karjeras izpēte",
+      "financialPlanning": "Finanšu plānošana"
+    },
+    "recentActivity": "Pēdējās aktivitātes",
+    "upcomingSession": "Gaidāmā sesija",
+    "stats": {
+      "sessionsCompleted": "Pabeigtas sesijas",
+      "modulesFinished": "Pabeigti moduļi",
+      "daysActive": "Aktīvas dienas"
+    }
+  },
+  "counseling": {
+    "title": "Konsultāciju sesija",
+    "chat": {
+      "title": "Tērzēšana",
+      "placeholder": "Rakstiet ziņojumu...",
+      "send": "Sūtīt",
+      "noMessages": "Vēl nav ziņojumu. Sāciet sarunu!"
+    },
+    "video": {
+      "title": "Video zvans",
+      "join": "Pievienoties video zvanam",
+      "placeholder": "Video sesija parādīsies šeit",
+      "notStarted": "Video sesija vēl nav sākusies"
+    },
+    "notes": {
+      "title": "Sesijas piezīmes",
+      "placeholder": "Ievadiet sesijas piezīmes...",
+      "actionPlan": "Rīcības plāns",
+      "actionPlanPlaceholder": "Ievadiet rīcības punktus...",
+      "save": "Saglabāt piezīmes",
+      "saved": "Piezīmes saglabātas"
+    },
+    "files": {
+      "title": "Koplietotie faili",
+      "upload": "Augšupielādēt failu",
+      "noFiles": "Vēl nav koplietotu failu",
+      "download": "Lejupielādēt"
+    },
+    "session": {
+      "scheduled": "Ieplānots",
+      "inProgress": "Notiek",
+      "completed": "Pabeigts",
+      "cancelled": "Atcelts"
+    }
+  },
+  "portfolio": {
+    "title": "Digitālais portfolio",
+    "contact": {
+      "title": "Kontaktinformācija",
+      "name": "Pilns vārds",
+      "email": "E-pasts",
+      "phone": "Tālrunis",
+      "address": "Adrese",
+      "linkedin": "LinkedIn profils"
+    },
+    "summary": {
+      "title": "Personīgais kopsavilkums",
+      "placeholder": "Uzrakstiet īsu kopsavilkumu par sevi..."
+    },
+    "qualifications": {
+      "title": "Kvalifikācijas un izglītība",
+      "add": "Pievienot kvalifikāciju",
+      "institution": "Iestāde",
+      "completedOn": "Pabeigts",
+      "inProgress": "Notiek",
+      "completed": "Pabeigts"
+    },
+    "skills": {
+      "title": "Prasmes",
+      "placeholder": "Uzskaitiet savas prasmes..."
+    },
+    "targetSector": {
+      "title": "Mērķa nozare",
+      "placeholder": "piem. Lauksaimniecība, Tehnoloģijas, Veselības aprūpe"
+    },
+    "neetStatus": {
+      "title": "Pašreizējais statuss",
+      "placeholder": "Aprakstiet savu pašreizējo nodarbinātības situāciju"
+    },
+    "actions": {
+      "export": "Eksportēt PDF",
+      "share": "Kopīgot portfolio",
+      "print": "Drukāt",
+      "lastUpdated": "Pēdējo reizi atjaunināts"
+    },
+    "counselorFeedback": {
+      "title": "Konsultanta atsauksmes",
+      "noFeedback": "Vēl nav atsauksmju no jūsu konsultanta"
+    }
+  },
+  "library": {
+    "title": "E-bibliotēka un moduļi",
+    "subtitle": "Uzlabojiet savas prasmes ar mūsu mācību moduļiem",
+    "categories": {
+      "all": "Visas kategorijas",
+      "digitalSkills": "Digitālās prasmes",
+      "careerDevelopment": "Karjeras attīstība",
+      "lifeSkills": "Dzīves prasmes",
+      "entrepreneurship": "Uzņēmējdarbība",
+      "agriculture": "Lauksaimniecība"
+    },
+    "module": {
+      "duration": "min",
+      "start": "Sākt moduli",
+      "continue": "Turpināt",
+      "review": "Pārskatīt",
+      "completed": "Pabeigts",
+      "inProgress": "Notiek",
+      "notStarted": "Nav sākts"
+    },
+    "progress": {
+      "title": "Jūsu progress",
+      "completed": "Pabeigts",
+      "inProgress": "Notiek",
+      "notStarted": "Nav sākts"
+    }
+  },
+  "laborMarket": {
+    "title": "Darba tirgus saites",
+    "subtitle": "Sazinieties ar nodarbinātības aģentūrām un darba iespējām jūsu reģionā",
+    "goToJobs": "Doties uz darbiem",
+    "visitWebsite": "Apmeklēt vietni",
+    "allCountries": "Visas valstis",
+    "noLinks": "Šim reģionam nav pieejamu saišu",
+    "countries": {
+      "NO": "Norvēģija",
+      "GR": "Grieķija",
+      "TR": "Turcija",
+      "LV": "Latvija",
+      "ES": "Spānija",
+      "IT": "Itālija",
+      "EU": "Eiropas Savienība"
+    }
+  }
+}

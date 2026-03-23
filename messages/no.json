@@ -1,0 +1,225 @@
+{
+  "common": {
+    "appName": "RURAL-CONNECT",
+    "loading": "Laster...",
+    "save": "Lagre",
+    "cancel": "Avbryt",
+    "delete": "Slett",
+    "edit": "Rediger",
+    "close": "Lukk",
+    "back": "Tilbake",
+    "next": "Neste",
+    "submit": "Send inn",
+    "confirm": "Bekreft",
+    "yes": "Ja",
+    "no": "Nei",
+    "search": "Søk",
+    "filter": "Filtrer",
+    "export": "Eksporter",
+    "share": "Del",
+    "download": "Last ned",
+    "upload": "Last opp",
+    "view": "Vis",
+    "learnMore": "Lær mer",
+    "getStarted": "Kom i gang",
+    "viewAll": "Vis alle",
+    "noData": "Ingen data tilgjengelig",
+    "error": "Det oppstod en feil",
+    "success": "Vellykket",
+    "required": "Dette feltet er obligatorisk",
+    "invalidEmail": "Ugyldig e-postadresse",
+    "language": "Språk"
+  },
+  "nav": {
+    "home": "Hjem",
+    "dashboard": "Oversikt",
+    "counseling": "Veiledningsøkt",
+    "portfolio": "Digitalt Portefølje",
+    "library": "E-bibliotek og Moduler",
+    "laborMarket": "Arbeidsmarkedslenker",
+    "myProfile": "Min Profil",
+    "logout": "Logg ut",
+    "settings": "Innstillinger",
+    "admin": "Administrasjonspanel"
+  },
+  "auth": {
+    "login": "Logg inn",
+    "logout": "Logg ut",
+    "email": "E-postadresse",
+    "password": "Passord",
+    "loginTitle": "Velkommen tilbake",
+    "loginSubtitle": "Logg inn på din RURAL-CONNECT-konto",
+    "forgotPassword": "Glemt passord?",
+    "noAccount": "Har du ikke en konto?",
+    "contactAdmin": "Kontakt din veileder eller administrator",
+    "invalidCredentials": "Ugyldig e-post eller passord",
+    "loginError": "Innlogging mislyktes. Vennligst prøv igjen.",
+    "loggingIn": "Logger inn..."
+  },
+  "dashboard": {
+    "title": "Oversikt",
+    "welcome": "Velkommen tilbake",
+    "counselorCard": {
+      "title": "Din Veileder",
+      "noSession": "Ingen økt planlagt",
+      "nextSession": "Neste økt",
+      "bookSession": "Bestill en Økt",
+      "viewProfile": "Vis Profil"
+    },
+    "progress": {
+      "title": "E-læringsframgang",
+      "modulesCompleted": "moduler fullført",
+      "continueLeaning": "Fortsett å Lære",
+      "viewAll": "Vis Alle Moduler"
+    },
+    "portfolio": {
+      "title": "Digitalt Portefølje",
+      "status": "Status",
+      "lastUpdated": "Sist oppdatert",
+      "complete": "Fullstendig",
+      "incomplete": "Ufullstendig",
+      "viewPortfolio": "Vis Portefølje",
+      "updatePortfolio": "Oppdater Portefølje"
+    },
+    "toolkit": {
+      "title": "Hurtigtilgangsverktøy",
+      "resumeBuilder": "CV-bygger",
+      "interviewPrep": "Intervjuforberedelse",
+      "jobSearch": "Jobbsøk",
+      "skillsAssessment": "Ferdighetsvurdering",
+      "careerExplorer": "Karriereutforsker",
+      "financialPlanning": "Økonomisk Planlegging"
+    },
+    "recentActivity": "Nylig Aktivitet",
+    "upcomingSession": "Kommende Økt",
+    "stats": {
+      "sessionsCompleted": "Fullførte Økter",
+      "modulesFinished": "Ferdige Moduler",
+      "daysActive": "Aktive Dager"
+    }
+  },
+  "counseling": {
+    "title": "Veiledningsøkt",
+    "chat": {
+      "title": "Chat",
+      "placeholder": "Skriv en melding...",
+      "send": "Send",
+      "noMessages": "Ingen meldinger ennå. Start samtalen!"
+    },
+    "video": {
+      "title": "Videosamtale",
+      "join": "Bli med i Videosamtalen",
+      "placeholder": "Videoøkten vises her",
+      "notStarted": "Videoøkten har ikke startet ennå"
+    },
+    "notes": {
+      "title": "Øktnotater",
+      "placeholder": "Skriv inn øktnotater...",
+      "actionPlan": "Handlingsplan",
+      "actionPlanPlaceholder": "Skriv inn handlingspunkter...",
+      "save": "Lagre Notater",
+      "saved": "Notater lagret"
+    },
+    "files": {
+      "title": "Delte Filer",
+      "upload": "Last opp Fil",
+      "noFiles": "Ingen filer delt ennå",
+      "download": "Last ned"
+    },
+    "session": {
+      "scheduled": "Planlagt",
+      "inProgress": "Pågår",
+      "completed": "Fullført",
+      "cancelled": "Avlyst"
+    }
+  },
+  "portfolio": {
+    "title": "Digitalt Portefølje",
+    "contact": {
+      "title": "Kontaktinformasjon",
+      "name": "Fullt Navn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "address": "Adresse",
+      "linkedin": "LinkedIn-profil"
+    },
+    "summary": {
+      "title": "Personlig Sammendrag",
+      "placeholder": "Skriv et kort sammendrag om deg selv..."
+    },
+    "qualifications": {
+      "title": "Kvalifikasjoner og Utdanning",
+      "add": "Legg til Kvalifikasjon",
+      "institution": "Institusjon",
+      "completedOn": "Fullført",
+      "inProgress": "Pågår",
+      "completed": "Fullført"
+    },
+    "skills": {
+      "title": "Ferdigheter",
+      "placeholder": "List opp ferdighetene dine..."
+    },
+    "targetSector": {
+      "title": "Målsektor",
+      "placeholder": "f.eks. Landbruk, Teknologi, Helsevesen"
+    },
+    "neetStatus": {
+      "title": "Nåværende Status",
+      "placeholder": "Beskriv din nåværende arbeidssituasjon"
+    },
+    "actions": {
+      "export": "Eksporter PDF",
+      "share": "Del Portefølje",
+      "print": "Skriv ut",
+      "lastUpdated": "Sist oppdatert"
+    },
+    "counselorFeedback": {
+      "title": "Tilbakemelding fra Veileder",
+      "noFeedback": "Ingen tilbakemelding ennå fra din veileder"
+    }
+  },
+  "library": {
+    "title": "E-bibliotek og Moduler",
+    "subtitle": "Forbedre ferdighetene dine med våre læringsmoduler",
+    "categories": {
+      "all": "Alle Kategorier",
+      "digitalSkills": "Digitale Ferdigheter",
+      "careerDevelopment": "Karriereutvikling",
+      "lifeSkills": "Livsferdigheter",
+      "entrepreneurship": "Entreprenørskap",
+      "agriculture": "Landbruk"
+    },
+    "module": {
+      "duration": "min",
+      "start": "Start Modul",
+      "continue": "Fortsett",
+      "review": "Gjennomgå",
+      "completed": "Fullført",
+      "inProgress": "Pågår",
+      "notStarted": "Ikke Startet"
+    },
+    "progress": {
+      "title": "Din Fremgang",
+      "completed": "Fullført",
+      "inProgress": "Pågår",
+      "notStarted": "Ikke Startet"
+    }
+  },
+  "laborMarket": {
+    "title": "Arbeidsmarkedslenker",
+    "subtitle": "Koble til arbeidsformidlingsbyråer og jobbmuligheter i din region",
+    "goToJobs": "Gå til Jobber",
+    "visitWebsite": "Besøk Nettsted",
+    "allCountries": "Alle Land",
+    "noLinks": "Ingen lenker tilgjengelig for denne regionen",
+    "countries": {
+      "NO": "Norge",
+      "GR": "Hellas",
+      "TR": "Tyrkia",
+      "LV": "Latvia",
+      "ES": "Spania",
+      "IT": "Italia",
+      "EU": "Den europeiske union"
+    }
+  }
+}

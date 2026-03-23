@@ -1,0 +1,225 @@
+{
+  "common": {
+    "appName": "RURAL-CONNECT",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "share": "Share",
+    "download": "Download",
+    "upload": "Upload",
+    "view": "View",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "viewAll": "View All",
+    "noData": "No data available",
+    "error": "An error occurred",
+    "success": "Success",
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "language": "Language"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "counseling": "Counseling Session",
+    "portfolio": "Digital Portfolio",
+    "library": "E-Library & Modules",
+    "laborMarket": "Labor Market Links",
+    "myProfile": "My Profile",
+    "logout": "Log Out",
+    "settings": "Settings",
+    "admin": "Admin Panel"
+  },
+  "auth": {
+    "login": "Log In",
+    "logout": "Log Out",
+    "email": "Email address",
+    "password": "Password",
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to your RURAL-CONNECT account",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "contactAdmin": "Contact your counselor or administrator",
+    "invalidCredentials": "Invalid email or password",
+    "loginError": "Login failed. Please try again.",
+    "loggingIn": "Signing in..."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "counselorCard": {
+      "title": "Your Counselor",
+      "noSession": "No session scheduled",
+      "nextSession": "Next session",
+      "bookSession": "Book a Session",
+      "viewProfile": "View Profile"
+    },
+    "progress": {
+      "title": "E-Learning Progress",
+      "modulesCompleted": "modules completed",
+      "continueLeaning": "Continue Learning",
+      "viewAll": "View All Modules"
+    },
+    "portfolio": {
+      "title": "Digital Portfolio",
+      "status": "Status",
+      "lastUpdated": "Last updated",
+      "complete": "Complete",
+      "incomplete": "Incomplete",
+      "viewPortfolio": "View Portfolio",
+      "updatePortfolio": "Update Portfolio"
+    },
+    "toolkit": {
+      "title": "Quick Access Toolkit",
+      "resumeBuilder": "Resume Builder",
+      "interviewPrep": "Interview Prep",
+      "jobSearch": "Job Search",
+      "skillsAssessment": "Skills Assessment",
+      "careerExplorer": "Career Explorer",
+      "financialPlanning": "Financial Planning"
+    },
+    "recentActivity": "Recent Activity",
+    "upcomingSession": "Upcoming Session",
+    "stats": {
+      "sessionsCompleted": "Sessions Completed",
+      "modulesFinished": "Modules Finished",
+      "daysActive": "Days Active"
+    }
+  },
+  "counseling": {
+    "title": "Counseling Session",
+    "chat": {
+      "title": "Chat",
+      "placeholder": "Type a message...",
+      "send": "Send",
+      "noMessages": "No messages yet. Start the conversation!"
+    },
+    "video": {
+      "title": "Video Call",
+      "join": "Join Video Call",
+      "placeholder": "Video session will appear here",
+      "notStarted": "Video session has not started yet"
+    },
+    "notes": {
+      "title": "Session Notes",
+      "placeholder": "Enter session notes...",
+      "actionPlan": "Action Plan",
+      "actionPlanPlaceholder": "Enter action items...",
+      "save": "Save Notes",
+      "saved": "Notes saved"
+    },
+    "files": {
+      "title": "Shared Files",
+      "upload": "Upload File",
+      "noFiles": "No files shared yet",
+      "download": "Download"
+    },
+    "session": {
+      "scheduled": "Scheduled",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "portfolio": {
+    "title": "Digital Portfolio",
+    "contact": {
+      "title": "Contact Information",
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "linkedin": "LinkedIn Profile"
+    },
+    "summary": {
+      "title": "Personal Summary",
+      "placeholder": "Write a brief summary about yourself..."
+    },
+    "qualifications": {
+      "title": "Qualifications & Education",
+      "add": "Add Qualification",
+      "institution": "Institution",
+      "completedOn": "Completed on",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "skills": {
+      "title": "Skills",
+      "placeholder": "List your skills..."
+    },
+    "targetSector": {
+      "title": "Target Sector",
+      "placeholder": "e.g. Agriculture, Technology, Healthcare"
+    },
+    "neetStatus": {
+      "title": "Current Status",
+      "placeholder": "Describe your current employment situation"
+    },
+    "actions": {
+      "export": "Export PDF",
+      "share": "Share Portfolio",
+      "print": "Print",
+      "lastUpdated": "Last updated"
+    },
+    "counselorFeedback": {
+      "title": "Counselor Feedback",
+      "noFeedback": "No feedback yet from your counselor"
+    }
+  },
+  "library": {
+    "title": "E-Library & Modules",
+    "subtitle": "Enhance your skills with our learning modules",
+    "categories": {
+      "all": "All Categories",
+      "digitalSkills": "Digital Skills",
+      "careerDevelopment": "Career Development",
+      "lifeSkills": "Life Skills",
+      "entrepreneurship": "Entrepreneurship",
+      "agriculture": "Agriculture"
+    },
+    "module": {
+      "duration": "min",
+      "start": "Start Module",
+      "continue": "Continue",
+      "review": "Review",
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "notStarted": "Not Started"
+    },
+    "progress": {
+      "title": "Your Progress",
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "notStarted": "Not Started"
+    }
+  },
+  "laborMarket": {
+    "title": "Labor Market Links",
+    "subtitle": "Connect with employment agencies and job opportunities in your region",
+    "goToJobs": "Go to Jobs",
+    "visitWebsite": "Visit Website",
+    "allCountries": "All Countries",
+    "noLinks": "No links available for this region",
+    "countries": {
+      "NO": "Norway",
+      "GR": "Greece",
+      "TR": "Turkey",
+      "LV": "Latvia",
+      "ES": "Spain",
+      "IT": "Italy",
+      "EU": "European Union"
+    }
+  }
+}

@@ -1,0 +1,181 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  NEET_USER
+  COUNSELOR
+  ADMIN
+}
+
+enum SessionStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum ModuleProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(NEET_USER)
+  country      String?
+  language     String   @default("en")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  neetSessions      CounselingSession[] @relation("NeetUserSessions")
+  counselorSessions CounselingSession[] @relation("CounselorSessions")
+  messages          Message[]
+  sharedFiles       SharedFile[]
+  portfolio         PortfolioEntry?
+  moduleProgress    UserModuleProgress[]
+
+  @@map("users")
+}
+
+model CounselingSession {
+  id          String        @id @default(cuid())
+  neetUserId  String
+  counselorId String
+  scheduledAt DateTime
+  notes       String?       @db.Text
+  actionPlan  String?       @db.Text
+  status      SessionStatus @default(SCHEDULED)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  neetUser    User         @relation("NeetUserSessions", fields: [neetUserId], references: [id], onDelete: Cascade)
+  counselor   User         @relation("CounselorSessions", fields: [counselorId], references: [id], onDelete: Cascade)
+  messages    Message[]
+  sharedFiles SharedFile[]
+
+  @@map("counseling_sessions")
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  sessionId String
+  senderId  String
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+
+  // Relations
+  session CounselingSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sender  User              @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model SharedFile {
+  id           String   @id @default(cuid())
+  sessionId    String
+  uploadedById String
+  fileName     String
+  fileUrl      String
+  fileSize     Int?
+  mimeType     String?
+  createdAt    DateTime @default(now())
+
+  // Relations
+  session      CounselingSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  uploadedBy   User              @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  @@map("shared_files")
+}
+
+model PortfolioEntry {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  summary        String?  @db.Text
+  targetSector   String?
+  neetStatus     String?
+  skills         String?  @db.Text
+  contactPhone   String?
+  contactAddress String?
+  linkedinUrl    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  qualifications Qualification[]
+
+  @@map("portfolio_entries")
+}
+
+model Qualification {
+  id          String    @id @default(cuid())
+  portfolioId String
+  title       String
+  institution String?
+  status      String    @default("completed")
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  portfolio PortfolioEntry @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("qualifications")
+}
+
+model Module {
+  id          String @id @default(cuid())
+  title       String
+  description String @db.Text
+  order       Int    @default(0)
+  category    String @default("general")
+  duration    Int?   // in minutes
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+
+  // Relations
+  userProgress UserModuleProgress[]
+
+  @@map("modules")
+}
+
+model UserModuleProgress {
+  id          String               @id @default(cuid())
+  userId      String
+  moduleId    String
+  status      ModuleProgressStatus @default(NOT_STARTED)
+  completedAt DateTime?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+
+  // Relations
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, moduleId])
+  @@map("user_module_progress")
+}
+
+model LaborMarketLink {
+  id          String   @id @default(cuid())
+  country     String
+  agencyName  String
+  url         String
+  description String?  @db.Text
+  logoUrl     String?
+  tags        String?  // comma-separated
+  createdAt   DateTime @default(now())
+
+  @@map("labor_market_links")
+}

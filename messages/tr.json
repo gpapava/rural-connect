@@ -1,0 +1,225 @@
+{
+  "common": {
+    "appName": "RURAL-CONNECT",
+    "loading": "Yükleniyor...",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "back": "Geri",
+    "next": "İleri",
+    "submit": "Gönder",
+    "confirm": "Onayla",
+    "yes": "Evet",
+    "no": "Hayır",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "export": "Dışa Aktar",
+    "share": "Paylaş",
+    "download": "İndir",
+    "upload": "Yükle",
+    "view": "Görüntüle",
+    "learnMore": "Daha Fazla",
+    "getStarted": "Başla",
+    "viewAll": "Tümünü Gör",
+    "noData": "Veri bulunamadı",
+    "error": "Bir hata oluştu",
+    "success": "Başarılı",
+    "required": "Bu alan zorunludur",
+    "invalidEmail": "Geçersiz e-posta adresi",
+    "language": "Dil"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "dashboard": "Panel",
+    "counseling": "Danışmanlık Oturumu",
+    "portfolio": "Dijital Portfolyo",
+    "library": "E-Kütüphane & Modüller",
+    "laborMarket": "İş Gücü Piyasası Bağlantıları",
+    "myProfile": "Profilim",
+    "logout": "Çıkış Yap",
+    "settings": "Ayarlar",
+    "admin": "Yönetici Paneli"
+  },
+  "auth": {
+    "login": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "email": "E-posta adresi",
+    "password": "Şifre",
+    "loginTitle": "Tekrar hoşgeldiniz",
+    "loginSubtitle": "RURAL-CONNECT hesabınıza giriş yapın",
+    "forgotPassword": "Şifremi unuttum?",
+    "noAccount": "Hesabınız yok mu?",
+    "contactAdmin": "Danışmanınıza veya yöneticinize başvurun",
+    "invalidCredentials": "Geçersiz e-posta veya şifre",
+    "loginError": "Giriş başarısız. Lütfen tekrar deneyin.",
+    "loggingIn": "Giriş yapılıyor..."
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Tekrar hoşgeldiniz",
+    "counselorCard": {
+      "title": "Danışmanınız",
+      "noSession": "Planlanmış oturum yok",
+      "nextSession": "Sonraki oturum",
+      "bookSession": "Oturum Rezervasyonu",
+      "viewProfile": "Profili Görüntüle"
+    },
+    "progress": {
+      "title": "E-Öğrenme İlerlemesi",
+      "modulesCompleted": "modül tamamlandı",
+      "continueLeaning": "Öğrenmeye Devam Et",
+      "viewAll": "Tüm Modülleri Gör"
+    },
+    "portfolio": {
+      "title": "Dijital Portfolyo",
+      "status": "Durum",
+      "lastUpdated": "Son güncelleme",
+      "complete": "Tamamlandı",
+      "incomplete": "Tamamlanmadı",
+      "viewPortfolio": "Portfolyoyu Görüntüle",
+      "updatePortfolio": "Portfolyoyu Güncelle"
+    },
+    "toolkit": {
+      "title": "Hızlı Erişim Araçları",
+      "resumeBuilder": "CV Oluşturucu",
+      "interviewPrep": "Mülakat Hazırlığı",
+      "jobSearch": "İş Arama",
+      "skillsAssessment": "Beceri Değerlendirmesi",
+      "careerExplorer": "Kariyer Keşfi",
+      "financialPlanning": "Finansal Planlama"
+    },
+    "recentActivity": "Son Etkinlikler",
+    "upcomingSession": "Yaklaşan Oturum",
+    "stats": {
+      "sessionsCompleted": "Tamamlanan Oturumlar",
+      "modulesFinished": "Bitirilen Modüller",
+      "daysActive": "Aktif Günler"
+    }
+  },
+  "counseling": {
+    "title": "Danışmanlık Oturumu",
+    "chat": {
+      "title": "Sohbet",
+      "placeholder": "Mesaj yazın...",
+      "send": "Gönder",
+      "noMessages": "Henüz mesaj yok. Konuşmayı başlatın!"
+    },
+    "video": {
+      "title": "Video Görüşme",
+      "join": "Video Görüşmeye Katıl",
+      "placeholder": "Video oturumu burada görünecek",
+      "notStarted": "Video oturumu henüz başlamadı"
+    },
+    "notes": {
+      "title": "Oturum Notları",
+      "placeholder": "Oturum notlarını girin...",
+      "actionPlan": "Eylem Planı",
+      "actionPlanPlaceholder": "Eylem maddelerini girin...",
+      "save": "Notları Kaydet",
+      "saved": "Notlar kaydedildi"
+    },
+    "files": {
+      "title": "Paylaşılan Dosyalar",
+      "upload": "Dosya Yükle",
+      "noFiles": "Henüz dosya paylaşılmadı",
+      "download": "İndir"
+    },
+    "session": {
+      "scheduled": "Planlandı",
+      "inProgress": "Devam Ediyor",
+      "completed": "Tamamlandı",
+      "cancelled": "İptal Edildi"
+    }
+  },
+  "portfolio": {
+    "title": "Dijital Portfolyo",
+    "contact": {
+      "title": "İletişim Bilgileri",
+      "name": "Ad Soyad",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "address": "Adres",
+      "linkedin": "LinkedIn Profili"
+    },
+    "summary": {
+      "title": "Kişisel Özet",
+      "placeholder": "Kendinizle ilgili kısa bir özet yazın..."
+    },
+    "qualifications": {
+      "title": "Nitelikler ve Eğitim",
+      "add": "Nitelik Ekle",
+      "institution": "Kurum",
+      "completedOn": "Tamamlandı",
+      "inProgress": "Devam Ediyor",
+      "completed": "Tamamlandı"
+    },
+    "skills": {
+      "title": "Beceriler",
+      "placeholder": "Becerilerinizi listeleyin..."
+    },
+    "targetSector": {
+      "title": "Hedef Sektör",
+      "placeholder": "ör. Tarım, Teknoloji, Sağlık"
+    },
+    "neetStatus": {
+      "title": "Mevcut Durum",
+      "placeholder": "Mevcut istihdam durumunuzu açıklayın"
+    },
+    "actions": {
+      "export": "PDF Olarak Dışa Aktar",
+      "share": "Portfolyoyu Paylaş",
+      "print": "Yazdır",
+      "lastUpdated": "Son güncelleme"
+    },
+    "counselorFeedback": {
+      "title": "Danışman Geri Bildirimi",
+      "noFeedback": "Danışmanınızdan henüz geri bildirim yok"
+    }
+  },
+  "library": {
+    "title": "E-Kütüphane & Modüller",
+    "subtitle": "Öğrenme modülleriyle becerilerinizi geliştirin",
+    "categories": {
+      "all": "Tüm Kategoriler",
+      "digitalSkills": "Dijital Beceriler",
+      "careerDevelopment": "Kariyer Geliştirme",
+      "lifeSkills": "Yaşam Becerileri",
+      "entrepreneurship": "Girişimcilik",
+      "agriculture": "Tarım"
+    },
+    "module": {
+      "duration": "dk",
+      "start": "Modülü Başlat",
+      "continue": "Devam Et",
+      "review": "Gözden Geçir",
+      "completed": "Tamamlandı",
+      "inProgress": "Devam Ediyor",
+      "notStarted": "Başlanmadı"
+    },
+    "progress": {
+      "title": "İlerlemeniz",
+      "completed": "Tamamlandı",
+      "inProgress": "Devam Ediyor",
+      "notStarted": "Başlanmadı"
+    }
+  },
+  "laborMarket": {
+    "title": "İş Gücü Piyasası Bağlantıları",
+    "subtitle": "Bölgenizdeki istihdam ajansları ve iş fırsatlarıyla bağlantı kurun",
+    "goToJobs": "İşlere Git",
+    "visitWebsite": "Web Sitesini Ziyaret Et",
+    "allCountries": "Tüm Ülkeler",
+    "noLinks": "Bu bölge için bağlantı bulunamadı",
+    "countries": {
+      "NO": "Norveç",
+      "GR": "Yunanistan",
+      "TR": "Türkiye",
+      "LV": "Letonya",
+      "ES": "İspanya",
+      "IT": "İtalya",
+      "EU": "Avrupa Birliği"
+    }
+  }
+}

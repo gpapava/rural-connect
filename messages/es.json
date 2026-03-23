@@ -1,0 +1,225 @@
+{
+  "common": {
+    "appName": "RURAL-CONNECT",
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "submit": "Enviar",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "export": "Exportar",
+    "share": "Compartir",
+    "download": "Descargar",
+    "upload": "Subir",
+    "view": "Ver",
+    "learnMore": "Saber más",
+    "getStarted": "Comenzar",
+    "viewAll": "Ver todo",
+    "noData": "No hay datos disponibles",
+    "error": "Se produjo un error",
+    "success": "Éxito",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Dirección de correo electrónico no válida",
+    "language": "Idioma"
+  },
+  "nav": {
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "counseling": "Sesión de Orientación",
+    "portfolio": "Portafolio Digital",
+    "library": "Biblioteca Digital y Módulos",
+    "laborMarket": "Enlaces del Mercado Laboral",
+    "myProfile": "Mi Perfil",
+    "logout": "Cerrar sesión",
+    "settings": "Configuración",
+    "admin": "Panel de Administración"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "email": "Dirección de correo electrónico",
+    "password": "Contraseña",
+    "loginTitle": "Bienvenido de nuevo",
+    "loginSubtitle": "Inicia sesión en tu cuenta de RURAL-CONNECT",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes una cuenta?",
+    "contactAdmin": "Contacta a tu orientador o administrador",
+    "invalidCredentials": "Correo electrónico o contraseña no válidos",
+    "loginError": "Error al iniciar sesión. Por favor, inténtalo de nuevo.",
+    "loggingIn": "Iniciando sesión..."
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Bienvenido de nuevo",
+    "counselorCard": {
+      "title": "Tu Orientador",
+      "noSession": "No hay sesión programada",
+      "nextSession": "Próxima sesión",
+      "bookSession": "Reservar una Sesión",
+      "viewProfile": "Ver Perfil"
+    },
+    "progress": {
+      "title": "Progreso de E-Learning",
+      "modulesCompleted": "módulos completados",
+      "continueLeaning": "Continuar Aprendiendo",
+      "viewAll": "Ver Todos los Módulos"
+    },
+    "portfolio": {
+      "title": "Portafolio Digital",
+      "status": "Estado",
+      "lastUpdated": "Última actualización",
+      "complete": "Completo",
+      "incomplete": "Incompleto",
+      "viewPortfolio": "Ver Portafolio",
+      "updatePortfolio": "Actualizar Portafolio"
+    },
+    "toolkit": {
+      "title": "Kit de Acceso Rápido",
+      "resumeBuilder": "Creador de CV",
+      "interviewPrep": "Preparación para Entrevistas",
+      "jobSearch": "Búsqueda de Empleo",
+      "skillsAssessment": "Evaluación de Habilidades",
+      "careerExplorer": "Explorador de Carrera",
+      "financialPlanning": "Planificación Financiera"
+    },
+    "recentActivity": "Actividad Reciente",
+    "upcomingSession": "Próxima Sesión",
+    "stats": {
+      "sessionsCompleted": "Sesiones Completadas",
+      "modulesFinished": "Módulos Finalizados",
+      "daysActive": "Días Activo"
+    }
+  },
+  "counseling": {
+    "title": "Sesión de Orientación",
+    "chat": {
+      "title": "Chat",
+      "placeholder": "Escribe un mensaje...",
+      "send": "Enviar",
+      "noMessages": "No hay mensajes aún. ¡Inicia la conversación!"
+    },
+    "video": {
+      "title": "Videollamada",
+      "join": "Unirse a la Videollamada",
+      "placeholder": "La sesión de video aparecerá aquí",
+      "notStarted": "La sesión de video aún no ha comenzado"
+    },
+    "notes": {
+      "title": "Notas de la Sesión",
+      "placeholder": "Introduce las notas de la sesión...",
+      "actionPlan": "Plan de Acción",
+      "actionPlanPlaceholder": "Introduce los puntos de acción...",
+      "save": "Guardar Notas",
+      "saved": "Notas guardadas"
+    },
+    "files": {
+      "title": "Archivos Compartidos",
+      "upload": "Subir Archivo",
+      "noFiles": "Aún no hay archivos compartidos",
+      "download": "Descargar"
+    },
+    "session": {
+      "scheduled": "Programado",
+      "inProgress": "En Progreso",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    }
+  },
+  "portfolio": {
+    "title": "Portafolio Digital",
+    "contact": {
+      "title": "Información de Contacto",
+      "name": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "address": "Dirección",
+      "linkedin": "Perfil de LinkedIn"
+    },
+    "summary": {
+      "title": "Resumen Personal",
+      "placeholder": "Escribe un breve resumen sobre ti mismo..."
+    },
+    "qualifications": {
+      "title": "Calificaciones y Educación",
+      "add": "Añadir Calificación",
+      "institution": "Institución",
+      "completedOn": "Completado el",
+      "inProgress": "En Progreso",
+      "completed": "Completado"
+    },
+    "skills": {
+      "title": "Habilidades",
+      "placeholder": "Lista tus habilidades..."
+    },
+    "targetSector": {
+      "title": "Sector Objetivo",
+      "placeholder": "p.ej. Agricultura, Tecnología, Sanidad"
+    },
+    "neetStatus": {
+      "title": "Estado Actual",
+      "placeholder": "Describe tu situación laboral actual"
+    },
+    "actions": {
+      "export": "Exportar PDF",
+      "share": "Compartir Portafolio",
+      "print": "Imprimir",
+      "lastUpdated": "Última actualización"
+    },
+    "counselorFeedback": {
+      "title": "Comentarios del Orientador",
+      "noFeedback": "Aún no hay comentarios de tu orientador"
+    }
+  },
+  "library": {
+    "title": "Biblioteca Digital y Módulos",
+    "subtitle": "Mejora tus habilidades con nuestros módulos de aprendizaje",
+    "categories": {
+      "all": "Todas las Categorías",
+      "digitalSkills": "Habilidades Digitales",
+      "careerDevelopment": "Desarrollo Profesional",
+      "lifeSkills": "Habilidades para la Vida",
+      "entrepreneurship": "Emprendimiento",
+      "agriculture": "Agricultura"
+    },
+    "module": {
+      "duration": "min",
+      "start": "Iniciar Módulo",
+      "continue": "Continuar",
+      "review": "Revisar",
+      "completed": "Completado",
+      "inProgress": "En Progreso",
+      "notStarted": "No Iniciado"
+    },
+    "progress": {
+      "title": "Tu Progreso",
+      "completed": "Completado",
+      "inProgress": "En Progreso",
+      "notStarted": "No Iniciado"
+    }
+  },
+  "laborMarket": {
+    "title": "Enlaces del Mercado Laboral",
+    "subtitle": "Conéctate con agencias de empleo y oportunidades laborales en tu región",
+    "goToJobs": "Ir a Empleos",
+    "visitWebsite": "Visitar Sitio Web",
+    "allCountries": "Todos los Países",
+    "noLinks": "No hay enlaces disponibles para esta región",
+    "countries": {
+      "NO": "Noruega",
+      "GR": "Grecia",
+      "TR": "Turquía",
+      "LV": "Letonia",
+      "ES": "España",
+      "IT": "Italia",
+      "EU": "Unión Europea"
+    }
+  }
+}
