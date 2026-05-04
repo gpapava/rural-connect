@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
   BookOpen,
@@ -64,6 +65,7 @@ const categoryColors: Record<string, { bg: string; text: string; border: string 
 
 export default function LibraryPage({ modules, locale }: LibraryPageProps) {
   const t = useTranslations("library");
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const categories = [
@@ -103,25 +105,26 @@ export default function LibraryPage({ modules, locale }: LibraryPageProps) {
     }
   };
 
-  const getActionButton = (status: string) => {
+  const getActionButton = (status: string, moduleId: string) => {
+    const go = () => router.push(`/${locale}/library/${moduleId}`);
     switch (status) {
       case "COMPLETED":
         return (
-          <button className="btn-secondary text-xs py-1.5 px-3">
+          <button onClick={go} className="btn-secondary text-xs py-1.5 px-3">
             <RotateCcw className="h-3.5 w-3.5" />
             {t("module.review")}
           </button>
         );
       case "IN_PROGRESS":
         return (
-          <button className="btn-primary text-xs py-1.5 px-3">
+          <button onClick={go} className="btn-primary text-xs py-1.5 px-3">
             <ChevronRight className="h-3.5 w-3.5" />
             {t("module.continue")}
           </button>
         );
       default:
         return (
-          <button className="btn-primary text-xs py-1.5 px-3">
+          <button onClick={go} className="btn-primary text-xs py-1.5 px-3">
             <PlayCircle className="h-3.5 w-3.5" />
             {t("module.start")}
           </button>
@@ -255,7 +258,7 @@ export default function LibraryPage({ modules, locale }: LibraryPageProps) {
                     </span>
                   )}
                 </div>
-                {getActionButton(module.status)}
+                {getActionButton(module.status, module.id)}
               </div>
             </div>
           );

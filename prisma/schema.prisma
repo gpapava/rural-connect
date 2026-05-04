@@ -134,6 +134,12 @@ model Qualification {
   @@map("qualifications")
 }
 
+enum LessonType {
+  TEXT
+  PDF
+  QUIZ
+}
+
 model Module {
   id          String @id @default(cuid())
   title       String
@@ -146,8 +152,23 @@ model Module {
 
   // Relations
   userProgress UserModuleProgress[]
+  lessons      ModuleLesson[]
 
   @@map("modules")
+}
+
+model ModuleLesson {
+  id        String     @id @default(cuid())
+  moduleId  String
+  title     String
+  type      LessonType
+  content   String     @db.LongText
+  order     Int        @default(0)
+  createdAt DateTime   @default(now())
+
+  module    Module     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@map("module_lessons")
 }
 
 model UserModuleProgress {
