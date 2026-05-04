@@ -12,6 +12,7 @@ import {
   Briefcase,
   ChevronDown,
   Globe,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { locales, localeNames, type Locale } from "@/i18n";
@@ -57,6 +58,12 @@ const navItems = [
     href: "/labor-market",
     icon: Briefcase,
     roles: ["NEET_USER", "COUNSELOR", "ADMIN"],
+  },
+  {
+    key: "admin",
+    href: "/admin/courses",
+    icon: ShieldCheck,
+    roles: ["ADMIN"],
   },
 ];
 
