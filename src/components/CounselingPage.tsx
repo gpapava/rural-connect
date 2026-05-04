@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import {
   Send,
@@ -10,15 +10,15 @@ import {
   FileText,
   Download,
   Save,
-  Clock,
 } from "lucide-react";
 import { cn, formatDate, formatDateTime, getInitials } from "@/lib/utils";
 import { UserRole } from "@prisma/client";
+import { createPusherClient } from "@/lib/pusher";
 
 type MessageWithSender = {
   id: string;
   content: string;
-  createdAt: Date;
+  createdAt: Date | string;
   sender: { id: string; name: string; role: UserRole };
 };
 
@@ -61,15 +61,83 @@ export default function CounselingPage({
   const [actionPlan, setActionPlan] = useState(session?.actionPlan ?? "");
   const [notesSaved, setNotesSaved] = useState(false);
   const [savingNotes, setSavingNotes] = useState(false);
+  const [typingUser, setTypingUser] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isTypingRef = useRef(false);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    if (!session) return;
+
+    const pusher = createPusherClient();
+    const channel = pusher.subscribe(`session-${session.id}`);
+
+    channel.bind("new-message", (message: MessageWithSender) => {
+      setMessages((prev) => {
+        if (prev.some((m) => m.id === message.id)) return prev;
+        return [...prev, message];
+      });
+    });
+
+    channel.bind("user-typing", (data: { userId: string; name: string }) => {
+      if (data.userId !== currentUser.id) {
+        setTypingUser(data.name);
+      }
+    });
+
+    channel.bind("user-stopped-typing", (data: { userId: string }) => {
+      if (data.userId !== currentUser.id) {
+        setTypingUser(null);
+      }
+    });
+
+    return () => {
+      channel.unbind_all();
+      pusher.unsubscribe(`session-${session.id}`);
+      pusher.disconnect();
+    };
+  }, [session?.id, currentUser.id]);
+
+  const sendTypingEvent = useCallback(
+    async (isTyping: boolean) => {
+      if (!session) return;
+      await fetch("/api/typing", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId: session.id, isTyping }),
+      });
+    },
+    [session]
+  );
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessageInput(e.target.value);
+
+    if (!isTypingRef.current) {
+      isTypingRef.current = true;
+      sendTypingEvent(true);
+    }
+
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+    typingTimeoutRef.current = setTimeout(() => {
+      isTypingRef.current = false;
+      sendTypingEvent(false);
+    }, 2000);
+  };
+
   const sendMessage = async () => {
     if (!messageInput.trim() || !session) return;
     setSending(true);
+
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+    if (isTypingRef.current) {
+      isTypingRef.current = false;
+      sendTypingEvent(false);
+    }
 
     const optimisticMsg: MessageWithSender = {
       id: `temp-${Date.now()}`,
@@ -84,7 +152,7 @@ export default function CounselingPage({
       const res = await fetch("/api/socket", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId: session.id, content: messageInput.trim() }),
+        body: JSON.stringify({ sessionId: session.id, content: optimisticMsg.content }),
       });
       if (res.ok) {
         const { message } = await res.json();
@@ -245,6 +313,9 @@ export default function CounselingPage({
                 );
               })
             )}
+            {typingUser && (
+              <p className="text-xs text-gray-400 italic">{typingUser} is typing…</p>
+            )}
             <div ref={messagesEndRef} />
           </div>
 
@@ -256,7 +327,7 @@ export default function CounselingPage({
               </button>
               <textarea
                 value={messageInput}
-                onChange={(e) => setMessageInput(e.target.value)}
+                onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
                 placeholder={t("chat.placeholder")}
                 rows={2}

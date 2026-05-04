@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-
-// This route handles Socket.io HTTP polling when used with Next.js API routes.
-// For production, a separate Socket.io server (server.ts) is recommended.
+import { pusherServer } from "@/lib/pusher";
 
 export async function GET(request: NextRequest) {
   const session = await auth();
@@ -60,6 +58,8 @@ export async function POST(request: NextRequest) {
       },
     },
   });
+
+  await pusherServer.trigger(`session-${sessionId}`, "new-message", message);
 
   return NextResponse.json({ message }, { status: 201 });
 }
