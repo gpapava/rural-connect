@@ -2,17 +2,90 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Plus, Trash2, Save, FileText, BookOpen, HelpCircle } from "lucide-react";
+import {
+  ArrowLeft, Plus, Trash2, Save,
+  FileText, BookOpen, HelpCircle, Video, GripVertical,
+} from "lucide-react";
 import { LessonType } from "@prisma/client";
+import dynamic from "next/dynamic";
+import QuizBuilder from "./QuizBuilder";
+
+const RichTextEditor = dynamic(() => import("./RichTextEditor"), { ssr: false });
 
 type Lesson = { id: string; title: string; type: LessonType; content: string; order: number };
 type Module = { id: string; title: string; description: string; category: string; duration: number | null; lessons: Lesson[] };
 
-const lessonTypeIcons: Record<LessonType, React.ReactNode> = {
+const TYPE_LABELS: Record<LessonType, string> = {
+  TEXT: "Rich Text",
+  PDF: "PDF (link)",
+  VIDEO: "Video (YouTube / Vimeo)",
+  QUIZ: "Quiz",
+};
+
+const TYPE_ICONS: Record<LessonType, React.ReactNode> = {
   TEXT: <BookOpen className="h-4 w-4" />,
   PDF: <FileText className="h-4 w-4" />,
+  VIDEO: <Video className="h-4 w-4" />,
   QUIZ: <HelpCircle className="h-4 w-4" />,
 };
+
+function getVideoEmbed(url: string) {
+  const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+  const vimeo = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`;
+  return null;
+}
+
+function LessonContentEditor({
+  type, content, onChange,
+}: { type: LessonType; content: string; onChange: (v: string) => void }) {
+  if (type === "TEXT") {
+    return <RichTextEditor content={content} onChange={onChange} />;
+  }
+  if (type === "VIDEO") {
+    const embedUrl = getVideoEmbed(content);
+    return (
+      <div className="space-y-2">
+        <input
+          value={content}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="Paste YouTube or Vimeo URL"
+          className="input w-full"
+        />
+        {embedUrl && (
+          <div className="aspect-video overflow-hidden rounded-lg bg-black">
+            <iframe src={embedUrl} className="h-full w-full" allowFullScreen />
+          </div>
+        )}
+      </div>
+    );
+  }
+  if (type === "PDF") {
+    return (
+      <div className="space-y-2">
+        <input
+          value={content}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="Paste public PDF link (Google Drive, Dropbox, etc.)"
+          className="input w-full"
+        />
+        {content && (
+          <p className="text-xs text-gray-500">
+            Make sure the link is publicly accessible.{" "}
+            <a href={content} target="_blank" rel="noopener noreferrer" className="text-[#1a73e8] underline">
+              Test link
+            </a>
+          </p>
+        )}
+      </div>
+    );
+  }
+  if (type === "QUIZ") {
+    return <QuizBuilder value={content} onChange={onChange} />;
+  }
+  return null;
+}
 
 export default function AdminCourseEditPage({ module: initial, locale }: { module: Module; locale: string }) {
   const router = useRouter();
@@ -27,7 +100,9 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
   const [courseSaved, setCourseSaved] = useState(false);
 
   const [showLessonForm, setShowLessonForm] = useState(false);
-  const [lessonForm, setLessonForm] = useState({ title: "", type: "TEXT" as LessonType, content: "" });
+  const [lessonForm, setLessonForm] = useState<{ title: string; type: LessonType; content: string }>({
+    title: "", type: "TEXT", content: "",
+  });
   const [savingLesson, setSavingLesson] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [editingLesson, setEditingLesson] = useState<Lesson | null>(null);
@@ -45,7 +120,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
   };
 
   const addLesson = async () => {
-    if (!lessonForm.title.trim() || !lessonForm.content.trim()) return;
+    if (!lessonForm.title.trim() || !lessonForm.content) return;
     setSavingLesson(true);
     const res = await fetch(`/api/admin/courses/${course.id}/lessons`, {
       method: "POST",
@@ -67,7 +142,11 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
     const res = await fetch(`/api/admin/courses/${course.id}/lessons/${editingLesson.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: editingLesson.title, type: editingLesson.type, content: editingLesson.content }),
+      body: JSON.stringify({
+        title: editingLesson.title,
+        type: editingLesson.type,
+        content: editingLesson.content,
+      }),
     });
     if (res.ok) {
       const { lesson } = await res.json();
@@ -133,36 +212,52 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
       {/* Lessons */}
       <div className="card">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-gray-900">Lessons ({course.lessons.length})</h2>
-          <button onClick={() => setShowLessonForm(true)} className="btn-primary py-1.5 px-3 text-xs">
+          <h2 className="text-sm font-semibold text-gray-900">
+            Lessons ({course.lessons.length})
+          </h2>
+          <button onClick={() => { setShowLessonForm(true); setEditingLesson(null); }} className="btn-primary py-1.5 px-3 text-xs">
             <Plus className="h-3.5 w-3.5" /> Add Lesson
           </button>
         </div>
 
+        {/* New lesson form */}
         {showLessonForm && (
-          <div className="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-4 space-y-3">
+          <div className="mb-6 rounded-xl border border-[#1a73e8]/20 bg-blue-50 p-4 space-y-4">
+            <h3 className="text-sm font-semibold text-gray-800">New Lesson</h3>
             <input
               value={lessonForm.title}
               onChange={(e) => setLessonForm((f) => ({ ...f, title: e.target.value }))}
               placeholder="Lesson title *"
               className="input w-full"
             />
-            <select
-              value={lessonForm.type}
-              onChange={(e) => setLessonForm((f) => ({ ...f, type: e.target.value as LessonType }))}
-              className="input w-full"
-            >
-              <option value="TEXT">Text</option>
-              <option value="PDF">PDF</option>
-              <option value="QUIZ">Quiz</option>
-            </select>
-            <textarea
-              value={lessonForm.content}
-              onChange={(e) => setLessonForm((f) => ({ ...f, content: e.target.value }))}
-              placeholder="Content *"
-              rows={5}
-              className="input w-full resize-none font-mono text-xs"
-            />
+            <div>
+              <label className="mb-1.5 block text-xs font-medium text-gray-700">Content type</label>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                {(["TEXT", "VIDEO", "PDF", "QUIZ"] as LessonType[]).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setLessonForm((f) => ({ ...f, type: t, content: "" }))}
+                    className={`flex flex-col items-center gap-1.5 rounded-lg border-2 p-3 text-xs font-medium transition-colors ${
+                      lessonForm.type === t
+                        ? "border-[#1a73e8] bg-[#1a73e8]/5 text-[#1a73e8]"
+                        : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                    }`}
+                  >
+                    {TYPE_ICONS[t]}
+                    {TYPE_LABELS[t]}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-medium text-gray-700">Content</label>
+              <LessonContentEditor
+                type={lessonForm.type}
+                content={lessonForm.content}
+                onChange={(v) => setLessonForm((f) => ({ ...f, content: v }))}
+              />
+            </div>
             <div className="flex gap-2">
               <button onClick={addLesson} disabled={savingLesson} className="btn-primary text-xs py-1.5 px-3">
                 {savingLesson ? "Adding…" : "Add Lesson"}
@@ -174,6 +269,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
           </div>
         )}
 
+        {/* Lesson list */}
         {course.lessons.length === 0 ? (
           <p className="text-center text-sm text-gray-400 py-6">No lessons yet.</p>
         ) : (
@@ -181,27 +277,41 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
             {course.lessons.map((lesson) => (
               <div key={lesson.id}>
                 {editingLesson?.id === lesson.id ? (
-                  <div className="rounded-lg border border-[#1a73e8]/30 bg-blue-50 p-4 space-y-3">
+                  <div className="rounded-xl border border-[#1a73e8]/20 bg-blue-50 p-4 space-y-4">
                     <input
                       value={editingLesson.title}
                       onChange={(e) => setEditingLesson((l) => l && ({ ...l, title: e.target.value }))}
                       className="input w-full"
+                      placeholder="Lesson title"
                     />
-                    <select
-                      value={editingLesson.type}
-                      onChange={(e) => setEditingLesson((l) => l && ({ ...l, type: e.target.value as LessonType }))}
-                      className="input w-full"
-                    >
-                      <option value="TEXT">Text</option>
-                      <option value="PDF">PDF</option>
-                      <option value="QUIZ">Quiz</option>
-                    </select>
-                    <textarea
-                      value={editingLesson.content}
-                      onChange={(e) => setEditingLesson((l) => l && ({ ...l, content: e.target.value }))}
-                      rows={6}
-                      className="input w-full resize-none font-mono text-xs"
-                    />
+                    <div>
+                      <label className="mb-1.5 block text-xs font-medium text-gray-700">Content type</label>
+                      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                        {(["TEXT", "VIDEO", "PDF", "QUIZ"] as LessonType[]).map((t) => (
+                          <button
+                            key={t}
+                            type="button"
+                            onClick={() => setEditingLesson((l) => l && ({ ...l, type: t, content: "" }))}
+                            className={`flex flex-col items-center gap-1.5 rounded-lg border-2 p-3 text-xs font-medium transition-colors ${
+                              editingLesson.type === t
+                                ? "border-[#1a73e8] bg-[#1a73e8]/5 text-[#1a73e8]"
+                                : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                            }`}
+                          >
+                            {TYPE_ICONS[t]}
+                            {TYPE_LABELS[t]}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-xs font-medium text-gray-700">Content</label>
+                      <LessonContentEditor
+                        type={editingLesson.type}
+                        content={editingLesson.content}
+                        onChange={(v) => setEditingLesson((l) => l && ({ ...l, content: v }))}
+                      />
+                    </div>
                     <div className="flex gap-2">
                       <button onClick={saveLesson} disabled={savingLesson} className="btn-primary text-xs py-1.5 px-3">
                         {savingLesson ? "Saving…" : "Save"}
@@ -213,13 +323,17 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                   </div>
                 ) : (
                   <div className="flex items-center gap-3 rounded-lg border border-gray-100 bg-gray-50 p-3">
-                    <span className="text-gray-400">{lessonTypeIcons[lesson.type]}</span>
+                    <GripVertical className="h-4 w-4 flex-shrink-0 text-gray-300" />
+                    <span className="text-gray-400 flex-shrink-0">{TYPE_ICONS[lesson.type]}</span>
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-medium text-gray-800 truncate">{lesson.title}</p>
-                      <p className="text-xs text-gray-400">{lesson.type}</p>
+                      <p className="text-xs text-gray-400">{TYPE_LABELS[lesson.type]}</p>
                     </div>
                     <div className="flex gap-2">
-                      <button onClick={() => setEditingLesson(lesson)} className="btn-secondary py-1 px-2 text-xs">
+                      <button
+                        onClick={() => { setEditingLesson(lesson); setShowLessonForm(false); }}
+                        className="btn-secondary py-1 px-2 text-xs"
+                      >
                         Edit
                       </button>
                       <button

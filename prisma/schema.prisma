@@ -137,6 +137,7 @@ model Qualification {
 enum LessonType {
   TEXT
   PDF
+  VIDEO
   QUIZ
 }
 
