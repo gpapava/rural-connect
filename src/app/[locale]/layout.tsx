@@ -9,6 +9,8 @@ import "../globals.css";
 import Sidebar from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: {
     default: "RURAL-CONNECT",
@@ -21,10 +23,6 @@ export const metadata: Metadata = {
 interface LocaleLayoutProps {
   children: React.ReactNode;
   params: { locale: string };
-}
-
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
 }
 
 export default async function LocaleLayout({
