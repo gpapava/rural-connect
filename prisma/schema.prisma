@@ -14,6 +14,7 @@ enum UserRole {
 }
 
 enum SessionStatus {
+  PENDING
   SCHEDULED
   IN_PROGRESS
   COMPLETED
@@ -44,6 +45,7 @@ model User {
   sharedFiles       SharedFile[]
   portfolio         PortfolioEntry?
   moduleProgress    UserModuleProgress[]
+  notifications     Notification[]
 
   @@map("users")
 }
@@ -200,4 +202,19 @@ model LaborMarketLink {
   createdAt   DateTime @default(now())
 
   @@map("labor_market_links")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  body      String
+  data      String?  @db.Text
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
 }

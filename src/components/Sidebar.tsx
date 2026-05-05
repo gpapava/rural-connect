@@ -13,6 +13,7 @@ import {
   ChevronDown,
   Globe,
   ShieldCheck,
+  CalendarPlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { locales, localeNames, type Locale } from "@/i18n";
@@ -58,6 +59,12 @@ const navItems = [
     href: "/labor-market",
     icon: Briefcase,
     roles: ["NEET_USER", "COUNSELOR", "ADMIN"],
+  },
+  {
+    key: "scheduleSession",
+    href: "/sessions/new",
+    icon: CalendarPlus,
+    roles: ["COUNSELOR"],
   },
   {
     key: "admin",

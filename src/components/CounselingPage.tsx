@@ -10,6 +10,7 @@ import {
   FileText,
   Download,
   Save,
+  Clock,
 } from "lucide-react";
 import { cn, formatDate, formatDateTime, getInitials } from "@/lib/utils";
 import { UserRole } from "@prisma/client";
@@ -62,6 +63,7 @@ export default function CounselingPage({
   const [notesSaved, setNotesSaved] = useState(false);
   const [savingNotes, setSavingNotes] = useState(false);
   const [typingUser, setTypingUser] = useState<string | null>(null);
+  const [videoOpen, setVideoOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isTypingRef = useRef(false);
@@ -211,6 +213,27 @@ export default function CounselingPage({
     );
   }
 
+  if (session.status === "PENDING") {
+    const isPendingForNeet = currentUser.id === session.neetUser.id;
+    return (
+      <div className="flex h-[calc(100vh-8rem)] flex-col items-center justify-center">
+        <div className="card max-w-md text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-yellow-50">
+            <Clock className="h-8 w-8 text-yellow-500" />
+          </div>
+          <h2 className="mb-2 text-lg font-semibold text-gray-900">
+            Session Invitation Pending
+          </h2>
+          <p className="text-sm text-gray-500">
+            {isPendingForNeet
+              ? `${session.counselor.name} has invited you to a video session on ${new Date(session.scheduledAt).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}. Check your notifications to accept or decline.`
+              : `Waiting for ${session.neetUser.name} to accept the session scheduled for ${new Date(session.scheduledAt).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}.`}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const otherUser =
     currentUser.id === session.neetUser.id
       ? session.counselor
@@ -233,6 +256,8 @@ export default function CounselingPage({
               ? "bg-green-100 text-green-800"
               : session.status === "SCHEDULED"
               ? "bg-yellow-100 text-yellow-800"
+              : session.status === "PENDING"
+              ? "bg-orange-100 text-orange-700"
               : "bg-gray-100 text-gray-600"
           )}
         >
@@ -346,23 +371,47 @@ export default function CounselingPage({
 
         {/* Right panel */}
         <div className="space-y-4">
-          {/* Video placeholder */}
+          {/* Video call */}
           <div className="card">
             <div className="mb-3 flex items-center justify-between">
               <h3 className="text-sm font-semibold text-gray-900">
                 {t("video.title")}
               </h3>
+              {videoOpen && (
+                <button
+                  onClick={() => setVideoOpen(false)}
+                  className="text-xs text-gray-400 hover:text-gray-600"
+                >
+                  Close
+                </button>
+              )}
             </div>
-            <div className="flex h-36 items-center justify-center rounded-xl bg-gray-900">
-              <div className="text-center text-white">
-                <VideoOff className="mx-auto mb-2 h-8 w-8 opacity-50" />
-                <p className="text-xs opacity-50">{t("video.notStarted")}</p>
+
+            {videoOpen ? (
+              <div className="overflow-hidden rounded-xl bg-gray-900" style={{ height: 320 }}>
+                <iframe
+                  src={`https://meet.jit.si/ruralconnect-${session.id}`}
+                  allow="camera; microphone; fullscreen; display-capture"
+                  className="h-full w-full border-0"
+                />
               </div>
-            </div>
-            <button className="btn-primary mt-3 w-full">
-              <Video className="h-4 w-4" />
-              {t("video.join")}
-            </button>
+            ) : (
+              <>
+                <div className="flex h-36 items-center justify-center rounded-xl bg-gray-900">
+                  <div className="text-center text-white">
+                    <VideoOff className="mx-auto mb-2 h-8 w-8 opacity-50" />
+                    <p className="text-xs opacity-50">{t("video.notStarted")}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setVideoOpen(true)}
+                  className="btn-primary mt-3 w-full"
+                >
+                  <Video className="h-4 w-4" />
+                  {t("video.join")}
+                </button>
+              </>
+            )}
           </div>
 
           {/* Session notes */}

@@ -40,7 +40,8 @@
     "myProfile": "My Profile",
     "logout": "Log Out",
     "settings": "Settings",
-    "admin": "Admin Panel"
+    "admin": "Admin Panel",
+    "scheduleSession": "Schedule Session"
   },
   "auth": {
     "login": "Log In",
@@ -127,6 +128,7 @@
       "download": "Download"
     },
     "session": {
+      "pending": "Pending",
       "scheduled": "Scheduled",
       "inProgress": "In Progress",
       "completed": "Completed",

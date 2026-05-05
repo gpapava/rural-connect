@@ -18,7 +18,7 @@ export default async function Counseling({ params: { locale } }: PageProps) {
         { neetUserId: session.user.id },
         { counselorId: session.user.id },
       ],
-      status: { in: ["SCHEDULED", "IN_PROGRESS"] },
+      status: { in: ["PENDING", "SCHEDULED", "IN_PROGRESS"] },
     },
     include: {
       neetUser: { select: { id: true, name: true, email: true, role: true } },

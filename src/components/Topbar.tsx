@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
-import { Home, User, LogOut, ChevronDown, Bell } from "lucide-react";
+import { Home, User, LogOut, ChevronDown } from "lucide-react";
 import { UserRole } from "@prisma/client";
 import { getInitials } from "@/lib/utils";
+import NotificationBell from "@/components/NotificationBell";
 
 interface TopbarProps {
   locale: string;
@@ -69,10 +70,7 @@ export default function Topbar({ locale, user }: TopbarProps) {
       {/* Right - User menu */}
       <div className="flex items-center gap-2">
         {/* Notifications */}
-        <button className="relative flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition-colors hover:bg-white/10 hover:text-white">
-          <Bell className="h-4 w-4" />
-          <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#fbbc04]" />
-        </button>
+        <NotificationBell userId={user.id} locale={locale} />
 
         {/* Profile dropdown */}
         <div className="relative">
