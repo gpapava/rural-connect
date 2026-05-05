@@ -11,39 +11,47 @@ export default async function Dashboard({ params: { locale } }: PageProps) {
   const session = await auth();
   if (!session) redirect(`/${locale}/auth/login`);
 
-  // Fetch user data
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    include: {
-      portfolio: {
-        include: { qualifications: true },
-      },
-      moduleProgress: {
-        include: { module: true },
-        orderBy: { updatedAt: "desc" },
-      },
-      neetSessions: {
-        where: { status: { in: ["SCHEDULED", "IN_PROGRESS"] } },
+  const counselorSelect = { id: true, name: true, email: true, country: true };
+
+  const [user, totalModules, completedSessions, pendingSession, pastSessions] =
+    await Promise.all([
+      prisma.user.findUnique({
+        where: { id: session.user.id },
         include: {
-          counselor: {
-            select: { id: true, name: true, email: true, country: true },
+          portfolio: { include: { qualifications: true } },
+          moduleProgress: {
+            include: { module: true },
+            orderBy: { updatedAt: "desc" },
+          },
+          neetSessions: {
+            where: { status: { in: ["SCHEDULED", "IN_PROGRESS"] } },
+            include: { counselor: { select: counselorSelect } },
+            orderBy: { scheduledAt: "asc" },
+            take: 1,
           },
         },
-        orderBy: { scheduledAt: "asc" },
-        take: 1,
-      },
-    },
-  });
+      }),
+      prisma.module.count(),
+      prisma.counselingSession.count({
+        where: { neetUserId: session.user.id, status: "COMPLETED" },
+      }),
+      prisma.counselingSession.findFirst({
+        where: { neetUserId: session.user.id, status: "PENDING" },
+        include: { counselor: { select: counselorSelect } },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.counselingSession.findMany({
+        where: { neetUserId: session.user.id, status: "COMPLETED" },
+        include: { counselor: { select: counselorSelect } },
+        orderBy: { scheduledAt: "desc" },
+        take: 3,
+      }),
+    ]);
 
-  const totalModules = await prisma.module.count();
   const completedModules =
     user?.moduleProgress.filter((p) => p.status === "COMPLETED").length ?? 0;
   const inProgressModules =
     user?.moduleProgress.filter((p) => p.status === "IN_PROGRESS").length ?? 0;
-
-  const completedSessions = await prisma.counselingSession.count({
-    where: { neetUserId: session.user.id, status: "COMPLETED" },
-  });
 
   const dashboardData = {
     user: {
@@ -53,6 +61,18 @@ export default async function Dashboard({ params: { locale } }: PageProps) {
       country: user?.country ?? null,
     },
     upcomingSession: user?.neetSessions[0] ?? null,
+    pendingSession: pendingSession
+      ? {
+          id: pendingSession.id,
+          scheduledAt: pendingSession.scheduledAt,
+          counselor: pendingSession.counselor,
+        }
+      : null,
+    pastSessions: pastSessions.map((s) => ({
+      id: s.id,
+      scheduledAt: s.scheduledAt,
+      counselor: s.counselor,
+    })),
     portfolio: user?.portfolio ?? null,
     moduleStats: {
       total: totalModules,
