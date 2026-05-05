@@ -43,7 +43,16 @@ function getVideoEmbed(url: string) {
   return null;
 }
 
-function ScormUploader({ content, onChange }: { content: string; onChange: (v: string) => void }) {
+function FileUploader({
+  content, onChange, accept, endpoint, label, placeholder,
+}: {
+  content: string;
+  onChange: (v: string) => void;
+  accept: string;
+  endpoint: string;
+  label: string;
+  placeholder: string;
+}) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -51,22 +60,18 @@ function ScormUploader({ content, onChange }: { content: string; onChange: (v: s
   const [dragging, setDragging] = useState(false);
 
   const upload = async (file: File) => {
-    if (!file.name.endsWith(".zip")) {
-      setError("Please select a .zip file.");
-      return;
-    }
     setUploading(true);
     setError("");
     setUploaded(false);
     const form = new FormData();
     form.append("file", file);
     try {
-      const res = await fetch("/api/admin/scorm/upload", { method: "POST", body: form });
+      const res = await fetch(endpoint, { method: "POST", body: form });
       const data = await res.json();
       if (!res.ok) {
         setError(data.error ?? "Upload failed");
       } else {
-        onChange(data.launchUrl);
+        onChange(data.url ?? data.launchUrl);
         setUploaded(true);
       }
     } catch {
@@ -85,7 +90,6 @@ function ScormUploader({ content, onChange }: { content: string; onChange: (v: s
 
   return (
     <div className="space-y-3">
-      {/* Drop zone */}
       <div
         onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
@@ -100,26 +104,26 @@ function ScormUploader({ content, onChange }: { content: string; onChange: (v: s
         <input
           ref={inputRef}
           type="file"
-          accept=".zip"
+          accept={accept}
           className="hidden"
           onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); }}
         />
         {uploading ? (
           <>
             <Loader2 className="h-8 w-8 animate-spin text-[#1a73e8]" />
-            <p className="text-sm font-medium text-gray-600">Uploading & extracting…</p>
+            <p className="text-sm font-medium text-gray-600">Uploading…</p>
           </>
         ) : uploaded ? (
           <>
             <CheckCircle className="h-8 w-8 text-green-500" />
-            <p className="text-sm font-medium text-green-700">Package uploaded successfully</p>
+            <p className="text-sm font-medium text-green-700">{label} uploaded successfully</p>
             <p className="text-xs text-gray-400">Click or drag to replace</p>
           </>
         ) : (
           <>
             <UploadCloud className="h-8 w-8 text-gray-400" />
             <div className="text-center">
-              <p className="text-sm font-medium text-gray-700">Drag & drop your SCORM .zip here</p>
+              <p className="text-sm font-medium text-gray-700">Drag & drop your {label} here</p>
               <p className="text-xs text-gray-400 mt-1">or click to browse</p>
             </div>
           </>
@@ -128,23 +132,35 @@ function ScormUploader({ content, onChange }: { content: string; onChange: (v: s
 
       {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">{error}</p>}
 
-      {/* Launch URL (auto-filled after upload, editable manually) */}
       <div>
-        <label className="mb-1 block text-xs font-medium text-gray-500">Launch URL (auto-filled on upload)</label>
+        <label className="mb-1 block text-xs font-medium text-gray-500">URL (auto-filled on upload)</label>
         <input
           value={content}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="/scorm/my-course/index.html"
+          placeholder={placeholder}
           className="input w-full text-xs"
         />
       </div>
 
       {content && (
         <a href={content} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
-          <ExternalLink className="h-3.5 w-3.5" /> Test launch URL
+          <ExternalLink className="h-3.5 w-3.5" /> Test URL
         </a>
       )}
     </div>
+  );
+}
+
+function ScormUploader({ content, onChange }: { content: string; onChange: (v: string) => void }) {
+  return (
+    <FileUploader
+      content={content}
+      onChange={onChange}
+      accept=".zip"
+      endpoint="/api/admin/scorm/upload"
+      label="SCORM .zip"
+      placeholder="/scorm/my-course/index.html"
+    />
   );
 }
 
@@ -174,22 +190,14 @@ function LessonContentEditor({
   }
   if (type === "PDF") {
     return (
-      <div className="space-y-2">
-        <input
-          value={content}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="Paste public PDF link (Google Drive, Dropbox, etc.)"
-          className="input w-full"
-        />
-        {content && (
-          <p className="text-xs text-gray-500">
-            Make sure the link is publicly accessible.{" "}
-            <a href={content} target="_blank" rel="noopener noreferrer" className="text-[#1a73e8] underline">
-              Test link
-            </a>
-          </p>
-        )}
-      </div>
+      <FileUploader
+        content={content}
+        onChange={onChange}
+        accept=".pdf,application/pdf"
+        endpoint="/api/admin/pdf/upload"
+        label="PDF"
+        placeholder="/pdfs/my-document.pdf"
+      />
     );
   }
   if (type === "QUIZ") {

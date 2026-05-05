@@ -38,3 +38,5 @@ next-env.d.ts
 prisma/migrations/
 /public/scorm/*
 !/public/scorm/.gitkeep
+/public/pdfs/*
+!/public/pdfs/.gitkeep
