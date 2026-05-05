@@ -4,13 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft, Plus, Trash2, Save,
-  FileText, BookOpen, HelpCircle, Video, GripVertical,
+  FileText, BookOpen, HelpCircle, Video, GripVertical, Package, ExternalLink,
 } from "lucide-react";
-import { LessonType } from "@prisma/client";
 import dynamic from "next/dynamic";
 import QuizBuilder from "./QuizBuilder";
 
 const RichTextEditor = dynamic(() => import("./RichTextEditor"), { ssr: false });
+
+type LessonType = "TEXT" | "PDF" | "VIDEO" | "QUIZ" | "SCORM";
 
 type Lesson = { id: string; title: string; type: LessonType; content: string; order: number };
 type Module = { id: string; title: string; description: string; category: string; duration: number | null; lessons: Lesson[] };
@@ -20,6 +21,7 @@ const TYPE_LABELS: Record<LessonType, string> = {
   PDF: "PDF (link)",
   VIDEO: "Video (YouTube / Vimeo)",
   QUIZ: "Quiz",
+  SCORM: "SCORM Package",
 };
 
 const TYPE_ICONS: Record<LessonType, React.ReactNode> = {
@@ -27,7 +29,10 @@ const TYPE_ICONS: Record<LessonType, React.ReactNode> = {
   PDF: <FileText className="h-4 w-4" />,
   VIDEO: <Video className="h-4 w-4" />,
   QUIZ: <HelpCircle className="h-4 w-4" />,
+  SCORM: <Package className="h-4 w-4" />,
 };
+
+const ALL_TYPES: LessonType[] = ["TEXT", "VIDEO", "PDF", "QUIZ", "SCORM"];
 
 function getVideoEmbed(url: string) {
   const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
@@ -84,7 +89,57 @@ function LessonContentEditor({
   if (type === "QUIZ") {
     return <QuizBuilder value={content} onChange={onChange} />;
   }
+  if (type === "SCORM") {
+    return (
+      <div className="space-y-3">
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
+          <p className="font-semibold mb-1">How to add a SCORM package</p>
+          <ol className="list-decimal list-inside space-y-1">
+            <li>Upload your SCORM .zip to <a href="https://cloud.scorm.com" target="_blank" rel="noopener noreferrer" className="underline font-medium">SCORM Cloud</a> (free tier: up to 10 courses)</li>
+            <li>After upload, click <strong>Preview</strong> and copy the launch URL from your browser</li>
+            <li>Paste that URL below — students will see the course in an embedded player</li>
+          </ol>
+        </div>
+        <input
+          value={content}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="Paste SCORM launch URL (e.g. from SCORM Cloud)"
+          className="input w-full"
+        />
+        {content && (
+          <div className="flex items-center gap-2 text-xs text-gray-500">
+            <ExternalLink className="h-3.5 w-3.5" />
+            <a href={content} target="_blank" rel="noopener noreferrer" className="text-[#1a73e8] underline">
+              Test SCORM URL
+            </a>
+          </div>
+        )}
+      </div>
+    );
+  }
   return null;
+}
+
+function TypeSelector({ value, onChange }: { value: LessonType; onChange: (t: LessonType) => void }) {
+  return (
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+      {ALL_TYPES.map((t) => (
+        <button
+          key={t}
+          type="button"
+          onClick={() => onChange(t)}
+          className={`flex flex-col items-center gap-1.5 rounded-lg border-2 p-3 text-xs font-medium transition-colors ${
+            value === t
+              ? "border-[#1a73e8] bg-[#1a73e8]/5 text-[#1a73e8]"
+              : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+          }`}
+        >
+          {TYPE_ICONS[t]}
+          {TYPE_LABELS[t]}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 export default function AdminCourseEditPage({ module: initial, locale }: { module: Module; locale: string }) {
@@ -232,23 +287,10 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
             />
             <div>
               <label className="mb-1.5 block text-xs font-medium text-gray-700">Content type</label>
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                {(["TEXT", "VIDEO", "PDF", "QUIZ"] as LessonType[]).map((t) => (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => setLessonForm((f) => ({ ...f, type: t, content: "" }))}
-                    className={`flex flex-col items-center gap-1.5 rounded-lg border-2 p-3 text-xs font-medium transition-colors ${
-                      lessonForm.type === t
-                        ? "border-[#1a73e8] bg-[#1a73e8]/5 text-[#1a73e8]"
-                        : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
-                    }`}
-                  >
-                    {TYPE_ICONS[t]}
-                    {TYPE_LABELS[t]}
-                  </button>
-                ))}
-              </div>
+              <TypeSelector
+                value={lessonForm.type}
+                onChange={(t) => setLessonForm((f) => ({ ...f, type: t, content: "" }))}
+              />
             </div>
             <div>
               <label className="mb-1.5 block text-xs font-medium text-gray-700">Content</label>
@@ -286,23 +328,10 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                     />
                     <div>
                       <label className="mb-1.5 block text-xs font-medium text-gray-700">Content type</label>
-                      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                        {(["TEXT", "VIDEO", "PDF", "QUIZ"] as LessonType[]).map((t) => (
-                          <button
-                            key={t}
-                            type="button"
-                            onClick={() => setEditingLesson((l) => l && ({ ...l, type: t, content: "" }))}
-                            className={`flex flex-col items-center gap-1.5 rounded-lg border-2 p-3 text-xs font-medium transition-colors ${
-                              editingLesson.type === t
-                                ? "border-[#1a73e8] bg-[#1a73e8]/5 text-[#1a73e8]"
-                                : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
-                            }`}
-                          >
-                            {TYPE_ICONS[t]}
-                            {TYPE_LABELS[t]}
-                          </button>
-                        ))}
-                      </div>
+                      <TypeSelector
+                        value={editingLesson.type}
+                        onChange={(t) => setEditingLesson((l) => l && ({ ...l, type: t, content: "" }))}
+                      />
                     </div>
                     <div>
                       <label className="mb-1.5 block text-xs font-medium text-gray-700">Content</label>

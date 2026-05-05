@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft, BookOpen, FileText, HelpCircle,
-  CheckCircle, ChevronRight, ChevronLeft, ExternalLink, Video,
+  CheckCircle, ChevronRight, ChevronLeft, ExternalLink, Video, Package,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type LessonType = "TEXT" | "PDF" | "VIDEO" | "QUIZ";
+type LessonType = "TEXT" | "PDF" | "VIDEO" | "QUIZ" | "SCORM";
 
 type Lesson = {
   id: string;
@@ -159,11 +159,34 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
   );
 }
 
+function ScormLesson({ url, onComplete }: { url: string; onComplete: () => void }) {
+  return (
+    <div className="space-y-3">
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: 560 }}>
+        <iframe
+          src={url}
+          className="h-full w-full border-0"
+          allow="fullscreen"
+          title="SCORM Content"
+        />
+      </div>
+      <div className="flex items-center justify-between">
+        <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
+          <ExternalLink className="h-3.5 w-3.5" /> Open in new tab
+        </a>
+        <button onClick={onComplete} className="btn-secondary py-1.5 px-3 text-xs">
+          <CheckCircle className="h-3.5 w-3.5" /> Mark as complete
+        </button>
+      </div>
+    </div>
+  );
+}
+
 const LESSON_ICON: Record<LessonType, React.ElementType> = {
-  TEXT: BookOpen, PDF: FileText, VIDEO: Video, QUIZ: HelpCircle,
+  TEXT: BookOpen, PDF: FileText, VIDEO: Video, QUIZ: HelpCircle, SCORM: Package,
 };
 const LESSON_LABEL: Record<LessonType, string> = {
-  TEXT: "Reading", PDF: "PDF", VIDEO: "Video", QUIZ: "Quiz",
+  TEXT: "Reading", PDF: "PDF", VIDEO: "Video", QUIZ: "Quiz", SCORM: "SCORM",
 };
 
 export default function ModuleDetailPage({ module, lessons, status, locale }: ModuleDetailPageProps) {
@@ -251,12 +274,13 @@ export default function ModuleDetailPage({ module, lessons, status, locale }: Mo
             {activeLesson.type === "PDF" && <PdfLesson url={activeLesson.content} />}
             {activeLesson.type === "VIDEO" && <VideoLesson url={activeLesson.content} />}
             {activeLesson.type === "QUIZ" && <QuizLesson content={activeLesson.content} onComplete={() => markComplete(activeLesson.id)} />}
+            {activeLesson.type === "SCORM" && <ScormLesson url={activeLesson.content} onComplete={() => markComplete(activeLesson.id)} />}
 
             <div className="mt-8 flex items-center justify-between border-t border-gray-100 pt-5">
               <button onClick={() => setActiveIndex((i) => i - 1)} disabled={isFirst} className="btn-secondary disabled:opacity-40">
                 <ChevronLeft className="h-4 w-4" /> Previous
               </button>
-              {activeLesson.type !== "QUIZ" && (
+              {activeLesson.type !== "QUIZ" && activeLesson.type !== "SCORM" && (
                 <button
                   onClick={() => { markComplete(); if (!isLast) setActiveIndex((i) => i + 1); }}
                   className="btn-primary"

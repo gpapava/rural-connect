@@ -141,6 +141,7 @@ enum LessonType {
   PDF
   VIDEO
   QUIZ
+  SCORM
 }
 
 model Module {

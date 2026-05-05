@@ -17,10 +17,12 @@
   "dependencies": {
     "@prisma/client": "^5.17.0",
     "@tailwindcss/forms": "^0.5.7",
+    "@tiptap/extension-image": "^3.22.5",
     "@tiptap/extension-link": "^3.22.5",
     "@tiptap/extension-placeholder": "^3.22.5",
     "@tiptap/extension-text-align": "^3.22.5",
     "@tiptap/extension-underline": "^3.22.5",
+    "@tiptap/extension-youtube": "^3.22.5",
     "@tiptap/react": "^3.22.5",
     "@tiptap/starter-kit": "^3.22.5",
     "bcryptjs": "^2.4.3",
