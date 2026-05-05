@@ -72,7 +72,7 @@ function PdfLesson({ url }: { url: string }) {
   return (
     <div className="space-y-3">
       <div className="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
-        <iframe src={`${url}#toolbar=1&navpanes=0`} className="w-full" style={{ height: "520px" }} title="PDF Document" />
+        <iframe src={`${url}#toolbar=1&navpanes=0`} className="w-full" style={{ height: "780px" }} title="PDF Document" />
       </div>
       <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#1a73e8] hover:underline">
         <ExternalLink className="h-4 w-4" /> Open in new tab
