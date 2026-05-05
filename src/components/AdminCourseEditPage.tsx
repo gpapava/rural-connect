@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft, Plus, Trash2, Save,
   FileText, BookOpen, HelpCircle, Video, GripVertical, Package, ExternalLink,
+  UploadCloud, CheckCircle, Loader2,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import QuizBuilder from "./QuizBuilder";
@@ -40,6 +41,111 @@ function getVideoEmbed(url: string) {
   const vimeo = url.match(/vimeo\.com\/(\d+)/);
   if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`;
   return null;
+}
+
+function ScormUploader({ content, onChange }: { content: string; onChange: (v: string) => void }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+  const [uploaded, setUploaded] = useState(false);
+  const [dragging, setDragging] = useState(false);
+
+  const upload = async (file: File) => {
+    if (!file.name.endsWith(".zip")) {
+      setError("Please select a .zip file.");
+      return;
+    }
+    setUploading(true);
+    setError("");
+    setUploaded(false);
+    const form = new FormData();
+    form.append("file", file);
+    try {
+      const res = await fetch("/api/admin/scorm/upload", { method: "POST", body: form });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? "Upload failed");
+      } else {
+        onChange(data.launchUrl);
+        setUploaded(true);
+      }
+    } catch {
+      setError("Upload failed. Please try again.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file) upload(file);
+  };
+
+  return (
+    <div className="space-y-3">
+      {/* Drop zone */}
+      <div
+        onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={handleDrop}
+        onClick={() => inputRef.current?.click()}
+        className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-8 transition-colors ${
+          dragging
+            ? "border-[#1a73e8] bg-blue-50"
+            : "border-gray-200 bg-gray-50 hover:border-[#1a73e8]/50 hover:bg-blue-50/30"
+        }`}
+      >
+        <input
+          ref={inputRef}
+          type="file"
+          accept=".zip"
+          className="hidden"
+          onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); }}
+        />
+        {uploading ? (
+          <>
+            <Loader2 className="h-8 w-8 animate-spin text-[#1a73e8]" />
+            <p className="text-sm font-medium text-gray-600">Uploading & extracting…</p>
+          </>
+        ) : uploaded ? (
+          <>
+            <CheckCircle className="h-8 w-8 text-green-500" />
+            <p className="text-sm font-medium text-green-700">Package uploaded successfully</p>
+            <p className="text-xs text-gray-400">Click or drag to replace</p>
+          </>
+        ) : (
+          <>
+            <UploadCloud className="h-8 w-8 text-gray-400" />
+            <div className="text-center">
+              <p className="text-sm font-medium text-gray-700">Drag & drop your SCORM .zip here</p>
+              <p className="text-xs text-gray-400 mt-1">or click to browse</p>
+            </div>
+          </>
+        )}
+      </div>
+
+      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">{error}</p>}
+
+      {/* Launch URL (auto-filled after upload, editable manually) */}
+      <div>
+        <label className="mb-1 block text-xs font-medium text-gray-500">Launch URL (auto-filled on upload)</label>
+        <input
+          value={content}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="/scorm/my-course/index.html"
+          className="input w-full text-xs"
+        />
+      </div>
+
+      {content && (
+        <a href={content} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
+          <ExternalLink className="h-3.5 w-3.5" /> Test launch URL
+        </a>
+      )}
+    </div>
+  );
 }
 
 function LessonContentEditor({
@@ -90,32 +196,7 @@ function LessonContentEditor({
     return <QuizBuilder value={content} onChange={onChange} />;
   }
   if (type === "SCORM") {
-    return (
-      <div className="space-y-3">
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
-          <p className="font-semibold mb-1">How to add a SCORM package</p>
-          <ol className="list-decimal list-inside space-y-1">
-            <li>Upload your SCORM .zip to <a href="https://cloud.scorm.com" target="_blank" rel="noopener noreferrer" className="underline font-medium">SCORM Cloud</a> (free tier: up to 10 courses)</li>
-            <li>After upload, click <strong>Preview</strong> and copy the launch URL from your browser</li>
-            <li>Paste that URL below — students will see the course in an embedded player</li>
-          </ol>
-        </div>
-        <input
-          value={content}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="Paste SCORM launch URL (e.g. from SCORM Cloud)"
-          className="input w-full"
-        />
-        {content && (
-          <div className="flex items-center gap-2 text-xs text-gray-500">
-            <ExternalLink className="h-3.5 w-3.5" />
-            <a href={content} target="_blank" rel="noopener noreferrer" className="text-[#1a73e8] underline">
-              Test SCORM URL
-            </a>
-          </div>
-        )}
-      </div>
-    );
+    return <ScormUploader content={content} onChange={onChange} />;
   }
   return null;
 }

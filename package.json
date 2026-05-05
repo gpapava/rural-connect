@@ -25,6 +25,7 @@
     "@tiptap/extension-youtube": "^3.22.5",
     "@tiptap/react": "^3.22.5",
     "@tiptap/starter-kit": "^3.22.5",
+    "adm-zip": "^0.5.17",
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
@@ -40,6 +41,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/adm-zip": "^0.5.8",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.14.12",
     "@types/react": "^18.3.3",
