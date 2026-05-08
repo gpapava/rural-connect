@@ -205,6 +205,7 @@ function LessonForm({
   onCancel,
   saving,
   submitLabel,
+  error,
 }: {
   form: { title: string; type: LessonType; content: string; topicId: string | null };
   topics: Topic[];
@@ -214,6 +215,7 @@ function LessonForm({
   onCancel: () => void;
   saving: boolean;
   submitLabel: string;
+  error?: string;
 }) {
   return (
     <div className="rounded-xl border border-[#1a73e8]/20 bg-blue-50 p-4 space-y-4">
@@ -247,6 +249,7 @@ function LessonForm({
         <label className="mb-1.5 block text-xs font-medium text-gray-700">Content</label>
         <LessonContentEditor type={form.type} content={form.content} onChange={(v) => onChange({ content: v })} />
       </div>
+      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">{error}</p>}
       <div className="flex gap-2">
         <button onClick={onSubmit} disabled={saving} className="btn-primary text-xs py-1.5 px-3">
           {saving ? "Saving…" : submitLabel}
@@ -318,6 +321,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
   const [lessonFormContext, setLessonFormContext] = useState<string | null | false>(false);
   const [lessonForm, setLessonForm] = useState<LessonFormData>({ title: "", type: "TEXT", content: "", topicId: null });
   const [savingLesson, setSavingLesson] = useState(false);
+  const [lessonError, setLessonError] = useState("");
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [editingLesson, setEditingLesson] = useState<Lesson | null>(null);
 
@@ -385,47 +389,69 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
 
   // ---- lesson actions ----
   const openAddLesson = (topicId: string | null) => {
+    setLessonError("");
     setLessonFormContext(topicId ?? null);
     setLessonForm({ title: "", type: "TEXT", content: "", topicId: topicId ?? null });
     setEditingLesson(null);
   };
 
   const addLesson = async () => {
-    if (!lessonForm.title.trim() || !lessonForm.content) return;
-    setSavingLesson(true);
-    const res = await fetch(`/api/admin/courses/${course.id}/lessons`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(lessonForm),
-    });
-    if (res.ok) {
-      const { lesson } = await res.json();
-      setCourse((c) => addLessonToModule(c, lesson));
-      setLessonForm({ title: "", type: "TEXT", content: "", topicId: null });
-      setLessonFormContext(false);
+    if (!lessonForm.title.trim() || !lessonForm.content) {
+      setLessonError("Please fill in the title and content before saving.");
+      return;
     }
-    setSavingLesson(false);
+    setLessonError("");
+    setSavingLesson(true);
+    try {
+      const res = await fetch(`/api/admin/courses/${course.id}/lessons`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(lessonForm),
+      });
+      if (res.ok) {
+        const { lesson } = await res.json();
+        setCourse((c) => addLessonToModule(c, lesson));
+        setLessonForm({ title: "", type: "TEXT", content: "", topicId: null });
+        setLessonFormContext(false);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setLessonError(data.error ?? "Failed to save lesson. Please try again.");
+      }
+    } catch {
+      setLessonError("Network error. Please try again.");
+    } finally {
+      setSavingLesson(false);
+    }
   };
 
   const saveLesson = async () => {
     if (!editingLesson) return;
+    setLessonError("");
     setSavingLesson(true);
-    const res = await fetch(`/api/admin/courses/${course.id}/lessons/${editingLesson.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: editingLesson.title,
-        type: editingLesson.type,
-        content: editingLesson.content,
-        topicId: editingLesson.topicId,
-      }),
-    });
-    if (res.ok) {
-      const { lesson } = await res.json();
-      setCourse((c) => addLessonToModule(removeLessonFromModule(c, lesson.id), lesson));
-      setEditingLesson(null);
+    try {
+      const res = await fetch(`/api/admin/courses/${course.id}/lessons/${editingLesson.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: editingLesson.title,
+          type: editingLesson.type,
+          content: editingLesson.content,
+          topicId: editingLesson.topicId,
+        }),
+      });
+      if (res.ok) {
+        const { lesson } = await res.json();
+        setCourse((c) => addLessonToModule(removeLessonFromModule(c, lesson.id), lesson));
+        setEditingLesson(null);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setLessonError(data.error ?? "Failed to save lesson. Please try again.");
+      }
+    } catch {
+      setLessonError("Network error. Please try again.");
+    } finally {
+      setSavingLesson(false);
     }
-    setSavingLesson(false);
   };
 
   const deleteLesson = async (id: string) => {
@@ -579,9 +605,10 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
               topics={course.topics}
               onChange={(patch) => setLessonForm((f) => ({ ...f, ...patch }))}
               onSubmit={addLesson}
-              onCancel={() => setLessonFormContext(false)}
+              onCancel={() => { setLessonError(""); setLessonFormContext(false); }}
               saving={savingLesson}
               submitLabel="Add Lesson"
+              error={lessonError}
             />
           </div>
         )}
@@ -616,9 +643,10 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                   lockedTopicId={topic.id}
                   onChange={(patch) => setLessonForm((f) => ({ ...f, ...patch }))}
                   onSubmit={addLesson}
-                  onCancel={() => setLessonFormContext(false)}
+                  onCancel={() => { setLessonError(""); setLessonFormContext(false); }}
                   saving={savingLesson}
                   submitLabel="Add Lesson"
+                  error={lessonError}
                 />
               </div>
             )}
@@ -636,9 +664,10 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                       topics={course.topics}
                       onChange={(patch) => setEditingLesson((l) => l && ({ ...l, ...patch }))}
                       onSubmit={saveLesson}
-                      onCancel={() => setEditingLesson(null)}
+                      onCancel={() => { setLessonError(""); setEditingLesson(null); }}
                       saving={savingLesson}
                       submitLabel="Save"
+                      error={lessonError}
                     />
                   ) : (
                     <LessonRow
@@ -672,9 +701,10 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                       topics={course.topics}
                       onChange={(patch) => setEditingLesson((l) => l && ({ ...l, ...patch }))}
                       onSubmit={saveLesson}
-                      onCancel={() => setEditingLesson(null)}
+                      onCancel={() => { setLessonError(""); setEditingLesson(null); }}
                       saving={savingLesson}
                       submitLabel="Save"
+                      error={lessonError}
                     />
                   ) : (
                     <LessonRow

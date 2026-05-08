@@ -13,6 +13,12 @@ function detectEntryPoint(zip: AdmZip, folderName: string): string | null {
 
   const xml = manifest.getData().toString("utf8");
 
+  // The manifest's href values are relative to the manifest file itself.
+  // If the manifest lives in a subdirectory (e.g. MyPkg/imsmanifest.xml),
+  // we need to prefix detected hrefs so the URL resolves correctly.
+  const manifestDir = path.posix.dirname(manifest.entryName.replace(/\\/g, "/"));
+  const prefix = manifestDir === "." ? "" : manifestDir + "/";
+
   // Look for the SCO resource href
   const scoMatch = xml.match(
     /<resource[^>]+adlcp:scormtype\s*=\s*["']sco["'][^>]+href\s*=\s*["']([^"']+)["']/i
@@ -20,11 +26,11 @@ function detectEntryPoint(zip: AdmZip, folderName: string): string | null {
     /<resource[^>]+href\s*=\s*["']([^"']+)["'][^>]+adlcp:scormtype\s*=\s*["']sco["']/i
   );
 
-  if (scoMatch) return scoMatch[1];
+  if (scoMatch) return prefix + scoMatch[1];
 
   // Fallback: first resource with an href
   const anyMatch = xml.match(/<resource[^>]+href\s*=\s*["']([^"'?#]+\.html?[^"']*)/i);
-  if (anyMatch) return anyMatch[1];
+  if (anyMatch) return prefix + anyMatch[1];
 
   return null;
 }
