@@ -13,7 +13,13 @@ export default async function ModuleDetail({ params: { locale, moduleId } }: Pag
 
   const module = await prisma.module.findUnique({
     where: { id: moduleId },
-    include: { lessons: { orderBy: { order: "asc" } } },
+    include: {
+      lessons: { where: { topicId: null }, orderBy: { order: "asc" } },
+      topics: {
+        orderBy: { order: "asc" },
+        include: { lessons: { orderBy: { order: "asc" } } },
+      },
+    },
   });
 
   if (!module) notFound();
@@ -26,6 +32,7 @@ export default async function ModuleDetail({ params: { locale, moduleId } }: Pag
     <ModuleDetailPage
       module={module}
       lessons={module.lessons}
+      topics={module.topics ?? []}
       status={progress?.status ?? "NOT_STARTED"}
       locale={locale}
     />

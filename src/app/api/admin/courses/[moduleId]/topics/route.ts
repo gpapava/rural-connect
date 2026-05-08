@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { LessonType } from "@prisma/client";
 
 async function requireAdmin() {
   const session = await auth();
@@ -12,37 +11,34 @@ async function requireAdmin() {
 export async function GET(_: NextRequest, { params }: { params: { moduleId: string } }) {
   if (!await requireAdmin()) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const lessons = await prisma.moduleLesson.findMany({
+  const topics = await prisma.topic.findMany({
     where: { moduleId: params.moduleId },
     orderBy: { order: "asc" },
+    include: { lessons: { orderBy: { order: "asc" } } },
   });
 
-  return NextResponse.json({ lessons });
+  return NextResponse.json({ topics });
 }
 
 export async function POST(request: NextRequest, { params }: { params: { moduleId: string } }) {
   if (!await requireAdmin()) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { title, type, content, topicId } = await request.json();
-  if (!title?.trim() || !type || !content?.trim()) {
-    return NextResponse.json({ error: "title, type and content required" }, { status: 400 });
-  }
+  const { title } = await request.json();
+  if (!title?.trim()) return NextResponse.json({ error: "title required" }, { status: 400 });
 
-  const last = await prisma.moduleLesson.findFirst({
-    where: { moduleId: params.moduleId, topicId: topicId ?? null },
+  const last = await prisma.topic.findFirst({
+    where: { moduleId: params.moduleId },
     orderBy: { order: "desc" },
   });
 
-  const lesson = await prisma.moduleLesson.create({
+  const topic = await prisma.topic.create({
     data: {
       moduleId: params.moduleId,
-      topicId: topicId ?? null,
       title: title.trim(),
-      type: type as LessonType,
-      content: content.trim(),
       order: (last?.order ?? 0) + 1,
     },
+    include: { lessons: true },
   });
 
-  return NextResponse.json({ lesson }, { status: 201 });
+  return NextResponse.json({ topic }, { status: 201 });
 }

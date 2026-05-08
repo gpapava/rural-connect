@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft, BookOpen, FileText, HelpCircle,
-  CheckCircle, ChevronRight, ChevronLeft, ExternalLink, Video, Package,
+  CheckCircle, ChevronRight, ChevronLeft, ExternalLink, Video, Package, FolderOpen,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +18,13 @@ type Lesson = {
   order: number;
 };
 
+type Topic = {
+  id: string;
+  title: string;
+  order: number;
+  lessons: Lesson[];
+};
+
 type Module = {
   id: string;
   title: string;
@@ -28,14 +35,18 @@ type Module = {
 
 type QuizQuestion = {
   id: string;
+  type?: "multiple_choice" | "true_false" | "matching";
   text: string;
-  options: string[];
-  correctIndex: number;
+  options?: string[];
+  correctIndex?: number;
+  correctAnswer?: boolean;
+  pairs?: { id: string; left: string; right: string }[];
 };
 
 interface ModuleDetailPageProps {
   module: Module;
-  lessons: Lesson[];
+  lessons: Lesson[];   // unassigned lessons
+  topics: Topic[];
   status: string;
   locale: string;
 }
@@ -81,6 +92,72 @@ function PdfLesson({ url }: { url: string }) {
   );
 }
 
+// --- Matching question sub-component ---
+function MatchingQuestion({
+  q,
+  matchMap,
+  onMatch,
+  submitted,
+}: {
+  q: QuizQuestion;
+  matchMap: Record<string, string>;
+  onMatch: (pairId: string, value: string) => void;
+  submitted: boolean;
+}) {
+  const [shuffledRights] = useState<{ id: string; right: string }[]>(() =>
+    [...(q.pairs ?? [])].sort(() => Math.random() - 0.5)
+  );
+
+  return (
+    <div className="space-y-2">
+      {(q.pairs ?? []).map((pair) => {
+        const selected = matchMap[pair.id] ?? "";
+        const isCorrect = selected === pair.right;
+        return (
+          <div
+            key={pair.id}
+            className={cn(
+              "flex items-center gap-3 rounded-lg border p-2.5 transition-colors",
+              submitted
+                ? isCorrect
+                  ? "border-green-300 bg-green-50"
+                  : "border-red-300 bg-red-50"
+                : "border-gray-200 bg-white"
+            )}
+          >
+            <span className="flex-1 text-sm font-medium text-gray-800">{pair.left}</span>
+            <ChevronRight className="h-4 w-4 flex-shrink-0 text-gray-300" />
+            <select
+              disabled={submitted}
+              value={selected}
+              onChange={(e) => onMatch(pair.id, e.target.value)}
+              className={cn(
+                "flex-1 rounded-lg border px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a73e8]",
+                submitted && isCorrect ? "border-green-300 bg-green-50" :
+                submitted && !isCorrect ? "border-red-300 bg-red-50" :
+                "border-gray-200 bg-white"
+              )}
+            >
+              <option value="" disabled>Select match…</option>
+              {shuffledRights.map((r) => (
+                <option key={r.id} value={r.right}>{r.right}</option>
+              ))}
+            </select>
+            {submitted && !isCorrect && (
+              <span className="text-xs text-gray-400 flex-shrink-0 max-w-[80px] truncate" title={pair.right}>
+                ✓ {pair.right}
+              </span>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// --- Quiz lesson ---
+type AnswerValue = number | boolean | Record<string, string>;
+
 function QuizLesson({ content, onComplete }: { content: string; onComplete: () => void }) {
   let questions: QuizQuestion[] = [];
   try {
@@ -90,15 +167,43 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
     return <p className="text-sm text-red-500">Quiz data is invalid.</p>;
   }
 
-  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [answers, setAnswers] = useState<Record<string, AnswerValue>>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const score = submitted ? questions.filter((q) => answers[q.id] === q.correctIndex).length : 0;
+  const isCorrect = (q: QuizQuestion): boolean => {
+    const type = q.type ?? "multiple_choice";
+    const ans = answers[q.id];
+    if (type === "multiple_choice") return ans === q.correctIndex;
+    if (type === "true_false") return ans === q.correctAnswer;
+    if (type === "matching") {
+      const map = ans as Record<string, string> | undefined;
+      return (q.pairs ?? []).every((p) => map?.[p.id] === p.right);
+    }
+    return false;
+  };
+
+  const allAnswered = questions.every((q) => {
+    const type = q.type ?? "multiple_choice";
+    if (type === "matching") {
+      const map = answers[q.id] as Record<string, string> | undefined;
+      return (q.pairs ?? []).every((p) => map?.[p.id]);
+    }
+    return answers[q.id] !== undefined;
+  });
+
+  const score = submitted ? questions.filter(isCorrect).length : 0;
 
   const handleSubmit = () => {
-    if (Object.keys(answers).length < questions.length) return;
+    if (!allAnswered) return;
     setSubmitted(true);
     if (score === questions.length) onComplete();
+  };
+
+  const setMatchAnswer = (qId: string, pairId: string, value: string) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [qId]: { ...(prev[qId] as Record<string, string> ?? {}), [pairId]: value },
+    }));
   };
 
   return (
@@ -119,39 +224,86 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
         </div>
       )}
 
-      {questions.map((q, qi) => (
-        <div key={q.id} className="rounded-xl border border-gray-200 bg-white p-5">
-          <p className="text-sm font-semibold text-gray-900 mb-4">{qi + 1}. {q.text}</p>
-          <div className="space-y-2">
-            {q.options.map((opt, oi) => {
-              const selected = answers[q.id] === oi;
-              const isCorrect = oi === q.correctIndex;
-              let style = "border-gray-200 bg-gray-50 text-gray-700 hover:border-[#1a73e8]/40";
-              if (submitted) {
-                if (isCorrect) style = "border-green-400 bg-green-50 text-green-800";
-                else if (selected) style = "border-red-400 bg-red-50 text-red-700";
-                else style = "border-gray-200 bg-gray-50 text-gray-400";
-              } else if (selected) {
-                style = "border-[#1a73e8] bg-blue-50 text-[#1a73e8]";
-              }
-              return (
-                <button
-                  key={oi}
-                  disabled={submitted}
-                  onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: oi }))}
-                  className={cn("w-full text-left rounded-lg border px-4 py-2.5 text-sm transition-all", style)}
-                >
-                  <span className="font-medium mr-2">{String.fromCharCode(65 + oi)}.</span>
-                  {opt}
-                </button>
-              );
-            })}
+      {questions.map((q, qi) => {
+        const type = q.type ?? "multiple_choice";
+        return (
+          <div key={q.id} className="rounded-xl border border-gray-200 bg-white p-5">
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <p className="text-sm font-semibold text-gray-900">{qi + 1}. {q.text}</p>
+              <span className="flex-shrink-0 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
+                {type === "true_false" ? "True / False" : type === "matching" ? "Matching" : "Multiple choice"}
+              </span>
+            </div>
+
+            {type === "multiple_choice" && (
+              <div className="space-y-2">
+                {(q.options ?? []).map((opt, oi) => {
+                  const selected = answers[q.id] === oi;
+                  const isOpt = oi === q.correctIndex;
+                  let style = "border-gray-200 bg-gray-50 text-gray-700 hover:border-[#1a73e8]/40";
+                  if (submitted) {
+                    if (isOpt) style = "border-green-400 bg-green-50 text-green-800";
+                    else if (selected) style = "border-red-400 bg-red-50 text-red-700";
+                    else style = "border-gray-200 bg-gray-50 text-gray-400";
+                  } else if (selected) {
+                    style = "border-[#1a73e8] bg-blue-50 text-[#1a73e8]";
+                  }
+                  return (
+                    <button
+                      key={oi}
+                      disabled={submitted}
+                      onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: oi }))}
+                      className={cn("w-full text-left rounded-lg border px-4 py-2.5 text-sm transition-all", style)}
+                    >
+                      <span className="font-medium mr-2">{String.fromCharCode(65 + oi)}.</span>
+                      {opt}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {type === "true_false" && (
+              <div className="flex gap-3">
+                {([true, false] as const).map((val) => {
+                  const selected = answers[q.id] === val;
+                  const isCorrectOpt = val === q.correctAnswer;
+                  let style = "border-gray-200 bg-gray-50 text-gray-700 hover:border-[#1a73e8]/40";
+                  if (submitted) {
+                    if (isCorrectOpt) style = "border-green-400 bg-green-50 text-green-800";
+                    else if (selected) style = "border-red-400 bg-red-50 text-red-700";
+                    else style = "border-gray-200 bg-gray-50 text-gray-400";
+                  } else if (selected) {
+                    style = "border-[#1a73e8] bg-blue-50 text-[#1a73e8]";
+                  }
+                  return (
+                    <button
+                      key={String(val)}
+                      disabled={submitted}
+                      onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: val }))}
+                      className={cn("flex-1 rounded-lg border px-4 py-3 text-sm font-medium transition-all", style)}
+                    >
+                      {val ? "True" : "False"}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {type === "matching" && (
+              <MatchingQuestion
+                q={q}
+                matchMap={(answers[q.id] as Record<string, string>) ?? {}}
+                onMatch={(pairId, value) => setMatchAnswer(q.id, pairId, value)}
+                submitted={submitted}
+              />
+            )}
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       {!submitted && (
-        <button onClick={handleSubmit} disabled={Object.keys(answers).length < questions.length} className="btn-primary w-full disabled:opacity-50">
+        <button onClick={handleSubmit} disabled={!allAnswered} className="btn-primary w-full disabled:opacity-50">
           Submit answers
         </button>
       )}
@@ -163,12 +315,7 @@ function ScormLesson({ url, onComplete }: { url: string; onComplete: () => void 
   return (
     <div className="space-y-3">
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: 560 }}>
-        <iframe
-          src={url}
-          className="h-full w-full border-0"
-          allow="fullscreen"
-          title="SCORM Content"
-        />
+        <iframe src={url} className="h-full w-full border-0" allow="fullscreen" title="SCORM Content" />
       </div>
       <div className="flex items-center justify-between">
         <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
@@ -189,20 +336,32 @@ const LESSON_LABEL: Record<LessonType, string> = {
   TEXT: "Reading", PDF: "PDF", VIDEO: "Video", QUIZ: "Quiz", SCORM: "SCORM",
 };
 
-export default function ModuleDetailPage({ module, lessons, status, locale }: ModuleDetailPageProps) {
+export default function ModuleDetailPage({ module, lessons, topics, status, locale }: ModuleDetailPageProps) {
   const router = useRouter();
+
+  const allLessons = useMemo(() => [
+    ...topics.flatMap((t) => t.lessons),
+    ...lessons,
+  ], [topics, lessons]);
+
+  const lessonIndexMap = useMemo(() => {
+    const map = new Map<string, number>();
+    allLessons.forEach((l, i) => map.set(l.id, i));
+    return map;
+  }, [allLessons]);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
 
-  const activeLesson = lessons[activeIndex];
-  const isLast = activeIndex === lessons.length - 1;
+  const activeLesson = allLessons[activeIndex];
+  const isLast = activeIndex === allLessons.length - 1;
   const isFirst = activeIndex === 0;
 
   const markComplete = (id?: string) => {
     setCompletedLessons((prev) => { const next = new Set(prev); next.add(id ?? activeLesson.id); return next; });
   };
 
-  if (lessons.length === 0) {
+  if (allLessons.length === 0) {
     return (
       <div className="mx-auto max-w-3xl py-16 text-center">
         <BookOpen className="mx-auto mb-4 h-12 w-12 text-gray-300" />
@@ -213,6 +372,8 @@ export default function ModuleDetailPage({ module, lessons, status, locale }: Mo
       </div>
     );
   }
+
+  const hasTopic = topics.length > 0;
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -231,34 +392,61 @@ export default function ModuleDetailPage({ module, lessons, status, locale }: Mo
         {/* Sidebar */}
         <div className="lg:col-span-1">
           <div className="rounded-xl border border-gray-200 bg-white p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3">Lessons</p>
-            <div className="space-y-1">
-              {lessons.map((lesson, i) => {
-                const Icon = LESSON_ICON[lesson.type];
-                const done = completedLessons.has(lesson.id);
-                return (
-                  <button
-                    key={lesson.id}
-                    onClick={() => setActiveIndex(i)}
-                    className={cn(
-                      "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-all",
-                      activeIndex === i ? "bg-[#1a73e8] text-white" : "text-gray-600 hover:bg-gray-50"
-                    )}
-                  >
-                    {done
-                      ? <CheckCircle className={cn("h-4 w-4 flex-shrink-0", activeIndex === i ? "text-white" : "text-green-500")} />
-                      : <Icon className="h-4 w-4 flex-shrink-0" />
-                    }
-                    <div className="min-w-0">
-                      <p className="truncate font-medium">{lesson.title}</p>
-                      <p className={cn("text-xs", activeIndex === i ? "text-blue-100" : "text-gray-400")}>
-                        {LESSON_LABEL[lesson.type]}
-                      </p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3">
+              {hasTopic ? "Topics" : "Lessons"}
+            </p>
+
+            {hasTopic ? (
+              <div className="space-y-4">
+                {topics.map((topic) => (
+                  <div key={topic.id}>
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <FolderOpen className="h-3.5 w-3.5 flex-shrink-0 text-[#1a73e8]" />
+                      <p className="text-xs font-semibold text-gray-700 truncate">{topic.title}</p>
                     </div>
-                  </button>
-                );
-              })}
-            </div>
+                    <div className="space-y-1 pl-1">
+                      {topic.lessons.map((lesson) => (
+                        <LessonNavButton
+                          key={lesson.id}
+                          lesson={lesson}
+                          isActive={activeIndex === lessonIndexMap.get(lesson.id)}
+                          isDone={completedLessons.has(lesson.id)}
+                          onClick={() => setActiveIndex(lessonIndexMap.get(lesson.id) ?? 0)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                {lessons.length > 0 && (
+                  <div>
+                    <p className="text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-wide">Other</p>
+                    <div className="space-y-1">
+                      {lessons.map((lesson) => (
+                        <LessonNavButton
+                          key={lesson.id}
+                          lesson={lesson}
+                          isActive={activeIndex === lessonIndexMap.get(lesson.id)}
+                          isDone={completedLessons.has(lesson.id)}
+                          onClick={() => setActiveIndex(lessonIndexMap.get(lesson.id) ?? 0)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-1">
+                {allLessons.map((lesson, i) => (
+                  <LessonNavButton
+                    key={lesson.id}
+                    lesson={lesson}
+                    isActive={activeIndex === i}
+                    isDone={completedLessons.has(lesson.id)}
+                    onClick={() => setActiveIndex(i)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -293,5 +481,36 @@ export default function ModuleDetailPage({ module, lessons, status, locale }: Mo
         </div>
       </div>
     </div>
+  );
+}
+
+function LessonNavButton({
+  lesson, isActive, isDone, onClick,
+}: {
+  lesson: Lesson;
+  isActive: boolean;
+  isDone: boolean;
+  onClick: () => void;
+}) {
+  const Icon = LESSON_ICON[lesson.type];
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-all",
+        isActive ? "bg-[#1a73e8] text-white" : "text-gray-600 hover:bg-gray-50"
+      )}
+    >
+      {isDone
+        ? <CheckCircle className={cn("h-4 w-4 flex-shrink-0", isActive ? "text-white" : "text-green-500")} />
+        : <Icon className="h-4 w-4 flex-shrink-0" />
+      }
+      <div className="min-w-0">
+        <p className="truncate font-medium">{lesson.title}</p>
+        <p className={cn("text-xs", isActive ? "text-blue-100" : "text-gray-400")}>
+          {LESSON_LABEL[lesson.type]}
+        </p>
+      </div>
+    </button>
   );
 }

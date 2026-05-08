@@ -13,7 +13,13 @@ export default async function AdminCourseEdit({
 
   const module = await prisma.module.findUnique({
     where: { id: moduleId },
-    include: { lessons: { orderBy: { order: "asc" } } },
+    include: {
+      lessons: { where: { topicId: null }, orderBy: { order: "asc" } },
+      topics: {
+        orderBy: { order: "asc" },
+        include: { lessons: { orderBy: { order: "asc" } } },
+      },
+    },
   });
 
   if (!module) redirect(`/${locale}/admin/courses`);

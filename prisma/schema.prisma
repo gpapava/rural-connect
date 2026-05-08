@@ -157,13 +157,28 @@ model Module {
   // Relations
   userProgress UserModuleProgress[]
   lessons      ModuleLesson[]
+  topics       Topic[]
 
   @@map("modules")
+}
+
+model Topic {
+  id        String         @id @default(cuid())
+  moduleId  String
+  title     String
+  order     Int            @default(0)
+  createdAt DateTime       @default(now())
+
+  module    Module         @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  lessons   ModuleLesson[]
+
+  @@map("topics")
 }
 
 model ModuleLesson {
   id        String     @id @default(cuid())
   moduleId  String
+  topicId   String?
   title     String
   type      LessonType
   content   String     @db.Text
@@ -171,6 +186,7 @@ model ModuleLesson {
   createdAt DateTime   @default(now())
 
   module    Module     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  topic     Topic?     @relation(fields: [topicId], references: [id], onDelete: SetNull)
 
   @@map("module_lessons")
 }

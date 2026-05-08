@@ -12,7 +12,8 @@ async function requireAdmin() {
 export async function PATCH(request: NextRequest, { params }: { params: { moduleId: string; lessonId: string } }) {
   if (!await requireAdmin()) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { title, type, content } = await request.json();
+  const body = await request.json();
+  const { title, type, content, topicId } = body;
 
   const lesson = await prisma.moduleLesson.update({
     where: { id: params.lessonId },
@@ -20,6 +21,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { module
       ...(title && { title: title.trim() }),
       ...(type && { type: type as LessonType }),
       ...(content && { content: content.trim() }),
+      ...("topicId" in body && { topicId: topicId ?? null }),
     },
   });
 
