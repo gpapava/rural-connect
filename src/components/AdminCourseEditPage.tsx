@@ -87,7 +87,7 @@ function addLessonToModule(m: Module, lesson: Lesson): Module {
 
 // ---- shared sub-components ----
 function FileUploader({
-  content, onChange, accept, endpoint, label, placeholder,
+  content, onChange, accept, endpoint, label, placeholder, getTestUrl,
 }: {
   content: string;
   onChange: (v: string) => void;
@@ -95,6 +95,7 @@ function FileUploader({
   endpoint: string;
   label: string;
   placeholder: string;
+  getTestUrl?: (url: string) => string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -153,7 +154,7 @@ function FileUploader({
         <input value={content} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className="input w-full text-xs" />
       </div>
       {content && (
-        <a href={content} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
+        <a href={getTestUrl ? getTestUrl(content) : content} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
           <ExternalLink className="h-3.5 w-3.5" /> Test URL
         </a>
       )}
@@ -174,7 +175,7 @@ function LessonContentEditor({ type, content, onChange }: { type: LessonType; co
   }
   if (type === "PDF") return <FileUploader content={content} onChange={onChange} accept=".pdf,application/pdf" endpoint="/api/admin/pdf/upload" label="PDF" placeholder="/pdfs/my-document.pdf" />;
   if (type === "QUIZ") return <QuizBuilder value={content} onChange={onChange} />;
-  if (type === "SCORM") return <FileUploader content={content} onChange={onChange} accept=".zip" endpoint="/api/admin/scorm/upload" label="SCORM .zip" placeholder="/scorm/my-course/index.html" />;
+  if (type === "SCORM") return <FileUploader content={content} onChange={onChange} accept=".zip" endpoint="/api/admin/scorm/upload" label="SCORM .zip" placeholder="/scorm/my-course/index.html" getTestUrl={(u) => `/scorm-player.html?url=${encodeURIComponent(u)}`} />;
   return null;
 }
 

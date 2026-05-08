@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SCORM Player</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    iframe { display: block; width: 100%; height: 100%; border: 0; }
+    #error {
+      display: none; position: absolute; inset: 0;
+      align-items: center; justify-content: center;
+      background: #f9fafb; font-family: sans-serif; color: #374151; text-align: center; padding: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="frame" allow="fullscreen" allowfullscreen></iframe>
+  <div id="error">
+    <div>
+      <p style="font-size:1rem;font-weight:600;margin-bottom:.5rem">Unable to load SCORM content</p>
+      <p style="font-size:.875rem;color:#6b7280">No URL was provided.</p>
+    </div>
+  </div>
+
+  <script>
+    // ── Shared data store ──────────────────────────────────────────────────────
+    var cmiData = {};
+
+    function getValue(key) {
+      return cmiData.hasOwnProperty(key) ? String(cmiData[key]) : "";
+    }
+
+    function setValue(key, value) {
+      cmiData[key] = value;
+      return "true";
+    }
+
+    // ── SCORM 1.2 API ─────────────────────────────────────────────────────────
+    window.API = {
+      LMSInitialize:    function(_) { return "true"; },
+      LMSFinish:        function(_) { return "true"; },
+      LMSGetValue:      function(e) { return getValue(e); },
+      LMSSetValue:      function(e, v) { return setValue(e, v); },
+      LMSCommit:        function(_) { return "true"; },
+      LMSGetLastError:  function()  { return "0"; },
+      LMSGetErrorString: function(_) { return ""; },
+      LMSGetDiagnostic:  function(_) { return ""; }
+    };
+
+    // ── SCORM 2004 API ────────────────────────────────────────────────────────
+    window.API_1484_11 = {
+      Initialize:       function(_) { return "true"; },
+      Terminate:        function(_) { return "true"; },
+      GetValue:         function(e) { return getValue(e); },
+      SetValue:         function(e, v) { return setValue(e, v); },
+      Commit:           function(_) { return "true"; },
+      GetLastError:     function()  { return "0"; },
+      GetErrorString:   function(_) { return ""; },
+      GetDiagnostic:    function(_) { return ""; }
+    };
+
+    // ── Load content ──────────────────────────────────────────────────────────
+    var params = new URLSearchParams(location.search);
+    var url = params.get("url");
+
+    if (url) {
+      document.getElementById("frame").src = url;
+    } else {
+      var err = document.getElementById("error");
+      err.style.display = "flex";
+    }
+  </script>
+</body>
+</html>

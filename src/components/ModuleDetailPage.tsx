@@ -312,13 +312,14 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
 }
 
 function ScormLesson({ url, onComplete }: { url: string; onComplete: () => void }) {
+  const playerUrl = `/scorm-player.html?url=${encodeURIComponent(url)}`;
   return (
     <div className="space-y-3">
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: 560 }}>
-        <iframe src={url} className="h-full w-full border-0" allow="fullscreen" title="SCORM Content" />
+        <iframe src={playerUrl} className="h-full w-full border-0" allow="fullscreen" title="SCORM Content" />
       </div>
       <div className="flex items-center justify-between">
-        <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
+        <a href={playerUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
           <ExternalLink className="h-3.5 w-3.5" /> Open in new tab
         </a>
         <button onClick={onComplete} className="btn-secondary py-1.5 px-3 text-xs">
