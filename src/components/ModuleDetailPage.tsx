@@ -21,6 +21,7 @@ type Lesson = {
 type Topic = {
   id: string;
   title: string;
+  description: string | null;
   order: number;
   lessons: Lesson[];
 };
@@ -385,7 +386,12 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-[#1a73e8] mb-1">{module.category}</p>
           <h1 className="text-2xl font-bold text-gray-900">{module.title}</h1>
-          <p className="text-sm text-gray-500 mt-1">{module.description}</p>
+          {module.description && (
+            <div
+              className="mt-1 text-sm text-gray-500 prose prose-sm max-w-none prose-a:text-[#1a73e8]"
+              dangerouslySetInnerHTML={{ __html: module.description }}
+            />
+          )}
         </div>
       </div>
 
@@ -401,10 +407,16 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
               <div className="space-y-4">
                 {topics.map((topic) => (
                   <div key={topic.id}>
-                    <div className="flex items-center gap-1.5 mb-1.5">
+                    <div className="flex items-center gap-1.5 mb-1">
                       <FolderOpen className="h-3.5 w-3.5 flex-shrink-0 text-[#1a73e8]" />
                       <p className="text-xs font-semibold text-gray-700 truncate">{topic.title}</p>
                     </div>
+                    {topic.description && (
+                      <div
+                        className="mb-1.5 pl-5 text-xs text-gray-400 line-clamp-2 prose prose-xs max-w-none [&_img]:hidden [&_a]:text-gray-400"
+                        dangerouslySetInnerHTML={{ __html: topic.description }}
+                      />
+                    )}
                     <div className="space-y-1 pl-1">
                       {topic.lessons.map((lesson) => (
                         <LessonNavButton

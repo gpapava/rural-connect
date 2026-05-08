@@ -26,6 +26,7 @@ type Lesson = {
 type Topic = {
   id: string;
   title: string;
+  description: string | null;
   order: number;
   lessons: Lesson[];
 };
@@ -311,9 +312,11 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
   // topic state
   const [addingTopic, setAddingTopic] = useState(false);
   const [newTopicTitle, setNewTopicTitle] = useState("");
+  const [newTopicDescription, setNewTopicDescription] = useState("");
   const [savingTopic, setSavingTopic] = useState(false);
   const [editingTopicId, setEditingTopicId] = useState<string | null>(null);
   const [editingTopicTitle, setEditingTopicTitle] = useState("");
+  const [editingTopicDescription, setEditingTopicDescription] = useState("");
   const [deletingTopicId, setDeletingTopicId] = useState<string | null>(null);
 
   // lesson state
@@ -346,28 +349,33 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
     const res = await fetch(`/api/admin/courses/${course.id}/topics`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: newTopicTitle }),
+      body: JSON.stringify({ title: newTopicTitle, description: newTopicDescription || null }),
     });
     if (res.ok) {
       const { topic } = await res.json();
       setCourse((c) => ({ ...c, topics: [...c.topics, topic] }));
       setNewTopicTitle("");
+      setNewTopicDescription("");
       setAddingTopic(false);
     }
     setSavingTopic(false);
   };
 
-  const renameTopic = async (topicId: string) => {
+  const saveTopic = async (topicId: string) => {
     if (!editingTopicTitle.trim()) return;
     const res = await fetch(`/api/admin/courses/${course.id}/topics/${topicId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: editingTopicTitle }),
+      body: JSON.stringify({ title: editingTopicTitle, description: editingTopicDescription || null }),
     });
     if (res.ok) {
       setCourse((c) => ({
         ...c,
-        topics: c.topics.map((t) => (t.id === topicId ? { ...t, title: editingTopicTitle } : t)),
+        topics: c.topics.map((t) =>
+          t.id === topicId
+            ? { ...t, title: editingTopicTitle, description: editingTopicDescription || null }
+            : t
+        ),
       }));
       setEditingTopicId(null);
     }
@@ -486,13 +494,14 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
             placeholder="Course title"
             className="input w-full"
           />
-          <textarea
-            value={courseForm.description}
-            onChange={(e) => setCourseForm((f) => ({ ...f, description: e.target.value }))}
-            placeholder="Description"
-            rows={3}
-            className="input w-full resize-none"
-          />
+          <div>
+            <label className="mb-1.5 block text-xs font-medium text-gray-700">Description</label>
+            <RichTextEditor
+              content={courseForm.description}
+              onChange={(html) => setCourseForm((f) => ({ ...f, description: html }))}
+              placeholder="Add a course description…"
+            />
+          </div>
           <div className="grid grid-cols-2 gap-3">
             <input value={courseForm.category} onChange={(e) => setCourseForm((f) => ({ ...f, category: e.target.value }))} placeholder="Category" className="input" />
             <input value={courseForm.duration} onChange={(e) => setCourseForm((f) => ({ ...f, duration: e.target.value }))} placeholder="Duration (minutes)" type="number" className="input" />
@@ -522,32 +531,51 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
         )}
 
         <div className="space-y-2">
-          {course.topics.map((topic, i) => (
-            <div key={topic.id} className="flex items-center gap-3 rounded-lg border border-gray-100 bg-gray-50 p-3">
-              <FolderOpen className="h-4 w-4 flex-shrink-0 text-[#1a73e8]" />
+          {course.topics.map((topic) => (
+            <div key={topic.id} className="rounded-lg border border-gray-100 bg-gray-50">
               {editingTopicId === topic.id ? (
-                <input
-                  autoFocus
-                  value={editingTopicTitle}
-                  onChange={(e) => setEditingTopicTitle(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter") renameTopic(topic.id); if (e.key === "Escape") setEditingTopicId(null); }}
-                  className="input flex-1 py-1 text-sm"
-                />
-              ) : (
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-gray-800">{topic.title}</p>
-                  <p className="text-xs text-gray-400">{topic.lessons.length} lesson{topic.lessons.length !== 1 ? "s" : ""}</p>
-                </div>
-              )}
-              <div className="flex gap-1.5 flex-shrink-0">
-                {editingTopicId === topic.id ? (
-                  <>
-                    <button onClick={() => renameTopic(topic.id)} className="btn-primary py-1 px-2 text-xs">Save</button>
+                <div className="p-3 space-y-3">
+                  <input
+                    autoFocus
+                    value={editingTopicTitle}
+                    onChange={(e) => setEditingTopicTitle(e.target.value)}
+                    placeholder="Topic title *"
+                    className="input w-full py-1 text-sm"
+                  />
+                  <div>
+                    <label className="mb-1.5 block text-xs font-medium text-gray-500">Description (optional)</label>
+                    <RichTextEditor
+                      content={editingTopicDescription}
+                      onChange={setEditingTopicDescription}
+                      placeholder="Add a topic description…"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button onClick={() => saveTopic(topic.id)} disabled={savingTopic} className="btn-primary py-1 px-3 text-xs">
+                      {savingTopic ? "Saving…" : "Save"}
+                    </button>
                     <button onClick={() => setEditingTopicId(null)} className="btn-secondary py-1 px-2 text-xs"><X className="h-3.5 w-3.5" /></button>
-                  </>
-                ) : (
-                  <>
-                    <button onClick={() => { setEditingTopicId(topic.id); setEditingTopicTitle(topic.title); }} className="btn-secondary py-1 px-2 text-xs" title="Rename">
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-start gap-3 p-3">
+                  <FolderOpen className="h-4 w-4 flex-shrink-0 text-[#1a73e8] mt-0.5" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-gray-800">{topic.title}</p>
+                    <p className="text-xs text-gray-400">{topic.lessons.length} lesson{topic.lessons.length !== 1 ? "s" : ""}</p>
+                    {topic.description && (
+                      <div
+                        className="mt-1.5 text-xs text-gray-500 prose prose-xs max-w-none line-clamp-2 [&_img]:hidden"
+                        dangerouslySetInnerHTML={{ __html: topic.description }}
+                      />
+                    )}
+                  </div>
+                  <div className="flex gap-1.5 flex-shrink-0">
+                    <button
+                      onClick={() => { setEditingTopicId(topic.id); setEditingTopicTitle(topic.title); setEditingTopicDescription(topic.description ?? ""); }}
+                      className="btn-secondary py-1 px-2 text-xs"
+                      title="Edit"
+                    >
                       <Pencil className="h-3.5 w-3.5" />
                     </button>
                     <button
@@ -558,29 +586,38 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </button>
-                  </>
-                )}
-              </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
 
         {addingTopic && (
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 space-y-3 rounded-xl border border-[#1a73e8]/20 bg-blue-50 p-4">
             <input
               autoFocus
               value={newTopicTitle}
               onChange={(e) => setNewTopicTitle(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter") createTopic(); if (e.key === "Escape") setAddingTopic(false); }}
               placeholder="Topic title *"
-              className="input flex-1"
+              className="input w-full"
             />
-            <button onClick={createTopic} disabled={savingTopic} className="btn-primary px-3 text-xs">
-              {savingTopic ? "Saving…" : "Save"}
-            </button>
-            <button onClick={() => setAddingTopic(false)} className="btn-secondary px-3 text-xs">
-              <X className="h-4 w-4" />
-            </button>
+            <div>
+              <label className="mb-1.5 block text-xs font-medium text-gray-700">Description (optional)</label>
+              <RichTextEditor
+                content={newTopicDescription}
+                onChange={setNewTopicDescription}
+                placeholder="Add a topic description…"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button onClick={createTopic} disabled={savingTopic} className="btn-primary px-3 text-xs py-1.5">
+                {savingTopic ? "Saving…" : "Save Topic"}
+              </button>
+              <button onClick={() => { setAddingTopic(false); setNewTopicTitle(""); setNewTopicDescription(""); }} className="btn-secondary px-3 text-xs py-1.5">
+                <X className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         )}
       </div>

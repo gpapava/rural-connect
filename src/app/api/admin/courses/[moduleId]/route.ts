@@ -16,9 +16,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { module
   const module = await prisma.module.update({
     where: { id: params.moduleId },
     data: {
-      ...(title && { title: title.trim() }),
-      ...(description && { description: description.trim() }),
-      ...(category && { category: category.trim() }),
+      ...(title ? { title: title.trim() } : {}),
+      ...(description !== undefined ? { description } : {}),
+      ...(category ? { category: category.trim() } : {}),
       duration: duration ? parseInt(duration) : null,
     },
   });

@@ -14,12 +14,15 @@ export async function PATCH(
 ) {
   if (!await requireAdmin()) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { title } = await request.json();
+  const { title, description } = await request.json();
   if (!title?.trim()) return NextResponse.json({ error: "title required" }, { status: 400 });
 
   const topic = await prisma.topic.update({
     where: { id: params.topicId },
-    data: { title: title.trim() },
+    data: {
+      title: title.trim(),
+      ...(description !== undefined ? { description } : {}),
+    },
   });
 
   return NextResponse.json({ topic });
