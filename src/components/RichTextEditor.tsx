@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
@@ -12,7 +13,7 @@ import {
   Bold, Italic, UnderlineIcon, Strikethrough,
   List, ListOrdered, Link as LinkIcon,
   AlignLeft, AlignCenter, AlignRight, Heading2, Heading3,
-  Image as ImageIcon, Video,
+  Image as ImageIcon, Video, Code2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -23,6 +24,9 @@ interface Props {
 }
 
 export default function RichTextEditor({ content, onChange, placeholder = "Write lesson content…" }: Props) {
+  const [showSource, setShowSource] = useState(false);
+  const [sourceHtml, setSourceHtml] = useState("");
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -53,6 +57,17 @@ export default function RichTextEditor({ content, onChange, placeholder = "Write
   const insertImage = () => {
     const url = window.prompt("Image URL:");
     if (url?.trim()) editor.chain().focus().setImage({ src: url.trim() }).run();
+  };
+
+  const toggleSource = () => {
+    if (showSource) {
+      editor.commands.setContent(sourceHtml);
+      onChange(editor.getHTML());
+      setShowSource(false);
+    } else {
+      setSourceHtml(editor.getHTML());
+      setShowSource(true);
+    }
   };
 
   const insertVideo = () => {
@@ -139,8 +154,41 @@ export default function RichTextEditor({ content, onChange, placeholder = "Write
         <ToolbarBtn onClick={insertVideo} title="Embed YouTube / Vimeo video">
           <Video className="h-4 w-4" />
         </ToolbarBtn>
+        <Divider />
+        <ToolbarBtn onClick={toggleSource} active={showSource} title="Edit HTML source">
+          <Code2 className="h-4 w-4" />
+        </ToolbarBtn>
       </div>
-      <EditorContent editor={editor} />
+      {showSource ? (
+        <div className="flex flex-col">
+          <textarea
+            value={sourceHtml}
+            onChange={(e) => setSourceHtml(e.target.value)}
+            className="w-full resize-y px-4 py-3 font-mono text-xs text-gray-800 focus:outline-none"
+            style={{ minHeight: 200 }}
+            spellCheck={false}
+          />
+          <div className="flex items-center gap-2 border-t border-gray-200 bg-gray-50 px-3 py-2">
+            <button
+              type="button"
+              onMouseDown={(e) => { e.preventDefault(); toggleSource(); }}
+              className="rounded-lg bg-[#1a73e8] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#1557b0] transition-colors"
+            >
+              Apply HTML
+            </button>
+            <button
+              type="button"
+              onMouseDown={(e) => { e.preventDefault(); setShowSource(false); }}
+              className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100 transition-colors"
+            >
+              Cancel
+            </button>
+            <span className="ml-auto text-xs text-gray-400">Raw HTML editor</span>
+          </div>
+        </div>
+      ) : (
+        <EditorContent editor={editor} />
+      )}
     </div>
   );
 }
