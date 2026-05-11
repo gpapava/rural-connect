@@ -4,8 +4,9 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft, Plus, Trash2, Save,
-  FileText, BookOpen, HelpCircle, Video, GripVertical, Package, ExternalLink,
+  FileText, BookOpen, HelpCircle, Video, Package, ExternalLink,
   UploadCloud, CheckCircle, Loader2, FolderOpen, Pencil, X,
+  ChevronUp, ChevronDown,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import QuizBuilder from "./QuizBuilder";
@@ -19,6 +20,7 @@ type Lesson = {
   title: string;
   type: LessonType;
   content: string;
+  description: string | null;
   order: number;
   topicId: string | null;
 };
@@ -210,7 +212,7 @@ function LessonForm({
   submitLabel,
   error,
 }: {
-  form: { title: string; type: LessonType; content: string; topicId: string | null };
+  form: { title: string; type: LessonType; content: string; topicId: string | null; description: string };
   topics: Topic[];
   lockedTopicId?: string | null;
   onChange: (patch: Partial<typeof form>) => void;
@@ -220,6 +222,7 @@ function LessonForm({
   submitLabel: string;
   error?: string;
 }) {
+  const showDescription = ["PDF", "VIDEO", "QUIZ"].includes(form.type);
   return (
     <div className="rounded-xl border border-[#1a73e8]/20 bg-blue-50 p-4 space-y-4">
       <input
@@ -252,6 +255,18 @@ function LessonForm({
         <label className="mb-1.5 block text-xs font-medium text-gray-700">Content</label>
         <LessonContentEditor type={form.type} content={form.content} onChange={(v) => onChange({ content: v })} />
       </div>
+      {showDescription && (
+        <div>
+          <label className="mb-1.5 block text-xs font-medium text-gray-700">
+            Description <span className="text-gray-400">(optional — shown above the content)</span>
+          </label>
+          <RichTextEditor
+            content={form.description}
+            onChange={(html) => onChange({ description: html })}
+            placeholder="Add a description for this lesson…"
+          />
+        </div>
+      )}
       {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">{error}</p>}
       <div className="flex gap-2">
         <button onClick={onSubmit} disabled={saving} className="btn-primary text-xs py-1.5 px-3">
@@ -269,15 +284,36 @@ function LessonRow({
   onEdit,
   onDelete,
   deleting,
+  onMoveUp,
+  onMoveDown,
 }: {
   lesson: Lesson;
   onEdit: () => void;
   onDelete: () => void;
   deleting: boolean;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
 }) {
   return (
     <div className="flex items-center gap-3 rounded-lg border border-gray-100 bg-gray-50 p-3">
-      <GripVertical className="h-4 w-4 flex-shrink-0 text-gray-300" />
+      <div className="flex flex-col gap-0.5 flex-shrink-0">
+        <button
+          onClick={onMoveUp}
+          disabled={!onMoveUp}
+          className="rounded p-0.5 text-gray-300 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
+          title="Move up"
+        >
+          <ChevronUp className="h-3.5 w-3.5" />
+        </button>
+        <button
+          onClick={onMoveDown}
+          disabled={!onMoveDown}
+          className="rounded p-0.5 text-gray-300 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
+          title="Move down"
+        >
+          <ChevronDown className="h-3.5 w-3.5" />
+        </button>
+      </div>
       <span className="text-gray-400 flex-shrink-0">{TYPE_ICONS[lesson.type]}</span>
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium text-gray-800 truncate">{lesson.title}</p>
@@ -322,10 +358,10 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
   const [deletingTopicId, setDeletingTopicId] = useState<string | null>(null);
 
   // lesson state
-  type LessonFormData = { title: string; type: LessonType; content: string; topicId: string | null };
+  type LessonFormData = { title: string; type: LessonType; content: string; topicId: string | null; description: string };
   // lessonFormContext: false=closed, null=add unassigned, string=add to topic
   const [lessonFormContext, setLessonFormContext] = useState<string | null | false>(false);
-  const [lessonForm, setLessonForm] = useState<LessonFormData>({ title: "", type: "TEXT", content: "", topicId: null });
+  const [lessonForm, setLessonForm] = useState<LessonFormData>({ title: "", type: "TEXT", content: "", topicId: null, description: "" });
   const [savingLesson, setSavingLesson] = useState(false);
   const [lessonError, setLessonError] = useState("");
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -402,7 +438,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
   const openAddLesson = (topicId: string | null) => {
     setLessonError("");
     setLessonFormContext(topicId ?? null);
-    setLessonForm({ title: "", type: "TEXT", content: "", topicId: topicId ?? null });
+    setLessonForm({ title: "", type: "TEXT", content: "", topicId: topicId ?? null, description: "" });
     setEditingLesson(null);
   };
 
@@ -422,7 +458,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
       if (res.ok) {
         const { lesson } = await res.json();
         setCourse((c) => addLessonToModule(c, lesson));
-        setLessonForm({ title: "", type: "TEXT", content: "", topicId: null });
+        setLessonForm({ title: "", type: "TEXT", content: "", topicId: null, description: "" });
         setLessonFormContext(false);
       } else {
         const data = await res.json().catch(() => ({}));
@@ -448,6 +484,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
           type: editingLesson.type,
           content: editingLesson.content,
           topicId: editingLesson.topicId,
+          description: editingLesson.description,
         }),
       });
       if (res.ok) {
@@ -471,6 +508,47 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
     await fetch(`/api/admin/courses/${course.id}/lessons/${id}`, { method: "DELETE" });
     setCourse((c) => removeLessonFromModule(c, id));
     setDeletingId(null);
+  };
+
+  const moveLesson = async (lessonId: string, topicId: string | null, direction: "up" | "down") => {
+    const list = topicId ? course.topics.find((t) => t.id === topicId)?.lessons ?? [] : course.lessons;
+    const idx = list.findIndex((l) => l.id === lessonId);
+    const targetIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (idx < 0 || targetIdx < 0 || targetIdx >= list.length) return;
+
+    const a = list[idx];
+    const b = list[targetIdx];
+
+    const swap = (arr: Lesson[]) => {
+      const next = [...arr];
+      const i = next.findIndex((l) => l.id === lessonId);
+      const ti = direction === "up" ? i - 1 : i + 1;
+      if (i < 0 || ti < 0 || ti >= next.length) return arr;
+      const aOrder = next[i].order;
+      next[i] = { ...next[i], order: next[ti].order };
+      next[ti] = { ...next[ti], order: aOrder };
+      return next.sort((x, y) => x.order - y.order);
+    };
+
+    setCourse((c) => {
+      if (topicId) {
+        return { ...c, topics: c.topics.map((t) => t.id === topicId ? { ...t, lessons: swap(t.lessons) } : t) };
+      }
+      return { ...c, lessons: swap(c.lessons) };
+    });
+
+    await Promise.all([
+      fetch(`/api/admin/courses/${course.id}/lessons/${a.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ order: b.order }),
+      }),
+      fetch(`/api/admin/courses/${course.id}/lessons/${b.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ order: a.order }),
+      }),
+    ]);
   };
 
   const startEditLesson = (lesson: Lesson) => {
@@ -713,11 +791,11 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
             )}
 
             <div className="space-y-2">
-              {topic.lessons.map((lesson) => (
+              {topic.lessons.map((lesson, idx) => (
                 <div key={lesson.id}>
                   {editingLesson?.id === lesson.id ? (
                     <LessonForm
-                      form={{ title: editingLesson.title, type: editingLesson.type, content: editingLesson.content, topicId: editingLesson.topicId }}
+                      form={{ title: editingLesson.title, type: editingLesson.type, content: editingLesson.content, topicId: editingLesson.topicId, description: editingLesson.description ?? "" }}
                       topics={course.topics}
                       onChange={(patch) => setEditingLesson((l) => l && ({ ...l, ...patch }))}
                       onSubmit={saveLesson}
@@ -732,6 +810,8 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                       onEdit={() => startEditLesson(lesson)}
                       onDelete={() => deleteLesson(lesson.id)}
                       deleting={deletingId === lesson.id}
+                      onMoveUp={idx > 0 ? () => moveLesson(lesson.id, topic.id, "up") : undefined}
+                      onMoveDown={idx < topic.lessons.length - 1 ? () => moveLesson(lesson.id, topic.id, "down") : undefined}
                     />
                   )}
                 </div>
@@ -750,11 +830,11 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
               </div>
             )}
             <div className="space-y-2">
-              {course.lessons.map((lesson) => (
+              {course.lessons.map((lesson, idx) => (
                 <div key={lesson.id}>
                   {editingLesson?.id === lesson.id ? (
                     <LessonForm
-                      form={{ title: editingLesson.title, type: editingLesson.type, content: editingLesson.content, topicId: editingLesson.topicId }}
+                      form={{ title: editingLesson.title, type: editingLesson.type, content: editingLesson.content, topicId: editingLesson.topicId, description: editingLesson.description ?? "" }}
                       topics={course.topics}
                       onChange={(patch) => setEditingLesson((l) => l && ({ ...l, ...patch }))}
                       onSubmit={saveLesson}
@@ -769,6 +849,8 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                       onEdit={() => startEditLesson(lesson)}
                       onDelete={() => deleteLesson(lesson.id)}
                       deleting={deletingId === lesson.id}
+                      onMoveUp={idx > 0 ? () => moveLesson(lesson.id, null, "up") : undefined}
+                      onMoveDown={idx < course.lessons.length - 1 ? () => moveLesson(lesson.id, null, "down") : undefined}
                     />
                   )}
                 </div>

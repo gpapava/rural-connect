@@ -15,6 +15,7 @@ type Lesson = {
   title: string;
   type: LessonType;
   content: string;
+  description: string | null;
   order: number;
 };
 
@@ -467,12 +468,18 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
           <div className="rounded-xl border border-gray-200 bg-white p-6">
             <div className="mb-5">
               {activeTopic && (
-                <p className="mb-1 text-sm font-semibold text-[#1a73e8]">{activeTopic.title}</p>
+                <p className="mb-1 text-lg font-bold text-[#1a73e8]">{activeTopic.title}</p>
               )}
               <p className="text-xs text-gray-400 uppercase tracking-wide">{LESSON_LABEL[activeLesson.type]}</p>
               <h2 className="text-lg font-semibold text-gray-900">{activeLesson.title}</h2>
             </div>
 
+            {activeLesson.description && ["PDF", "VIDEO", "QUIZ"].includes(activeLesson.type) && (
+              <div
+                className="mb-4 prose prose-sm max-w-none text-gray-600 prose-a:text-[#1a73e8]"
+                dangerouslySetInnerHTML={{ __html: activeLesson.description }}
+              />
+            )}
             {activeLesson.type === "TEXT" && <TextLesson content={activeLesson.content} />}
             {activeLesson.type === "PDF" && <PdfLesson url={activeLesson.content} />}
             {activeLesson.type === "VIDEO" && <VideoLesson url={activeLesson.content} />}

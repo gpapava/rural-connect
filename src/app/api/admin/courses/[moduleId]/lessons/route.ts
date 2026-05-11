@@ -23,7 +23,7 @@ export async function GET(_: NextRequest, { params }: { params: { moduleId: stri
 export async function POST(request: NextRequest, { params }: { params: { moduleId: string } }) {
   if (!await requireAdmin()) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { title, type, content, topicId } = await request.json();
+  const { title, type, content, topicId, description } = await request.json();
   if (!title?.trim() || !type || !content?.trim()) {
     return NextResponse.json({ error: "title, type and content required" }, { status: 400 });
   }
@@ -40,6 +40,7 @@ export async function POST(request: NextRequest, { params }: { params: { moduleI
       title: title.trim(),
       type: type as LessonType,
       content: content.trim(),
+      description: description?.trim() || null,
       order: (last?.order ?? 0) + 1,
     },
   });

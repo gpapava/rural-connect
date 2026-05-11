@@ -177,14 +177,15 @@ model Topic {
 }
 
 model ModuleLesson {
-  id        String     @id @default(cuid())
-  moduleId  String
-  topicId   String?
-  title     String
-  type      LessonType
-  content   String     @db.Text
-  order     Int        @default(0)
-  createdAt DateTime   @default(now())
+  id          String     @id @default(cuid())
+  moduleId    String
+  topicId     String?
+  title       String
+  type        LessonType
+  content     String     @db.Text
+  description String?    @db.Text
+  order       Int        @default(0)
+  createdAt   DateTime   @default(now())
 
   module    Module     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   topic     Topic?     @relation(fields: [topicId], references: [id], onDelete: SetNull)
