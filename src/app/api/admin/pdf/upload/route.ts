@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import path from "path";
 import fs from "fs";
+import { getUploadsDir } from "@/lib/uploads";
 
 export async function POST(request: NextRequest) {
   const session = await auth();
@@ -26,11 +27,11 @@ export async function POST(request: NextRequest) {
     .toLowerCase();
   const fileName = `${safeName}-${Date.now()}.pdf`;
 
-  const pdfsDir = path.join(process.cwd(), "public", "pdfs");
+  const pdfsDir = path.join(getUploadsDir(), "pdfs");
   fs.mkdirSync(pdfsDir, { recursive: true });
 
   const buffer = Buffer.from(await file.arrayBuffer());
   fs.writeFileSync(path.join(pdfsDir, fileName), buffer);
 
-  return NextResponse.json({ url: `/pdfs/${fileName}` });
+  return NextResponse.json({ url: `/api/uploads/pdfs/${fileName}` });
 }

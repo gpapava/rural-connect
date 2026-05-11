@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import AdmZip from "adm-zip";
 import path from "path";
 import fs from "fs";
+import { getUploadsDir } from "@/lib/uploads";
 
 // Detect the SCORM launch file from imsmanifest.xml
 function detectEntryPoint(zip: AdmZip, folderName: string): string | null {
@@ -62,7 +63,7 @@ export async function POST(request: NextRequest) {
   const baseName = file.name.replace(/\.zip$/i, "").replace(/[^a-z0-9_-]/gi, "-").toLowerCase();
   const folderName = `${baseName}-${Date.now()}`;
 
-  const scormRoot = path.join(process.cwd(), "public", "scorm", folderName);
+  const scormRoot = path.join(getUploadsDir(), "scorm", folderName);
   fs.mkdirSync(scormRoot, { recursive: true });
 
   try {
@@ -99,7 +100,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Could not detect SCORM entry point. Make sure the zip contains imsmanifest.xml." }, { status: 400 });
     }
 
-    const launchUrl = `/scorm/${folderName}/${entryPoint}`;
+    const launchUrl = `/api/uploads/scorm/${folderName}/${entryPoint}`;
 
     return NextResponse.json({ launchUrl, folderName });
   } catch (err) {

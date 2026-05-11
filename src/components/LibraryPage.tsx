@@ -227,7 +227,7 @@ export default function LibraryPage({ modules, locale }: LibraryPageProps) {
 
               {/* Featured image or fallback icon */}
               {module.imageUrl ? (
-                <div className="mb-4 h-28 w-full overflow-hidden rounded-xl">
+                <div className="mb-4 h-40 w-full overflow-hidden rounded-xl">
                   <img
                     src={module.imageUrl}
                     alt={module.title}
