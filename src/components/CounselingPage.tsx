@@ -23,6 +23,14 @@ type MessageWithSender = {
   sender: { id: string; name: string; role: UserRole };
 };
 
+type SharedFile = {
+  id: string;
+  fileName: string;
+  fileUrl: string;
+  createdAt: Date;
+  uploadedBy: { id: string; name: string };
+};
+
 type SessionData = {
   id: string;
   status: string;
@@ -32,13 +40,7 @@ type SessionData = {
   neetUser: { id: string; name: string; email: string; role: UserRole };
   counselor: { id: string; name: string; email: string; role: UserRole };
   messages: MessageWithSender[];
-  sharedFiles: {
-    id: string;
-    fileName: string;
-    fileUrl: string;
-    createdAt: Date;
-    uploadedBy: { id: string; name: string };
-  }[];
+  sharedFiles: SharedFile[];
 } | null;
 
 interface CounselingPageProps {
@@ -64,9 +66,13 @@ export default function CounselingPage({
   const [savingNotes, setSavingNotes] = useState(false);
   const [typingUser, setTypingUser] = useState<string | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
+  const [sharedFiles, setSharedFiles] = useState<SharedFile[]>(session?.sharedFiles ?? []);
+  const [uploadingFile, setUploadingFile] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isTypingRef = useRef(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -194,6 +200,33 @@ export default function CounselingPage({
     }
   };
 
+  const uploadFile = async (file: File) => {
+    if (!session) return;
+    setUploadingFile(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch(`/api/sessions/${session.id}/files`, {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        const { file: uploaded } = await res.json();
+        setSharedFiles((prev) => [...prev, uploaded]);
+      }
+    } catch {
+      // handle silently
+    } finally {
+      setUploadingFile(false);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) uploadFile(file);
+    e.target.value = "";
+  };
+
   if (!session) {
     return (
       <div className="flex h-[calc(100vh-8rem)] flex-col items-center justify-center">
@@ -241,6 +274,14 @@ export default function CounselingPage({
 
   return (
     <div className="mx-auto max-w-7xl">
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
@@ -266,113 +307,10 @@ export default function CounselingPage({
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Chat panel */}
-        <div className="flex flex-col rounded-xl border border-gray-200 bg-white shadow-sm lg:col-span-2">
-          {/* Chat header */}
-          <div className="flex items-center gap-3 border-b border-gray-100 px-4 py-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1a73e8]/10 text-sm font-bold text-[#1a73e8]">
-              {getInitials(otherUser.name)}
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-gray-900">
-                {otherUser.name}
-              </p>
-              <p className="text-xs text-gray-500 capitalize">
-                {otherUser.role.toLowerCase().replace("_", " ")}
-              </p>
-            </div>
-            <div className="ml-auto flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-green-500" />
-              <span className="text-xs text-gray-500">Online</span>
-            </div>
-          </div>
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-[300px] max-h-[400px]">
-            {messages.length === 0 ? (
-              <div className="flex h-full items-center justify-center">
-                <p className="text-sm text-gray-400">{t("chat.noMessages")}</p>
-              </div>
-            ) : (
-              messages.map((msg) => {
-                const isSelf = msg.sender.id === currentUser.id;
-                return (
-                  <div
-                    key={msg.id}
-                    className={cn(
-                      "flex gap-2",
-                      isSelf ? "flex-row-reverse" : "flex-row"
-                    )}
-                  >
-                    {!isSelf && (
-                      <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gray-200 text-xs font-semibold text-gray-600">
-                        {getInitials(msg.sender.name)}
-                      </div>
-                    )}
-                    <div className="max-w-[70%]">
-                      {!isSelf && (
-                        <p className="mb-1 text-xs font-medium text-gray-500">
-                          {msg.sender.name}
-                        </p>
-                      )}
-                      <div
-                        className={
-                          isSelf ? "chat-bubble-self" : "chat-bubble-other"
-                        }
-                      >
-                        {msg.content}
-                      </div>
-                      <p
-                        className={cn(
-                          "mt-1 text-xs text-gray-400",
-                          isSelf ? "text-right" : "text-left"
-                        )}
-                      >
-                        {new Date(msg.createdAt).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })
-            )}
-            {typingUser && (
-              <p className="text-xs text-gray-400 italic">{typingUser} is typing…</p>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Message input */}
-          <div className="border-t border-gray-100 p-4">
-            <div className="flex items-end gap-2">
-              <button className="flex-shrink-0 rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
-                <Paperclip className="h-4 w-4" />
-              </button>
-              <textarea
-                value={messageInput}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                placeholder={t("chat.placeholder")}
-                rows={2}
-                className="flex-1 resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
-              />
-              <button
-                onClick={sendMessage}
-                disabled={!messageInput.trim() || sending}
-                className="flex-shrink-0 rounded-lg bg-[#1a73e8] p-2 text-white transition-colors hover:bg-[#1558b0] disabled:opacity-50"
-              >
-                <Send className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Right panel */}
-        <div className="space-y-4">
-          {/* Video call */}
-          <div className="card">
+        {/* ── Video call — left, 2/3 width ── */}
+        <div className="lg:col-span-2">
+          <div className="card h-full flex flex-col">
             <div className="mb-3 flex items-center justify-between">
               <h3 className="text-sm font-semibold text-gray-900">
                 {t("video.title")}
@@ -388,19 +326,20 @@ export default function CounselingPage({
             </div>
 
             {videoOpen ? (
-              <div className="overflow-hidden rounded-xl bg-gray-900" style={{ height: 320 }}>
+              <div className="flex-1 overflow-hidden rounded-xl bg-gray-900" style={{ minHeight: 480 }}>
                 <iframe
                   src={`https://meet.jit.si/ruralconnect-${session.id}`}
                   allow="camera; microphone; fullscreen; display-capture"
                   className="h-full w-full border-0"
+                  style={{ minHeight: 480 }}
                 />
               </div>
             ) : (
-              <>
-                <div className="flex h-36 items-center justify-center rounded-xl bg-gray-900">
+              <div className="flex flex-1 flex-col">
+                <div className="flex flex-1 items-center justify-center rounded-xl bg-gray-900" style={{ minHeight: 380 }}>
                   <div className="text-center text-white">
-                    <VideoOff className="mx-auto mb-2 h-8 w-8 opacity-50" />
-                    <p className="text-xs opacity-50">{t("video.notStarted")}</p>
+                    <VideoOff className="mx-auto mb-3 h-12 w-12 opacity-40" />
+                    <p className="text-sm opacity-50">{t("video.notStarted")}</p>
                   </div>
                 </div>
                 <button
@@ -410,8 +349,105 @@ export default function CounselingPage({
                   <Video className="h-4 w-4" />
                   {t("video.join")}
                 </button>
-              </>
+              </div>
             )}
+          </div>
+        </div>
+
+        {/* ── Right column: chat + notes + files ── */}
+        <div className="space-y-4">
+
+          {/* Chat */}
+          <div className="flex flex-col rounded-xl border border-gray-200 bg-white shadow-sm">
+            {/* Chat header */}
+            <div className="flex items-center gap-3 border-b border-gray-100 px-4 py-3">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#1a73e8]/10 text-xs font-bold text-[#1a73e8]">
+                {getInitials(otherUser.name)}
+              </div>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-gray-900">
+                  {otherUser.name}
+                </p>
+                <p className="text-xs text-gray-500 capitalize">
+                  {otherUser.role.toLowerCase().replace("_", " ")}
+                </p>
+              </div>
+              <div className="ml-auto flex flex-shrink-0 items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="text-xs text-gray-500">Online</span>
+              </div>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-3 space-y-3 min-h-[220px] max-h-[320px]">
+              {messages.length === 0 ? (
+                <div className="flex h-full items-center justify-center">
+                  <p className="text-xs text-gray-400">{t("chat.noMessages")}</p>
+                </div>
+              ) : (
+                messages.map((msg) => {
+                  const isSelf = msg.sender.id === currentUser.id;
+                  return (
+                    <div
+                      key={msg.id}
+                      className={cn("flex gap-2", isSelf ? "flex-row-reverse" : "flex-row")}
+                    >
+                      {!isSelf && (
+                        <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gray-200 text-xs font-semibold text-gray-600">
+                          {getInitials(msg.sender.name)}
+                        </div>
+                      )}
+                      <div className="max-w-[80%]">
+                        {!isSelf && (
+                          <p className="mb-0.5 text-xs font-medium text-gray-500">
+                            {msg.sender.name}
+                          </p>
+                        )}
+                        <div className={isSelf ? "chat-bubble-self" : "chat-bubble-other"}>
+                          {msg.content}
+                        </div>
+                        <p className={cn("mt-0.5 text-xs text-gray-400", isSelf ? "text-right" : "text-left")}>
+                          {new Date(msg.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+              {typingUser && (
+                <p className="text-xs text-gray-400 italic">{typingUser} is typing…</p>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Message input */}
+            <div className="border-t border-gray-100 p-3">
+              <div className="flex items-end gap-2">
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploadingFile}
+                  title="Attach file"
+                  className="flex-shrink-0 rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 disabled:opacity-50"
+                >
+                  <Paperclip className="h-4 w-4" />
+                </button>
+                <textarea
+                  value={messageInput}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  placeholder={t("chat.placeholder")}
+                  rows={2}
+                  className="flex-1 resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+                />
+                <button
+                  onClick={sendMessage}
+                  disabled={!messageInput.trim() || sending}
+                  className="flex-shrink-0 rounded-lg bg-[#1a73e8] p-1.5 text-white transition-colors hover:bg-[#1558b0] disabled:opacity-50"
+                >
+                  <Send className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Session notes */}
@@ -430,17 +466,17 @@ export default function CounselingPage({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder={t("notes.placeholder")}
-              rows={4}
+              rows={3}
               className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
             />
-            <label className="mt-3 block text-xs font-medium text-gray-700">
+            <label className="mt-2 block text-xs font-medium text-gray-700">
               {t("notes.actionPlan")}
             </label>
             <textarea
               value={actionPlan}
               onChange={(e) => setActionPlan(e.target.value)}
               placeholder={t("notes.actionPlanPlaceholder")}
-              rows={3}
+              rows={2}
               className="mt-1.5 w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
             />
             <button
@@ -459,18 +495,22 @@ export default function CounselingPage({
               <h3 className="text-sm font-semibold text-gray-900">
                 {t("files.title")}
               </h3>
-              <button className="btn-secondary py-1 px-2 text-xs">
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploadingFile}
+                className="btn-secondary py-1 px-2 text-xs disabled:opacity-50"
+              >
                 <Paperclip className="h-3 w-3" />
-                {t("files.upload")}
+                {uploadingFile ? "Uploading…" : t("files.upload")}
               </button>
             </div>
-            {session.sharedFiles.length === 0 ? (
+            {sharedFiles.length === 0 ? (
               <p className="text-center text-xs text-gray-400 py-4">
                 {t("files.noFiles")}
               </p>
             ) : (
               <div className="space-y-2">
-                {session.sharedFiles.map((file) => (
+                {sharedFiles.map((file) => (
                   <div
                     key={file.id}
                     className="flex items-center gap-2 rounded-lg border border-gray-100 bg-gray-50 p-2"
@@ -497,6 +537,7 @@ export default function CounselingPage({
               </div>
             )}
           </div>
+
         </div>
       </div>
     </div>
