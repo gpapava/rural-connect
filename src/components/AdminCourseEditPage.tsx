@@ -37,6 +37,7 @@ type Module = {
   description: string;
   category: string;
   duration: number | null;
+  imageUrl: string | null;
   lessons: Lesson[];  // unassigned lessons (topicId = null)
   topics: Topic[];
 };
@@ -305,6 +306,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
     description: initial.description,
     category: initial.category,
     duration: initial.duration?.toString() ?? "",
+    imageUrl: initial.imageUrl ?? "",
   });
   const [savingCourse, setSavingCourse] = useState(false);
   const [courseSaved, setCourseSaved] = useState(false);
@@ -505,6 +507,23 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
           <div className="grid grid-cols-2 gap-3">
             <input value={courseForm.category} onChange={(e) => setCourseForm((f) => ({ ...f, category: e.target.value }))} placeholder="Category" className="input" />
             <input value={courseForm.duration} onChange={(e) => setCourseForm((f) => ({ ...f, duration: e.target.value }))} placeholder="Duration (minutes)" type="number" className="input" />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-medium text-gray-700">Featured Image URL <span className="text-gray-400">(optional)</span></label>
+            <input
+              value={courseForm.imageUrl}
+              onChange={(e) => setCourseForm((f) => ({ ...f, imageUrl: e.target.value }))}
+              placeholder="https://example.com/image.jpg"
+              className="input w-full"
+            />
+            {courseForm.imageUrl && (
+              <img
+                src={courseForm.imageUrl}
+                alt="Preview"
+                className="mt-2 h-24 w-full rounded-lg object-cover border border-gray-200"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+            )}
           </div>
           <button onClick={saveCourse} disabled={savingCourse} className="btn-primary">
             <Save className="h-4 w-4" />

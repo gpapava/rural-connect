@@ -6,8 +6,8 @@ import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import Placeholder from "@tiptap/extension-placeholder";
-import Image from "@tiptap/extension-image";
 import Youtube from "@tiptap/extension-youtube";
+import { ResizableImage } from "./ResizableImage";
 import {
   Bold, Italic, UnderlineIcon, Strikethrough,
   List, ListOrdered, Link as LinkIcon,
@@ -30,7 +30,7 @@ export default function RichTextEditor({ content, onChange, placeholder = "Write
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Link.configure({ openOnClick: false }),
       Placeholder.configure({ placeholder }),
-      Image.configure({ inline: false, allowBase64: false }),
+      ResizableImage.configure({ inline: false, allowBase64: false }),
       Youtube.configure({ width: 640, height: 360, nocookie: true }),
     ],
     content,

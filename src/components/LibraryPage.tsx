@@ -21,6 +21,7 @@ type ModuleWithProgress = {
   order: number;
   category: string;
   duration: number | null;
+  imageUrl: string | null;
   status: string;
   completedAt: Date | null;
 };
@@ -224,22 +225,32 @@ export default function LibraryPage({ modules, locale }: LibraryPageProps) {
                 {getStatusBadge(module.status)}
               </div>
 
-              {/* Module icon */}
-              <div
-                className={cn(
-                  "mb-4 flex h-12 w-12 items-center justify-center rounded-xl",
-                  catStyle.bg
-                )}
-              >
-                <BookOpen className={cn("h-6 w-6", catStyle.text)} />
-              </div>
+              {/* Featured image or fallback icon */}
+              {module.imageUrl ? (
+                <div className="mb-4 h-28 w-full overflow-hidden rounded-xl">
+                  <img
+                    src={module.imageUrl}
+                    alt={module.title}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div
+                  className={cn(
+                    "mb-4 flex h-12 w-12 items-center justify-center rounded-xl",
+                    catStyle.bg
+                  )}
+                >
+                  <BookOpen className={cn("h-6 w-6", catStyle.text)} />
+                </div>
+              )}
 
               {/* Content */}
               <h3 className="mb-2 text-sm font-semibold text-gray-900">
                 {module.title}
               </h3>
-              <p className="mb-4 flex-1 text-xs leading-relaxed text-gray-500">
-                {module.description}
+              <p className="mb-4 flex-1 text-xs leading-relaxed text-gray-500 line-clamp-3">
+                {module.description?.replace(/<[^>]+>/g, "") ?? ""}
               </p>
 
               {/* Footer */}

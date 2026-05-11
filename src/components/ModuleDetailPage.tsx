@@ -356,6 +356,11 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
 
   const activeLesson = allLessons[activeIndex];
+
+  const activeTopic = useMemo(
+    () => topics.find((t) => t.lessons.some((l) => l.id === activeLesson?.id)),
+    [topics, activeLesson]
+  );
   const isLast = activeIndex === allLessons.length - 1;
   const isFirst = activeIndex === 0;
 
@@ -411,12 +416,6 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
                       <FolderOpen className="h-3.5 w-3.5 flex-shrink-0 text-[#1a73e8]" />
                       <p className="text-xs font-semibold text-gray-700 truncate">{topic.title}</p>
                     </div>
-                    {topic.description && (
-                      <div
-                        className="mb-1.5 pl-5 text-xs text-gray-400 line-clamp-2 prose prose-xs max-w-none [&_img]:hidden [&_a]:text-gray-400"
-                        dangerouslySetInnerHTML={{ __html: topic.description }}
-                      />
-                    )}
                     <div className="space-y-1 pl-1">
                       {topic.lessons.map((lesson) => (
                         <LessonNavButton
@@ -467,6 +466,9 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
         <div className="lg:col-span-3">
           <div className="rounded-xl border border-gray-200 bg-white p-6">
             <div className="mb-5">
+              {activeTopic && (
+                <p className="mb-1 text-sm font-semibold text-[#1a73e8]">{activeTopic.title}</p>
+              )}
               <p className="text-xs text-gray-400 uppercase tracking-wide">{LESSON_LABEL[activeLesson.type]}</p>
               <h2 className="text-lg font-semibold text-gray-900">{activeLesson.title}</h2>
             </div>
