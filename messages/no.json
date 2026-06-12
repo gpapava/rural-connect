@@ -40,7 +40,8 @@
     "myProfile": "Min Profil",
     "logout": "Logg ut",
     "settings": "Innstillinger",
-    "admin": "Administrasjonspanel"
+    "admin": "Administrasjonspanel",
+    "adminUsers": "Brukeradministrasjon"
   },
   "auth": {
     "login": "Logg inn",

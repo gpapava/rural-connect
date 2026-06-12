@@ -40,7 +40,8 @@
     "myProfile": "Mans profils",
     "logout": "Izrakstīties",
     "settings": "Iestatījumi",
-    "admin": "Administratora panelis"
+    "admin": "Administratora panelis",
+    "adminUsers": "Lietotāju pārvaldība"
   },
   "auth": {
     "login": "Pieteikties",

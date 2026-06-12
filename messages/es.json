@@ -40,7 +40,8 @@
     "myProfile": "Mi Perfil",
     "logout": "Cerrar sesión",
     "settings": "Configuración",
-    "admin": "Panel de Administración"
+    "admin": "Panel de Administración",
+    "adminUsers": "Gestión de Usuarios"
   },
   "auth": {
     "login": "Iniciar sesión",

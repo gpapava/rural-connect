@@ -14,6 +14,7 @@ import {
   Globe,
   ShieldCheck,
   CalendarPlus,
+  Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { locales, localeNames, type Locale } from "@/i18n";
@@ -70,6 +71,12 @@ const navItems = [
     key: "admin",
     href: "/admin/courses",
     icon: ShieldCheck,
+    roles: ["ADMIN"],
+  },
+  {
+    key: "adminUsers",
+    href: "/admin/users",
+    icon: Users,
     roles: ["ADMIN"],
   },
 ];

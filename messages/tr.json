@@ -40,7 +40,8 @@
     "myProfile": "Profilim",
     "logout": "Çıkış Yap",
     "settings": "Ayarlar",
-    "admin": "Yönetici Paneli"
+    "admin": "Yönetici Paneli",
+    "adminUsers": "Kullanıcı Yönetimi"
   },
   "auth": {
     "login": "Giriş Yap",

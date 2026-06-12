@@ -40,7 +40,8 @@
     "myProfile": "Il Mio Profilo",
     "logout": "Disconnetti",
     "settings": "Impostazioni",
-    "admin": "Pannello Amministratore"
+    "admin": "Pannello Amministratore",
+    "adminUsers": "Gestione Utenti"
   },
   "auth": {
     "login": "Accedi",

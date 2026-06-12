@@ -349,7 +349,7 @@ export default function PortfolioPage({
                   "Save Changes"
                 )}
               </button>
-              <button className="btn-secondary w-full">
+              <button onClick={() => window.print()} className="btn-secondary w-full">
                 <FileDown className="h-4 w-4" />
                 {t("actions.export")}
               </button>
@@ -357,7 +357,7 @@ export default function PortfolioPage({
                 <Share2 className="h-4 w-4" />
                 {t("actions.share")}
               </button>
-              <button className="btn-secondary w-full">
+              <button onClick={() => window.print()} className="btn-secondary w-full">
                 <Printer className="h-4 w-4" />
                 {t("actions.print")}
               </button>

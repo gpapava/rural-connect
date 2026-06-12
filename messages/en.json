@@ -41,7 +41,8 @@
     "logout": "Log Out",
     "settings": "Settings",
     "admin": "Admin Panel",
-    "scheduleSession": "Schedule Session"
+    "scheduleSession": "Schedule Session",
+    "adminUsers": "User Management"
   },
   "auth": {
     "login": "Log In",

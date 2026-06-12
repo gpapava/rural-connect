@@ -104,3 +104,27 @@
 .chat-bubble-other {
   @apply mr-auto rounded-2xl rounded-tl-sm bg-white px-4 py-2 text-sm text-gray-800 shadow-sm border border-gray-100;
 }
+
+/* Print styles — used by Portfolio export / print */
+@media print {
+  aside,
+  header,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+    break-inside: avoid;
+  }
+}
