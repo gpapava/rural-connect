@@ -16,6 +16,8 @@ import {
   CheckCircle,
   Loader,
   MessageSquare,
+  Trash2,
+  X,
 } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
 
@@ -68,7 +70,40 @@ export default function PortfolioPage({
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  const qualifications = portfolio?.qualifications ?? [];
+  const [qualifications, setQualifications] = useState(portfolio?.qualifications ?? []);
+  const [showQualForm, setShowQualForm] = useState(false);
+  const [qualForm, setQualForm] = useState({ title: "", institution: "", status: "completed", completedAt: "" });
+  const [savingQual, setSavingQual] = useState(false);
+  const [qualError, setQualError] = useState<string | null>(null);
+  const [deletingQualId, setDeletingQualId] = useState<string | null>(null);
+
+  const handleAddQualification = async () => {
+    setQualError(null);
+    if (!qualForm.title.trim()) { setQualError("Title is required."); return; }
+    setSavingQual(true);
+    const res = await fetch("/api/portfolio/qualifications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(qualForm),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setQualError(data.error ?? "Something went wrong.");
+    } else {
+      setQualifications((prev) => [...prev, data.qualification]);
+      setQualForm({ title: "", institution: "", status: "completed", completedAt: "" });
+      setShowQualForm(false);
+    }
+    setSavingQual(false);
+  };
+
+  const handleDeleteQualification = async (id: string) => {
+    if (!confirm("Remove this qualification?")) return;
+    setDeletingQualId(id);
+    const res = await fetch(`/api/portfolio/qualifications/${id}`, { method: "DELETE" });
+    if (res.ok) setQualifications((prev) => prev.filter((q) => q.id !== id));
+    setDeletingQualId(null);
+  };
 
   const handleSave = async () => {
     setSaving(true);
@@ -260,11 +295,57 @@ export default function PortfolioPage({
                 <GraduationCap className="h-4 w-4 text-[#1a73e8]" />
                 {t("qualifications.title")}
               </h2>
-              <button className="btn-secondary py-1.5 px-3 text-xs">
+              <button onClick={() => { setShowQualForm(true); setQualError(null); }} className="btn-secondary py-1.5 px-3 text-xs">
                 <Plus className="h-3.5 w-3.5" />
                 {t("qualifications.add")}
               </button>
             </div>
+
+            {/* Add qualification form */}
+            {showQualForm && (
+              <div className="mb-4 rounded-xl border border-[#1a73e8]/20 bg-blue-50/40 p-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <p className="text-sm font-semibold text-gray-800">New Qualification</p>
+                  <button onClick={() => { setShowQualForm(false); setQualError(null); setQualForm({ title: "", institution: "", status: "completed", completedAt: "" }); }} className="text-gray-400 hover:text-gray-600">
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+                {qualError && (
+                  <p className="mb-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">{qualError}</p>
+                )}
+                <div className="space-y-3">
+                  <div>
+                    <label className="mb-1 block text-xs font-medium text-gray-600">Title *</label>
+                    <input type="text" value={qualForm.title} onChange={(e) => setQualForm((f) => ({ ...f, title: e.target.value }))} placeholder="e.g. Upper Secondary School Certificate" className="input-field" />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-xs font-medium text-gray-600">Institution</label>
+                    <input type="text" value={qualForm.institution} onChange={(e) => setQualForm((f) => ({ ...f, institution: e.target.value }))} placeholder="e.g. Rural High School" className="input-field" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="mb-1 block text-xs font-medium text-gray-600">Status</label>
+                      <select value={qualForm.status} onChange={(e) => setQualForm((f) => ({ ...f, status: e.target.value }))} className="input-field">
+                        <option value="completed">Completed</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="not_started">Not Started</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="mb-1 block text-xs font-medium text-gray-600">Completion Date</label>
+                      <input type="date" value={qualForm.completedAt} onChange={(e) => setQualForm((f) => ({ ...f, completedAt: e.target.value }))} className="input-field" />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 flex justify-end gap-2">
+                  <button onClick={() => { setShowQualForm(false); setQualError(null); setQualForm({ title: "", institution: "", status: "completed", completedAt: "" }); }} className="btn-secondary py-1.5 px-3 text-xs">Cancel</button>
+                  <button onClick={handleAddQualification} disabled={savingQual} className="btn-primary py-1.5 px-3 text-xs disabled:opacity-50">
+                    {savingQual ? "Saving…" : <><CheckCircle className="h-3.5 w-3.5" /> Save</>}
+                  </button>
+                </div>
+              </div>
+            )}
+
             {qualifications.length === 0 ? (
               <p className="text-center text-sm text-gray-400 py-6">
                 No qualifications added yet
@@ -297,6 +378,14 @@ export default function PortfolioPage({
                         ? t("qualifications.completed")
                         : t("qualifications.inProgress")}
                     </span>
+                    <button
+                      onClick={() => handleDeleteQualification(qual.id)}
+                      disabled={deletingQualId === qual.id}
+                      className="ml-1 flex-shrink-0 rounded-lg p-1 text-gray-300 transition-colors hover:bg-red-50 hover:text-red-400 disabled:opacity-40"
+                      title="Remove"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
                   </div>
                 ))}
               </div>
