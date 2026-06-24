@@ -11,9 +11,10 @@ export default async function LaborMarket({ params: { locale } }: PageProps) {
   const session = await auth();
   if (!session) redirect(`/${locale}/auth/login`);
 
-  const links = await prisma.laborMarketLink.findMany({
-    orderBy: [{ country: "asc" }, { agencyName: "asc" }],
-  });
+  const [links, jobs] = await Promise.all([
+    prisma.laborMarketLink.findMany({ orderBy: [{ country: "asc" }, { agencyName: "asc" }] }),
+    prisma.jobOpening.findMany({ where: { status: "APPROVED" }, orderBy: { createdAt: "desc" } }),
+  ]);
 
-  return <LaborMarketPage links={links} locale={locale} />;
+  return <LaborMarketPage links={links} jobs={jobs} locale={locale} />;
 }

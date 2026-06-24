@@ -41,7 +41,8 @@
     "logout": "Çıkış Yap",
     "settings": "Ayarlar",
     "admin": "Yönetici Paneli",
-    "adminUsers": "Kullanıcı Yönetimi"
+    "adminUsers": "Kullanıcı Yönetimi",
+    "adminJobs": "İş İlanları"
   },
   "auth": {
     "login": "Giriş Yap",
@@ -72,7 +73,9 @@
     "alreadyHaveAccount": "Zaten hesabınız var mı?",
     "neetDeclarationText": "İstihdam, eğitim veya öğretimde bulunmayan (NEET) ve kırsal alanda yaşayan 15-29 yaş arasında bir genç olduğumu beyan ederim. Bu platformun Avrupa'daki kırsal toplulukların NEET gençlerini desteklemek için tasarlandığını anlıyorum.",
     "neetDeclarationRequired": "Kayıt olmak için NEET statünüzü onaylamanız gerekmektedir.",
-    "registerTooltip": "Kayıt, istihdam, eğitim veya öğretimde bulunmayan (NEET) ve kırsal alanda yaşayan 15-29 yaş arası gençlere açıktır."
+    "registerTooltip": "Kayıt, istihdam, eğitim veya öğretimde bulunmayan (NEET) ve kırsal alanda yaşayan 15-29 yaş arası gençlere açıktır.",
+    "gdprConsentText": "Danışmanlık ve istihdam destek hizmetleri sunma amacıyla RURAL-CONNECT tarafından kişisel verilerimin işlenmesine Genel Veri Koruma Yönetmeliği (GDPR) kapsamında onay veriyorum. Verilerim yalnızca platform hizmetleri için kullanılacak ve rızam olmadan üçüncü taraflarla paylaşılmayacaktır.",
+    "gdprConsentRequired": "Kayıt olmak için veri işleme iznini kabul etmeniz gerekmektedir."
   },
   "dashboard": {
     "title": "Panel",

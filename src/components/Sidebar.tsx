@@ -79,6 +79,12 @@ const navItems = [
     icon: Users,
     roles: ["ADMIN"],
   },
+  {
+    key: "adminJobs",
+    href: "/admin/jobs",
+    icon: Briefcase,
+    roles: ["ADMIN"],
+  },
 ];
 
 export default function Sidebar({ locale, user }: SidebarProps) {

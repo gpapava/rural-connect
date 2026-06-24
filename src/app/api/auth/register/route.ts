@@ -3,13 +3,16 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
-  const { name, email, password, country, language, neetDeclaration } = await req.json();
+  const { name, email, password, country, language, neetDeclaration, gdprConsent } = await req.json();
 
   if (!name?.trim() || !email?.trim() || !password?.trim())
     return NextResponse.json({ error: "Name, email and password are required." }, { status: 400 });
 
   if (!neetDeclaration)
     return NextResponse.json({ error: "You must confirm that you are a NEET from a rural area." }, { status: 400 });
+
+  if (!gdprConsent)
+    return NextResponse.json({ error: "You must accept the data processing consent to register." }, { status: 400 });
 
   if (password.length < 8)
     return NextResponse.json({ error: "Password must be at least 8 characters." }, { status: 400 });
@@ -29,6 +32,7 @@ export async function POST(req: NextRequest) {
       country: country?.trim() || null,
       language: language || "en",
       neetDeclaration: true,
+      gdprConsent: true,
     },
     select: { id: true, name: true, email: true, role: true },
   });

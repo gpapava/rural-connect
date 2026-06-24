@@ -30,6 +30,7 @@ export default function RegisterForm({ locale }: RegisterFormProps) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [country, setCountry] = useState("");
   const [neetDeclaration, setNeetDeclaration] = useState(false);
+  const [gdprConsent, setGdprConsent] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -49,12 +50,17 @@ export default function RegisterForm({ locale }: RegisterFormProps) {
       return;
     }
 
+    if (!gdprConsent) {
+      setError(t("gdprConsentRequired"));
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, country, language: locale, neetDeclaration }),
+        body: JSON.stringify({ name, email, password, country, language: locale, neetDeclaration, gdprConsent }),
       });
 
       const data = await res.json();
@@ -217,9 +223,26 @@ export default function RegisterForm({ locale }: RegisterFormProps) {
           </label>
         </div>
 
+        {/* GDPR Consent */}
+        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+          <label className="flex cursor-pointer gap-3">
+            <div className="flex-shrink-0 pt-0.5">
+              <input
+                type="checkbox"
+                checked={gdprConsent}
+                onChange={(e) => setGdprConsent(e.target.checked)}
+                className="h-4 w-4 rounded border-gray-300 text-[#1a73e8] focus:ring-[#1a73e8]"
+              />
+            </div>
+            <span className="text-sm text-gray-700">
+              {t("gdprConsentText")}
+            </span>
+          </label>
+        </div>
+
         <button
           type="submit"
-          disabled={loading || !neetDeclaration}
+          disabled={loading || !neetDeclaration || !gdprConsent}
           className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? (

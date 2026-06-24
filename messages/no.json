@@ -41,7 +41,8 @@
     "logout": "Logg ut",
     "settings": "Innstillinger",
     "admin": "Administrasjonspanel",
-    "adminUsers": "Brukeradministrasjon"
+    "adminUsers": "Brukeradministrasjon",
+    "adminJobs": "Jobbstillinger"
   },
   "auth": {
     "login": "Logg inn",
@@ -72,7 +73,9 @@
     "alreadyHaveAccount": "Har du allerede en konto?",
     "neetDeclarationText": "Jeg erklærer at jeg er en ung person (15–29 år) som ikke er i Arbeid, Utdanning eller Opplæring (NEET) og som bor i et ruralt område. Jeg forstår at denne plattformen er utformet for å støtte NEET-ungdom i rurale samfunn over hele Europa.",
     "neetDeclarationRequired": "Du må bekrefte din NEET-status for å registrere deg.",
-    "registerTooltip": "Registrering er åpen for unge (15–29 år) som ikke er i Arbeid, Utdanning eller Opplæring (NEET) og som bor i et ruralt område."
+    "registerTooltip": "Registrering er åpen for unge (15–29 år) som ikke er i Arbeid, Utdanning eller Opplæring (NEET) og som bor i et ruralt område.",
+    "gdprConsentText": "Jeg samtykker til behandling av mine personopplysninger av RURAL-CONNECT for formålet med å tilby veilednings- og sysselsettingsstøttetjenester, i samsvar med Personvernforordningen (GDPR). Dataene mine vil kun brukes til plattformens tjenester og vil ikke deles med tredjeparter uten mitt samtykke.",
+    "gdprConsentRequired": "Du må godta samtykket til databehandling for å registrere deg."
   },
   "dashboard": {
     "title": "Oversikt",

@@ -41,7 +41,8 @@
     "logout": "Izrakstīties",
     "settings": "Iestatījumi",
     "admin": "Administratora panelis",
-    "adminUsers": "Lietotāju pārvaldība"
+    "adminUsers": "Lietotāju pārvaldība",
+    "adminJobs": "Darba piedāvājumi"
   },
   "auth": {
     "login": "Pieteikties",
@@ -72,7 +73,9 @@
     "alreadyHaveAccount": "Jau ir konts?",
     "neetDeclarationText": "Apliecinu, ka esmu jaunietis/jauniete (vecumā 15–29 gadi), kurš/kura nav nodarbināts/a, nemācās un neapgūst profesiju (NEET) un dzīvo lauku apvidū. Saprotu, ka šī platforma ir izveidota, lai atbalstītu NEET jauniešus lauku kopienās visā Eiropā.",
     "neetDeclarationRequired": "Lai reģistrētos, jums jāapstiprina sava NEET statuss.",
-    "registerTooltip": "Reģistrācija ir atvērta jauniešiem (15–29 gadi), kuri nav nodarbināti, nemācās un neapgūst profesiju (NEET) un dzīvo lauku apvidū."
+    "registerTooltip": "Reģistrācija ir atvērta jauniešiem (15–29 gadi), kuri nav nodarbināti, nemācās un neapgūst profesiju (NEET) un dzīvo lauku apvidū.",
+    "gdprConsentText": "Es piekrītu manu personas datu apstrādei, ko veic RURAL-CONNECT konsultāciju un nodarbinātības atbalsta pakalpojumu sniegšanas nolūkā saskaņā ar Vispārīgo datu aizsardzības regulu (GDPR). Mani dati tiks izmantoti tikai platformas pakalpojumiem un netiks kopīgoti ar trešajām pusēm bez manas piekrišanas.",
+    "gdprConsentRequired": "Lai reģistrētos, jums jāpiekrīt datu apstrādes piekrišanai."
   },
   "dashboard": {
     "title": "Panelis",

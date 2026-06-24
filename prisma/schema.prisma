@@ -27,6 +27,12 @@ enum StageStatus {
   COMPLETED
 }
 
+enum JobStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 enum ModuleProgressStatus {
   NOT_STARTED
   IN_PROGRESS
@@ -42,6 +48,7 @@ model User {
   country          String?
   language         String   @default("en")
   neetDeclaration  Boolean  @default(false)
+  gdprConsent      Boolean  @default(false)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
@@ -50,6 +57,7 @@ model User {
   counselorSessions CounselingSession[] @relation("CounselorSessions")
   neetStages        CounselingStage[]   @relation("NeetUserStages")
   counselorStages   CounselingStage[]   @relation("CounselorStages")
+  createdInvites    CounsellorInvite[]  @relation("InviteCreator")
   messages          Message[]
   sharedFiles       SharedFile[]
   portfolio         PortfolioEntry?
@@ -266,4 +274,36 @@ model Notification {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("notifications")
+}
+
+model CounsellorInvite {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique @default(cuid())
+  used      Boolean  @default(false)
+  createdBy String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  creator   User     @relation("InviteCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+
+  @@map("counsellor_invites")
+}
+
+model JobOpening {
+  id           String    @id @default(cuid())
+  title        String
+  company      String
+  description  String    @db.Text
+  country      String
+  location     String?
+  contactName  String
+  contactEmail String
+  website      String?
+  status       JobStatus @default(PENDING)
+  adminNote    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("job_openings")
 }

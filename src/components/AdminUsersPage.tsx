@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Users, Plus, Trash2, X, CheckCircle, Mail,
-  Globe, Shield, UserCheck, User,
+  Globe, Shield, UserCheck, User, Link2, Copy, Clock,
 } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
 import { UserRole } from "@prisma/client";
@@ -52,6 +52,8 @@ function roleBadge(role: UserRole) {
 
 const EMPTY_FORM = { name: "", email: "", password: "", role: "NEET_USER" as UserRole, country: "", language: "en" };
 
+type InviteRow = { id: string; email: string; token: string; used: boolean; expiresAt: Date; createdAt: Date };
+
 export default function AdminUsersPage({ users: initial, currentUserId }: { users: UserRow[]; currentUserId: string }) {
   const router = useRouter();
   const [users, setUsers] = useState(initial);
@@ -61,6 +63,12 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   const [error, setError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [filterRole, setFilterRole] = useState<"all" | UserRole>("all");
+  const [invites, setInvites] = useState<InviteRow[]>([]);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteLoading, setInviteLoading] = useState(false);
+  const [inviteError, setInviteError] = useState<string | null>(null);
+  const [showInvites, setShowInvites] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const filtered = filterRole === "all" ? users : users.filter((u) => u.role === filterRole);
 
@@ -85,6 +93,54 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
       setShowForm(false);
     }
     setSaving(false);
+  };
+
+  const loadInvites = async () => {
+    const res = await fetch("/api/admin/invites");
+    if (res.ok) {
+      const data = await res.json();
+      setInvites(data.invites);
+    }
+  };
+
+  const handleOpenInvites = async () => {
+    if (!showInvites) await loadInvites();
+    setShowInvites((v) => !v);
+  };
+
+  const handleCreateInvite = async () => {
+    setInviteError(null);
+    if (!inviteEmail.trim()) { setInviteError("Email is required."); return; }
+    setInviteLoading(true);
+    const res = await fetch("/api/admin/invites", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: inviteEmail }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setInviteError(data.error ?? "Something went wrong.");
+    } else {
+      setInvites((prev) => [data.invite, ...prev]);
+      setInviteEmail("");
+    }
+    setInviteLoading(false);
+  };
+
+  const handleRevokeInvite = async (id: string) => {
+    const res = await fetch("/api/admin/invites", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    if (res.ok) setInvites((prev) => prev.filter((i) => i.id !== id));
+  };
+
+  const copyInviteLink = (token: string, id: string) => {
+    const url = `${window.location.origin}/en/auth/invite/${token}`;
+    navigator.clipboard.writeText(url);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
   };
 
   const handleDelete = async (id: string, name: string) => {
@@ -122,6 +178,110 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
           <Plus className="h-4 w-4" />
           New User
         </button>
+      </div>
+
+      {/* Counsellor Invite Panel */}
+      <div className="mb-6 rounded-xl border border-green-200 bg-green-50">
+        <button
+          onClick={handleOpenInvites}
+          className="flex w-full items-center justify-between px-5 py-4 text-left"
+        >
+          <div className="flex items-center gap-2">
+            <Link2 className="h-4 w-4 text-green-700" />
+            <span className="text-sm font-semibold text-green-800">Invite a Counsellor</span>
+            <span className="rounded-full bg-green-200 px-2 py-0.5 text-xs font-medium text-green-800">
+              Token link
+            </span>
+          </div>
+          <span className="text-xs text-green-600">{showInvites ? "Hide" : "Show"}</span>
+        </button>
+
+        {showInvites && (
+          <div className="border-t border-green-200 px-5 pb-5 pt-4 space-y-4">
+            <p className="text-xs text-green-700">
+              Enter a counsellor&apos;s email to generate a one-time invite link. Copy and send
+              the link to them — it expires in 7 days.
+            </p>
+
+            {inviteError && (
+              <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+                {inviteError}
+              </div>
+            )}
+
+            <div className="flex gap-2">
+              <input
+                type="email"
+                value={inviteEmail}
+                onChange={(e) => setInviteEmail(e.target.value)}
+                placeholder="counsellor@example.com"
+                className="input-field flex-1 text-sm"
+              />
+              <button
+                onClick={handleCreateInvite}
+                disabled={inviteLoading}
+                className="btn-primary px-4 py-2 text-sm disabled:opacity-50"
+              >
+                {inviteLoading ? "Generating…" : "Generate Link"}
+              </button>
+            </div>
+
+            {invites.length > 0 && (
+              <div className="space-y-2">
+                {invites.map((invite) => {
+                  const expired = new Date(invite.expiresAt) < new Date();
+                  return (
+                    <div
+                      key={invite.id}
+                      className={cn(
+                        "flex items-center gap-3 rounded-lg border px-3 py-2.5 text-xs",
+                        invite.used
+                          ? "border-gray-100 bg-white text-gray-400"
+                          : expired
+                          ? "border-orange-100 bg-orange-50 text-orange-600"
+                          : "border-green-100 bg-white text-gray-700"
+                      )}
+                    >
+                      <Mail className="h-3.5 w-3.5 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium truncate">{invite.email}</p>
+                        <p className="text-gray-400">
+                          {invite.used
+                            ? "Used"
+                            : expired
+                            ? "Expired"
+                            : `Expires ${new Date(invite.expiresAt).toLocaleDateString()}`}
+                        </p>
+                      </div>
+                      {!invite.used && !expired && (
+                        <button
+                          onClick={() => copyInviteLink(invite.token, invite.id)}
+                          className="flex items-center gap-1 rounded-md border border-green-200 bg-green-50 px-2 py-1 text-green-700 hover:bg-green-100"
+                          title="Copy invite link"
+                        >
+                          {copiedId === invite.id ? (
+                            <><CheckCircle className="h-3 w-3" /> Copied!</>
+                          ) : (
+                            <><Copy className="h-3 w-3" /> Copy link</>
+                          )}
+                        </button>
+                      )}
+                      {!invite.used && (
+                        <button
+                          onClick={() => handleRevokeInvite(invite.id)}
+                          className="rounded-md p-1 text-gray-300 hover:bg-red-50 hover:text-red-400"
+                          title="Revoke"
+                        >
+                          <X className="h-3.5 w-3.5" />
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Create form */}

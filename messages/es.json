@@ -41,7 +41,8 @@
     "logout": "Cerrar sesión",
     "settings": "Configuración",
     "admin": "Panel de Administración",
-    "adminUsers": "Gestión de Usuarios"
+    "adminUsers": "Gestión de Usuarios",
+    "adminJobs": "Ofertas de Empleo"
   },
   "auth": {
     "login": "Iniciar sesión",
@@ -72,7 +73,9 @@
     "alreadyHaveAccount": "¿Ya tienes una cuenta?",
     "neetDeclarationText": "Declaro que soy un/a joven (de 15 a 29 años) que no está en Empleo, Educación ni Formación (NEET) y que vive en una zona rural. Entiendo que esta plataforma está diseñada para apoyar a los jóvenes NEET en comunidades rurales de toda Europa.",
     "neetDeclarationRequired": "Debes confirmar tu condición de NEET para registrarte.",
-    "registerTooltip": "El registro está abierto a jóvenes (15–29 años) que no están en Empleo, Educación ni Formación (NEET) y viven en una zona rural."
+    "registerTooltip": "El registro está abierto a jóvenes (15–29 años) que no están en Empleo, Educación ni Formación (NEET) y viven en una zona rural.",
+    "gdprConsentText": "Doy mi consentimiento para el tratamiento de mis datos personales por parte de RURAL-CONNECT con el fin de prestar servicios de orientación y apoyo al empleo, de conformidad con el Reglamento General de Protección de Datos (RGPD). Mis datos se utilizarán únicamente para los servicios de la plataforma y no se compartirán con terceros sin mi consentimiento.",
+    "gdprConsentRequired": "Debes aceptar el consentimiento de tratamiento de datos para registrarte."
   },
   "dashboard": {
     "title": "Panel",
