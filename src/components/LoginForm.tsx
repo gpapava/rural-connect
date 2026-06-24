@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, LogIn } from "lucide-react";
+import Link from "next/link";
 
 interface LoginFormProps {
   locale: string;
@@ -163,11 +164,11 @@ export default function LoginForm({ locale }: LoginFormProps) {
         </div>
       </div>
 
-      <p className="mt-6 text-center text-xs text-gray-500">
+      <p className="mt-6 text-center text-sm text-gray-500">
         {t("noAccount")}{" "}
-        <span className="font-medium text-[#1a73e8]">
-          {t("contactAdmin")}
-        </span>
+        <Link href={`/${locale}/auth/register`} className="font-medium text-[#1a73e8] hover:underline">
+          {t("registerLink")}
+        </Link>
       </p>
     </div>
   );
