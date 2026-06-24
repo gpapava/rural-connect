@@ -53,16 +53,18 @@ model User {
   updatedAt        DateTime @updatedAt
 
   // Relations
-  neetSessions      CounselingSession[] @relation("NeetUserSessions")
-  counselorSessions CounselingSession[] @relation("CounselorSessions")
-  neetStages        CounselingStage[]   @relation("NeetUserStages")
-  counselorStages   CounselingStage[]   @relation("CounselorStages")
-  createdInvites    CounsellorInvite[]  @relation("InviteCreator")
-  messages          Message[]
-  sharedFiles       SharedFile[]
-  portfolio         PortfolioEntry?
-  moduleProgress    UserModuleProgress[]
-  notifications     Notification[]
+  neetSessions        CounselingSession[] @relation("NeetUserSessions")
+  counselorSessions   CounselingSession[] @relation("CounselorSessions")
+  neetStages          CounselingStage[]   @relation("NeetUserStages")
+  counselorStages     CounselingStage[]   @relation("CounselorStages")
+  createdInvites      CounsellorInvite[]  @relation("InviteCreator")
+  messages            Message[]
+  sharedFiles         SharedFile[]
+  portfolio           PortfolioEntry?
+  moduleProgress      UserModuleProgress[]
+  notifications       Notification[]
+  neetCertificate     Certificate?        @relation("NeetUserCertificate")
+  counselorCertificates Certificate[]     @relation("CounselorCertificates")
 
   @@map("users")
 }
@@ -288,6 +290,18 @@ model CounsellorInvite {
   creator   User     @relation("InviteCreator", fields: [createdBy], references: [id], onDelete: Cascade)
 
   @@map("counsellor_invites")
+}
+
+model Certificate {
+  id          String   @id @default(cuid())
+  neetUserId  String   @unique
+  counselorId String
+  issuedAt    DateTime @default(now())
+
+  neetUser  User @relation("NeetUserCertificate", fields: [neetUserId], references: [id], onDelete: Cascade)
+  counselor User @relation("CounselorCertificates", fields: [counselorId], references: [id], onDelete: Cascade)
+
+  @@map("certificates")
 }
 
 model JobOpening {

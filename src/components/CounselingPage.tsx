@@ -16,7 +16,10 @@ import {
   ChevronDown,
   ChevronUp,
   Flag,
+  Award,
+  Loader2,
 } from "lucide-react";
+import Link from "next/link";
 import { cn, formatDate, formatDateTime, getInitials } from "@/lib/utils";
 import { UserRole } from "@prisma/client";
 import { createPusherClient } from "@/lib/pusher";
@@ -58,12 +61,15 @@ type StageData = {
 
 type UserInfo = { id: string; name: string; email: string; role: UserRole };
 
+type CertData = { id: string; issuedAt: Date } | null;
+
 interface CounselingPageProps {
   stages: StageData[];
   neetUser: UserInfo | null;
   counselor: UserInfo | null;
   currentUser: UserInfo;
   locale: string;
+  certificate: CertData;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -754,6 +760,204 @@ function StageContent({
   );
 }
 
+// ─── Journey Progress Bar ─────────────────────────────────────────────────────
+
+function JourneyProgress({
+  stages,
+  isCounselor,
+  neetUser,
+  certificate,
+  onCertIssued,
+  locale,
+}: {
+  stages: StageData[];
+  isCounselor: boolean;
+  neetUser: UserInfo | null;
+  certificate: CertData;
+  onCertIssued: (cert: CertData) => void;
+  locale: string;
+}) {
+  const completedCount = stages.filter((s) => s.status === "COMPLETED").length;
+  const pct = (completedCount / 5) * 100;
+  const allDone = completedCount === 5;
+
+  const [animPct, setAnimPct] = useState(0);
+  const [issuing, setIssuing] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
+  const [issueError, setIssueError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Animate bar fill on mount
+    const t = setTimeout(() => setAnimPct(pct), 120);
+    return () => clearTimeout(t);
+  }, [pct]);
+
+  const handleIssue = async () => {
+    if (!neetUser || !confirmed) return;
+    setIssuing(true);
+    setIssueError(null);
+    try {
+      const res = await fetch("/api/certificate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ neetUserId: neetUser.id }),
+      });
+      if (res.ok) {
+        const cert = await res.json();
+        onCertIssued(cert);
+      } else {
+        const data = await res.json();
+        setIssueError(data.error ?? "Failed to issue certificate");
+      }
+    } finally {
+      setIssuing(false);
+    }
+  };
+
+  return (
+    <div className={cn(
+      "mb-5 rounded-2xl border p-5",
+      allDone && certificate
+        ? "border-[#34a853]/30 bg-gradient-to-r from-green-50 to-emerald-50"
+        : allDone
+        ? "border-amber-200 bg-amber-50"
+        : "border-gray-200 bg-white"
+    )}>
+      {/* Header row */}
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Award className={cn("h-5 w-5", allDone && certificate ? "text-[#34a853]" : allDone ? "text-amber-500" : "text-gray-400")} />
+          <span className="text-sm font-semibold text-gray-800">Counselling Journey</span>
+        </div>
+        <span className={cn(
+          "rounded-full px-2.5 py-1 text-xs font-semibold",
+          allDone && certificate ? "bg-[#34a853]/10 text-[#34a853]" : allDone ? "bg-amber-100 text-amber-700" : "bg-gray-100 text-gray-500"
+        )}>
+          {completedCount} / 5 stages complete
+        </span>
+      </div>
+
+      {/* Stage dots + bar */}
+      <div className="relative mb-3">
+        {/* Bar track */}
+        <div className="h-3 w-full rounded-full bg-gray-100 overflow-hidden">
+          <div
+            className={cn(
+              "h-full rounded-full transition-all duration-1000 ease-out",
+              allDone && certificate
+                ? "bg-gradient-to-r from-[#34a853] to-emerald-400"
+                : allDone
+                ? "bg-gradient-to-r from-amber-400 to-yellow-300"
+                : "bg-gradient-to-r from-[#1a73e8] to-blue-400"
+            )}
+            style={{ width: `${animPct}%` }}
+          />
+        </div>
+        {/* Stage tick marks */}
+        <div className="absolute inset-x-0 top-0 flex h-3 items-center justify-between px-0">
+          {stages.map((s, i) => {
+            const isComp = s.status === "COMPLETED";
+            const isAct = s.status === "ACTIVE";
+            const pos = ((i + 1) / 5) * 100;
+            return (
+              <div
+                key={s.id}
+                className="absolute -translate-x-1/2 -translate-y-[3px]"
+                style={{ left: `${pos}%` }}
+              >
+                <div className={cn(
+                  "h-5 w-5 rounded-full border-2 flex items-center justify-center text-white",
+                  isComp ? "border-[#34a853] bg-[#34a853]" : isAct ? "border-[#1a73e8] bg-[#1a73e8]" : "border-gray-300 bg-white"
+                )}>
+                  {isComp && <CheckCircle2 className="h-3.5 w-3.5" />}
+                  {isAct && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Stage labels */}
+      <div className="flex justify-between px-0">
+        {STAGE_NAMES.map((name, i) => (
+          <div key={i} className="flex flex-col items-center" style={{ width: "20%" }}>
+            <span className="text-center text-[10px] leading-tight text-gray-400 max-w-[70px]">{name}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Certificate actions */}
+      {allDone && (
+        <div className="mt-5 border-t border-gray-200/60 pt-4">
+          {certificate ? (
+            /* CERTIFICATE IS ISSUED — both roles see download */
+            <div className="flex flex-col items-center gap-3 sm:flex-row">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-[#34a853]">
+                  Certificate of Attendance is ready!
+                </p>
+                <p className="text-xs text-gray-500">
+                  Issued on{" "}
+                  {new Date(certificate.issuedAt).toLocaleDateString("en-GB", {
+                    day: "numeric", month: "long", year: "numeric",
+                  })}
+                </p>
+              </div>
+              <Link
+                href={`/${locale}/certificate/${certificate.id}`}
+                target="_blank"
+                className="flex flex-shrink-0 items-center gap-2 rounded-xl bg-[#34a853] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#2d9147] transition-colors"
+              >
+                <Award className="h-4 w-4" />
+                View & Download Certificate
+              </Link>
+            </div>
+          ) : isCounselor && neetUser ? (
+            /* COUNSELLOR — approval panel */
+            <div className="space-y-3">
+              <p className="text-sm font-semibold text-amber-700">
+                All 5 stages are complete — you can now issue the Certificate of Attendance.
+              </p>
+              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-amber-200 bg-white p-3">
+                <input
+                  type="checkbox"
+                  className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-[#34a853]"
+                  checked={confirmed}
+                  onChange={(e) => setConfirmed(e.target.checked)}
+                />
+                <span className="text-sm text-gray-700">
+                  I confirm that <strong>{neetUser.name}</strong> has successfully completed all
+                  five counselling stages and is entitled to a Certificate of Attendance.
+                </span>
+              </label>
+              {issueError && (
+                <p className="text-xs text-red-600">{issueError}</p>
+              )}
+              <button
+                onClick={handleIssue}
+                disabled={!confirmed || issuing}
+                className="flex items-center gap-2 rounded-xl bg-[#34a853] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#2d9147] disabled:opacity-50 transition-colors"
+              >
+                {issuing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Award className="h-4 w-4" />}
+                {issuing ? "Issuing…" : "Issue Certificate of Attendance"}
+              </button>
+            </div>
+          ) : (
+            /* NEET — waiting on counsellor */
+            <div className="flex items-center gap-3">
+              <Loader2 className="h-4 w-4 animate-spin text-amber-500" />
+              <p className="text-sm text-amber-700">
+                Journey complete! Your certificate is awaiting counsellor approval.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 export default function CounselingPage({
@@ -762,9 +966,11 @@ export default function CounselingPage({
   counselor,
   currentUser,
   locale,
+  certificate: initialCertificate,
 }: CounselingPageProps) {
   const t = useTranslations("counseling");
   const [stages, setStages] = useState(initialStages);
+  const [certificate, setCertificate] = useState<CertData>(initialCertificate);
   const [selectedStageIdx, setSelectedStageIdx] = useState(() => {
     // Default to the current active stage
     const activeIdx = initialStages.findIndex((s) => s.status === "ACTIVE");
@@ -849,6 +1055,16 @@ export default function CounselingPage({
           </span>
         </div>
       </div>
+
+      {/* Journey progress bar */}
+      <JourneyProgress
+        stages={stages}
+        isCounselor={isCounselor}
+        neetUser={neetUser}
+        certificate={certificate}
+        onCertIssued={setCertificate}
+        locale={locale}
+      />
 
       {/* Chrome-style stage tabs */}
       <div className="relative mb-0">

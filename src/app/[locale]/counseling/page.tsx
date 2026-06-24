@@ -29,42 +29,30 @@ export default async function Counseling({ params: { locale } }: PageProps) {
         counselor={null}
         currentUser={session.user}
         locale={locale}
+        certificate={null}
       />
     );
   }
 
   const { neetUserId, counselorId } = anySession;
 
-  // Get or create all 5 stages for this pair
-  const stageRows = await getOrCreateStages(neetUserId, counselorId);
-
-  // Fetch all sessions for this pair with messages and files
-  const allSessions = await prisma.counselingSession.findMany({
-    where: { neetUserId, counselorId },
-    include: {
-      messages: {
-        include: { sender: { select: { id: true, name: true, role: true } } },
-        orderBy: { createdAt: "asc" },
+  // Get or create all 5 stages for this pair, fetch sessions and certificate in parallel
+  const [stageRows, allSessions, neetUser, counselor, certificate] = await Promise.all([
+    getOrCreateStages(neetUserId, counselorId),
+    prisma.counselingSession.findMany({
+      where: { neetUserId, counselorId },
+      include: {
+        messages: {
+          include: { sender: { select: { id: true, name: true, role: true } } },
+          orderBy: { createdAt: "asc" },
+        },
+        sharedFiles: {
+          include: { uploadedBy: { select: { id: true, name: true } } },
+          orderBy: { createdAt: "asc" },
+        },
       },
-      sharedFiles: {
-        include: { uploadedBy: { select: { id: true, name: true } } },
-        orderBy: { createdAt: "asc" },
-      },
-    },
-    orderBy: { scheduledAt: "asc" },
-  });
-
-  // Attach sessions to their stage (sessions without a stageId fall into stage 1)
-  const stage1Id = stageRows[0]?.id;
-  const stages = stageRows.map((stage) => ({
-    ...stage,
-    sessions: allSessions.filter(
-      (s) => s.stageId === stage.id || (stage.number === 1 && s.stageId === null)
-    ),
-  }));
-
-  // Fetch the two users involved
-  const [neetUser, counselor] = await Promise.all([
+      orderBy: { scheduledAt: "asc" },
+    }),
     prisma.user.findUnique({
       where: { id: neetUserId },
       select: { id: true, name: true, email: true, role: true },
@@ -73,7 +61,19 @@ export default async function Counseling({ params: { locale } }: PageProps) {
       where: { id: counselorId },
       select: { id: true, name: true, email: true, role: true },
     }),
+    prisma.certificate.findUnique({
+      where: { neetUserId },
+      select: { id: true, issuedAt: true },
+    }),
   ]);
+
+  // Attach sessions to their stage (sessions without a stageId fall into stage 1)
+  const stages = stageRows.map((stage) => ({
+    ...stage,
+    sessions: allSessions.filter(
+      (s) => s.stageId === stage.id || (stage.number === 1 && s.stageId === null)
+    ),
+  }));
 
   return (
     <CounselingPage
@@ -82,6 +82,7 @@ export default async function Counseling({ params: { locale } }: PageProps) {
       counselor={counselor}
       currentUser={session.user}
       locale={locale}
+      certificate={certificate}
     />
   );
 }
