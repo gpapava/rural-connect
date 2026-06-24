@@ -18,6 +18,7 @@ import {
   Flag,
   Award,
   Loader2,
+  Info,
 } from "lucide-react";
 import Link from "next/link";
 import { cn, formatDate, formatDateTime, getInitials } from "@/lib/utils";
@@ -828,6 +829,19 @@ function JourneyProgress({
         <div className="flex items-center gap-2">
           <Award className={cn("h-5 w-5", allDone && certificate ? "text-[#34a853]" : allDone ? "text-amber-500" : "text-gray-400")} />
           <span className="text-sm font-semibold text-gray-800">Counselling Journey</span>
+          {!certificate && (
+            <div className="group relative">
+              <Info className="h-4 w-4 cursor-default text-gray-300 hover:text-[#1a73e8] transition-colors" />
+              <div className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 -translate-x-1/2 w-64 rounded-xl bg-[#1e293b] px-3 py-2.5 text-xs text-white opacity-0 shadow-xl transition-opacity duration-200 group-hover:opacity-100">
+                <div className="mb-1.5 flex items-center gap-1.5">
+                  <Award className="h-3.5 w-3.5 text-yellow-400 flex-shrink-0" />
+                  <span className="font-semibold text-yellow-300">Certificate of Attendance</span>
+                </div>
+                Complete all 5 stages of the counselling journey and your counsellor will issue you a personalised Certificate of Attendance — proof of your commitment and progress.
+                <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#1e293b]" />
+              </div>
+            </div>
+          )}
         </div>
         <span className={cn(
           "rounded-full px-2.5 py-1 text-xs font-semibold",
