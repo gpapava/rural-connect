@@ -71,7 +71,8 @@
     "passwordMismatch": "Passordene stemmer ikke overens",
     "alreadyHaveAccount": "Har du allerede en konto?",
     "neetDeclarationText": "Jeg erklærer at jeg er en ung person (15–29 år) som ikke er i Arbeid, Utdanning eller Opplæring (NEET) og som bor i et ruralt område. Jeg forstår at denne plattformen er utformet for å støtte NEET-ungdom i rurale samfunn over hele Europa.",
-    "neetDeclarationRequired": "Du må bekrefte din NEET-status for å registrere deg."
+    "neetDeclarationRequired": "Du må bekrefte din NEET-status for å registrere deg.",
+    "registerTooltip": "Registrering er åpen for unge (15–29 år) som ikke er i Arbeid, Utdanning eller Opplæring (NEET) og som bor i et ruralt område."
   },
   "dashboard": {
     "title": "Oversikt",

@@ -166,9 +166,15 @@ export default function LoginForm({ locale }: LoginFormProps) {
 
       <p className="mt-6 text-center text-sm text-gray-500">
         {t("noAccount")}{" "}
-        <Link href={`/${locale}/auth/register`} className="font-medium text-[#1a73e8] hover:underline">
-          {t("registerLink")}
-        </Link>
+        <span className="group relative inline-block">
+          <Link href={`/${locale}/auth/register`} className="font-medium text-[#1a73e8] hover:underline">
+            {t("registerLink")}
+          </Link>
+          <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 w-64 rounded-lg bg-[#1e293b] px-3 py-2 text-xs text-white opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 z-10">
+            {t("registerTooltip")}
+            <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#1e293b]" />
+          </span>
+        </span>
       </p>
     </div>
   );

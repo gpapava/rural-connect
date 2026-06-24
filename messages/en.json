@@ -72,7 +72,8 @@
     "passwordMismatch": "Passwords do not match",
     "alreadyHaveAccount": "Already have an account?",
     "neetDeclarationText": "I declare that I am a young person (aged 15–29) who is Not in Employment, Education or Training (NEET), living in a rural area. I understand that this platform is designed to support NEET youth in rural communities across Europe.",
-    "neetDeclarationRequired": "You must confirm your NEET status to register."
+    "neetDeclarationRequired": "You must confirm your NEET status to register.",
+    "registerTooltip": "Registration is open to young people (15–29) who are Not in Employment, Education or Training (NEET) and live in a rural area."
   },
   "dashboard": {
     "title": "Dashboard",

@@ -71,7 +71,8 @@
     "passwordMismatch": "Şifreler eşleşmiyor",
     "alreadyHaveAccount": "Zaten hesabınız var mı?",
     "neetDeclarationText": "İstihdam, eğitim veya öğretimde bulunmayan (NEET) ve kırsal alanda yaşayan 15-29 yaş arasında bir genç olduğumu beyan ederim. Bu platformun Avrupa'daki kırsal toplulukların NEET gençlerini desteklemek için tasarlandığını anlıyorum.",
-    "neetDeclarationRequired": "Kayıt olmak için NEET statünüzü onaylamanız gerekmektedir."
+    "neetDeclarationRequired": "Kayıt olmak için NEET statünüzü onaylamanız gerekmektedir.",
+    "registerTooltip": "Kayıt, istihdam, eğitim veya öğretimde bulunmayan (NEET) ve kırsal alanda yaşayan 15-29 yaş arası gençlere açıktır."
   },
   "dashboard": {
     "title": "Panel",

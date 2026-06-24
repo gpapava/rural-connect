@@ -71,7 +71,8 @@
     "passwordMismatch": "Paroles nesakrīt",
     "alreadyHaveAccount": "Jau ir konts?",
     "neetDeclarationText": "Apliecinu, ka esmu jaunietis/jauniete (vecumā 15–29 gadi), kurš/kura nav nodarbināts/a, nemācās un neapgūst profesiju (NEET) un dzīvo lauku apvidū. Saprotu, ka šī platforma ir izveidota, lai atbalstītu NEET jauniešus lauku kopienās visā Eiropā.",
-    "neetDeclarationRequired": "Lai reģistrētos, jums jāapstiprina sava NEET statuss."
+    "neetDeclarationRequired": "Lai reģistrētos, jums jāapstiprina sava NEET statuss.",
+    "registerTooltip": "Reģistrācija ir atvērta jauniešiem (15–29 gadi), kuri nav nodarbināti, nemācās un neapgūst profesiju (NEET) un dzīvo lauku apvidū."
   },
   "dashboard": {
     "title": "Panelis",
