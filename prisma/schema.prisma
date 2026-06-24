@@ -21,6 +21,12 @@ enum SessionStatus {
   CANCELLED
 }
 
+enum StageStatus {
+  LOCKED
+  ACTIVE
+  COMPLETED
+}
+
 enum ModuleProgressStatus {
   NOT_STARTED
   IN_PROGRESS
@@ -42,6 +48,8 @@ model User {
   // Relations
   neetSessions      CounselingSession[] @relation("NeetUserSessions")
   counselorSessions CounselingSession[] @relation("CounselorSessions")
+  neetStages        CounselingStage[]   @relation("NeetUserStages")
+  counselorStages   CounselingStage[]   @relation("CounselorStages")
   messages          Message[]
   sharedFiles       SharedFile[]
   portfolio         PortfolioEntry?
@@ -55,6 +63,7 @@ model CounselingSession {
   id          String        @id @default(cuid())
   neetUserId  String
   counselorId String
+  stageId     String?
   scheduledAt DateTime
   notes       String?       @db.Text
   actionPlan  String?       @db.Text
@@ -63,12 +72,32 @@ model CounselingSession {
   updatedAt   DateTime      @updatedAt
 
   // Relations
-  neetUser    User         @relation("NeetUserSessions", fields: [neetUserId], references: [id], onDelete: Cascade)
-  counselor   User         @relation("CounselorSessions", fields: [counselorId], references: [id], onDelete: Cascade)
+  neetUser    User             @relation("NeetUserSessions", fields: [neetUserId], references: [id], onDelete: Cascade)
+  counselor   User             @relation("CounselorSessions", fields: [counselorId], references: [id], onDelete: Cascade)
+  stage       CounselingStage? @relation(fields: [stageId], references: [id], onDelete: SetNull)
   messages    Message[]
   sharedFiles SharedFile[]
 
   @@map("counseling_sessions")
+}
+
+model CounselingStage {
+  id          String      @id @default(cuid())
+  neetUserId  String
+  counselorId String
+  number      Int
+  summary     String?     @db.Text
+  status      StageStatus @default(LOCKED)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  neetUser  User                @relation("NeetUserStages", fields: [neetUserId], references: [id], onDelete: Cascade)
+  counselor User                @relation("CounselorStages", fields: [counselorId], references: [id], onDelete: Cascade)
+  sessions  CounselingSession[]
+
+  @@unique([neetUserId, counselorId, number])
+  @@map("counseling_stages")
 }
 
 model Message {

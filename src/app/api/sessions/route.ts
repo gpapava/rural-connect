@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { pusherServer } from "@/lib/pusher";
+import { getOrCreateStages } from "@/lib/stages";
 
 export async function POST(request: NextRequest) {
   const session = await auth();
@@ -24,10 +25,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "NEET user not found" }, { status: 404 });
   }
 
+  // Find or create stages for this pair, then assign to the active stage
+  const stages = await getOrCreateStages(neetUserId, session.user.id);
+  const activeStage = stages.find((s) => s.status === "ACTIVE");
+
   const counselingSession = await prisma.counselingSession.create({
     data: {
       counselorId: session.user.id,
       neetUserId,
+      stageId: activeStage?.id ?? null,
       scheduledAt: new Date(scheduledAt),
       notes: note ?? null,
       status: "PENDING",
