@@ -164,7 +164,17 @@ export default function LoginForm({ locale }: LoginFormProps) {
         </div>
       </div>
 
-      <p className="mt-6 text-center text-sm text-gray-500">
+      {/* Employer link */}
+      <div className="mt-6 border-t border-gray-100 pt-5 text-center">
+        <p className="text-xs text-gray-400">
+          Are you an employer?{" "}
+          <Link href={`/${locale}/jobs/new`} className="font-medium text-gray-600 hover:text-[#1a73e8] hover:underline">
+            Post a job opening
+          </Link>
+        </p>
+      </div>
+
+      <p className="mt-4 text-center text-sm text-gray-500">
         {t("noAccount")}{" "}
         <span className="group relative inline-block">
           <Link href={`/${locale}/auth/register`} className="font-medium text-[#1a73e8] hover:underline">
