@@ -12,83 +12,74 @@ export default async function Dashboard({ params: { locale } }: PageProps) {
   if (!session) redirect(`/${locale}/auth/login`);
 
   const counselorSelect = { id: true, name: true, email: true, country: true };
+  const userId = session.user.id;
 
-  const [user, totalModules, completedSessions, pendingSession, pastSessions] =
+  const [user, totalModules, completedModules, pendingSession, upcomingSession, stages, certificate] =
     await Promise.all([
       prisma.user.findUnique({
-        where: { id: session.user.id },
-        include: {
-          portfolio: { include: { qualifications: true } },
-          moduleProgress: {
-            include: { module: true },
-            orderBy: { updatedAt: "desc" },
+        where: { id: userId },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          country: true,
+          createdAt: true,
+          portfolio: {
+            select: { id: true, summary: true, targetSector: true, updatedAt: true },
           },
-          neetSessions: {
-            where: { status: { in: ["SCHEDULED", "IN_PROGRESS"] } },
-            include: { counselor: { select: counselorSelect } },
-            orderBy: { scheduledAt: "asc" },
-            take: 1,
+          moduleProgress: {
+            select: { status: true },
           },
         },
       }),
       prisma.module.count(),
-      prisma.counselingSession.count({
-        where: { neetUserId: session.user.id, status: "COMPLETED" },
+      prisma.userModuleProgress.count({
+        where: { userId, status: "COMPLETED" },
       }),
       prisma.counselingSession.findFirst({
-        where: { neetUserId: session.user.id, status: "PENDING" },
-        include: { counselor: { select: counselorSelect } },
+        where: { neetUserId: userId, status: "PENDING" },
+        select: { id: true, scheduledAt: true, counselor: { select: counselorSelect } },
         orderBy: { createdAt: "desc" },
       }),
-      prisma.counselingSession.findMany({
-        where: { neetUserId: session.user.id, status: "COMPLETED" },
-        include: { counselor: { select: counselorSelect } },
-        orderBy: { scheduledAt: "desc" },
-        take: 3,
+      prisma.counselingSession.findFirst({
+        where: { neetUserId: userId, status: { in: ["SCHEDULED", "IN_PROGRESS"] } },
+        select: { id: true, scheduledAt: true, status: true, counselor: { select: counselorSelect } },
+        orderBy: { scheduledAt: "asc" },
+      }),
+      prisma.counselingStage.findMany({
+        where: { neetUserId: userId },
+        select: { number: true, status: true },
+        orderBy: { number: "asc" },
+      }),
+      prisma.certificate.findUnique({
+        where: { neetUserId: userId },
+        select: { id: true, issuedAt: true },
       }),
     ]);
 
-  const completedModules =
-    user?.moduleProgress.filter((p) => p.status === "COMPLETED").length ?? 0;
-  const inProgressModules =
-    user?.moduleProgress.filter((p) => p.status === "IN_PROGRESS").length ?? 0;
+  const inProgressCount = user?.moduleProgress.filter((p) => p.status === "IN_PROGRESS").length ?? 0;
 
-  const dashboardData = {
-    user: {
-      id: user?.id ?? "",
-      name: user?.name ?? "",
-      email: user?.email ?? "",
-      country: user?.country ?? null,
-    },
-    upcomingSession: user?.neetSessions[0] ?? null,
-    pendingSession: pendingSession
-      ? {
-          id: pendingSession.id,
-          scheduledAt: pendingSession.scheduledAt,
-          counselor: pendingSession.counselor,
-        }
-      : null,
-    pastSessions: pastSessions.map((s) => ({
-      id: s.id,
-      scheduledAt: s.scheduledAt,
-      counselor: s.counselor,
-    })),
-    portfolio: user?.portfolio ?? null,
-    moduleStats: {
-      total: totalModules,
-      completed: completedModules,
-      inProgress: inProgressModules,
-      notStarted: totalModules - completedModules - inProgressModules,
-    },
-    stats: {
-      sessionsCompleted: completedSessions,
-      modulesFinished: completedModules,
-      daysActive: Math.floor(
-        (Date.now() - new Date(user?.createdAt ?? Date.now()).getTime()) /
-          (1000 * 60 * 60 * 24)
-      ),
-    },
-  };
-
-  return <DashboardPage data={dashboardData} locale={locale} />;
+  return (
+    <DashboardPage
+      data={{
+        user: {
+          id: user?.id ?? "",
+          name: user?.name ?? "",
+          email: user?.email ?? "",
+          country: user?.country ?? null,
+        },
+        upcomingSession: upcomingSession ?? null,
+        pendingSession: pendingSession ?? null,
+        portfolio: user?.portfolio ?? null,
+        moduleStats: {
+          total: totalModules,
+          completed: completedModules,
+          inProgress: inProgressCount,
+        },
+        stages: stages as { number: number; status: "LOCKED" | "ACTIVE" | "COMPLETED" }[],
+        certificate: certificate ?? null,
+      }}
+      locale={locale}
+    />
+  );
 }
