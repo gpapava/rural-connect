@@ -92,7 +92,7 @@ function PdfLesson({ url }: { url: string }) {
   return (
     <div className="space-y-3">
       <div className="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
-        <iframe src={`${url}#toolbar=1&navpanes=0&view=FitH`} className="w-full" style={{ height: "clamp(560px, 74vh, 860px)" }} title={t("pdfDocument")} />
+        <iframe src={`${url}#toolbar=1&navpanes=0&view=FitH`} className="w-full" style={{ height: "clamp(640px, 82vh, 1000px)" }} title={t("pdfDocument")} />
       </div>
       <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#1a73e8] hover:underline">
         <ExternalLink className="h-4 w-4" /> {t("openInNewTab")}
@@ -327,7 +327,7 @@ function ScormLesson({ url, onComplete }: { url: string; onComplete: () => void 
   const playerUrl = `/scorm-player.html?url=${encodeURIComponent(url)}`;
   return (
     <div className="space-y-3">
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: "clamp(560px, 68vh, 820px)" }}>
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: "clamp(620px, 78vh, 940px)" }}>
         <iframe src={playerUrl} className="h-full w-full border-0" allow="fullscreen" title={t("scormContent")} />
       </div>
       <div className="flex items-center justify-between">
