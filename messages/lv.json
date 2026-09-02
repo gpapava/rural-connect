@@ -523,6 +523,13 @@
     "openingsFound": "atrasts {count, plural, one {# piedāvājums} other {# piedāvājumi}}",
     "agencyCount": "{count, plural, one {# aģentūra} other {# aģentūras}}",
     "openingCount": "{count, plural, one {# piedāvājums} other {# piedāvājumi}}",
+    "tabVideos": "Padomi un video",
+    "searchVideos": "Meklēt video…",
+    "videosFound": "atrasts {count, plural, one {# video} other {# video}}",
+    "videoCount": "{count, plural, one {# video} other {# video}}",
+    "noVideos": "Vēl nav pieejamu video.",
+    "watchOnYoutube": "Skatīties YouTube",
+    "allLanguages": "Visas valodas",
     "noOpenings": "Vēl nav pieejamu darba piedāvājumu.",
     "countries": {
       "NO": "Norvēģija",

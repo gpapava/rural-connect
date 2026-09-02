@@ -523,6 +523,13 @@
     "openingsFound": "{count, plural, one {# stilling funnet} other {# stillinger funnet}}",
     "agencyCount": "{count, plural, one {# formidling} other {# formidlinger}}",
     "openingCount": "{count, plural, one {# stilling} other {# stillinger}}",
+    "tabVideos": "Tips og videoer",
+    "searchVideos": "Søk etter videoer…",
+    "videosFound": "{count, plural, one {# video funnet} other {# videoer funnet}}",
+    "videoCount": "{count, plural, one {# video} other {# videoer}}",
+    "noVideos": "Ingen videoer tilgjengelig ennå.",
+    "watchOnYoutube": "Se på YouTube",
+    "allLanguages": "Alle språk",
     "noOpenings": "Ingen jobbstillinger tilgjengelig ennå.",
     "countries": {
       "NO": "Norge",
