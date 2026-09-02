@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   ArrowLeft, BookOpen, FileText, HelpCircle,
   CheckCircle, ChevronRight, ChevronLeft, ExternalLink, Video, Package, FolderOpen,
@@ -53,6 +54,10 @@ interface ModuleDetailPageProps {
   locale: string;
 }
 
+const LESSON_LABEL_KEY: Record<LessonType, string> = {
+  TEXT: "types.reading", PDF: "types.pdf", VIDEO: "types.video", QUIZ: "types.quiz", SCORM: "types.scorm",
+};
+
 function TextLesson({ content }: { content: string }) {
   return (
     <div
@@ -65,6 +70,7 @@ function TextLesson({ content }: { content: string }) {
 }
 
 function VideoLesson({ url }: { url: string }) {
+  const t = useTranslations("module");
   const getEmbed = (u: string) => {
     const yt = u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
     if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
@@ -73,7 +79,7 @@ function VideoLesson({ url }: { url: string }) {
     return null;
   };
   const embedUrl = getEmbed(url);
-  if (!embedUrl) return <p className="text-sm text-gray-500">Invalid video URL.</p>;
+  if (!embedUrl) return <p className="text-sm text-gray-500">{t("invalidVideoUrl")}</p>;
   return (
     <div className="aspect-video overflow-hidden rounded-xl bg-black">
       <iframe src={embedUrl} className="h-full w-full" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />
@@ -82,13 +88,14 @@ function VideoLesson({ url }: { url: string }) {
 }
 
 function PdfLesson({ url }: { url: string }) {
+  const t = useTranslations("module");
   return (
     <div className="space-y-3">
       <div className="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
-        <iframe src={`${url}#toolbar=1&navpanes=0`} className="w-full" style={{ height: "780px" }} title="PDF Document" />
+        <iframe src={`${url}#toolbar=1&navpanes=0`} className="w-full" style={{ height: "780px" }} title={t("pdfDocument")} />
       </div>
       <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#1a73e8] hover:underline">
-        <ExternalLink className="h-4 w-4" /> Open in new tab
+        <ExternalLink className="h-4 w-4" /> {t("openInNewTab")}
       </a>
     </div>
   );
@@ -106,6 +113,7 @@ function MatchingQuestion({
   onMatch: (pairId: string, value: string) => void;
   submitted: boolean;
 }) {
+  const t = useTranslations("module");
   const [shuffledRights] = useState<{ id: string; right: string }[]>(() =>
     [...(q.pairs ?? [])].sort(() => Math.random() - 0.5)
   );
@@ -140,7 +148,7 @@ function MatchingQuestion({
                 "border-gray-200 bg-white"
               )}
             >
-              <option value="" disabled>Select match…</option>
+              <option value="" disabled>{t("quiz.selectMatch")}</option>
               {shuffledRights.map((r) => (
                 <option key={r.id} value={r.right}>{r.right}</option>
               ))}
@@ -161,12 +169,13 @@ function MatchingQuestion({
 type AnswerValue = number | boolean | Record<string, string>;
 
 function QuizLesson({ content, onComplete }: { content: string; onComplete: () => void }) {
+  const t = useTranslations("module");
   let questions: QuizQuestion[] = [];
   try {
     const parsed = JSON.parse(content);
     questions = parsed.questions ?? [];
   } catch {
-    return <p className="text-sm text-red-500">Quiz data is invalid.</p>;
+    return <p className="text-sm text-red-500">{t("quiz.invalidData")}</p>;
   }
 
   const [answers, setAnswers] = useState<Record<string, AnswerValue>>({});
@@ -213,14 +222,14 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
       {submitted && (
         <div className={cn("rounded-xl p-4 text-center", score === questions.length ? "bg-green-50 border border-green-200" : "bg-yellow-50 border border-yellow-200")}>
           <p className={cn("text-lg font-bold", score === questions.length ? "text-green-700" : "text-yellow-700")}>
-            {score === questions.length ? "Perfect score!" : `${score} / ${questions.length} correct`}
+            {score === questions.length ? t("quiz.perfectScore") : t("quiz.scoreLine", { score, total: questions.length })}
           </p>
           <p className="text-sm text-gray-500 mt-1">
-            {score === questions.length ? "You've completed this quiz!" : "Review the highlighted answers and try again."}
+            {score === questions.length ? t("quiz.completed") : t("quiz.reviewAndRetry")}
           </p>
           {score < questions.length && (
             <button onClick={() => { setAnswers({}); setSubmitted(false); }} className="mt-3 text-sm font-medium text-[#1a73e8] hover:underline">
-              Try again
+              {t("quiz.tryAgain")}
             </button>
           )}
         </div>
@@ -233,7 +242,7 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
             <div className="mb-4 flex items-start justify-between gap-3">
               <p className="text-sm font-semibold text-gray-900">{qi + 1}. {q.text}</p>
               <span className="flex-shrink-0 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
-                {type === "true_false" ? "True / False" : type === "matching" ? "Matching" : "Multiple choice"}
+                {type === "true_false" ? t("quiz.questionType.trueFalse") : type === "matching" ? t("quiz.questionType.matching") : t("quiz.questionType.multipleChoice")}
               </span>
             </div>
 
@@ -285,7 +294,7 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
                       onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: val }))}
                       className={cn("flex-1 rounded-lg border px-4 py-3 text-sm font-medium transition-all", style)}
                     >
-                      {val ? "True" : "False"}
+                      {val ? t("quiz.true") : t("quiz.false")}
                     </button>
                   );
                 })}
@@ -306,7 +315,7 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
 
       {!submitted && (
         <button onClick={handleSubmit} disabled={!allAnswered} className="btn-primary w-full disabled:opacity-50">
-          Submit answers
+          {t("quiz.submitAnswers")}
         </button>
       )}
     </div>
@@ -314,18 +323,19 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
 }
 
 function ScormLesson({ url, onComplete }: { url: string; onComplete: () => void }) {
+  const t = useTranslations("module");
   const playerUrl = `/scorm-player.html?url=${encodeURIComponent(url)}`;
   return (
     <div className="space-y-3">
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: 560 }}>
-        <iframe src={playerUrl} className="h-full w-full border-0" allow="fullscreen" title="SCORM Content" />
+        <iframe src={playerUrl} className="h-full w-full border-0" allow="fullscreen" title={t("scormContent")} />
       </div>
       <div className="flex items-center justify-between">
         <a href={playerUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
-          <ExternalLink className="h-3.5 w-3.5" /> Open in new tab
+          <ExternalLink className="h-3.5 w-3.5" /> {t("openInNewTab")}
         </a>
         <button onClick={onComplete} className="btn-secondary py-1.5 px-3 text-xs">
-          <CheckCircle className="h-3.5 w-3.5" /> Mark as complete
+          <CheckCircle className="h-3.5 w-3.5" /> {t("markAsComplete")}
         </button>
       </div>
     </div>
@@ -335,11 +345,9 @@ function ScormLesson({ url, onComplete }: { url: string; onComplete: () => void 
 const LESSON_ICON: Record<LessonType, React.ElementType> = {
   TEXT: BookOpen, PDF: FileText, VIDEO: Video, QUIZ: HelpCircle, SCORM: Package,
 };
-const LESSON_LABEL: Record<LessonType, string> = {
-  TEXT: "Reading", PDF: "PDF", VIDEO: "Video", QUIZ: "Quiz", SCORM: "SCORM",
-};
 
 export default function ModuleDetailPage({ module, lessons, topics, status, locale }: ModuleDetailPageProps) {
+  const t = useTranslations("module");
   const router = useRouter();
 
   const allLessons = useMemo(() => [
@@ -373,9 +381,9 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
     return (
       <div className="mx-auto max-w-3xl py-16 text-center">
         <BookOpen className="mx-auto mb-4 h-12 w-12 text-gray-300" />
-        <p className="text-gray-500">No lessons available for this module yet.</p>
+        <p className="text-gray-500">{t("noLessons")}</p>
         <button onClick={() => router.back()} className="btn-secondary mt-4">
-          <ArrowLeft className="h-4 w-4" /> Back to Library
+          <ArrowLeft className="h-4 w-4" /> {t("backToLibrary")}
         </button>
       </div>
     );
@@ -406,7 +414,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
         <div className="lg:col-span-1">
           <div className="rounded-xl border border-gray-200 bg-white p-4">
             <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3">
-              {hasTopic ? "Topics" : "Lessons"}
+              {hasTopic ? t("topics") : t("lessons")}
             </p>
 
             {hasTopic ? (
@@ -432,7 +440,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
                 ))}
                 {lessons.length > 0 && (
                   <div>
-                    <p className="text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-wide">Other</p>
+                    <p className="text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-wide">{t("other")}</p>
                     <div className="space-y-1">
                       {lessons.map((lesson) => (
                         <LessonNavButton
@@ -470,7 +478,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
               {activeTopic && (
                 <p className="mb-1 text-lg font-bold text-[#1a73e8]">{activeTopic.title}</p>
               )}
-              <p className="text-xs text-gray-400 uppercase tracking-wide">{LESSON_LABEL[activeLesson.type]}</p>
+              <p className="text-xs text-gray-400 uppercase tracking-wide">{t(LESSON_LABEL_KEY[activeLesson.type])}</p>
               <h2 className="text-lg font-semibold text-gray-900">{activeLesson.title}</h2>
             </div>
 
@@ -488,14 +496,14 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
 
             <div className="mt-8 flex items-center justify-between border-t border-gray-100 pt-5">
               <button onClick={() => setActiveIndex((i) => i - 1)} disabled={isFirst} className="btn-secondary disabled:opacity-40">
-                <ChevronLeft className="h-4 w-4" /> Previous
+                <ChevronLeft className="h-4 w-4" /> {t("previous")}
               </button>
               {activeLesson.type !== "QUIZ" && activeLesson.type !== "SCORM" && (
                 <button
                   onClick={() => { markComplete(); if (!isLast) setActiveIndex((i) => i + 1); }}
                   className="btn-primary"
                 >
-                  {isLast ? <><CheckCircle className="h-4 w-4" /> Mark complete</> : <>Next <ChevronRight className="h-4 w-4" /></>}
+                  {isLast ? <><CheckCircle className="h-4 w-4" /> {t("markComplete")}</> : <>{t("next")} <ChevronRight className="h-4 w-4" /></>}
                 </button>
               )}
             </div>
@@ -514,6 +522,7 @@ function LessonNavButton({
   isDone: boolean;
   onClick: () => void;
 }) {
+  const t = useTranslations("module");
   const Icon = LESSON_ICON[lesson.type];
   return (
     <button
@@ -530,7 +539,7 @@ function LessonNavButton({
       <div className="min-w-0">
         <p className="truncate font-medium">{lesson.title}</p>
         <p className={cn("text-xs", isActive ? "text-blue-100" : "text-gray-400")}>
-          {LESSON_LABEL[lesson.type]}
+          {t(LESSON_LABEL_KEY[lesson.type])}
         </p>
       </div>
     </button>

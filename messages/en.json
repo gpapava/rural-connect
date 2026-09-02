@@ -252,6 +252,11 @@
       "completed": "Completed",
       "cancelled": "Cancelled"
     },
+    "stageStatus": {
+      "locked": "Locked",
+      "active": "Active",
+      "completed": "Completed"
+    },
     "stage": {
       "notReached": "Stage not yet reached",
       "unlockHint": "Complete the previous stage to unlock this one.",
