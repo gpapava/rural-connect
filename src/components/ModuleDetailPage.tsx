@@ -92,7 +92,7 @@ function PdfLesson({ url }: { url: string }) {
   return (
     <div className="space-y-3">
       <div className="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
-        <iframe src={`${url}#toolbar=1&navpanes=0`} className="w-full" style={{ height: "clamp(880px, 90vh, 1400px)" }} title={t("pdfDocument")} />
+        <iframe src={`${url}#toolbar=1&navpanes=0&view=FitH`} className="w-full" style={{ height: "clamp(560px, 74vh, 860px)" }} title={t("pdfDocument")} />
       </div>
       <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#1a73e8] hover:underline">
         <ExternalLink className="h-4 w-4" /> {t("openInNewTab")}
@@ -327,7 +327,7 @@ function ScormLesson({ url, onComplete }: { url: string; onComplete: () => void 
   const playerUrl = `/scorm-player.html?url=${encodeURIComponent(url)}`;
   return (
     <div className="space-y-3">
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: "clamp(560px, 64vh, 780px)" }}>
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: "clamp(560px, 68vh, 820px)" }}>
         <iframe src={playerUrl} className="h-full w-full border-0" allow="fullscreen" title={t("scormContent")} />
       </div>
       <div className="flex items-center justify-between">
@@ -392,7 +392,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
   const hasTopic = topics.length > 0;
 
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="mx-auto max-w-7xl">
       <div className="mb-6 flex items-start gap-4">
         <button onClick={() => router.push(`/${locale}/library`)} className="mt-1 flex-shrink-0 rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
           <ArrowLeft className="h-5 w-5" />
@@ -409,7 +409,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
         {/* Sidebar */}
         <div className="lg:col-span-1">
           <div className="rounded-xl border border-gray-200 bg-white p-4">
@@ -472,7 +472,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
         </div>
 
         {/* Content */}
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-4">
           <div className="rounded-xl border border-gray-200 bg-white p-6">
             <div className="mb-5">
               {activeTopic && (
