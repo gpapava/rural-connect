@@ -92,7 +92,7 @@ function PdfLesson({ url }: { url: string }) {
   return (
     <div className="space-y-3">
       <div className="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
-        <iframe src={`${url}#toolbar=1&navpanes=0`} className="w-full" style={{ height: "780px" }} title={t("pdfDocument")} />
+        <iframe src={`${url}#toolbar=1&navpanes=0`} className="w-full" style={{ height: "clamp(880px, 90vh, 1400px)" }} title={t("pdfDocument")} />
       </div>
       <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#1a73e8] hover:underline">
         <ExternalLink className="h-4 w-4" /> {t("openInNewTab")}
@@ -327,7 +327,7 @@ function ScormLesson({ url, onComplete }: { url: string; onComplete: () => void 
   const playerUrl = `/scorm-player.html?url=${encodeURIComponent(url)}`;
   return (
     <div className="space-y-3">
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: 560 }}>
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50" style={{ height: "clamp(560px, 64vh, 780px)" }}>
         <iframe src={playerUrl} className="h-full w-full border-0" allow="fullscreen" title={t("scormContent")} />
       </div>
       <div className="flex items-center justify-between">
@@ -402,7 +402,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
           <h1 className="text-2xl font-bold text-gray-900">{module.title}</h1>
           {module.description && (
             <div
-              className="mt-1 text-sm text-gray-500 prose prose-sm max-w-none prose-a:text-[#1a73e8]"
+              className="mt-2 max-w-3xl text-base leading-relaxed text-gray-600 [&_a]:text-[#1a73e8] [&_a]:underline [&_p]:mt-2 first:[&_p]:mt-0"
               dangerouslySetInnerHTML={{ __html: module.description }}
             />
           )}

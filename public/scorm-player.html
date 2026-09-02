@@ -61,12 +61,50 @@
       GetDiagnostic:    function(_) { return ""; }
     };
 
+    // ── Hide the Storyline outline / menu sidebar ─────────────────────────────
+    // The published package bakes the menu into its player; we strip it here so
+    // the presentation shows as a clean, full-width interactive slide deck.
+    var HIDE_MENU_CSS = [
+      ".area-secondary, .cs-menu, .outline-panel, #tab-outline, .menu-handle, .mobile-menu-title { display: none !important; }",
+      ".presentation-wrapper.sidebar-left .area-primary, .area-primary {",
+      "  width: 100% !important; left: 0 !important;",
+      "  -webkit-box-flex: 1 !important; -webkit-flex: 1 1 100% !important;",
+      "  -ms-flex: 1 1 100% !important; flex: 1 1 100% !important;",
+      "}",
+      ".presentation-wrapper.sidebar-left .message-window, .sidebar-left .message-window { margin-left: 0 !important; }"
+    ].join("\n");
+
+    function injectMenuHide(frameEl) {
+      try {
+        var doc = frameEl.contentDocument || frameEl.contentWindow.document;
+        if (!doc || doc.getElementById("rc-hide-menu")) return;
+        var s = doc.createElement("style");
+        s.id = "rc-hide-menu";
+        s.textContent = HIDE_MENU_CSS;
+        (doc.head || doc.documentElement).appendChild(s);
+        try { frameEl.contentWindow.dispatchEvent(new Event("resize")); } catch (e) {}
+      } catch (e) {
+        // cross-origin or not ready yet — ignore
+      }
+    }
+
     // ── Load content ──────────────────────────────────────────────────────────
     var params = new URLSearchParams(location.search);
     var url = params.get("url");
+    var frame = document.getElementById("frame");
 
     if (url) {
-      document.getElementById("frame").src = url;
+      // Storyline redirects (index_lms.html -> index_lms_html5.html) and builds
+      // its DOM asynchronously, so re-inject on every load and poll briefly after.
+      frame.addEventListener("load", function () {
+        injectMenuHide(frame);
+        var tries = 0;
+        var iv = setInterval(function () {
+          injectMenuHide(frame);
+          if (++tries >= 20) clearInterval(iv);
+        }, 500);
+      });
+      frame.src = url;
     } else {
       var err = document.getElementById("error");
       err.style.display = "flex";
