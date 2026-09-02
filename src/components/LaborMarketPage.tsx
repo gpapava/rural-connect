@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import {
   Briefcase, ExternalLink, Globe, Search, Mail, MapPin,
-  Building2, Plus, Clock,
+  Building2, Plus, Clock, PlayCircle, Youtube, GraduationCap,
 } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
+import { localeNames, type Locale } from "@/i18n";
 import Link from "next/link";
 
 type LaborMarketLink = {
@@ -32,9 +33,20 @@ type JobOpening = {
   createdAt: Date;
 };
 
+type LaborMarketVideo = {
+  id: string;
+  language: string;
+  title: string;
+  description: string | null;
+  youtubeUrl: string;
+  order: number;
+  createdAt: Date;
+};
+
 interface LaborMarketPageProps {
   links: LaborMarketLink[];
   jobs: JobOpening[];
+  videos: LaborMarketVideo[];
   locale: string;
 }
 
@@ -52,39 +64,69 @@ const countryColors: Record<string, { bg: string; text: string; border: string }
   EU: { bg: "bg-indigo-50", text: "text-indigo-700", border: "border-indigo-200" },
 };
 
-type Tab = "agencies" | "jobs";
+const languageFlags: Record<string, string> = {
+  en: "🇬🇧", el: "🇬🇷", es: "🇪🇸", it: "🇮🇹", tr: "🇹🇷", lv: "🇱🇻", no: "🇳🇴",
+};
 
-export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPageProps) {
+function youtubeId(url: string): string | null {
+  const m = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/
+  );
+  return m ? m[1] : null;
+}
+
+type Tab = "agencies" | "jobs" | "videos";
+
+export default function LaborMarketPage({ links, jobs, videos, locale }: LaborMarketPageProps) {
   const t = useTranslations("laborMarket");
   const countryName = (code: string) =>
     t.has(`countries.${code}`) ? t(`countries.${code}`) : code;
+  const languageName = (code: string) =>
+    localeNames[code as Locale] ?? code.toUpperCase();
+
   const [tab, setTab] = useState<Tab>("agencies");
-  const [selectedCountry, setSelectedCountry] = useState("all");
+  const [selectedFilter, setSelectedFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [playingId, setPlayingId] = useState<string | null>(null);
 
-  // Countries for agencies
+  // Filter chips: countries for agencies/jobs, languages for videos
   const agencyCountries = ["all", ...Array.from(new Set(links.map((l) => l.country)))];
-  // Countries for jobs
   const jobCountries = ["all", ...Array.from(new Set(jobs.map((j) => j.country)))];
-  const activeCountries = tab === "agencies" ? agencyCountries : jobCountries;
+  const videoLanguages = ["all", ...Array.from(new Set(videos.map((v) => v.language)))];
+  const activeFilters =
+    tab === "agencies" ? agencyCountries : tab === "jobs" ? jobCountries : videoLanguages;
 
-  // Reset country filter when switching tabs
-  const handleTabChange = (t: Tab) => {
-    setTab(t);
-    setSelectedCountry("all");
+  const filterFlag = (code: string) =>
+    tab === "videos" ? languageFlags[code] : countryFlags[code];
+  const filterLabel = (code: string) => {
+    if (code === "all") return tab === "videos" ? t("allLanguages") : t("allCountries");
+    return tab === "videos" ? languageName(code) : countryName(code);
+  };
+
+  // Reset filter + search when switching tabs
+  const handleTabChange = (next: Tab) => {
+    setTab(next);
+    setSelectedFilter("all");
     setSearch("");
+    setPlayingId(null);
   };
 
   const filteredLinks = links.filter((link) => {
-    const matchCountry = selectedCountry === "all" || link.country === selectedCountry;
+    const matchCountry = selectedFilter === "all" || link.country === selectedFilter;
     const matchSearch = !search || link.agencyName.toLowerCase().includes(search.toLowerCase()) || link.description?.toLowerCase().includes(search.toLowerCase());
     return matchCountry && matchSearch;
   });
 
   const filteredJobs = jobs.filter((job) => {
-    const matchCountry = selectedCountry === "all" || job.country === selectedCountry;
+    const matchCountry = selectedFilter === "all" || job.country === selectedFilter;
     const matchSearch = !search || job.title.toLowerCase().includes(search.toLowerCase()) || job.company.toLowerCase().includes(search.toLowerCase()) || job.description.toLowerCase().includes(search.toLowerCase());
     return matchCountry && matchSearch;
+  });
+
+  const filteredVideos = videos.filter((video) => {
+    const matchLang = selectedFilter === "all" || video.language === selectedFilter;
+    const matchSearch = !search || video.title.toLowerCase().includes(search.toLowerCase()) || video.description?.toLowerCase().includes(search.toLowerCase());
+    return matchLang && matchSearch;
   });
 
   const groupedLinks = filteredLinks.reduce<Record<string, LaborMarketLink[]>>((acc, link) => {
@@ -96,6 +138,12 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
   const groupedJobs = filteredJobs.reduce<Record<string, JobOpening[]>>((acc, job) => {
     if (!acc[job.country]) acc[job.country] = [];
     acc[job.country].push(job);
+    return acc;
+  }, {});
+
+  const groupedVideos = filteredVideos.reduce<Record<string, LaborMarketVideo[]>>((acc, video) => {
+    if (!acc[video.language]) acc[video.language] = [];
+    acc[video.language].push(video);
     return acc;
   }, {});
 
@@ -148,9 +196,25 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
             </span>
           )}
         </button>
+        <button
+          onClick={() => handleTabChange("videos")}
+          className={cn(
+            "rounded-lg px-4 py-2 text-sm font-medium transition-all",
+            tab === "videos"
+              ? "bg-white text-gray-900 shadow-sm"
+              : "text-gray-500 hover:text-gray-700"
+          )}
+        >
+          {t("tabVideos")}
+          {videos.length > 0 && (
+            <span className="ml-2 rounded-full bg-gray-200 px-1.5 py-0.5 text-xs text-gray-600">
+              {videos.length}
+            </span>
+          )}
+        </button>
       </div>
 
-      {/* Search + country filter */}
+      {/* Search + filter chips */}
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
@@ -158,27 +222,32 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={tab === "agencies" ? t("searchAgencies") : t("searchJobs")}
+            placeholder={
+              tab === "agencies"
+                ? t("searchAgencies")
+                : tab === "jobs"
+                ? t("searchJobs")
+                : t("searchVideos")
+            }
             className="input-field pl-9"
           />
         </div>
         <div className="flex flex-wrap gap-2">
-          {activeCountries.map((country) => {
-            const flag = country !== "all" ? countryFlags[country] : null;
-            const name = country === "all" ? t("allCountries") : countryName(country);
+          {activeFilters.map((code) => {
+            const flag = code !== "all" ? filterFlag(code) : null;
             return (
               <button
-                key={country}
-                onClick={() => setSelectedCountry(country)}
+                key={code}
+                onClick={() => setSelectedFilter(code)}
                 className={cn(
                   "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
-                  selectedCountry === country
+                  selectedFilter === code
                     ? "border-[#1a73e8] bg-[#1a73e8] text-white"
                     : "border-gray-200 bg-white text-gray-600 hover:border-[#1a73e8]/40"
                 )}
               >
                 {flag && <span>{flag}</span>}
-                {name}
+                {filterLabel(code)}
               </button>
             );
           })}
@@ -356,6 +425,100 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
                   </div>
                 );
               })}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ── Tips & Videos tab ── */}
+      {tab === "videos" && (
+        <>
+          <div className="mb-6 flex gap-4 text-sm text-gray-500">
+            <span>{t("videosFound", { count: filteredVideos.length })}</span>
+          </div>
+
+          {Object.keys(groupedVideos).length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16 text-center">
+              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gray-100">
+                <GraduationCap className="h-7 w-7 text-gray-400" />
+              </div>
+              <p className="text-sm text-gray-500">{t("noVideos")}</p>
+            </div>
+          ) : (
+            <div className="space-y-8">
+              {Object.entries(groupedVideos).map(([lang, langVideos]) => (
+                <div key={lang}>
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="text-2xl">{languageFlags[lang] ?? "🌐"}</span>
+                    <div>
+                      <h2 className="text-lg font-semibold text-gray-900">{languageName(lang)}</h2>
+                      <p className="text-xs text-gray-500">{t("videoCount", { count: langVideos.length })}</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {langVideos.map((video) => {
+                      const vid = youtubeId(video.youtubeUrl);
+                      const isPlaying = playingId === video.id;
+                      return (
+                        <div key={video.id} className="card group flex flex-col transition-shadow hover:shadow-md">
+                          <div className="relative mb-3 aspect-video overflow-hidden rounded-xl bg-gray-900">
+                            {isPlaying && vid ? (
+                              <iframe
+                                src={`https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&rel=0`}
+                                title={video.title}
+                                className="h-full w-full border-0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                              />
+                            ) : vid ? (
+                              <button
+                                type="button"
+                                onClick={() => setPlayingId(video.id)}
+                                className="group/play absolute inset-0 flex items-center justify-center"
+                              >
+                                <img
+                                  src={`https://i.ytimg.com/vi/${vid}/hqdefault.jpg`}
+                                  alt=""
+                                  className="h-full w-full object-cover opacity-90 transition-opacity group-hover/play:opacity-100"
+                                />
+                                <span className="absolute flex h-12 w-12 items-center justify-center rounded-full bg-black/60 text-white transition-transform group-hover/play:scale-110">
+                                  <PlayCircle className="h-7 w-7" />
+                                </span>
+                              </button>
+                            ) : (
+                              <a
+                                href={video.youtubeUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="absolute inset-0 flex items-center justify-center text-white/60"
+                              >
+                                <Youtube className="h-10 w-10" />
+                              </a>
+                            )}
+                          </div>
+                          <h3 className="text-sm font-semibold text-gray-900 leading-tight">{video.title}</h3>
+                          {video.description && (
+                            <p className="mt-1 mb-3 flex-1 text-xs leading-relaxed text-gray-500 line-clamp-3">
+                              {video.description}
+                            </p>
+                          )}
+                          <div className="mt-auto border-t border-gray-100 pt-3">
+                            <a
+                              href={video.youtubeUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-[#1a73e8]"
+                            >
+                              <Youtube className="h-3.5 w-3.5" />
+                              {t("watchOnYoutube")}
+                            </a>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </>

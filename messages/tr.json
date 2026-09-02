@@ -523,6 +523,13 @@
     "openingsFound": "{count, plural, one {# ilan bulundu} other {# ilan bulundu}}",
     "agencyCount": "{count, plural, one {# kurum} other {# kurum}}",
     "openingCount": "{count, plural, one {# ilan} other {# ilan}}",
+    "tabVideos": "İpuçları ve Videolar",
+    "searchVideos": "Video ara…",
+    "videosFound": "{count, plural, one {# video bulundu} other {# video bulundu}}",
+    "videoCount": "{count, plural, one {# video} other {# video}}",
+    "noVideos": "Henüz kullanılabilir video yok.",
+    "watchOnYoutube": "YouTube'da izle",
+    "allLanguages": "Tüm Diller",
     "noOpenings": "Henüz kullanılabilir iş ilanı yok.",
     "countries": {
       "NO": "Norveç",

@@ -523,6 +523,13 @@
     "openingsFound": "{count, plural, one {# opening} other {# openings}} found",
     "agencyCount": "{count, plural, one {# agency} other {# agencies}}",
     "openingCount": "{count, plural, one {# opening} other {# openings}}",
+    "tabVideos": "Tips & Videos",
+    "searchVideos": "Search videos…",
+    "videosFound": "{count, plural, one {# video} other {# videos}} found",
+    "videoCount": "{count, plural, one {# video} other {# videos}}",
+    "noVideos": "No videos available yet.",
+    "watchOnYoutube": "Watch on YouTube",
+    "allLanguages": "All Languages",
     "noOpenings": "No job openings available yet.",
     "countries": {
       "NO": "Norway",

@@ -263,6 +263,18 @@ model LaborMarketLink {
   @@map("labor_market_links")
 }
 
+model LaborMarketVideo {
+  id          String   @id @default(cuid())
+  language    String   // locale code: en | el | es | it | tr | lv | no
+  title       String
+  description String?  @db.Text
+  youtubeUrl  String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@map("labor_market_videos")
+}
+
 model Notification {
   id        String   @id @default(cuid())
   userId    String

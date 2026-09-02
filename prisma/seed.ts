@@ -341,6 +341,14 @@ async function main() {
     skipDuplicates: true,
   });
 
+  // Labor market tutorial videos (job-search tips). Real videos are added per
+  // partner language via prisma/add-labor-market-videos.ts. Left empty in the
+  // seed so a fresh DB just shows the empty "Tips & Videos" tab.
+  await prisma.laborMarketVideo.createMany({
+    data: [],
+    skipDuplicates: true,
+  });
+
   console.log("Seed completed successfully!");
   console.log("\nTest accounts:");
   console.log("  Admin:     admin@ruralconnect.eu / admin123");

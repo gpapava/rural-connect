@@ -523,6 +523,13 @@
     "openingsFound": "{count, plural, one {# offerta trovata} other {# offerte trovate}}",
     "agencyCount": "{count, plural, one {# agenzia} other {# agenzie}}",
     "openingCount": "{count, plural, one {# offerta} other {# offerte}}",
+    "tabVideos": "Consigli e Video",
+    "searchVideos": "Cerca video…",
+    "videosFound": "{count, plural, one {# video trovato} other {# video trovati}}",
+    "videoCount": "{count, plural, one {# video} other {# video}}",
+    "noVideos": "Nessun video ancora disponibile.",
+    "watchOnYoutube": "Guarda su YouTube",
+    "allLanguages": "Tutte le Lingue",
     "noOpenings": "Nessuna offerta di lavoro ancora disponibile.",
     "countries": {
       "NO": "Norvegia",
