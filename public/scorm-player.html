@@ -61,28 +61,57 @@
       GetDiagnostic:    function(_) { return ""; }
     };
 
-    // ── Hide the Storyline outline / menu sidebar ─────────────────────────────
-    // The published package bakes the menu into its player; we strip it here so
-    // the presentation shows as a clean, full-width interactive slide deck.
+    // ── Hide the Storyline outline / menu sidebar + fit the slide ─────────────
+    // The published package bakes the menu into its player and is published with
+    // "Lock at optimal size / no scaling", so it never resizes itself. We strip
+    // the menu here and scale the slide area to fill the viewport, so the
+    // presentation shows as a clean, full-width interactive slide deck.
     var HIDE_MENU_CSS = [
       ".area-secondary, .cs-menu, .outline-panel, #tab-outline, .menu-handle, .mobile-menu-title { display: none !important; }",
-      ".presentation-wrapper.sidebar-left .area-primary, .area-primary {",
-      "  width: 100% !important; left: 0 !important;",
+      ".area-primary {",
+      "  width: 100% !important; left: 0 !important; padding: 0 !important;",
       "  -webkit-box-flex: 1 !important; -webkit-flex: 1 1 100% !important;",
       "  -ms-flex: 1 1 100% !important; flex: 1 1 100% !important;",
       "}",
-      ".presentation-wrapper.sidebar-left .message-window, .sidebar-left .message-window { margin-left: 0 !important; }"
+      ".main-window-slide-container, .cs-slide-container {",
+      "  width: var(--rc-slide-w, 720px) !important; margin: 0 auto !important; left: 0 !important;",
+      "}",
+      ".presentation-wrapper { width: var(--rc-slide-w, 720px) !important; }",
+      ".presentation-wrapper.sidebar-left .message-window, .sidebar-left .message-window { margin-left: 0 !important; }",
+      "html, body { overflow: hidden !important; }"
     ].join("\n");
 
-    function injectMenuHide(frameEl) {
+    // Fit the Storyline slide area into the iframe: inject the layout CSS (once)
+    // and re-scale the player wrapper on every call (cheap, idempotent).
+    function fitPresentation(frameEl) {
       try {
         var doc = frameEl.contentDocument || frameEl.contentWindow.document;
-        if (!doc || doc.getElementById("rc-hide-menu")) return;
-        var s = doc.createElement("style");
-        s.id = "rc-hide-menu";
-        s.textContent = HIDE_MENU_CSS;
-        (doc.head || doc.documentElement).appendChild(s);
-        try { frameEl.contentWindow.dispatchEvent(new Event("resize")); } catch (e) {}
+        var win = frameEl.contentWindow;
+        if (!doc || !win) return;
+
+        if (!doc.getElementById("rc-hide-menu")) {
+          var s = doc.createElement("style");
+          s.id = "rc-hide-menu";
+          s.textContent = HIDE_MENU_CSS;
+          (doc.head || doc.documentElement).appendChild(s);
+        }
+
+        var wrap = doc.querySelector(".presentation-wrapper");
+        var slide = doc.querySelector(".slide-container, .slide");
+        if (!wrap || !slide) return;
+
+        var slideW = parseFloat(slide.style.width) || slide.getBoundingClientRect().width || 720;
+        var wrapH = parseFloat(wrap.style.height) || wrap.getBoundingClientRect().height || 523;
+        if (!slideW || !wrapH) return;
+
+        doc.documentElement.style.setProperty("--rc-slide-w", slideW + "px");
+
+        var scale = Math.min(win.innerWidth / slideW, win.innerHeight / wrapH);
+        if (!isFinite(scale) || scale <= 0) return;
+        if (scale > 1.6) scale = 1.6;
+
+        wrap.style.transformOrigin = "0 0";
+        wrap.style.transform = "scale(" + scale.toFixed(4) + ")";
       } catch (e) {
         // cross-origin or not ready yet — ignore
       }
@@ -95,15 +124,16 @@
 
     if (url) {
       // Storyline redirects (index_lms.html -> index_lms_html5.html) and builds
-      // its DOM asynchronously, so re-inject on every load and poll briefly after.
+      // its DOM asynchronously, so re-fit on every load and poll briefly after.
       frame.addEventListener("load", function () {
-        injectMenuHide(frame);
+        fitPresentation(frame);
         var tries = 0;
         var iv = setInterval(function () {
-          injectMenuHide(frame);
-          if (++tries >= 20) clearInterval(iv);
+          fitPresentation(frame);
+          if (++tries >= 30) clearInterval(iv);
         }, 500);
       });
+      window.addEventListener("resize", function () { fitPresentation(frame); });
       frame.src = url;
     } else {
       var err = document.getElementById("error");
