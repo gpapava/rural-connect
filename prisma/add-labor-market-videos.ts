@@ -23,19 +23,29 @@ const videos: {
   youtubeUrl: string;
   order?: number;
 }[] = [
-  // --- Example (delete and replace with the real ones) ---
-  // {
-  //   language: "en",
-  //   title: "How to write a CV that gets noticed",
-  //   description: "A short walkthrough of CV structure, wording and common mistakes.",
-  //   youtubeUrl: "https://www.youtube.com/watch?v=XXXXXXXXXXX",
-  //   order: 1,
-  // },
+  {
+    language: "no",
+    title: "Job searching tips in Norway",
+    description:
+      "Practical tips for looking for work in Norway — where to search, how to apply, and what employers expect.",
+    youtubeUrl: "https://youtu.be/w4YB9pZ5LVE",
+    order: 1,
+  },
+  {
+    language: "lv",
+    title: "Job searching tips in Latvia",
+    description:
+      "Practical tips for looking for work in Latvia — where to search, how to apply, and what employers expect.",
+    youtubeUrl: "https://youtu.be/aziHuGpJGKw",
+    order: 1,
+  },
+
+  // --- Add the remaining partner videos below, same shape ---
   // {
   //   language: "el",
-  //   title: "Πώς να γράψεις ένα καλό βιογραφικό",
-  //   description: "Δομή, διατύπωση και συνηθισμένα λάθη στο βιογραφικό σημείωμα.",
-  //   youtubeUrl: "https://www.youtube.com/watch?v=XXXXXXXXXXX",
+  //   title: "Job searching tips in Greece",
+  //   description: "Practical tips for looking for work in Greece — where to search, how to apply, and what employers expect.",
+  //   youtubeUrl: "https://youtu.be/XXXXXXXXXXX",
   //   order: 1,
   // },
 ];
