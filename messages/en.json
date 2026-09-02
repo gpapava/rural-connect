@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "description": "Empowering NEET youth in rural areas through digital counseling and skills development"
+  },
   "common": {
     "appName": "RURAL-CONNECT",
     "loading": "Loading...",
@@ -617,6 +620,11 @@
     },
     "courseEditor": {
       "backToCourses": "Back to Courses",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saved": "Saved!",
+      "saveChanges": "Save Changes",
       "courseDetails": "Course Details",
       "courseTitlePlaceholder": "Course title",
       "description": "Description",
@@ -624,6 +632,7 @@
       "category": "Category",
       "durationMinutes": "Duration (minutes)",
       "featuredImageUrl": "Featured Image URL",
+      "optional": "optional",
       "featuredImagePlaceholder": "https://example.com/image.jpg",
       "imagePreviewAlt": "Preview",
       "topics": "Topics ({count})",
@@ -634,9 +643,11 @@
       "topicDescriptionPlaceholder": "Add a topic description…",
       "saveTopic": "Save Topic",
       "confirmDeleteTopic": "Delete this topic? Its lessons will become unassigned.",
+      "confirmDeleteLesson": "Delete this lesson?",
       "editTopic": "Edit",
       "deleteTopic": "Delete topic",
       "lessons": "Lessons ({count})",
+      "lessonsInTopic": "{count, plural, one {# lesson} other {# lessons}}",
       "addLesson": "Add Lesson",
       "addLessonShort": "Add lesson",
       "newLesson": "New Lesson",

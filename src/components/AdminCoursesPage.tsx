@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Plus, BookOpen, Pencil, Trash2, Clock, FileText } from "lucide-react";
 
 type Module = {
@@ -20,6 +21,8 @@ interface Props {
 }
 
 export default function AdminCoursesPage({ modules: initial, locale }: Props) {
+  const t = useTranslations("admin.courses");
+  const tc = useTranslations("common");
   const router = useRouter();
   const [modules, setModules] = useState(initial);
   const [showForm, setShowForm] = useState(false);
@@ -46,7 +49,7 @@ export default function AdminCoursesPage({ modules: initial, locale }: Props) {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Delete this course and all its lessons?")) return;
+    if (!confirm(t("confirmDelete"))) return;
     setDeletingId(id);
     await fetch(`/api/admin/courses/${id}`, { method: "DELETE" });
     setModules((prev) => prev.filter((m) => m.id !== id));
@@ -57,29 +60,29 @@ export default function AdminCoursesPage({ modules: initial, locale }: Props) {
     <div className="mx-auto max-w-5xl">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Course Management</h1>
-          <p className="text-sm text-gray-500">{modules.length} courses in the library</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
+          <p className="text-sm text-gray-500">{t("count", { count: modules.length })}</p>
         </div>
         <button onClick={() => setShowForm(true)} className="btn-primary">
           <Plus className="h-4 w-4" />
-          New Course
+          {t("newCourse")}
         </button>
       </div>
 
       {showForm && (
         <div className="card mb-6">
-          <h2 className="mb-4 text-sm font-semibold text-gray-900">New Course</h2>
+          <h2 className="mb-4 text-sm font-semibold text-gray-900">{t("newCourse")}</h2>
           <div className="space-y-3">
             <input
               value={form.title}
               onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-              placeholder="Course title *"
+              placeholder={t("titlePlaceholder")}
               className="input w-full"
             />
             <textarea
               value={form.description}
               onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-              placeholder="Description *"
+              placeholder={t("descriptionPlaceholder")}
               rows={3}
               className="input w-full resize-none"
             />
@@ -87,23 +90,23 @@ export default function AdminCoursesPage({ modules: initial, locale }: Props) {
               <input
                 value={form.category}
                 onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                placeholder="Category (e.g. Digital Skills)"
+                placeholder={t("categoryPlaceholder")}
                 className="input"
               />
               <input
                 value={form.duration}
                 onChange={(e) => setForm((f) => ({ ...f, duration: e.target.value }))}
-                placeholder="Duration (minutes)"
+                placeholder={t("durationPlaceholder")}
                 type="number"
                 className="input"
               />
             </div>
             <div className="flex gap-2">
               <button onClick={handleCreate} disabled={saving} className="btn-primary">
-                {saving ? "Creating…" : "Create Course"}
+                {saving ? t("creating") : t("createCourse")}
               </button>
               <button onClick={() => setShowForm(false)} className="btn-secondary">
-                Cancel
+                {tc("cancel")}
               </button>
             </div>
           </div>
@@ -114,7 +117,7 @@ export default function AdminCoursesPage({ modules: initial, locale }: Props) {
         {modules.length === 0 ? (
           <div className="card text-center py-12">
             <BookOpen className="mx-auto mb-3 h-10 w-10 text-gray-300" />
-            <p className="text-sm text-gray-500">No courses yet. Create your first one.</p>
+            <p className="text-sm text-gray-500">{t("empty")}</p>
           </div>
         ) : (
           modules.map((module) => (
@@ -128,11 +131,11 @@ export default function AdminCoursesPage({ modules: initial, locale }: Props) {
                   <span className="text-xs text-gray-500">{module.category}</span>
                   {module.duration && (
                     <span className="flex items-center gap-1 text-xs text-gray-400">
-                      <Clock className="h-3 w-3" /> {module.duration} min
+                      <Clock className="h-3 w-3" /> {module.duration} {t("minutes")}
                     </span>
                   )}
                   <span className="flex items-center gap-1 text-xs text-gray-400">
-                    <FileText className="h-3 w-3" /> {module._count.lessons} lessons
+                    <FileText className="h-3 w-3" /> {t("lessonsCount", { count: module._count.lessons })}
                   </span>
                 </div>
               </div>
@@ -142,7 +145,7 @@ export default function AdminCoursesPage({ modules: initial, locale }: Props) {
                   className="btn-secondary py-1.5 px-3 text-xs"
                 >
                   <Pencil className="h-3.5 w-3.5" />
-                  Edit
+                  {t("edit")}
                 </button>
                 <button
                   onClick={() => handleDelete(module.id)}

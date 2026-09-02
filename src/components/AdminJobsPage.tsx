@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { CheckCircle2, XCircle, Trash2, ExternalLink, Clock, MapPin, Mail, Building2 } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
 
@@ -21,17 +22,21 @@ type Job = {
   createdAt: Date;
 };
 
-const countryNames: Record<string, string> = {
-  NO: "Norway", GR: "Greece", TR: "Turkey", LV: "Latvia", ES: "Spain", IT: "Italy",
+const STATUS_COLOR: Record<JobStatus, string> = {
+  PENDING: "bg-yellow-100 text-yellow-800",
+  APPROVED: "bg-green-100 text-green-800",
+  REJECTED: "bg-red-100 text-red-800",
 };
-
-const STATUS_CONFIG: Record<JobStatus, { label: string; color: string }> = {
-  PENDING:  { label: "Pending Review", color: "bg-yellow-100 text-yellow-800" },
-  APPROVED: { label: "Approved",       color: "bg-green-100 text-green-800"  },
-  REJECTED: { label: "Rejected",       color: "bg-red-100 text-red-800"      },
+const STATUS_LABEL_KEY: Record<JobStatus, string> = {
+  PENDING: "statusPending",
+  APPROVED: "statusApproved",
+  REJECTED: "statusRejected",
 };
 
 export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
+  const t = useTranslations("admin.jobs");
+  const tc = useTranslations("common.countries");
+  const countryName = (code: string) => (tc.has(code) ? tc(code) : code);
   const [jobs, setJobs] = useState(initial);
   const [filter, setFilter] = useState<"all" | JobStatus>("PENDING");
   const [processing, setProcessing] = useState<string | null>(null);
@@ -61,7 +66,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
   };
 
   const deleteJob = async (jobId: string, title: string) => {
-    if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+    if (!confirm(t("confirmDelete", { title }))) return;
     setProcessing(jobId);
     const res = await fetch(`/api/admin/jobs/${jobId}`, { method: "DELETE" });
     if (res.ok) setJobs((prev) => prev.filter((j) => j.id !== jobId));
@@ -71,17 +76,17 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
   return (
     <div className="mx-auto max-w-5xl">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Job Openings</h1>
-        <p className="text-sm text-gray-500">Review and approve employer-submitted job openings.</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
+        <p className="text-sm text-gray-500">{t("subtitle")}</p>
       </div>
 
       {/* Filter tabs */}
       <div className="mb-5 flex flex-wrap gap-2">
         {([
-          { key: "PENDING",  label: `Pending (${counts.PENDING})`  },
-          { key: "APPROVED", label: `Approved (${counts.APPROVED})` },
-          { key: "REJECTED", label: `Rejected (${counts.REJECTED})` },
-          { key: "all",      label: `All (${counts.all})`           },
+          { key: "PENDING",  label: t("filterPending", { count: counts.PENDING }) },
+          { key: "APPROVED", label: t("filterApproved", { count: counts.APPROVED }) },
+          { key: "REJECTED", label: t("filterRejected", { count: counts.REJECTED }) },
+          { key: "all",      label: t("filterAll", { count: counts.all }) },
         ] as const).map(({ key, label }) => (
           <button
             key={key}
@@ -101,12 +106,11 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 py-16 text-center">
           <Clock className="mb-2 h-8 w-8 text-gray-300" />
-          <p className="text-sm text-gray-400">No job openings in this category.</p>
+          <p className="text-sm text-gray-400">{t("empty")}</p>
         </div>
       ) : (
         <div className="space-y-4">
           {filtered.map((job) => {
-            const statusCfg = STATUS_CONFIG[job.status];
             return (
               <div key={job.id} className="card">
                 {/* Header row */}
@@ -114,8 +118,8 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <h3 className="text-base font-semibold text-gray-900">{job.title}</h3>
-                      <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-semibold", statusCfg.color)}>
-                        {statusCfg.label}
+                      <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-semibold", STATUS_COLOR[job.status])}>
+                        {t(STATUS_LABEL_KEY[job.status])}
                       </span>
                     </div>
                     <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
@@ -124,7 +128,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                       </span>
                       <span className="flex items-center gap-1">
                         <MapPin className="h-3 w-3" />
-                        {countryNames[job.country] ?? job.country}
+                        {countryName(job.country)}
                         {job.location && ` · ${job.location}`}
                       </span>
                       <span className="flex items-center gap-1">
@@ -140,7 +144,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-                        title="Visit website"
+                        title={t("visitWebsite")}
                       >
                         <ExternalLink className="h-4 w-4" />
                       </a>
@@ -149,7 +153,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                       onClick={() => deleteJob(job.id, job.title)}
                       disabled={processing === job.id}
                       className="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500 disabled:opacity-40"
-                      title="Delete"
+                      title={t("delete")}
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -162,7 +166,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                 {/* Admin note (if any) */}
                 {job.adminNote && (
                   <p className="mb-4 rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-500 italic">
-                    Note: {job.adminNote}
+                    {t("note", { note: job.adminNote })}
                   </p>
                 )}
 
@@ -171,7 +175,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                   <div className="border-t border-gray-100 pt-4 space-y-3">
                     <input
                       type="text"
-                      placeholder="Optional note to attach (e.g. rejection reason)..."
+                      placeholder={t("notePlaceholder")}
                       value={noteInput[job.id] ?? ""}
                       onChange={(e) => setNoteInput((prev) => ({ ...prev, [job.id]: e.target.value }))}
                       className="input-field text-sm"
@@ -183,7 +187,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                         className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#34a853] px-4 py-2 text-sm font-semibold text-white hover:bg-[#2d9147] disabled:opacity-50"
                       >
                         <CheckCircle2 className="h-4 w-4" />
-                        Approve
+                        {t("approve")}
                       </button>
                       <button
                         onClick={() => updateStatus(job.id, "REJECTED")}
@@ -191,7 +195,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                         className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-100 disabled:opacity-50"
                       >
                         <XCircle className="h-4 w-4" />
-                        Reject
+                        {t("reject")}
                       </button>
                     </div>
                   </div>
@@ -206,7 +210,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                         disabled={processing === job.id}
                         className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-500 hover:border-red-200 hover:text-red-500 disabled:opacity-40"
                       >
-                        Revoke approval
+                        {t("revokeApproval")}
                       </button>
                     )}
                     {job.status === "REJECTED" && (
@@ -215,7 +219,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                         disabled={processing === job.id}
                         className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-500 hover:border-green-200 hover:text-green-600 disabled:opacity-40"
                       >
-                        Approve instead
+                        {t("approveInstead")}
                       </button>
                     )}
                   </div>

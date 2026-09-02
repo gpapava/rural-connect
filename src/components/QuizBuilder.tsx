@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Plus, Trash2, CheckCircle } from "lucide-react";
 
 export type QuizQuestion = {
@@ -33,6 +34,7 @@ function emptyQuestion(type: QuizQuestion["type"] = "multiple_choice"): QuizQues
 }
 
 export default function QuizBuilder({ value, onChange }: Props) {
+  const t = useTranslations("admin.quiz");
   const parsed: QuizData = (() => {
     try { return JSON.parse(value); } catch { return { questions: [emptyQuestion()] }; }
   })();
@@ -65,13 +67,13 @@ export default function QuizBuilder({ value, onChange }: Props) {
       ))}
       <div className="flex gap-2 flex-wrap">
         <button type="button" onClick={() => addQuestion("multiple_choice")} className="btn-secondary flex-1 text-xs py-2">
-          <Plus className="h-3.5 w-3.5" /> Multiple choice
+          <Plus className="h-3.5 w-3.5" /> {t("addMultipleChoice")}
         </button>
         <button type="button" onClick={() => addQuestion("true_false")} className="btn-secondary flex-1 text-xs py-2">
-          <Plus className="h-3.5 w-3.5" /> True / False
+          <Plus className="h-3.5 w-3.5" /> {t("addTrueFalse")}
         </button>
         <button type="button" onClick={() => addQuestion("matching")} className="btn-secondary flex-1 text-xs py-2">
-          <Plus className="h-3.5 w-3.5" /> Matching
+          <Plus className="h-3.5 w-3.5" /> {t("addMatching")}
         </button>
       </div>
     </div>
@@ -87,15 +89,16 @@ function QuestionEditor({
   onRemove: () => void;
   canRemove: boolean;
 }) {
+  const t = useTranslations("admin.quiz");
   const type = q.type ?? "multiple_choice";
   const typeLabel =
-    type === "true_false" ? "True / False" : type === "matching" ? "Matching" : "Multiple Choice";
+    type === "true_false" ? t("typeTrueFalse") : type === "matching" ? t("typeMatching") : t("typeMultipleChoice");
 
   return (
     <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-gray-500">Question {index + 1}</span>
+          <span className="text-xs font-semibold text-gray-500">{t("question", { number: index + 1 })}</span>
           <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700">
             {typeLabel}
           </span>
@@ -110,7 +113,7 @@ function QuestionEditor({
       <textarea
         value={q.text}
         onChange={(e) => onUpdate({ text: e.target.value })}
-        placeholder="Question text *"
+        placeholder={t("questionPlaceholder")}
         rows={2}
         className="input w-full resize-none mb-3"
       />
@@ -125,6 +128,7 @@ function QuestionEditor({
 function MultipleChoiceEditor({
   question: q, onUpdate,
 }: { question: QuizQuestion; onUpdate: (p: Partial<QuizQuestion>) => void }) {
+  const t = useTranslations("admin.quiz");
   const options = q.options ?? ["", "", "", ""];
   return (
     <div className="space-y-2">
@@ -134,7 +138,7 @@ function MultipleChoiceEditor({
             type="button"
             onClick={() => onUpdate({ correctIndex: oi })}
             className={q.correctIndex === oi ? "text-green-500" : "text-gray-300 hover:text-gray-400"}
-            title="Mark as correct answer"
+            title={t("markCorrect")}
           >
             <CheckCircle className="h-4 w-4 flex-shrink-0" />
           </button>
@@ -144,12 +148,12 @@ function MultipleChoiceEditor({
               const next = options.map((o, i) => (i === oi ? e.target.value : o));
               onUpdate({ options: next });
             }}
-            placeholder={`Option ${String.fromCharCode(65 + oi)}`}
+            placeholder={t("optionPlaceholder", { letter: String.fromCharCode(65 + oi) })}
             className="input flex-1"
           />
         </div>
       ))}
-      <p className="mt-1 text-xs text-gray-400">Click the circle to mark the correct answer</p>
+      <p className="mt-1 text-xs text-gray-400">{t("clickCircleHint")}</p>
     </div>
   );
 }
@@ -157,6 +161,7 @@ function MultipleChoiceEditor({
 function TrueFalseEditor({
   question: q, onUpdate,
 }: { question: QuizQuestion; onUpdate: (p: Partial<QuizQuestion>) => void }) {
+  const t = useTranslations("admin.quiz");
   return (
     <div className="flex gap-3">
       {([true, false] as const).map((val) => {
@@ -172,7 +177,7 @@ function TrueFalseEditor({
                 : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
             }`}
           >
-            {val ? "True" : "False"} {selected && "✓"}
+            {val ? t("true") : t("false")} {selected && "✓"}
           </button>
         );
       })}
@@ -183,6 +188,7 @@ function TrueFalseEditor({
 function MatchingEditor({
   question: q, onUpdate,
 }: { question: QuizQuestion; onUpdate: (p: Partial<QuizQuestion>) => void }) {
+  const t = useTranslations("admin.quiz");
   const pairs = q.pairs ?? [];
 
   const updatePair = (id: string, field: "left" | "right", val: string) =>
@@ -197,22 +203,22 @@ function MatchingEditor({
   return (
     <div className="space-y-2">
       <div className="grid grid-cols-2 gap-2 px-1 text-xs font-medium text-gray-500">
-        <span>Left item</span>
-        <span>Right item (match)</span>
+        <span>{t("leftItem")}</span>
+        <span>{t("rightItemMatch")}</span>
       </div>
       {pairs.map((pair) => (
         <div key={pair.id} className="flex items-center gap-2">
           <input
             value={pair.left}
             onChange={(e) => updatePair(pair.id, "left", e.target.value)}
-            placeholder="Left item"
+            placeholder={t("leftItemPlaceholder")}
             className="input flex-1"
           />
           <span className="text-gray-300 flex-shrink-0">→</span>
           <input
             value={pair.right}
             onChange={(e) => updatePair(pair.id, "right", e.target.value)}
-            placeholder="Right item"
+            placeholder={t("rightItemPlaceholder")}
             className="input flex-1"
           />
           {pairs.length > 1 && (
@@ -223,9 +229,9 @@ function MatchingEditor({
         </div>
       ))}
       <button type="button" onClick={addPair} className="btn-secondary w-full py-1.5 text-xs">
-        <Plus className="h-3.5 w-3.5" /> Add pair
+        <Plus className="h-3.5 w-3.5" /> {t("addPair")}
       </button>
-      <p className="text-xs text-gray-400">Students will match left items to right items</p>
+      <p className="text-xs text-gray-400">{t("matchHint")}</p>
     </div>
   );
 }
