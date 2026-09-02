@@ -52,14 +52,12 @@ const countryColors: Record<string, { bg: string; text: string; border: string }
   EU: { bg: "bg-indigo-50", text: "text-indigo-700", border: "border-indigo-200" },
 };
 
-const countryNames: Record<string, string> = {
-  NO: "Norway", GR: "Greece", TR: "Turkey", LV: "Latvia", ES: "Spain", IT: "Italy", EU: "European Union",
-};
-
 type Tab = "agencies" | "jobs";
 
 export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPageProps) {
   const t = useTranslations("laborMarket");
+  const countryName = (code: string) =>
+    t.has(`countries.${code}`) ? t(`countries.${code}`) : code;
   const [tab, setTab] = useState<Tab>("agencies");
   const [selectedCountry, setSelectedCountry] = useState("all");
   const [search, setSearch] = useState("");
@@ -114,7 +112,7 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
           className="flex flex-shrink-0 items-center gap-2 rounded-lg border border-[#1a73e8]/30 bg-[#1a73e8]/5 px-4 py-2 text-sm font-medium text-[#1a73e8] hover:bg-[#1a73e8]/10 transition-colors"
         >
           <Plus className="h-4 w-4" />
-          Post a Job Opening
+          {t("postJob")}
         </Link>
       </div>
 
@@ -129,7 +127,7 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
               : "text-gray-500 hover:text-gray-700"
           )}
         >
-          Employment Agencies
+          {t("tabAgencies")}
           <span className="ml-2 rounded-full bg-gray-200 px-1.5 py-0.5 text-xs text-gray-600">
             {links.length}
           </span>
@@ -143,7 +141,7 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
               : "text-gray-500 hover:text-gray-700"
           )}
         >
-          Job Openings
+          {t("tabJobs")}
           {jobs.length > 0 && (
             <span className="ml-2 rounded-full bg-[#1a73e8] px-1.5 py-0.5 text-xs text-white">
               {jobs.length}
@@ -160,14 +158,14 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={tab === "agencies" ? "Search agencies…" : "Search job openings…"}
+            placeholder={tab === "agencies" ? t("searchAgencies") : t("searchJobs")}
             className="input-field pl-9"
           />
         </div>
         <div className="flex flex-wrap gap-2">
           {activeCountries.map((country) => {
             const flag = country !== "all" ? countryFlags[country] : null;
-            const name = country === "all" ? t("allCountries") : (countryNames[country] ?? country);
+            const name = country === "all" ? t("allCountries") : countryName(country);
             return (
               <button
                 key={country}
@@ -191,7 +189,7 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
       {tab === "agencies" && (
         <>
           <div className="mb-6 flex gap-4 text-sm text-gray-500">
-            <span><strong className="text-gray-900">{filteredLinks.length}</strong> {filteredLinks.length === 1 ? "agency" : "agencies"} found</span>
+            <span>{t("agenciesFound", { count: filteredLinks.length })}</span>
           </div>
 
           {Object.keys(groupedLinks).length === 0 ? (
@@ -206,14 +204,14 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
               {Object.entries(groupedLinks).map(([country, countryLinks]) => {
                 const colors = countryColors[country] ?? countryColors.EU;
                 const flag = countryFlags[country];
-                const cName = countryNames[country] ?? country;
+                const cName = countryName(country);
                 return (
                   <div key={country}>
                     <div className="mb-4 flex items-center gap-3">
                       <span className="text-2xl">{flag}</span>
                       <div>
                         <h2 className="text-lg font-semibold text-gray-900">{cName}</h2>
-                        <p className="text-xs text-gray-500">{countryLinks.length} {countryLinks.length === 1 ? "agency" : "agencies"}</p>
+                        <p className="text-xs text-gray-500">{t("agencyCount", { count: countryLinks.length })}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -266,7 +264,7 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
       {tab === "jobs" && (
         <>
           <div className="mb-6 flex gap-4 text-sm text-gray-500">
-            <span><strong className="text-gray-900">{filteredJobs.length}</strong> {filteredJobs.length === 1 ? "opening" : "openings"} found</span>
+            <span>{t("openingsFound", { count: filteredJobs.length })}</span>
           </div>
 
           {Object.keys(groupedJobs).length === 0 ? (
@@ -274,20 +272,20 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
               <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gray-100">
                 <Briefcase className="h-7 w-7 text-gray-400" />
               </div>
-              <p className="mb-4 text-sm text-gray-500">No job openings available yet.</p>
+              <p className="mb-4 text-sm text-gray-500">{t("noOpenings")}</p>
               <Link
                 href={`/${locale}/jobs/new`}
                 className="flex items-center gap-2 rounded-lg bg-[#1a73e8] px-4 py-2 text-sm font-medium text-white hover:bg-[#1558b0]"
               >
                 <Plus className="h-4 w-4" />
-                Post a Job Opening
+                {t("postJob")}
               </Link>
             </div>
           ) : (
             <div className="space-y-8">
               {Object.entries(groupedJobs).map(([country, countryJobs]) => {
                 const flag = countryFlags[country] ?? "🌍";
-                const cName = countryNames[country] ?? country;
+                const cName = countryName(country);
                 const colors = countryColors[country] ?? countryColors.EU;
                 return (
                   <div key={country}>
@@ -295,7 +293,7 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
                       <span className="text-2xl">{flag}</span>
                       <div>
                         <h2 className="text-lg font-semibold text-gray-900">{cName}</h2>
-                        <p className="text-xs text-gray-500">{countryJobs.length} {countryJobs.length === 1 ? "opening" : "openings"}</p>
+                        <p className="text-xs text-gray-500">{t("openingCount", { count: countryJobs.length })}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -340,7 +338,7 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
                                   className="flex items-center gap-1 rounded-lg border border-gray-200 px-2.5 py-1.5 text-xs text-gray-500 hover:border-[#1a73e8]/40 hover:text-[#1a73e8]"
                                 >
                                   <Globe className="h-3 w-3" />
-                                  Website
+                                  {t("website")}
                                 </a>
                               )}
                               <a
@@ -348,7 +346,7 @@ export default function LaborMarketPage({ links, jobs, locale }: LaborMarketPage
                                 className="flex items-center gap-1 rounded-lg bg-[#1a73e8] px-2.5 py-1.5 text-xs font-medium text-white hover:bg-[#1558b0]"
                               >
                                 <Mail className="h-3 w-3" />
-                                Apply
+                                {t("apply")}
                               </a>
                             </div>
                           </div>

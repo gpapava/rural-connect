@@ -1,18 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Briefcase, CheckCircle2 } from "lucide-react";
 
-const COUNTRIES = [
-  { code: "NO", label: "Norway" },
-  { code: "GR", label: "Greece" },
-  { code: "TR", label: "Turkey" },
-  { code: "LV", label: "Latvia" },
-  { code: "ES", label: "Spain" },
-  { code: "IT", label: "Italy" },
-];
+const COUNTRY_CODES = ["NO", "GR", "TR", "LV", "ES", "IT"];
 
 export default function JobPostForm() {
+  const t = useTranslations("jobPost");
+  const tc = useTranslations("common.countries");
   const [form, setForm] = useState({
     title: "",
     company: "",
@@ -43,12 +39,12 @@ export default function JobPostForm() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "Submission failed. Please try again.");
+        setError(data.error || t("submissionFailed"));
       } else {
         setSubmitted(true);
       }
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError(t("genericError"));
     } finally {
       setLoading(false);
     }
@@ -60,16 +56,15 @@ export default function JobPostForm() {
         <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
           <CheckCircle2 className="h-8 w-8 text-[#34a853]" />
         </div>
-        <h2 className="mb-2 text-xl font-bold text-gray-900">Job Opening Submitted!</h2>
+        <h2 className="mb-2 text-xl font-bold text-gray-900">{t("submittedTitle")}</h2>
         <p className="max-w-sm text-sm text-gray-500">
-          Your job opening has been submitted for review. Once approved by our team, it will
-          appear in the Rural-Connect Labor Market section visible to all users.
+          {t("submittedBody")}
         </p>
         <button
           onClick={() => { setSubmitted(false); setForm({ title: "", company: "", description: "", country: "", location: "", contactName: "", contactEmail: "", website: "" }); }}
           className="mt-6 rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
-          Submit another opening
+          {t("submitAnother")}
         </button>
       </div>
     );
@@ -86,58 +81,58 @@ export default function JobPostForm() {
       {/* Job details */}
       <div>
         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
-          Job Details
+          {t("jobDetails")}
         </h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Job Title *</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">{t("jobTitle")} *</label>
             <input
               type="text"
               required
               value={form.title}
               onChange={update("title")}
-              placeholder="e.g. Agricultural Worker, IT Support Technician"
+              placeholder={t("jobTitlePlaceholder")}
               className="input-field"
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Company / Organisation *</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">{t("company")} *</label>
             <input
               type="text"
               required
               value={form.company}
               onChange={update("company")}
-              placeholder="Your company name"
+              placeholder={t("companyPlaceholder")}
               className="input-field"
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Country *</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">{t("country")} *</label>
             <select required value={form.country} onChange={update("country")} className="input-field">
-              <option value="">Select country</option>
-              {COUNTRIES.map((c) => (
-                <option key={c.code} value={c.code}>{c.label}</option>
+              <option value="">{t("selectCountry")}</option>
+              {COUNTRY_CODES.map((code) => (
+                <option key={code} value={code}>{tc(code)}</option>
               ))}
             </select>
           </div>
           <div className="sm:col-span-2">
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Location / City</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">{t("location")}</label>
             <input
               type="text"
               value={form.location}
               onChange={update("location")}
-              placeholder="e.g. Athens, Rural Attica"
+              placeholder={t("locationPlaceholder")}
               className="input-field"
             />
           </div>
           <div className="sm:col-span-2">
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Job Description *</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">{t("description")} *</label>
             <textarea
               required
               value={form.description}
               onChange={update("description")}
               rows={5}
-              placeholder="Describe the role, responsibilities, requirements, and what you offer..."
+              placeholder={t("descriptionPlaceholder")}
               className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
             />
           </div>
@@ -147,38 +142,38 @@ export default function JobPostForm() {
       {/* Contact details */}
       <div>
         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
-          Contact Information
+          {t("contactInformation")}
         </h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Contact Name *</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">{t("contactName")} *</label>
             <input
               type="text"
               required
               value={form.contactName}
               onChange={update("contactName")}
-              placeholder="Your name or HR contact"
+              placeholder={t("contactNamePlaceholder")}
               className="input-field"
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Contact Email *</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">{t("contactEmail")} *</label>
             <input
               type="email"
               required
               value={form.contactEmail}
               onChange={update("contactEmail")}
-              placeholder="hr@yourcompany.com"
+              placeholder={t("contactEmailPlaceholder")}
               className="input-field"
             />
           </div>
           <div className="sm:col-span-2">
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Company Website</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">{t("website")}</label>
             <input
               type="url"
               value={form.website}
               onChange={update("website")}
-              placeholder="https://www.yourcompany.com"
+              placeholder={t("websitePlaceholder")}
               className="input-field"
             />
           </div>
@@ -187,9 +182,7 @@ export default function JobPostForm() {
 
       {/* Notice */}
       <div className="rounded-lg border border-amber-100 bg-amber-50 p-4 text-xs text-amber-800">
-        Your job opening will be reviewed by our team before it appears publicly. We aim to
-        review submissions within 2 business days. Only opportunities suitable for NEET youth
-        in rural areas will be approved.
+        {t("notice")}
       </div>
 
       <button type="submit" disabled={loading} className="btn-primary w-full">
@@ -199,12 +192,12 @@ export default function JobPostForm() {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
-            Submitting…
+            {t("submitting")}
           </>
         ) : (
           <>
             <Briefcase className="h-4 w-4" />
-            Submit Job Opening
+            {t("submit")}
           </>
         )}
       </button>

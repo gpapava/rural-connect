@@ -32,6 +32,7 @@ export default async function CertificatePage({ params: { locale, id } }: PagePr
       neetName={cert.neetUser.name}
       counselorName={cert.counselor.name}
       issuedAt={cert.issuedAt}
+      locale={locale}
     />
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { CalendarPlus, Users, User, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +18,7 @@ interface ScheduleSessionPageProps {
 }
 
 export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps) {
+  const t = useTranslations("schedule");
   const router = useRouter();
   const [allUsers, setAllUsers] = useState<NeetUser[]>([]);
   const [myStudents, setMyStudents] = useState<NeetUser[]>([]);
@@ -74,13 +76,13 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
 
       if (!res.ok) {
         const data = await res.json();
-        setError(data.error ?? "Failed to schedule session");
+        setError(data.error ?? t("failed"));
         return;
       }
 
       router.push(`/${locale}/counseling`);
     } catch {
-      setError("Failed to schedule session. Please try again.");
+      setError(t("failedRetry"));
     } finally {
       setSubmitting(false);
     }
@@ -91,9 +93,9 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Schedule Video Session</h1>
+        <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
         <p className="mt-1 text-sm text-gray-500">
-          Select a student, choose a date and time, and send them an invitation.
+          {t("subtitle")}
         </p>
       </div>
 
@@ -103,7 +105,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
               <Users className="h-4 w-4 text-[#1a73e8]" />
-              Select Student
+              {t("selectStudent")}
             </h2>
             <button
               type="button"
@@ -116,7 +118,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
               )}
             >
               <User className="h-3.5 w-3.5" />
-              My Students Only
+              {t("myStudentsOnly")}
             </button>
           </div>
 
@@ -126,15 +128,15 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by name or email..."
+              placeholder={t("searchPlaceholder")}
               className="w-full rounded-lg border border-gray-200 bg-gray-50 py-2 pl-9 pr-3 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
             />
           </div>
 
           {loadingUsers ? (
-            <p className="py-4 text-center text-sm text-gray-400">Loading students...</p>
+            <p className="py-4 text-center text-sm text-gray-400">{t("loadingStudents")}</p>
           ) : filteredUsers.length === 0 ? (
-            <p className="py-4 text-center text-sm text-gray-400">No students found</p>
+            <p className="py-4 text-center text-sm text-gray-400">{t("noStudents")}</p>
           ) : (
             <div className="max-h-56 space-y-1 overflow-y-auto">
               {filteredUsers.map((user) => (
@@ -174,11 +176,11 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
         <div className="card">
           <h2 className="mb-4 text-sm font-semibold text-gray-900 flex items-center gap-2">
             <CalendarPlus className="h-4 w-4 text-[#1a73e8]" />
-            Date & Time
+            {t("dateTime")}
           </h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="mb-1.5 block text-xs font-medium text-gray-700">Date</label>
+              <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("date")}</label>
               <input
                 type="date"
                 value={date}
@@ -189,7 +191,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-xs font-medium text-gray-700">Time</label>
+              <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("time")}</label>
               <input
                 type="time"
                 value={time}
@@ -203,11 +205,11 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
 
         {/* Optional note */}
         <div className="card">
-          <h2 className="mb-3 text-sm font-semibold text-gray-900">Note (optional)</h2>
+          <h2 className="mb-3 text-sm font-semibold text-gray-900">{t("note")}</h2>
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            placeholder="Add a note for the student about this session..."
+            placeholder={t("notePlaceholder")}
             rows={3}
             className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
           />
@@ -223,7 +225,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
             onClick={() => router.back()}
             className="btn-secondary flex-1"
           >
-            Cancel
+            {t("cancel")}
           </button>
           <button
             type="submit"
@@ -231,7 +233,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
             className="btn-primary flex-1"
           >
             <CalendarPlus className="h-4 w-4" />
-            {submitting ? "Scheduling..." : "Send Invitation"}
+            {submitting ? t("scheduling") : t("sendInvitation")}
           </button>
         </div>
       </form>

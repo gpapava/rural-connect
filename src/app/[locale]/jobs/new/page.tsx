@@ -1,10 +1,12 @@
+import { getTranslations } from "next-intl/server";
 import JobPostForm from "@/components/JobPostForm";
 
 interface PageProps {
   params: { locale: string };
 }
 
-export default function PostJobPage({ params: { locale } }: PageProps) {
+export default async function PostJobPage({ params: { locale } }: PageProps) {
+  const t = await getTranslations({ locale, namespace: "jobPost" });
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-2xl px-4 py-12">
@@ -18,10 +20,9 @@ export default function PostJobPage({ params: { locale } }: PageProps) {
             </div>
             <span className="text-lg font-bold tracking-widest text-gray-900">RURAL-CONNECT</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Post a Job Opening</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t("pageTitle")}</h1>
           <p className="mt-2 text-sm text-gray-500">
-            Reach NEET youth in rural communities across Europe. Your job opening will be
-            reviewed and published on the Rural-Connect platform.
+            {t("pageSubtitle")}
           </p>
         </div>
 

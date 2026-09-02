@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Printer, Download } from "lucide-react";
 
 interface CertificateViewProps {
@@ -7,24 +8,25 @@ interface CertificateViewProps {
   neetName: string;
   counselorName: string;
   issuedAt: Date;
+  locale: string;
 }
 
-const STAGE_NAMES = [
-  "Learning the Platform",
-  "Previous Experience",
-  "Why You Need an Opportunity",
-  "Confidence & Orientation",
-  "Career Opportunities",
-];
+const LOCALE_TAGS: Record<string, string> = {
+  en: "en-GB", el: "el-GR", tr: "tr-TR", lv: "lv-LV", es: "es-ES", it: "it-IT", no: "nb-NO",
+};
 
 export default function CertificateView({
   neetName,
   counselorName,
   issuedAt,
+  locale,
 }: CertificateViewProps) {
+  const t = useTranslations("certificate");
+  const tStages = useTranslations("stages");
+  const stageNames = [1, 2, 3, 4, 5].map((n) => tStages(`names.${n}`));
   const handlePrint = () => window.print();
 
-  const formatted = new Date(issuedAt).toLocaleDateString("en-GB", {
+  const formatted = new Date(issuedAt).toLocaleDateString(LOCALE_TAGS[locale] ?? "en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -56,30 +58,30 @@ export default function CertificateView({
             className="flex items-center gap-2 rounded-xl bg-[#1e293b] px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#0f172a] transition-colors"
           >
             <Printer className="h-4 w-4" />
-            Print / Save as PDF
+            {t("printSave")}
           </button>
           <button
             onClick={handlePrint}
             className="flex items-center gap-2 rounded-xl border border-[#1a73e8]/30 bg-white px-5 py-2.5 text-sm font-semibold text-[#1a73e8] shadow-sm hover:bg-blue-50 transition-colors"
           >
             <Download className="h-4 w-4" />
-            Download PDF
+            {t("downloadPdf")}
           </button>
         </div>
 
         <p className="no-print text-xs text-gray-400">
-          In the print dialog, choose "Save as PDF" and set paper to A4 Landscape for best results.
+          {t("printHint")}
         </p>
       </div>
 
       {/* The actual certificate — always rendered, visible both on screen and in print */}
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-100 to-blue-50 print:bg-white print:min-h-0 no-print:hidden print:flex">
-        <CertificatePaper neetName={neetName} counselorName={counselorName} formatted={formatted} />
+        <CertificatePaper neetName={neetName} counselorName={counselorName} formatted={formatted} stageNames={stageNames} t={t} />
       </div>
 
       {/* Duplicate that shows on screen below the buttons */}
       <div className="no-print flex justify-center pb-12">
-        <CertificatePaper neetName={neetName} counselorName={counselorName} formatted={formatted} />
+        <CertificatePaper neetName={neetName} counselorName={counselorName} formatted={formatted} stageNames={stageNames} t={t} />
       </div>
     </>
   );
@@ -89,10 +91,14 @@ function CertificatePaper({
   neetName,
   counselorName,
   formatted,
+  stageNames,
+  t,
 }: {
   neetName: string;
   counselorName: string;
   formatted: string;
+  stageNames: string[];
+  t: ReturnType<typeof useTranslations>;
 }) {
   return (
     <div
@@ -178,7 +184,7 @@ function CertificatePaper({
               RURAL-CONNECT
             </div>
             <div style={{ color: "#94a3b8", fontSize: "10px", letterSpacing: "1px", fontFamily: "sans-serif" }}>
-              EMPOWERING NEET YOUTH IN RURAL COMMUNITIES
+              {t("brandSubtitle")}
             </div>
           </div>
         </div>
@@ -186,10 +192,10 @@ function CertificatePaper({
         {/* Right: Erasmus+ badge */}
         <div style={{ textAlign: "right" }}>
           <div style={{ color: "#c9a84c", fontSize: "11px", fontWeight: "bold", letterSpacing: "2px", fontFamily: "sans-serif" }}>
-            ERASMUS+ PROGRAMME
+            {t("erasmusProgramme")}
           </div>
           <div style={{ color: "#64748b", fontSize: "9px", letterSpacing: "1px", fontFamily: "sans-serif", marginTop: "2px" }}>
-            CO-FUNDED BY THE EUROPEAN UNION
+            {t("coFunded")}
           </div>
           <div style={{ display: "flex", gap: "4px", justifyContent: "flex-end", marginTop: "6px" }}>
             {["NO", "GR", "TR", "LV", "ES", "IT"].map((c) => (
@@ -221,7 +227,7 @@ function CertificatePaper({
           fontSize: "10px", letterSpacing: "4px", color: "#64748b",
           textTransform: "uppercase", fontFamily: "sans-serif", marginBottom: "6px",
         }}>
-          This is to certify that
+          {t("certifyThat")}
         </div>
 
         {/* Recipient name */}
@@ -237,15 +243,14 @@ function CertificatePaper({
 
         {/* Body text */}
         <div style={{ fontSize: "13px", color: "#475569", lineHeight: 1.7, maxWidth: "520px", marginBottom: "16px" }}>
-          has successfully completed the{" "}
-          <strong style={{ color: "#1e293b" }}>RURAL-CONNECT Counselling Programme</strong>
-          , a structured five-stage journey of personal development and employment support
-          for NEET youth in rural communities across Europe.
+          {t.rich("bodyText", {
+            b: (chunks) => <strong style={{ color: "#1e293b" }}>{chunks}</strong>,
+          })}
         </div>
 
         {/* 5 stages strip */}
         <div style={{ display: "flex", gap: "6px", marginBottom: "20px", flexWrap: "wrap", justifyContent: "center" }}>
-          {STAGE_NAMES.map((name, i) => (
+          {stageNames.map((name, i) => (
             <div key={i} style={{
               background: "#f0f9ff",
               border: "1px solid #bae6fd",
@@ -280,7 +285,7 @@ function CertificatePaper({
               width: "120px", borderBottom: "1px solid #94a3b8",
               marginBottom: "6px", height: "24px",
             }} />
-            <div style={{ fontSize: "10px", color: "#64748b", fontFamily: "sans-serif" }}>Date of Issue</div>
+            <div style={{ fontSize: "10px", color: "#64748b", fontFamily: "sans-serif" }}>{t("dateOfIssue")}</div>
             <div style={{ fontSize: "12px", fontWeight: "bold", color: "#1e293b", fontFamily: "sans-serif", marginTop: "2px" }}>
               {formatted}
             </div>
@@ -303,7 +308,7 @@ function CertificatePaper({
               width: "140px", borderBottom: "1px solid #94a3b8",
               marginBottom: "6px", height: "24px",
             }} />
-            <div style={{ fontSize: "10px", color: "#64748b", fontFamily: "sans-serif" }}>Programme Counsellor</div>
+            <div style={{ fontSize: "10px", color: "#64748b", fontFamily: "sans-serif" }}>{t("programmeCounsellor")}</div>
             <div style={{ fontSize: "12px", fontWeight: "bold", color: "#1e293b", fontFamily: "sans-serif", marginTop: "2px" }}>
               {counselorName}
             </div>
@@ -325,13 +330,13 @@ function CertificatePaper({
         position: "relative", zIndex: 3,
       }}>
         <div style={{ fontSize: "8px", color: "#94a3b8", fontFamily: "sans-serif" }}>
-          ruralconnect-app.eu · Erasmus+ Project 2024–2027
+          {t("footerProject")}
         </div>
         <div style={{ fontSize: "8px", color: "#94a3b8", fontFamily: "sans-serif" }}>
-          This certificate is issued upon successful completion of all five counselling stages.
+          {t("footerIssued")}
         </div>
         <div style={{ fontSize: "8px", color: "#94a3b8", fontFamily: "sans-serif" }}>
-          Co-funded by the European Union
+          {t("footerCoFunded")}
         </div>
       </div>
     </div>

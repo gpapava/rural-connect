@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
 import LoginForm from "@/components/LoginForm";
 
@@ -6,12 +7,18 @@ interface LoginPageProps {
   params: { locale: string };
 }
 
+const COUNTRY_CODES = ["NO", "GR", "TR", "LV", "ES", "IT"] as const;
+const COUNTRY_FLAGS: Record<string, string> = { NO: "🇳🇴", GR: "🇬🇷", TR: "🇹🇷", LV: "🇱🇻", ES: "🇪🇸", IT: "🇮🇹" };
+
 export default async function LoginPage({ params: { locale } }: LoginPageProps) {
   const session = await auth();
 
   if (session) {
     redirect(`/${locale}/dashboard`);
   }
+
+  const t = await getTranslations({ locale, namespace: "auth" });
+  const tc = await getTranslations({ locale, namespace: "common.countries" });
 
   return (
     <div className="flex min-h-screen">
@@ -39,38 +46,34 @@ export default async function LoginPage({ params: { locale } }: LoginPageProps) 
             </span>
           </div>
           <h2 className="mb-4 text-3xl font-bold leading-tight">
-            Empowering Rural Youth
+            {t("brandTagline")}
           </h2>
           <p className="mb-8 text-slate-300 leading-relaxed">
-            Supporting NEET young people in rural communities across Europe
-            through digital counseling, skills development, and employment
-            pathways.
+            {t("brandDescription")}
           </p>
           <div className="grid grid-cols-3 gap-6 text-center">
             <div className="rounded-xl bg-slate-700/50 p-4">
               <div className="text-2xl font-bold text-[#1a73e8]">7</div>
-              <div className="mt-1 text-xs text-slate-400">Countries</div>
+              <div className="mt-1 text-xs text-slate-400">{t("statCountries")}</div>
             </div>
             <div className="rounded-xl bg-slate-700/50 p-4">
               <div className="text-2xl font-bold text-[#34a853]">500+</div>
-              <div className="mt-1 text-xs text-slate-400">Users Helped</div>
+              <div className="mt-1 text-xs text-slate-400">{t("statUsersHelped")}</div>
             </div>
             <div className="rounded-xl bg-slate-700/50 p-4">
               <div className="text-2xl font-bold text-[#fbbc04]">24/7</div>
-              <div className="mt-1 text-xs text-slate-400">Support</div>
+              <div className="mt-1 text-xs text-slate-400">{t("statSupport")}</div>
             </div>
           </div>
           <div className="mt-10 flex flex-wrap justify-center gap-2">
-            {["🇳🇴 Norway", "🇬🇷 Greece", "🇹🇷 Turkey", "🇱🇻 Latvia", "🇪🇸 Spain", "🇮🇹 Italy"].map(
-              (country) => (
-                <span
-                  key={country}
-                  className="rounded-full bg-slate-700/50 px-3 py-1 text-xs text-slate-300"
-                >
-                  {country}
-                </span>
-              )
-            )}
+            {COUNTRY_CODES.map((code) => (
+              <span
+                key={code}
+                className="rounded-full bg-slate-700/50 px-3 py-1 text-xs text-slate-300"
+              >
+                {COUNTRY_FLAGS[code]} {tc(code)}
+              </span>
+            ))}
           </div>
         </div>
       </div>

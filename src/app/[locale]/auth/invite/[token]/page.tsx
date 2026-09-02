@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
 import CounsellorInviteForm from "@/components/CounsellorInviteForm";
 
@@ -9,6 +10,8 @@ interface PageProps {
 export default async function InvitePage({ params: { locale, token } }: PageProps) {
   const session = await auth();
   if (session) redirect(`/${locale}/dashboard`);
+
+  const t = await getTranslations({ locale, namespace: "invite" });
 
   // Validate the token server-side
   const res = await fetch(
@@ -26,7 +29,7 @@ export default async function InvitePage({ params: { locale, token } }: PageProp
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h2 className="mb-2 text-lg font-semibold text-gray-900">Invalid Invite</h2>
+          <h2 className="mb-2 text-lg font-semibold text-gray-900">{t("invalidTitle")}</h2>
           <p className="text-sm text-gray-500">{data.error}</p>
         </div>
       </div>
@@ -46,10 +49,9 @@ export default async function InvitePage({ params: { locale, token } }: PageProp
             </div>
             <span className="text-2xl font-bold tracking-wider">RURAL-CONNECT</span>
           </div>
-          <h2 className="mb-4 text-3xl font-bold leading-tight">Welcome, Counsellor</h2>
+          <h2 className="mb-4 text-3xl font-bold leading-tight">{t("brandWelcome")}</h2>
           <p className="text-slate-300 leading-relaxed">
-            You have been invited to join RURAL-CONNECT as a counsellor. Complete your registration
-            to start supporting NEET youth in rural communities across Europe.
+            {t("brandDescription")}
           </p>
         </div>
       </div>

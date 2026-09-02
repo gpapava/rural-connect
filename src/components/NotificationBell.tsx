@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Bell, Check, X, Calendar } from "lucide-react";
 import { createPusherClient } from "@/lib/pusher";
 import { cn } from "@/lib/utils";
@@ -22,6 +23,7 @@ interface NotificationBellProps {
 }
 
 export default function NotificationBell({ userId, locale }: NotificationBellProps) {
+  const t = useTranslations("notifications");
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -123,13 +125,13 @@ export default function NotificationBell({ userId, locale }: NotificationBellPro
       {open && (
         <div className="absolute right-0 top-full z-30 mt-2 w-80 rounded-xl border border-gray-100 bg-white shadow-xl">
           <div className="border-b border-gray-100 px-4 py-3">
-            <p className="text-sm font-semibold text-gray-900">Notifications</p>
+            <p className="text-sm font-semibold text-gray-900">{t("title")}</p>
           </div>
 
           {notifications.length === 0 ? (
             <div className="px-4 py-8 text-center">
               <Bell className="mx-auto mb-2 h-6 w-6 text-gray-300" />
-              <p className="text-sm text-gray-400">No notifications</p>
+              <p className="text-sm text-gray-400">{t("empty")}</p>
             </div>
           ) : (
             <div className="max-h-96 divide-y divide-gray-50 overflow-y-auto">
@@ -157,7 +159,7 @@ export default function NotificationBell({ userId, locale }: NotificationBellPro
                             className="flex items-center gap-1 rounded-lg bg-[#1a73e8] px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-[#1558b0] disabled:opacity-50"
                           >
                             <Check className="h-3 w-3" />
-                            Accept
+                            {t("accept")}
                           </button>
                           <button
                             onClick={() => respond(n, false)}
@@ -165,7 +167,7 @@ export default function NotificationBell({ userId, locale }: NotificationBellPro
                             className="flex items-center gap-1 rounded-lg border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 disabled:opacity-50"
                           >
                             <X className="h-3 w-3" />
-                            Decline
+                            {t("decline")}
                           </button>
                         </div>
                       )}
