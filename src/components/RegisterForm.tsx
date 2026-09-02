@@ -7,14 +7,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff, UserPlus } from "lucide-react";
 import Link from "next/link";
 
-const COUNTRIES = [
-  { code: "NO", label: "Norway" },
-  { code: "GR", label: "Greece" },
-  { code: "TR", label: "Turkey" },
-  { code: "LV", label: "Latvia" },
-  { code: "ES", label: "Spain" },
-  { code: "IT", label: "Italy" },
-];
+const COUNTRY_CODES = ["NO", "GR", "TR", "LV", "ES", "IT"];
 
 interface RegisterFormProps {
   locale: string;
@@ -22,6 +15,7 @@ interface RegisterFormProps {
 
 export default function RegisterForm({ locale }: RegisterFormProps) {
   const t = useTranslations("auth");
+  const tc = useTranslations("common.countries");
   const router = useRouter();
 
   const [name, setName] = useState("");
@@ -146,9 +140,9 @@ export default function RegisterForm({ locale }: RegisterFormProps) {
             className="input-field"
           >
             <option value="">{t("selectCountry")}</option>
-            {COUNTRIES.map((c) => (
-              <option key={c.code} value={c.code}>
-                {c.label}
+            {COUNTRY_CODES.map((code) => (
+              <option key={code} value={code}>
+                {tc(code)}
               </option>
             ))}
           </select>

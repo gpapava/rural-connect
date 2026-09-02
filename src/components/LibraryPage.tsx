@@ -167,7 +167,7 @@ export default function LibraryPage({ modules, locale }: LibraryPageProps) {
             <div className="text-2xl font-bold text-[#1a73e8]">
               {progressPct}%
             </div>
-            <div className="text-xs text-gray-500">Overall Progress</div>
+            <div className="text-xs text-gray-500">{t("overallProgress")}</div>
           </div>
         </div>
         <div className="mt-4 progress-bar">
@@ -282,7 +282,7 @@ export default function LibraryPage({ modules, locale }: LibraryPageProps) {
             <BookOpen className="h-7 w-7 text-gray-400" />
           </div>
           <p className="text-sm text-gray-500">
-            No modules found for this category
+            {t("noModules")}
           </p>
         </div>
       )}

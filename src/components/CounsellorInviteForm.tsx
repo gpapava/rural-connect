@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, UserCheck } from "lucide-react";
@@ -12,6 +13,7 @@ interface CounsellorInviteFormProps {
 }
 
 export default function CounsellorInviteForm({ token, email, locale }: CounsellorInviteFormProps) {
+  const t = useTranslations("invite");
   const router = useRouter();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +28,7 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
     setError(null);
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(t("passwordMismatch"));
       return;
     }
 
@@ -40,7 +42,7 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
 
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "Registration failed. Please try again.");
+        setError(data.error || t("registrationFailed"));
         return;
       }
 
@@ -57,7 +59,7 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
         router.refresh();
       }
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError(t("genericError"));
     } finally {
       setLoading(false);
     }
@@ -68,11 +70,11 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
       <div className="mb-8">
         <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
           <UserCheck className="h-3.5 w-3.5" />
-          Counsellor Invitation
+          {t("badge")}
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">Complete your registration</h1>
+        <h1 className="text-2xl font-bold text-gray-900">{t("completeRegistration")}</h1>
         <p className="mt-1 text-sm text-gray-500">
-          You&apos;ve been invited to join as a counsellor.
+          {t("invitedAsCounsellor")}
         </p>
       </div>
 
@@ -85,19 +87,19 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
 
         {/* Pre-filled email (read-only) */}
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">Email address</label>
+          <label className="mb-1.5 block text-sm font-medium text-gray-700">{t("emailLabel")}</label>
           <input
             type="email"
             value={email}
             disabled
             className="input-field cursor-not-allowed bg-gray-50 text-gray-500"
           />
-          <p className="mt-1 text-xs text-gray-400">This is the email your invitation was sent to.</p>
+          <p className="mt-1 text-xs text-gray-400">{t("emailHint")}</p>
         </div>
 
         <div>
           <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-gray-700">
-            Full name
+            {t("fullName")}
           </label>
           <input
             id="name"
@@ -106,14 +108,14 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Your full name"
+            placeholder={t("fullNamePlaceholder")}
             className="input-field"
           />
         </div>
 
         <div>
           <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-gray-700">
-            Password
+            {t("password")}
           </label>
           <div className="relative">
             <input
@@ -135,12 +137,12 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
-          <p className="mt-1 text-xs text-gray-400">Minimum 8 characters.</p>
+          <p className="mt-1 text-xs text-gray-400">{t("passwordHint")}</p>
         </div>
 
         <div>
           <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-gray-700">
-            Confirm password
+            {t("confirmPassword")}
           </label>
           <div className="relative">
             <input
@@ -174,12 +176,12 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
-              Creating account…
+              {t("creatingAccount")}
             </>
           ) : (
             <>
               <UserCheck className="h-4 w-4" />
-              Complete Registration
+              {t("submit")}
             </>
           )}
         </button>

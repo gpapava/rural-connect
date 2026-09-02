@@ -59,6 +59,7 @@ export default function PortfolioPage({
   locale,
 }: PortfolioPageProps) {
   const t = useTranslations("portfolio");
+  const tc = useTranslations("common");
 
   const [summary, setSummary] = useState(portfolio?.summary ?? "");
   const [targetSector, setTargetSector] = useState(portfolio?.targetSector ?? "");
@@ -79,7 +80,7 @@ export default function PortfolioPage({
 
   const handleAddQualification = async () => {
     setQualError(null);
-    if (!qualForm.title.trim()) { setQualError("Title is required."); return; }
+    if (!qualForm.title.trim()) { setQualError(t("qualifications.titleRequired")); return; }
     setSavingQual(true);
     const res = await fetch("/api/portfolio/qualifications", {
       method: "POST",
@@ -88,7 +89,7 @@ export default function PortfolioPage({
     });
     const data = await res.json();
     if (!res.ok) {
-      setQualError(data.error ?? "Something went wrong.");
+      setQualError(data.error ?? tc("somethingWentWrong"));
     } else {
       setQualifications((prev) => [...prev, data.qualification]);
       setQualForm({ title: "", institution: "", status: "completed", completedAt: "" });
@@ -98,7 +99,7 @@ export default function PortfolioPage({
   };
 
   const handleDeleteQualification = async (id: string) => {
-    if (!confirm("Remove this qualification?")) return;
+    if (!confirm(t("qualifications.confirmRemove"))) return;
     setDeletingQualId(id);
     const res = await fetch(`/api/portfolio/qualifications/${id}`, { method: "DELETE" });
     if (res.ok) setQualifications((prev) => prev.filter((q) => q.id !== id));
@@ -194,7 +195,7 @@ export default function PortfolioPage({
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+XX XXX XXX XXXX"
+                    placeholder={t("contact.phonePlaceholder")}
                     className="input-field pl-8"
                   />
                 </div>
@@ -209,7 +210,7 @@ export default function PortfolioPage({
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    placeholder="City, Country"
+                    placeholder={t("contact.addressPlaceholder")}
                     className="input-field pl-8"
                   />
                 </div>
@@ -224,7 +225,7 @@ export default function PortfolioPage({
                     type="url"
                     value={linkedin}
                     onChange={(e) => setLinkedin(e.target.value)}
-                    placeholder="https://linkedin.com/in/username"
+                    placeholder={t("contact.linkedinPlaceholder")}
                     className="input-field pl-8"
                   />
                 </div>
@@ -305,7 +306,7 @@ export default function PortfolioPage({
             {showQualForm && (
               <div className="mb-4 rounded-xl border border-[#1a73e8]/20 bg-blue-50/40 p-4">
                 <div className="mb-3 flex items-center justify-between">
-                  <p className="text-sm font-semibold text-gray-800">New Qualification</p>
+                  <p className="text-sm font-semibold text-gray-800">{t("qualifications.newTitle")}</p>
                   <button onClick={() => { setShowQualForm(false); setQualError(null); setQualForm({ title: "", institution: "", status: "completed", completedAt: "" }); }} className="text-gray-400 hover:text-gray-600">
                     <X className="h-4 w-4" />
                   </button>
@@ -315,32 +316,32 @@ export default function PortfolioPage({
                 )}
                 <div className="space-y-3">
                   <div>
-                    <label className="mb-1 block text-xs font-medium text-gray-600">Title *</label>
-                    <input type="text" value={qualForm.title} onChange={(e) => setQualForm((f) => ({ ...f, title: e.target.value }))} placeholder="e.g. Upper Secondary School Certificate" className="input-field" />
+                    <label className="mb-1 block text-xs font-medium text-gray-600">{t("qualifications.fieldTitle")} *</label>
+                    <input type="text" value={qualForm.title} onChange={(e) => setQualForm((f) => ({ ...f, title: e.target.value }))} placeholder={t("qualifications.titlePlaceholder")} className="input-field" />
                   </div>
                   <div>
-                    <label className="mb-1 block text-xs font-medium text-gray-600">Institution</label>
-                    <input type="text" value={qualForm.institution} onChange={(e) => setQualForm((f) => ({ ...f, institution: e.target.value }))} placeholder="e.g. Rural High School" className="input-field" />
+                    <label className="mb-1 block text-xs font-medium text-gray-600">{t("qualifications.institution")}</label>
+                    <input type="text" value={qualForm.institution} onChange={(e) => setQualForm((f) => ({ ...f, institution: e.target.value }))} placeholder={t("qualifications.institutionPlaceholder")} className="input-field" />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="mb-1 block text-xs font-medium text-gray-600">Status</label>
+                      <label className="mb-1 block text-xs font-medium text-gray-600">{t("qualifications.fieldStatus")}</label>
                       <select value={qualForm.status} onChange={(e) => setQualForm((f) => ({ ...f, status: e.target.value }))} className="input-field">
-                        <option value="completed">Completed</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="not_started">Not Started</option>
+                        <option value="completed">{t("qualifications.completed")}</option>
+                        <option value="in_progress">{t("qualifications.inProgress")}</option>
+                        <option value="not_started">{t("qualifications.notStarted")}</option>
                       </select>
                     </div>
                     <div>
-                      <label className="mb-1 block text-xs font-medium text-gray-600">Completion Date</label>
+                      <label className="mb-1 block text-xs font-medium text-gray-600">{t("qualifications.fieldCompletionDate")}</label>
                       <input type="date" value={qualForm.completedAt} onChange={(e) => setQualForm((f) => ({ ...f, completedAt: e.target.value }))} className="input-field" />
                     </div>
                   </div>
                 </div>
                 <div className="mt-4 flex justify-end gap-2">
-                  <button onClick={() => { setShowQualForm(false); setQualError(null); setQualForm({ title: "", institution: "", status: "completed", completedAt: "" }); }} className="btn-secondary py-1.5 px-3 text-xs">Cancel</button>
+                  <button onClick={() => { setShowQualForm(false); setQualError(null); setQualForm({ title: "", institution: "", status: "completed", completedAt: "" }); }} className="btn-secondary py-1.5 px-3 text-xs">{tc("cancel")}</button>
                   <button onClick={handleAddQualification} disabled={savingQual} className="btn-primary py-1.5 px-3 text-xs disabled:opacity-50">
-                    {savingQual ? "Saving…" : <><CheckCircle className="h-3.5 w-3.5" /> Save</>}
+                    {savingQual ? tc("saving") : <><CheckCircle className="h-3.5 w-3.5" /> {tc("save")}</>}
                   </button>
                 </div>
               </div>
@@ -348,7 +349,7 @@ export default function PortfolioPage({
 
             {qualifications.length === 0 ? (
               <p className="text-center text-sm text-gray-400 py-6">
-                No qualifications added yet
+                {t("qualifications.empty")}
               </p>
             ) : (
               <div className="space-y-3">
@@ -382,7 +383,7 @@ export default function PortfolioPage({
                       onClick={() => handleDeleteQualification(qual.id)}
                       disabled={deletingQualId === qual.id}
                       className="ml-1 flex-shrink-0 rounded-lg p-1 text-gray-300 transition-colors hover:bg-red-50 hover:text-red-400 disabled:opacity-40"
-                      title="Remove"
+                      title={tc("remove")}
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </button>
@@ -398,7 +399,7 @@ export default function PortfolioPage({
           {/* Actions */}
           <div className="card">
             <h3 className="mb-4 text-sm font-semibold text-gray-900">
-              Portfolio Actions
+              {t("actions.title")}
             </h3>
             <div className="space-y-2">
               <button
@@ -427,15 +428,15 @@ export default function PortfolioPage({
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                       />
                     </svg>
-                    Saving...
+                    {tc("saving")}
                   </>
                 ) : saved ? (
                   <>
                     <CheckCircle className="h-4 w-4" />
-                    Saved!
+                    {tc("saved")}
                   </>
                 ) : (
-                  "Save Changes"
+                  tc("saveChanges")
                 )}
               </button>
               <button onClick={() => window.print()} className="btn-secondary w-full">
@@ -456,15 +457,15 @@ export default function PortfolioPage({
           {/* Completion status */}
           <div className="card">
             <h3 className="mb-3 text-sm font-semibold text-gray-900">
-              Profile Completion
+              {t("completion.title")}
             </h3>
             <div className="space-y-2">
               {[
-                { label: "Personal Summary", done: !!summary },
-                { label: "Contact Info", done: !!(phone || address) },
-                { label: "Target Sector", done: !!targetSector },
-                { label: "Skills", done: !!skills },
-                { label: "Qualifications", done: qualifications.length > 0 },
+                { label: t("completion.personalSummary"), done: !!summary },
+                { label: t("completion.contactInfo"), done: !!(phone || address) },
+                { label: t("completion.targetSector"), done: !!targetSector },
+                { label: t("completion.skills"), done: !!skills },
+                { label: t("completion.qualifications"), done: qualifications.length > 0 },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -508,7 +509,7 @@ export default function PortfolioPage({
             {latestSession?.notes ? (
               <div>
                 <p className="text-xs text-gray-500 mb-2">
-                  From {latestSession.counselor.name}
+                  {t("counselorFeedback.from", { name: latestSession.counselor.name })}
                 </p>
                 <p className="text-sm text-gray-700 leading-relaxed">
                   {latestSession.notes}
@@ -516,7 +517,7 @@ export default function PortfolioPage({
                 {latestSession.actionPlan && (
                   <>
                     <p className="mt-3 text-xs font-medium text-gray-600">
-                      Action Plan:
+                      {t("counselorFeedback.actionPlan")}
                     </p>
                     <p className="mt-1 text-sm text-gray-700 whitespace-pre-line">
                       {latestSession.actionPlan}

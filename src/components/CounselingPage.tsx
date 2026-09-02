@@ -74,15 +74,15 @@ interface CounselingPageProps {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const STAGE_NAMES = [
-  "Learning the Platform",
-  "Previous Experience",
-  "Why You Need an Opportunity",
-  "Confidence & Orientation",
-  "Career Opportunities",
-];
-
 const ACTIVE_SESSION_STATUSES = new Set(["PENDING", "SCHEDULED", "IN_PROGRESS"]);
+
+const SESSION_STATUS_KEY: Record<string, string> = {
+  PENDING: "session.pending",
+  SCHEDULED: "session.scheduled",
+  IN_PROGRESS: "session.inProgress",
+  COMPLETED: "session.completed",
+  CANCELLED: "session.cancelled",
+};
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -144,7 +144,11 @@ function SessionHistoryCard({
   session: SessionData;
   currentUserId: string;
 }) {
+  const t = useTranslations("counseling");
   const [open, setOpen] = useState(false);
+  const statusLabel = t.has(SESSION_STATUS_KEY[session.status] ?? "")
+    ? t(SESSION_STATUS_KEY[session.status])
+    : session.status;
 
   return (
     <div className="rounded-lg border border-gray-200 bg-white">
@@ -158,9 +162,8 @@ function SessionHistoryCard({
             <p className="text-sm font-medium text-gray-900">
               {formatDateTime(session.scheduledAt)}
             </p>
-            <p className="text-xs text-gray-500 capitalize">
-              {session.status.toLowerCase().replace("_", " ")} ·{" "}
-              {session.messages.length} messages
+            <p className="text-xs text-gray-500">
+              {t("stage.historyLine", { status: statusLabel, count: session.messages.length })}
             </p>
           </div>
         </div>
@@ -181,14 +184,14 @@ function SessionHistoryCard({
               ))}
             </div>
           ) : (
-            <p className="text-xs text-gray-400 text-center py-2">No messages in this session</p>
+            <p className="text-xs text-gray-400 text-center py-2">{t("noMessagesInSession")}</p>
           )}
 
           {/* Files */}
           {session.sharedFiles.length > 0 && (
             <div>
               <p className="mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                Shared Files
+                {t("files.title")}
               </p>
               <div className="space-y-1">
                 {session.sharedFiles.map((file) => (
@@ -204,7 +207,7 @@ function SessionHistoryCard({
               {session.notes && (
                 <div>
                   <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-1">
-                    Notes
+                    {t("notesLabel")}
                   </p>
                   <p className="text-xs text-gray-700 whitespace-pre-wrap">{session.notes}</p>
                 </div>
@@ -212,7 +215,7 @@ function SessionHistoryCard({
               {session.actionPlan && (
                 <div>
                   <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-1">
-                    Action Plan
+                    {t("actionPlanLabel")}
                   </p>
                   <p className="text-xs text-gray-700 whitespace-pre-wrap">{session.actionPlan}</p>
                 </div>
@@ -237,6 +240,7 @@ function LiveSessionPanel({
   otherUser: UserInfo;
   t: ReturnType<typeof useTranslations>;
 }) {
+  const tRoles = useTranslations("common.roles");
   const [messages, setMessages] = useState<MessageWithSender[]>(session.messages);
   const [messageInput, setMessageInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -406,7 +410,7 @@ function LiveSessionPanel({
                 onClick={() => setVideoOpen(false)}
                 className="text-xs text-gray-400 hover:text-gray-600"
               >
-                Close
+                {t("close")}
               </button>
             )}
           </div>
@@ -430,7 +434,7 @@ function LiveSessionPanel({
                   <p className="text-sm opacity-50">{t("video.notStarted")}</p>
                   {isPending && (
                     <p className="mt-2 text-xs text-yellow-300 opacity-80">
-                      Waiting for session to be accepted
+                      {t("waitingAccept")}
                     </p>
                   )}
                 </div>
@@ -456,13 +460,13 @@ function LiveSessionPanel({
             </div>
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold text-gray-900">{otherUser.name}</p>
-              <p className="text-xs text-gray-500 capitalize">
-                {otherUser.role.toLowerCase().replace("_", " ")}
+              <p className="text-xs text-gray-500">
+                {tRoles.has(otherUser.role) ? tRoles(otherUser.role) : otherUser.role}
               </p>
             </div>
             <div className="ml-auto flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-green-500" />
-              <span className="text-xs text-gray-500">Online</span>
+              <span className="text-xs text-gray-500">{t("online")}</span>
             </div>
           </div>
 
@@ -477,7 +481,7 @@ function LiveSessionPanel({
               ))
             )}
             {typingUser && (
-              <p className="text-xs text-gray-400 italic">{typingUser} is typing…</p>
+              <p className="text-xs text-gray-400 italic">{t("typing", { name: typingUser })}</p>
             )}
             <div ref={messagesEndRef} />
           </div>
@@ -487,7 +491,7 @@ function LiveSessionPanel({
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploadingFile}
-                title="Attach file"
+                title={t("attachFile")}
                 className="flex-shrink-0 rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 disabled:opacity-50"
               >
                 <Paperclip className="h-4 w-4" />
@@ -556,7 +560,7 @@ function LiveSessionPanel({
               className="btn-secondary py-1 px-2 text-xs disabled:opacity-50"
             >
               <Paperclip className="h-3 w-3" />
-              {uploadingFile ? "Uploading…" : t("files.upload")}
+              {uploadingFile ? t("uploading") : t("files.upload")}
             </button>
           </div>
           {sharedFiles.length === 0 ? (
@@ -612,7 +616,7 @@ function StageContent({
   };
 
   const completeStage = async () => {
-    if (!confirm("Mark this stage as complete and unlock the next one?")) return;
+    if (!confirm(t("stage.confirmComplete"))) return;
     setCompleting(true);
     try {
       await onComplete(stage.id);
@@ -627,9 +631,9 @@ function StageContent({
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gray-100">
           <Lock className="h-6 w-6 text-gray-400" />
         </div>
-        <p className="text-base font-semibold text-gray-500">Stage not yet reached</p>
+        <p className="text-base font-semibold text-gray-500">{t("stage.notReached")}</p>
         <p className="mt-1 text-sm text-gray-400">
-          Complete the previous stage to unlock this one.
+          {t("stage.unlockHint")}
         </p>
       </div>
     );
@@ -647,9 +651,9 @@ function StageContent({
       {/* Stage summary */}
       <div className="card">
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-gray-900">Stage Summary</h3>
+          <h3 className="text-sm font-semibold text-gray-900">{t("stage.summary")}</h3>
           {summarySaved && (
-            <span className="text-xs font-medium text-green-600">Saved</span>
+            <span className="text-xs font-medium text-green-600">{t("stage.saved")}</span>
           )}
         </div>
         {isCounselor ? (
@@ -657,7 +661,7 @@ function StageContent({
             <textarea
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
-              placeholder="Write a summary for this stage — key observations, progress made, outcomes..."
+              placeholder={t("stage.summaryPlaceholder")}
               rows={4}
               className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
             />
@@ -667,13 +671,13 @@ function StageContent({
               className="btn-secondary mt-3 w-full"
             >
               <Save className="h-4 w-4" />
-              Save Summary
+              {t("stage.saveSummary")}
             </button>
           </>
         ) : (
           <p className="text-sm text-gray-600 whitespace-pre-wrap">
             {summary || (
-              <span className="text-gray-400 italic">No summary written yet for this stage.</span>
+              <span className="text-gray-400 italic">{t("stage.noSummary")}</span>
             )}
           </p>
         )}
@@ -685,7 +689,7 @@ function StageContent({
           <div className="mb-3 flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-green-500" />
             <h3 className="text-sm font-semibold text-gray-900">
-              Current Session —{" "}
+              {t("currentSession")} —{" "}
               <span className="font-normal text-gray-500">
                 {formatDateTime(activeSession.scheduledAt)}
               </span>
@@ -704,7 +708,7 @@ function StageContent({
       {historyToShow.length > 0 && (
         <div>
           <h3 className="mb-3 text-sm font-semibold text-gray-700">
-            {activeSession ? "Previous Sessions in This Stage" : "Sessions"}
+            {activeSession ? t("stage.previousSessions") : t("stage.sessions")}
           </h3>
           <div className="space-y-2">
             {historyToShow.map((s) => (
@@ -718,7 +722,7 @@ function StageContent({
       {stage.sessions.length === 0 && (
         <div className="rounded-xl border border-dashed border-gray-200 py-12 text-center">
           <Clock className="mx-auto mb-2 h-8 w-8 text-gray-300" />
-          <p className="text-sm text-gray-400">No sessions scheduled for this stage yet.</p>
+          <p className="text-sm text-gray-400">{t("stage.noSessions")}</p>
         </div>
       )}
 
@@ -726,8 +730,7 @@ function StageContent({
       {isCounselor && stage.status === "ACTIVE" && stage.number < 5 && (
         <div className="rounded-xl border border-[#34a853]/20 bg-green-50 p-4">
           <p className="mb-3 text-sm text-gray-700">
-            When you&apos;re satisfied with the progress in this stage, mark it complete to
-            unlock the next stage.
+            {t("stage.completeHint")}
           </p>
           <button
             onClick={completeStage}
@@ -735,7 +738,7 @@ function StageContent({
             className="flex items-center gap-2 rounded-lg bg-[#34a853] px-4 py-2 text-sm font-semibold text-white hover:bg-[#2d9147] disabled:opacity-50"
           >
             <Flag className="h-4 w-4" />
-            {completing ? "Completing…" : `Complete Stage ${stage.number} & Unlock Next`}
+            {completing ? t("stage.completing") : t("stage.completeAndUnlock", { number: stage.number })}
           </button>
         </div>
       )}
@@ -744,7 +747,7 @@ function StageContent({
       {isCounselor && stage.status === "ACTIVE" && stage.number === 5 && (
         <div className="rounded-xl border border-[#34a853]/20 bg-green-50 p-4">
           <p className="mb-3 text-sm text-gray-700">
-            This is the final stage. Mark it complete when the full counselling journey is done.
+            {t("stage.finalHint")}
           </p>
           <button
             onClick={completeStage}
@@ -752,7 +755,7 @@ function StageContent({
             className="flex items-center gap-2 rounded-lg bg-[#34a853] px-4 py-2 text-sm font-semibold text-white hover:bg-[#2d9147] disabled:opacity-50"
           >
             <CheckCircle2 className="h-4 w-4" />
-            {completing ? "Completing…" : "Complete Counselling Journey"}
+            {completing ? t("stage.completing") : t("stage.completeJourney")}
           </button>
         </div>
       )}
@@ -777,6 +780,8 @@ function JourneyProgress({
   onCertIssued: (cert: CertData) => void;
   locale: string;
 }) {
+  const t = useTranslations("counseling");
+  const tStages = useTranslations("stages");
   const completedCount = stages.filter((s) => s.status === "COMPLETED").length;
   const pct = (completedCount / 5) * 100;
   const allDone = completedCount === 5;
@@ -807,7 +812,7 @@ function JourneyProgress({
         onCertIssued(cert);
       } else {
         const data = await res.json();
-        setIssueError(data.error ?? "Failed to issue certificate");
+        setIssueError(data.error ?? t("journey.issueFailed"));
       }
     } finally {
       setIssuing(false);
@@ -827,13 +832,13 @@ function JourneyProgress({
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Award className={cn("h-5 w-5", allDone && certificate ? "text-[#34a853]" : allDone ? "text-amber-500" : "text-gray-400")} />
-          <span className="text-sm font-semibold text-gray-800">Counselling Journey</span>
+          <span className="text-sm font-semibold text-gray-800">{t("journey.title")}</span>
         </div>
         <span className={cn(
           "rounded-full px-2.5 py-1 text-xs font-semibold",
           allDone && certificate ? "bg-[#34a853]/10 text-[#34a853]" : allDone ? "bg-amber-100 text-amber-700" : "bg-gray-100 text-gray-500"
         )}>
-          {completedCount} / 5 stages complete
+          {t("journey.stagesComplete", { completed: completedCount })}
         </span>
       </div>
 
@@ -880,9 +885,9 @@ function JourneyProgress({
 
       {/* Stage labels */}
       <div className="flex justify-between px-0">
-        {STAGE_NAMES.map((name, i) => (
-          <div key={i} className="flex flex-col items-center" style={{ width: "20%" }}>
-            <span className="text-center text-[10px] leading-tight text-gray-400 max-w-[70px]">{name}</span>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <div key={n} className="flex flex-col items-center" style={{ width: "20%" }}>
+            <span className="text-center text-[10px] leading-tight text-gray-400 max-w-[70px]">{tStages(`names.${n}`)}</span>
           </div>
         ))}
       </div>
@@ -895,16 +900,15 @@ function JourneyProgress({
           </div>
           <div className="min-w-0 flex-1">
             <p className="text-sm font-semibold text-yellow-800">
-              Complete all 5 stages to earn your Certificate of Attendance
+              {t("journey.earnBanner")}
             </p>
             <p className="mt-0.5 text-xs text-yellow-700 leading-relaxed">
-              Finish every stage of the counselling journey and your counsellor will issue you a
-              personalised certificate — official proof of your commitment and progress.
+              {t("journey.earnBannerBody")}
             </p>
           </div>
           <div className="hidden flex-shrink-0 flex-col items-center sm:flex">
             <span className="text-2xl font-bold text-yellow-400">{completedCount}</span>
-            <span className="text-[10px] font-medium text-yellow-500">of 5</span>
+            <span className="text-[10px] font-medium text-yellow-500">{t("journey.ofFive")}</span>
           </div>
         </div>
       )}
@@ -917,12 +921,13 @@ function JourneyProgress({
             <div className="flex flex-col items-center gap-3 sm:flex-row">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-[#34a853]">
-                  Certificate of Attendance is ready!
+                  {t("journey.certReady")}
                 </p>
                 <p className="text-xs text-gray-500">
-                  Issued on{" "}
-                  {new Date(certificate.issuedAt).toLocaleDateString("en-GB", {
-                    day: "numeric", month: "long", year: "numeric",
+                  {t("journey.issuedOn", {
+                    date: new Date(certificate.issuedAt).toLocaleDateString(locale, {
+                      day: "numeric", month: "long", year: "numeric",
+                    }),
                   })}
                 </p>
               </div>
@@ -932,14 +937,14 @@ function JourneyProgress({
                 className="flex flex-shrink-0 items-center gap-2 rounded-xl bg-[#34a853] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#2d9147] transition-colors"
               >
                 <Award className="h-4 w-4" />
-                View & Download Certificate
+                {t("journey.viewDownload")}
               </Link>
             </div>
           ) : isCounselor && neetUser ? (
             /* COUNSELLOR — approval panel */
             <div className="space-y-3">
               <p className="text-sm font-semibold text-amber-700">
-                All 5 stages are complete — you can now issue the Certificate of Attendance.
+                {t("journey.counsellorCanIssue")}
               </p>
               <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-amber-200 bg-white p-3">
                 <input
@@ -949,8 +954,10 @@ function JourneyProgress({
                   onChange={(e) => setConfirmed(e.target.checked)}
                 />
                 <span className="text-sm text-gray-700">
-                  I confirm that <strong>{neetUser.name}</strong> has successfully completed all
-                  five counselling stages and is entitled to a Certificate of Attendance.
+                  {t.rich("journey.confirmIssue", {
+                    name: neetUser.name,
+                    b: (chunks) => <strong>{chunks}</strong>,
+                  })}
                 </span>
               </label>
               {issueError && (
@@ -962,7 +969,7 @@ function JourneyProgress({
                 className="flex items-center gap-2 rounded-xl bg-[#34a853] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#2d9147] disabled:opacity-50 transition-colors"
               >
                 {issuing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Award className="h-4 w-4" />}
-                {issuing ? "Issuing…" : "Issue Certificate of Attendance"}
+                {issuing ? t("journey.issuing") : t("journey.issueCert")}
               </button>
             </div>
           ) : (
@@ -970,7 +977,7 @@ function JourneyProgress({
             <div className="flex items-center gap-3">
               <Loader2 className="h-4 w-4 animate-spin text-amber-500" />
               <p className="text-sm text-amber-700">
-                Journey complete! Your certificate is awaiting counsellor approval.
+                {t("journey.neetWaiting")}
               </p>
             </div>
           )}
@@ -991,6 +998,7 @@ export default function CounselingPage({
   certificate: initialCertificate,
 }: CounselingPageProps) {
   const t = useTranslations("counseling");
+  const tStages = useTranslations("stages");
   const [stages, setStages] = useState(initialStages);
   const [certificate, setCertificate] = useState<CertData>(initialCertificate);
   const [selectedStageIdx, setSelectedStageIdx] = useState(() => {
@@ -1033,10 +1041,9 @@ export default function CounselingPage({
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
             <Video className="h-8 w-8 text-[#1a73e8]" />
           </div>
-          <h2 className="mb-2 text-lg font-semibold text-gray-900">No Active Session</h2>
+          <h2 className="mb-2 text-lg font-semibold text-gray-900">{t("noPairTitle")}</h2>
           <p className="text-sm text-gray-500">
-            You don&apos;t have any active or upcoming counseling sessions. Contact your counselor
-            to schedule one.
+            {t("noPairBody")}
           </p>
         </div>
       </div>
@@ -1053,7 +1060,7 @@ export default function CounselingPage({
           <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
           {otherUser && (
             <p className="text-sm text-gray-500">
-              {isCounselor ? "Counselling" : "With"} {otherUser.name}
+              {isCounselor ? t("counsellingUser", { name: otherUser.name }) : t("withUser", { name: otherUser.name })}
             </p>
           )}
         </div>
@@ -1073,7 +1080,7 @@ export default function CounselingPage({
             />
           ))}
           <span className="ml-1">
-            {stages.filter((s) => s.status === "COMPLETED").length} / 5 stages complete
+            {t("journeyPill", { completed: stages.filter((s) => s.status === "COMPLETED").length })}
           </span>
         </div>
       </div>
@@ -1122,14 +1129,14 @@ export default function CounselingPage({
 
                 {/* Tab label */}
                 <span className="whitespace-nowrap">
-                  <span className="font-medium">Stage {stage.number}</span>
+                  <span className="font-medium">{tStages("stageLabel", { number: stage.number })}</span>
                   <span
                     className={cn(
                       "ml-1.5 hidden xl:inline text-xs",
                       isSelected ? "text-gray-500" : "text-gray-400"
                     )}
                   >
-                    {STAGE_NAMES[stage.number - 1]}
+                    {tStages(`names.${stage.number}`)}
                   </span>
                 </span>
               </button>
@@ -1160,12 +1167,15 @@ export default function CounselingPage({
           </div>
           <div>
             <h2 className="text-lg font-semibold text-gray-900">
-              {STAGE_NAMES[selectedStage.number - 1]}
+              {tStages(`names.${selectedStage.number}`)}
             </h2>
-            <p className="text-xs text-gray-400 capitalize">
-              {selectedStage.status.toLowerCase()} ·{" "}
-              {selectedStage.sessions.length} session
-              {selectedStage.sessions.length !== 1 ? "s" : ""}
+            <p className="text-xs text-gray-400">
+              {t("stage.statusLine", {
+                status: t.has(`stageStatus.${selectedStage.status.toLowerCase()}`)
+                  ? t(`stageStatus.${selectedStage.status.toLowerCase()}`)
+                  : selectedStage.status,
+                count: selectedStage.sessions.length,
+              })}
             </p>
           </div>
         </div>

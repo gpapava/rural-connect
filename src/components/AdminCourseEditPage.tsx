@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   ArrowLeft, Plus, Trash2, Save,
   FileText, BookOpen, HelpCircle, Video, Package, ExternalLink,
@@ -44,12 +45,12 @@ type Module = {
   topics: Topic[];
 };
 
-const TYPE_LABELS: Record<LessonType, string> = {
-  TEXT: "Rich Text",
-  PDF: "PDF (link)",
-  VIDEO: "Video (YouTube / Vimeo)",
-  QUIZ: "Quiz",
-  SCORM: "SCORM Package",
+const TYPE_LABEL_KEY: Record<LessonType, string> = {
+  TEXT: "types.TEXT",
+  PDF: "types.PDF",
+  VIDEO: "types.VIDEO",
+  QUIZ: "types.QUIZ",
+  SCORM: "types.SCORM",
 };
 
 const TYPE_ICONS: Record<LessonType, React.ReactNode> = {
@@ -101,6 +102,7 @@ function FileUploader({
   placeholder: string;
   getTestUrl?: (url: string) => string;
 }) {
+  const t = useTranslations("admin.courseEditor");
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -116,10 +118,10 @@ function FileUploader({
     try {
       const res = await fetch(endpoint, { method: "POST", body: form });
       const data = await res.json();
-      if (!res.ok) setError(data.error ?? "Upload failed");
+      if (!res.ok) setError(data.error ?? t("uploadFailed"));
       else { onChange(data.url ?? data.launchUrl); setUploaded(true); }
     } catch {
-      setError("Upload failed. Please try again.");
+      setError(t("uploadFailedRetry"));
     } finally {
       setUploading(false);
     }
@@ -145,21 +147,21 @@ function FileUploader({
       >
         <input ref={inputRef} type="file" accept={accept} className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); }} />
         {uploading ? (
-          <><Loader2 className="h-8 w-8 animate-spin text-[#1a73e8]" /><p className="text-sm font-medium text-gray-600">Uploading…</p></>
+          <><Loader2 className="h-8 w-8 animate-spin text-[#1a73e8]" /><p className="text-sm font-medium text-gray-600">{t("uploading")}</p></>
         ) : uploaded ? (
-          <><CheckCircle className="h-8 w-8 text-green-500" /><p className="text-sm font-medium text-green-700">{label} uploaded successfully</p><p className="text-xs text-gray-400">Click or drag to replace</p></>
+          <><CheckCircle className="h-8 w-8 text-green-500" /><p className="text-sm font-medium text-green-700">{t("uploadedSuccess", { label })}</p><p className="text-xs text-gray-400">{t("clickToReplace")}</p></>
         ) : (
-          <><UploadCloud className="h-8 w-8 text-gray-400" /><div className="text-center"><p className="text-sm font-medium text-gray-700">Drag & drop your {label} here</p><p className="text-xs text-gray-400 mt-1">or click to browse</p></div></>
+          <><UploadCloud className="h-8 w-8 text-gray-400" /><div className="text-center"><p className="text-sm font-medium text-gray-700">{t("dragDrop", { label })}</p><p className="text-xs text-gray-400 mt-1">{t("orClickBrowse")}</p></div></>
         )}
       </div>
       {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">{error}</p>}
       <div>
-        <label className="mb-1 block text-xs font-medium text-gray-500">URL (auto-filled on upload)</label>
+        <label className="mb-1 block text-xs font-medium text-gray-500">{t("urlAutoFilled")}</label>
         <input value={content} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className="input w-full text-xs" />
       </div>
       {content && (
         <a href={getTestUrl ? getTestUrl(content) : content} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
-          <ExternalLink className="h-3.5 w-3.5" /> Test URL
+          <ExternalLink className="h-3.5 w-3.5" /> {t("testUrl")}
         </a>
       )}
     </div>
@@ -167,23 +169,25 @@ function FileUploader({
 }
 
 function LessonContentEditor({ type, content, onChange }: { type: LessonType; content: string; onChange: (v: string) => void }) {
+  const t = useTranslations("admin.courseEditor");
   if (type === "TEXT") return <RichTextEditor content={content} onChange={onChange} />;
   if (type === "VIDEO") {
     const embedUrl = getVideoEmbed(content);
     return (
       <div className="space-y-2">
-        <input value={content} onChange={(e) => onChange(e.target.value)} placeholder="Paste YouTube or Vimeo URL" className="input w-full" />
+        <input value={content} onChange={(e) => onChange(e.target.value)} placeholder={t("videoUrlPlaceholder")} className="input w-full" />
         {embedUrl && <div className="aspect-video overflow-hidden rounded-lg bg-black"><iframe src={embedUrl} className="h-full w-full" allowFullScreen /></div>}
       </div>
     );
   }
-  if (type === "PDF") return <FileUploader content={content} onChange={onChange} accept=".pdf,application/pdf" endpoint="/api/admin/pdf/upload" label="PDF" placeholder="/pdfs/my-document.pdf" />;
+  if (type === "PDF") return <FileUploader content={content} onChange={onChange} accept=".pdf,application/pdf" endpoint="/api/admin/pdf/upload" label="PDF" placeholder={t("pdfPlaceholder")} />;
   if (type === "QUIZ") return <QuizBuilder value={content} onChange={onChange} />;
-  if (type === "SCORM") return <FileUploader content={content} onChange={onChange} accept=".zip" endpoint="/api/admin/scorm/upload" label="SCORM .zip" placeholder="/scorm/my-course/index.html" getTestUrl={(u) => `/scorm-player.html?url=${encodeURIComponent(u)}`} />;
+  if (type === "SCORM") return <FileUploader content={content} onChange={onChange} accept=".zip" endpoint="/api/admin/scorm/upload" label="SCORM .zip" placeholder={t("scormPlaceholder")} getTestUrl={(u) => `/scorm-player.html?url=${encodeURIComponent(u)}`} />;
   return null;
 }
 
 function TypeSelector({ value, onChange }: { value: LessonType; onChange: (t: LessonType) => void }) {
+  const tr = useTranslations("admin.courseEditor");
   return (
     <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
       {ALL_TYPES.map((t) => (
@@ -193,7 +197,7 @@ function TypeSelector({ value, onChange }: { value: LessonType; onChange: (t: Le
           }`}
         >
           {TYPE_ICONS[t]}
-          {TYPE_LABELS[t]}
+          {tr(TYPE_LABEL_KEY[t])}
         </button>
       ))}
     </div>
@@ -222,57 +226,58 @@ function LessonForm({
   submitLabel: string;
   error?: string;
 }) {
+  const t = useTranslations("admin.courseEditor");
   const showDescription = ["PDF", "VIDEO", "QUIZ"].includes(form.type);
   return (
     <div className="rounded-xl border border-[#1a73e8]/20 bg-blue-50 p-4 space-y-4">
       <input
         value={form.title}
         onChange={(e) => onChange({ title: e.target.value })}
-        placeholder="Lesson title *"
+        placeholder={t("lessonTitlePlaceholder")}
         className="input w-full"
       />
 
       {/* Topic assignment (only show if topics exist and we're not locked to one) */}
       {topics.length > 0 && lockedTopicId === undefined && (
         <div>
-          <label className="mb-1.5 block text-xs font-medium text-gray-700">Assign to topic</label>
+          <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("assignToTopic")}</label>
           <select
             value={form.topicId ?? ""}
             onChange={(e) => onChange({ topicId: e.target.value || null })}
             className="input w-full"
           >
-            <option value="">No topic (unassigned)</option>
-            {topics.map((t) => <option key={t.id} value={t.id}>{t.title}</option>)}
+            <option value="">{t("noTopicOption")}</option>
+            {topics.map((tp) => <option key={tp.id} value={tp.id}>{tp.title}</option>)}
           </select>
         </div>
       )}
 
       <div>
-        <label className="mb-1.5 block text-xs font-medium text-gray-700">Content type</label>
-        <TypeSelector value={form.type} onChange={(t) => onChange({ type: t, content: "" })} />
+        <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("contentType")}</label>
+        <TypeSelector value={form.type} onChange={(ty) => onChange({ type: ty, content: "" })} />
       </div>
       <div>
-        <label className="mb-1.5 block text-xs font-medium text-gray-700">Content</label>
+        <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("content")}</label>
         <LessonContentEditor type={form.type} content={form.content} onChange={(v) => onChange({ content: v })} />
       </div>
       {showDescription && (
         <div>
           <label className="mb-1.5 block text-xs font-medium text-gray-700">
-            Description <span className="text-gray-400">(optional — shown above the content)</span>
+            {t("lessonDescription")} <span className="text-gray-400">{t("lessonDescriptionNote")}</span>
           </label>
           <RichTextEditor
             content={form.description}
             onChange={(html) => onChange({ description: html })}
-            placeholder="Add a description for this lesson…"
+            placeholder={t("lessonDescriptionPlaceholder")}
           />
         </div>
       )}
       {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">{error}</p>}
       <div className="flex gap-2">
         <button onClick={onSubmit} disabled={saving} className="btn-primary text-xs py-1.5 px-3">
-          {saving ? "Saving…" : submitLabel}
+          {saving ? t("saving") : submitLabel}
         </button>
-        <button onClick={onCancel} className="btn-secondary text-xs py-1.5 px-3">Cancel</button>
+        <button onClick={onCancel} className="btn-secondary text-xs py-1.5 px-3">{t("cancel")}</button>
       </div>
     </div>
   );
@@ -294,6 +299,7 @@ function LessonRow({
   onMoveUp?: () => void;
   onMoveDown?: () => void;
 }) {
+  const t = useTranslations("admin.courseEditor");
   return (
     <div className="flex items-center gap-3 rounded-lg border border-gray-100 bg-gray-50 p-3">
       <div className="flex flex-col gap-0.5 flex-shrink-0">
@@ -301,7 +307,7 @@ function LessonRow({
           onClick={onMoveUp}
           disabled={!onMoveUp}
           className="rounded p-0.5 text-gray-300 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
-          title="Move up"
+          title={t("moveUp")}
         >
           <ChevronUp className="h-3.5 w-3.5" />
         </button>
@@ -309,7 +315,7 @@ function LessonRow({
           onClick={onMoveDown}
           disabled={!onMoveDown}
           className="rounded p-0.5 text-gray-300 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
-          title="Move down"
+          title={t("moveDown")}
         >
           <ChevronDown className="h-3.5 w-3.5" />
         </button>
@@ -317,10 +323,10 @@ function LessonRow({
       <span className="text-gray-400 flex-shrink-0">{TYPE_ICONS[lesson.type]}</span>
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium text-gray-800 truncate">{lesson.title}</p>
-        <p className="text-xs text-gray-400">{TYPE_LABELS[lesson.type]}</p>
+        <p className="text-xs text-gray-400">{t(TYPE_LABEL_KEY[lesson.type])}</p>
       </div>
       <div className="flex gap-2">
-        <button onClick={onEdit} className="btn-secondary py-1 px-2 text-xs">Edit</button>
+        <button onClick={onEdit} className="btn-secondary py-1 px-2 text-xs">{t("editLesson")}</button>
         <button
           onClick={onDelete}
           disabled={deleting}
@@ -335,6 +341,7 @@ function LessonRow({
 
 // ---- Main component ----
 export default function AdminCourseEditPage({ module: initial, locale }: { module: Module; locale: string }) {
+  const t = useTranslations("admin.courseEditor");
   const router = useRouter();
   const [course, setCourse] = useState<Module>(initial);
   const [courseForm, setCourseForm] = useState({
@@ -420,7 +427,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
   };
 
   const deleteTopic = async (topicId: string) => {
-    if (!confirm("Delete this topic? Its lessons will become unassigned.")) return;
+    if (!confirm(t("confirmDeleteTopic"))) return;
     setDeletingTopicId(topicId);
     await fetch(`/api/admin/courses/${course.id}/topics/${topicId}`, { method: "DELETE" });
     setCourse((c) => {
@@ -444,7 +451,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
 
   const addLesson = async () => {
     if (!lessonForm.title.trim() || !lessonForm.content) {
-      setLessonError("Please fill in the title and content before saving.");
+      setLessonError(t("fillTitleContent"));
       return;
     }
     setLessonError("");
@@ -462,10 +469,10 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
         setLessonFormContext(false);
       } else {
         const data = await res.json().catch(() => ({}));
-        setLessonError(data.error ?? "Failed to save lesson. Please try again.");
+        setLessonError(data.error ?? t("saveLessonFailed"));
       }
     } catch {
-      setLessonError("Network error. Please try again.");
+      setLessonError(t("networkError"));
     } finally {
       setSavingLesson(false);
     }
@@ -493,17 +500,17 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
         setEditingLesson(null);
       } else {
         const data = await res.json().catch(() => ({}));
-        setLessonError(data.error ?? "Failed to save lesson. Please try again.");
+        setLessonError(data.error ?? t("saveLessonFailed"));
       }
     } catch {
-      setLessonError("Network error. Please try again.");
+      setLessonError(t("networkError"));
     } finally {
       setSavingLesson(false);
     }
   };
 
   const deleteLesson = async (id: string) => {
-    if (!confirm("Delete this lesson?")) return;
+    if (!confirm(t("confirmDeleteLesson"))) return;
     setDeletingId(id);
     await fetch(`/api/admin/courses/${course.id}/lessons/${id}`, { method: "DELETE" });
     setCourse((c) => removeLessonFromModule(c, id));
@@ -561,43 +568,43 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
   return (
     <div className="mx-auto max-w-3xl">
       <button onClick={() => router.push(`/${locale}/admin/courses`)} className="btn-secondary mb-6">
-        <ArrowLeft className="h-4 w-4" /> Back to Courses
+        <ArrowLeft className="h-4 w-4" /> {t("backToCourses")}
       </button>
 
       {/* Course details */}
       <div className="card mb-6">
-        <h2 className="mb-4 text-sm font-semibold text-gray-900">Course Details</h2>
+        <h2 className="mb-4 text-sm font-semibold text-gray-900">{t("courseDetails")}</h2>
         <div className="space-y-3">
           <input
             value={courseForm.title}
             onChange={(e) => setCourseForm((f) => ({ ...f, title: e.target.value }))}
-            placeholder="Course title"
+            placeholder={t("courseTitlePlaceholder")}
             className="input w-full"
           />
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-gray-700">Description</label>
+            <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("description")}</label>
             <RichTextEditor
               content={courseForm.description}
               onChange={(html) => setCourseForm((f) => ({ ...f, description: html }))}
-              placeholder="Add a course description…"
+              placeholder={t("descriptionPlaceholder")}
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <input value={courseForm.category} onChange={(e) => setCourseForm((f) => ({ ...f, category: e.target.value }))} placeholder="Category" className="input" />
-            <input value={courseForm.duration} onChange={(e) => setCourseForm((f) => ({ ...f, duration: e.target.value }))} placeholder="Duration (minutes)" type="number" className="input" />
+            <input value={courseForm.category} onChange={(e) => setCourseForm((f) => ({ ...f, category: e.target.value }))} placeholder={t("category")} className="input" />
+            <input value={courseForm.duration} onChange={(e) => setCourseForm((f) => ({ ...f, duration: e.target.value }))} placeholder={t("durationMinutes")} type="number" className="input" />
           </div>
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-gray-700">Featured Image URL <span className="text-gray-400">(optional)</span></label>
+            <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("featuredImageUrl")} <span className="text-gray-400">({t("optional")})</span></label>
             <input
               value={courseForm.imageUrl}
               onChange={(e) => setCourseForm((f) => ({ ...f, imageUrl: e.target.value }))}
-              placeholder="https://example.com/image.jpg"
+              placeholder={t("featuredImagePlaceholder")}
               className="input w-full"
             />
             {courseForm.imageUrl && (
               <img
                 src={courseForm.imageUrl}
-                alt="Preview"
+                alt={t("imagePreviewAlt")}
                 className="mt-2 h-24 w-full rounded-lg object-cover border border-gray-200"
                 onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
               />
@@ -605,7 +612,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
           </div>
           <button onClick={saveCourse} disabled={savingCourse} className="btn-primary">
             <Save className="h-4 w-4" />
-            {courseSaved ? "Saved!" : savingCourse ? "Saving…" : "Save Changes"}
+            {courseSaved ? t("saved") : savingCourse ? t("saving") : t("saveChanges")}
           </button>
         </div>
       </div>
@@ -614,16 +621,16 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
       <div className="card mb-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-gray-900">
-            Topics ({course.topics.length})
+            {t("topics", { count: course.topics.length })}
           </h2>
           <button onClick={() => { setAddingTopic(true); setNewTopicTitle(""); }} className="btn-primary py-1.5 px-3 text-xs">
-            <Plus className="h-3.5 w-3.5" /> Add Topic
+            <Plus className="h-3.5 w-3.5" /> {t("addTopic")}
           </button>
         </div>
 
         {course.topics.length === 0 && !addingTopic && (
           <p className="text-sm text-gray-400 py-2">
-            No topics yet. Add topics to organise your course into sections.
+            {t("noTopics")}
           </p>
         )}
 
@@ -636,20 +643,20 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                     autoFocus
                     value={editingTopicTitle}
                     onChange={(e) => setEditingTopicTitle(e.target.value)}
-                    placeholder="Topic title *"
+                    placeholder={t("topicTitlePlaceholder")}
                     className="input w-full py-1 text-sm"
                   />
                   <div>
-                    <label className="mb-1.5 block text-xs font-medium text-gray-500">Description (optional)</label>
+                    <label className="mb-1.5 block text-xs font-medium text-gray-500">{t("topicDescription")}</label>
                     <RichTextEditor
                       content={editingTopicDescription}
                       onChange={setEditingTopicDescription}
-                      placeholder="Add a topic description…"
+                      placeholder={t("topicDescriptionPlaceholder")}
                     />
                   </div>
                   <div className="flex gap-2">
                     <button onClick={() => saveTopic(topic.id)} disabled={savingTopic} className="btn-primary py-1 px-3 text-xs">
-                      {savingTopic ? "Saving…" : "Save"}
+                      {savingTopic ? t("saving") : t("save")}
                     </button>
                     <button onClick={() => setEditingTopicId(null)} className="btn-secondary py-1 px-2 text-xs"><X className="h-3.5 w-3.5" /></button>
                   </div>
@@ -659,7 +666,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                   <FolderOpen className="h-4 w-4 flex-shrink-0 text-[#1a73e8] mt-0.5" />
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium text-gray-800">{topic.title}</p>
-                    <p className="text-xs text-gray-400">{topic.lessons.length} lesson{topic.lessons.length !== 1 ? "s" : ""}</p>
+                    <p className="text-xs text-gray-400">{t("lessonsInTopic", { count: topic.lessons.length })}</p>
                     {topic.description && (
                       <div
                         className="mt-1.5 text-xs text-gray-500 prose prose-xs max-w-none line-clamp-2 [&_img]:hidden"
@@ -671,7 +678,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                     <button
                       onClick={() => { setEditingTopicId(topic.id); setEditingTopicTitle(topic.title); setEditingTopicDescription(topic.description ?? ""); }}
                       className="btn-secondary py-1 px-2 text-xs"
-                      title="Edit"
+                      title={t("editTopic")}
                     >
                       <Pencil className="h-3.5 w-3.5" />
                     </button>
@@ -679,7 +686,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                       onClick={() => deleteTopic(topic.id)}
                       disabled={deletingTopicId === topic.id}
                       className="rounded-lg border border-red-200 bg-red-50 px-2 py-1 text-xs text-red-600 hover:bg-red-100 disabled:opacity-50"
-                      title="Delete topic"
+                      title={t("deleteTopic")}
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </button>
@@ -696,20 +703,20 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
               autoFocus
               value={newTopicTitle}
               onChange={(e) => setNewTopicTitle(e.target.value)}
-              placeholder="Topic title *"
+              placeholder={t("topicTitlePlaceholder")}
               className="input w-full"
             />
             <div>
-              <label className="mb-1.5 block text-xs font-medium text-gray-700">Description (optional)</label>
+              <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("topicDescription")}</label>
               <RichTextEditor
                 content={newTopicDescription}
                 onChange={setNewTopicDescription}
-                placeholder="Add a topic description…"
+                placeholder={t("topicDescriptionPlaceholder")}
               />
             </div>
             <div className="flex gap-2">
               <button onClick={createTopic} disabled={savingTopic} className="btn-primary px-3 text-xs py-1.5">
-                {savingTopic ? "Saving…" : "Save Topic"}
+                {savingTopic ? t("saving") : t("saveTopic")}
               </button>
               <button onClick={() => { setAddingTopic(false); setNewTopicTitle(""); setNewTopicDescription(""); }} className="btn-secondary px-3 text-xs py-1.5">
                 <X className="h-4 w-4" />
@@ -722,19 +729,19 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
       {/* Lessons */}
       <div className="card">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-gray-900">Lessons ({totalLessons})</h2>
+          <h2 className="text-sm font-semibold text-gray-900">{t("lessons", { count: totalLessons })}</h2>
           <button
             onClick={() => { openAddLesson(null); }}
             className="btn-primary py-1.5 px-3 text-xs"
           >
-            <Plus className="h-3.5 w-3.5" /> Add Lesson
+            <Plus className="h-3.5 w-3.5" /> {t("addLesson")}
           </button>
         </div>
 
         {/* Add lesson form (when opened via top button — allows topic selection) */}
         {lessonFormContext === null && editingLesson === null && (
           <div className="mb-6">
-            <h3 className="text-xs font-semibold text-gray-700 mb-3">New Lesson</h3>
+            <h3 className="text-xs font-semibold text-gray-700 mb-3">{t("newLesson")}</h3>
             <LessonForm
               form={lessonForm}
               topics={course.topics}
@@ -742,14 +749,14 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
               onSubmit={addLesson}
               onCancel={() => { setLessonError(""); setLessonFormContext(false); }}
               saving={savingLesson}
-              submitLabel="Add Lesson"
+              submitLabel={t("addLesson")}
               error={lessonError}
             />
           </div>
         )}
 
         {totalLessons === 0 && lessonFormContext === false && (
-          <p className="text-center text-sm text-gray-400 py-6">No lessons yet.</p>
+          <p className="text-center text-sm text-gray-400 py-6">{t("noLessons")}</p>
         )}
 
         {/* Topics with their lessons */}
@@ -765,7 +772,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                 onClick={() => { openAddLesson(topic.id); }}
                 className="btn-secondary py-1 px-2 text-xs"
               >
-                <Plus className="h-3.5 w-3.5" /> Add lesson
+                <Plus className="h-3.5 w-3.5" /> {t("addLessonShort")}
               </button>
             </div>
 
@@ -780,14 +787,14 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                   onSubmit={addLesson}
                   onCancel={() => { setLessonError(""); setLessonFormContext(false); }}
                   saving={savingLesson}
-                  submitLabel="Add Lesson"
+                  submitLabel={t("addLesson")}
                   error={lessonError}
                 />
               </div>
             )}
 
             {topic.lessons.length === 0 && lessonFormContext !== topic.id && (
-              <p className="text-xs text-gray-400 py-2 pl-2">No lessons in this topic yet.</p>
+              <p className="text-xs text-gray-400 py-2 pl-2">{t("noLessonsInTopic")}</p>
             )}
 
             <div className="space-y-2">
@@ -801,7 +808,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                       onSubmit={saveLesson}
                       onCancel={() => { setLessonError(""); setEditingLesson(null); }}
                       saving={savingLesson}
-                      submitLabel="Save"
+                      submitLabel={t("save")}
                       error={lessonError}
                     />
                   ) : (
@@ -825,7 +832,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
           <div>
             {course.topics.length > 0 && (
               <div className="flex items-center gap-2 mb-2">
-                <h3 className="text-sm font-semibold text-gray-500">Unassigned</h3>
+                <h3 className="text-sm font-semibold text-gray-500">{t("unassigned")}</h3>
                 <span className="text-xs text-gray-400">({course.lessons.length})</span>
               </div>
             )}
@@ -840,7 +847,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                       onSubmit={saveLesson}
                       onCancel={() => { setLessonError(""); setEditingLesson(null); }}
                       saving={savingLesson}
-                      submitLabel="Save"
+                      submitLabel={t("save")}
                       error={lessonError}
                     />
                   ) : (

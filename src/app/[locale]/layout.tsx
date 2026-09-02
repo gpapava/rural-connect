@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { locales, type Locale } from "@/i18n";
@@ -11,14 +11,20 @@ import Topbar from "@/components/Topbar";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: {
-    default: "RURAL-CONNECT",
-    template: "%s | RURAL-CONNECT",
-  },
-  description:
-    "Empowering NEET youth in rural areas through digital counseling and skills development",
-};
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    title: {
+      default: "RURAL-CONNECT",
+      template: "%s | RURAL-CONNECT",
+    },
+    description: t("description"),
+  };
+}
 
 interface LocaleLayoutProps {
   children: React.ReactNode;

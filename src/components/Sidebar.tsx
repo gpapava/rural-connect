@@ -89,6 +89,7 @@ const navItems = [
 
 export default function Sidebar({ locale, user }: SidebarProps) {
   const t = useTranslations("nav");
+  const tRoles = useTranslations("common.roles");
   const pathname = usePathname();
   const [langOpen, setLangOpen] = useState(false);
 
@@ -107,9 +108,9 @@ export default function Sidebar({ locale, user }: SidebarProps) {
 
   const getRoleBadge = (role: UserRole) => {
     const map: Record<UserRole, { label: string; color: string }> = {
-      NEET_USER: { label: "User", color: "bg-blue-500/20 text-blue-300" },
-      COUNSELOR: { label: "Counselor", color: "bg-green-500/20 text-green-300" },
-      ADMIN: { label: "Admin", color: "bg-purple-500/20 text-purple-300" },
+      NEET_USER: { label: tRoles("NEET_USER"), color: "bg-blue-500/20 text-blue-300" },
+      COUNSELOR: { label: tRoles("COUNSELOR"), color: "bg-green-500/20 text-green-300" },
+      ADMIN: { label: tRoles("ADMIN"), color: "bg-purple-500/20 text-purple-300" },
     };
     return map[role];
   };

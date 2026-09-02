@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   Users, Plus, Trash2, X, CheckCircle, Mail,
   Globe, Shield, UserCheck, User, Link2, Copy, Clock,
@@ -19,21 +20,13 @@ type UserRow = {
   createdAt: Date;
 };
 
-const ROLES: { value: UserRole; label: string; color: string }[] = [
-  { value: "ADMIN",     label: "Admin",       color: "bg-purple-100 text-purple-800" },
-  { value: "COUNSELOR", label: "Counselor",   color: "bg-green-100 text-green-800"   },
-  { value: "NEET_USER", label: "NEET User",   color: "bg-blue-100 text-blue-800"     },
-];
-
-const LANGUAGES = [
-  { value: "en", label: "English" },
-  { value: "el", label: "Greek" },
-  { value: "tr", label: "Turkish" },
-  { value: "lv", label: "Latvian" },
-  { value: "es", label: "Spanish" },
-  { value: "it", label: "Italian" },
-  { value: "no", label: "Norwegian" },
-];
+const ROLE_VALUES: UserRole[] = ["ADMIN", "COUNSELOR", "NEET_USER"];
+const ROLE_COLOR: Record<UserRole, string> = {
+  ADMIN: "bg-purple-100 text-purple-800",
+  COUNSELOR: "bg-green-100 text-green-800",
+  NEET_USER: "bg-blue-100 text-blue-800",
+};
+const LANGUAGE_VALUES = ["en", "el", "tr", "lv", "es", "it", "no"];
 
 const ROLE_ICON: Record<UserRole, React.ElementType> = {
   ADMIN: Shield,
@@ -41,21 +34,23 @@ const ROLE_ICON: Record<UserRole, React.ElementType> = {
   NEET_USER: User,
 };
 
-function roleBadge(role: UserRole) {
-  const r = ROLES.find((x) => x.value === role)!;
-  return (
-    <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-semibold", r.color)}>
-      {r.label}
-    </span>
-  );
-}
-
 const EMPTY_FORM = { name: "", email: "", password: "", role: "NEET_USER" as UserRole, country: "", language: "en" };
 
 type InviteRow = { id: string; email: string; token: string; used: boolean; expiresAt: Date; createdAt: Date };
 
 export default function AdminUsersPage({ users: initial, currentUserId }: { users: UserRow[]; currentUserId: string }) {
+  const t = useTranslations("admin.users");
+  const tc = useTranslations("common");
+  const tRoles = useTranslations("common.roles");
+  const tLangs = useTranslations("common.languages");
   const router = useRouter();
+
+  const roleBadge = (role: UserRole) => (
+    <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-semibold", ROLE_COLOR[role])}>
+      {tRoles(role)}
+    </span>
+  );
+  const langLabel = (code: string) => (tLangs.has(code) ? tLangs(code) : code);
   const [users, setUsers] = useState(initial);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(EMPTY_FORM);
@@ -75,7 +70,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   const handleCreate = async () => {
     setError(null);
     if (!form.name.trim() || !form.email.trim() || !form.password.trim()) {
-      setError("Name, email and password are required.");
+      setError(t("requiredFields"));
       return;
     }
     setSaving(true);
@@ -86,7 +81,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
     });
     const data = await res.json();
     if (!res.ok) {
-      setError(data.error ?? "Something went wrong.");
+      setError(data.error ?? tc("somethingWentWrong"));
     } else {
       setUsers((prev) => [data.user, ...prev]);
       setForm(EMPTY_FORM);
@@ -110,7 +105,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
 
   const handleCreateInvite = async () => {
     setInviteError(null);
-    if (!inviteEmail.trim()) { setInviteError("Email is required."); return; }
+    if (!inviteEmail.trim()) { setInviteError(t("emailRequired")); return; }
     setInviteLoading(true);
     const res = await fetch("/api/admin/invites", {
       method: "POST",
@@ -119,7 +114,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
     });
     const data = await res.json();
     if (!res.ok) {
-      setInviteError(data.error ?? "Something went wrong.");
+      setInviteError(data.error ?? tc("somethingWentWrong"));
     } else {
       setInvites((prev) => [data.invite, ...prev]);
       setInviteEmail("");
@@ -144,14 +139,14 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   };
 
   const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Delete user "${name}"? This cannot be undone.`)) return;
+    if (!confirm(t("confirmDelete", { name }))) return;
     setDeletingId(id);
     const res = await fetch(`/api/admin/users/${id}`, { method: "DELETE" });
     if (res.ok) {
       setUsers((prev) => prev.filter((u) => u.id !== id));
     } else {
       const data = await res.json();
-      alert(data.error ?? "Could not delete user.");
+      alert(data.error ?? t("couldNotDelete"));
     }
     setDeletingId(null);
   };
@@ -168,15 +163,15 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
-          <p className="text-sm text-gray-500">{users.length} registered user{users.length !== 1 ? "s" : ""}</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
+          <p className="text-sm text-gray-500">{t("registeredUsers", { count: users.length })}</p>
         </div>
         <button
           onClick={() => { setShowForm(true); setError(null); }}
           className="btn-primary"
         >
           <Plus className="h-4 w-4" />
-          New User
+          {t("newUser")}
         </button>
       </div>
 
@@ -188,19 +183,18 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
         >
           <div className="flex items-center gap-2">
             <Link2 className="h-4 w-4 text-green-700" />
-            <span className="text-sm font-semibold text-green-800">Invite a Counsellor</span>
+            <span className="text-sm font-semibold text-green-800">{t("inviteCounsellor")}</span>
             <span className="rounded-full bg-green-200 px-2 py-0.5 text-xs font-medium text-green-800">
-              Token link
+              {t("tokenLink")}
             </span>
           </div>
-          <span className="text-xs text-green-600">{showInvites ? "Hide" : "Show"}</span>
+          <span className="text-xs text-green-600">{showInvites ? tc("hide") : tc("show")}</span>
         </button>
 
         {showInvites && (
           <div className="border-t border-green-200 px-5 pb-5 pt-4 space-y-4">
             <p className="text-xs text-green-700">
-              Enter a counsellor&apos;s email to generate a one-time invite link. Copy and send
-              the link to them — it expires in 7 days.
+              {t("inviteHint")}
             </p>
 
             {inviteError && (
@@ -214,7 +208,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                 type="email"
                 value={inviteEmail}
                 onChange={(e) => setInviteEmail(e.target.value)}
-                placeholder="counsellor@example.com"
+                placeholder={t("invitePlaceholder")}
                 className="input-field flex-1 text-sm"
               />
               <button
@@ -222,7 +216,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                 disabled={inviteLoading}
                 className="btn-primary px-4 py-2 text-sm disabled:opacity-50"
               >
-                {inviteLoading ? "Generating…" : "Generate Link"}
+                {inviteLoading ? t("generating") : t("generateLink")}
               </button>
             </div>
 
@@ -247,22 +241,22 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                         <p className="font-medium truncate">{invite.email}</p>
                         <p className="text-gray-400">
                           {invite.used
-                            ? "Used"
+                            ? t("used")
                             : expired
-                            ? "Expired"
-                            : `Expires ${new Date(invite.expiresAt).toLocaleDateString()}`}
+                            ? t("expired")
+                            : t("expiresOn", { date: new Date(invite.expiresAt).toLocaleDateString() })}
                         </p>
                       </div>
                       {!invite.used && !expired && (
                         <button
                           onClick={() => copyInviteLink(invite.token, invite.id)}
                           className="flex items-center gap-1 rounded-md border border-green-200 bg-green-50 px-2 py-1 text-green-700 hover:bg-green-100"
-                          title="Copy invite link"
+                          title={t("copyInviteLink")}
                         >
                           {copiedId === invite.id ? (
-                            <><CheckCircle className="h-3 w-3" /> Copied!</>
+                            <><CheckCircle className="h-3 w-3" /> {t("copied")}</>
                           ) : (
-                            <><Copy className="h-3 w-3" /> Copy link</>
+                            <><Copy className="h-3 w-3" /> {t("copyLink")}</>
                           )}
                         </button>
                       )}
@@ -270,7 +264,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                         <button
                           onClick={() => handleRevokeInvite(invite.id)}
                           className="rounded-md p-1 text-gray-300 hover:bg-red-50 hover:text-red-400"
-                          title="Revoke"
+                          title={t("revoke")}
                         >
                           <X className="h-3.5 w-3.5" />
                         </button>
@@ -288,7 +282,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
       {showForm && (
         <div className="card mb-6 border border-[#1a73e8]/20">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-base font-semibold text-gray-900">Create New User</h2>
+            <h2 className="text-base font-semibold text-gray-900">{t("createNewUser")}</h2>
             <button onClick={() => { setShowForm(false); setError(null); setForm(EMPTY_FORM); }} className="text-gray-400 hover:text-gray-600">
               <X className="h-5 w-5" />
             </button>
@@ -302,66 +296,66 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-600">Full Name *</label>
+              <label className="mb-1 block text-xs font-medium text-gray-600">{t("fullName")} *</label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                placeholder="e.g. Maria Papadopoulou"
+                placeholder={t("namePlaceholder")}
                 className="input-field"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-600">Email *</label>
+              <label className="mb-1 block text-xs font-medium text-gray-600">{t("email")} *</label>
               <input
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                placeholder="user@example.com"
+                placeholder={t("emailPlaceholder")}
                 className="input-field"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-600">Password *</label>
+              <label className="mb-1 block text-xs font-medium text-gray-600">{t("password")} *</label>
               <input
                 type="password"
                 value={form.password}
                 onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
-                placeholder="Min. 8 characters recommended"
+                placeholder={t("passwordPlaceholder")}
                 className="input-field"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-600">Role *</label>
+              <label className="mb-1 block text-xs font-medium text-gray-600">{t("role")} *</label>
               <select
                 value={form.role}
                 onChange={(e) => setForm((f) => ({ ...f, role: e.target.value as UserRole }))}
                 className="input-field"
               >
-                {ROLES.map((r) => (
-                  <option key={r.value} value={r.value}>{r.label}</option>
+                {ROLE_VALUES.map((r) => (
+                  <option key={r} value={r}>{tRoles(r)}</option>
                 ))}
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-600">Country</label>
+              <label className="mb-1 block text-xs font-medium text-gray-600">{t("country")}</label>
               <input
                 type="text"
                 value={form.country}
                 onChange={(e) => setForm((f) => ({ ...f, country: e.target.value }))}
-                placeholder="e.g. GR, NO, TR…"
+                placeholder={t("countryPlaceholder")}
                 className="input-field"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-600">Language</label>
+              <label className="mb-1 block text-xs font-medium text-gray-600">{t("language")}</label>
               <select
                 value={form.language}
                 onChange={(e) => setForm((f) => ({ ...f, language: e.target.value }))}
                 className="input-field"
               >
-                {LANGUAGES.map((l) => (
-                  <option key={l.value} value={l.value}>{l.label}</option>
+                {LANGUAGE_VALUES.map((l) => (
+                  <option key={l} value={l}>{tLangs(l)}</option>
                 ))}
               </select>
             </div>
@@ -369,11 +363,11 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
 
           <div className="mt-5 flex justify-end gap-3">
             <button onClick={() => { setShowForm(false); setError(null); setForm(EMPTY_FORM); }} className="btn-secondary">
-              Cancel
+              {tc("cancel")}
             </button>
             <button onClick={handleCreate} disabled={saving} className="btn-primary disabled:opacity-50">
-              {saving ? "Creating…" : (
-                <><CheckCircle className="h-4 w-4" /> Create User</>
+              {saving ? t("creating") : (
+                <><CheckCircle className="h-4 w-4" /> {t("createUser")}</>
               )}
             </button>
           </div>
@@ -383,10 +377,10 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
       {/* Role filter tabs */}
       <div className="mb-5 flex flex-wrap gap-2">
         {([
-          { key: "all", label: `All (${counts.all})` },
-          { key: "ADMIN",     label: `Admins (${counts.ADMIN})` },
-          { key: "COUNSELOR", label: `Counselors (${counts.COUNSELOR})` },
-          { key: "NEET_USER", label: `NEET Users (${counts.NEET_USER})` },
+          { key: "all", label: t("filterAll", { count: counts.all }) },
+          { key: "ADMIN",     label: t("filterAdmins", { count: counts.ADMIN }) },
+          { key: "COUNSELOR", label: t("filterCounselors", { count: counts.COUNSELOR }) },
+          { key: "NEET_USER", label: t("filterNeet", { count: counts.NEET_USER }) },
         ] as const).map(({ key, label }) => (
           <button
             key={key}
@@ -408,11 +402,11 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50">
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">User</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Role</th>
-              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 sm:table-cell">Country</th>
-              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 md:table-cell">Language</th>
-              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 lg:table-cell">Joined</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{t("colUser")}</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{t("colRole")}</th>
+              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 sm:table-cell">{t("colCountry")}</th>
+              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 md:table-cell">{t("colLanguage")}</th>
+              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 lg:table-cell">{t("colJoined")}</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -430,7 +424,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                       <div>
                         <p className="font-medium text-gray-900">
                           {user.name}
-                          {isSelf && <span className="ml-1.5 text-xs text-[#1a73e8]">(you)</span>}
+                          {isSelf && <span className="ml-1.5 text-xs text-[#1a73e8]">{t("you")}</span>}
                         </p>
                         <p className="text-xs text-gray-500">{user.email}</p>
                       </div>
@@ -438,7 +432,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                   </td>
                   <td className="px-4 py-3">{roleBadge(user.role)}</td>
                   <td className="hidden px-4 py-3 text-gray-600 sm:table-cell">{user.country ?? "—"}</td>
-                  <td className="hidden px-4 py-3 text-gray-600 md:table-cell capitalize">{LANGUAGES.find((l) => l.value === user.language)?.label ?? user.language}</td>
+                  <td className="hidden px-4 py-3 text-gray-600 md:table-cell">{langLabel(user.language)}</td>
                   <td className="hidden px-4 py-3 text-gray-400 lg:table-cell">{formatDate(user.createdAt)}</td>
                   <td className="px-4 py-3 text-right">
                     {!isSelf && (
@@ -446,7 +440,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                         onClick={() => handleDelete(user.id, user.name)}
                         disabled={deletingId === user.id}
                         className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-500 disabled:opacity-40"
-                        title="Delete user"
+                        title={t("deleteUser")}
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -458,7 +452,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
             {filtered.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-12 text-center text-sm text-gray-400">
-                  No users found.
+                  {t("noUsers")}
                 </td>
               </tr>
             )}

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
 import RegisterForm from "@/components/RegisterForm";
 
@@ -6,12 +7,18 @@ interface RegisterPageProps {
   params: { locale: string };
 }
 
+const COUNTRY_CODES = ["NO", "GR", "TR", "LV", "ES", "IT"] as const;
+const COUNTRY_FLAGS: Record<string, string> = { NO: "🇳🇴", GR: "🇬🇷", TR: "🇹🇷", LV: "🇱🇻", ES: "🇪🇸", IT: "🇮🇹" };
+
 export default async function RegisterPage({ params: { locale } }: RegisterPageProps) {
   const session = await auth();
 
   if (session) {
     redirect(`/${locale}/dashboard`);
   }
+
+  const t = await getTranslations({ locale, namespace: "auth" });
+  const tc = await getTranslations({ locale, namespace: "common.countries" });
 
   return (
     <div className="flex min-h-screen">
@@ -36,17 +43,16 @@ export default async function RegisterPage({ params: { locale } }: RegisterPageP
             </div>
             <span className="text-2xl font-bold tracking-wider">RURAL-CONNECT</span>
           </div>
-          <h2 className="mb-4 text-3xl font-bold leading-tight">Join Rural-Connect</h2>
+          <h2 className="mb-4 text-3xl font-bold leading-tight">{t("registerBrandTitle")}</h2>
           <p className="mb-8 text-slate-300 leading-relaxed">
-            Create your account and start accessing digital counseling, skills development, and
-            employment pathways designed for NEET youth in rural communities.
+            {t("registerBrandDescription")}
           </p>
           <div className="rounded-xl bg-slate-700/50 p-6 text-left space-y-3">
             {[
-              "Digital counseling sessions with expert advisors",
-              "E-learning modules to develop new skills",
-              "Build your digital portfolio",
-              "Connect with employment opportunities",
+              t("benefitCounseling"),
+              t("benefitElearning"),
+              t("benefitPortfolio"),
+              t("benefitJobs"),
             ].map((item) => (
               <div key={item} className="flex items-start gap-2 text-sm text-slate-300">
                 <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#34a853]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,16 +63,14 @@ export default async function RegisterPage({ params: { locale } }: RegisterPageP
             ))}
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-2">
-            {["🇳🇴 Norway", "🇬🇷 Greece", "🇹🇷 Turkey", "🇱🇻 Latvia", "🇪🇸 Spain", "🇮🇹 Italy"].map(
-              (country) => (
-                <span
-                  key={country}
-                  className="rounded-full bg-slate-700/50 px-3 py-1 text-xs text-slate-300"
-                >
-                  {country}
-                </span>
-              )
-            )}
+            {COUNTRY_CODES.map((code) => (
+              <span
+                key={code}
+                className="rounded-full bg-slate-700/50 px-3 py-1 text-xs text-slate-300"
+              >
+                {COUNTRY_FLAGS[code]} {tc(code)}
+              </span>
+            ))}
           </div>
         </div>
       </div>
