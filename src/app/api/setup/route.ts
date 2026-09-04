@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { UserRole, ModuleProgressStatus } from "@prisma/client";
+import { UserRole } from "@prisma/client";
 
 // One-time database seeding route. Delete this file after running.
 export async function GET(request: NextRequest) {
@@ -76,20 +76,8 @@ export async function GET(request: NextRequest) {
       skipDuplicates: true,
     });
 
-    const modules = await Promise.all([
-      prisma.module.upsert({ where: { id: "module-1" }, update: {}, create: { id: "module-1", title: "Introduction to Digital Skills", description: "Learn the fundamentals of using computers, internet, and digital tools.", order: 1, category: "Digital Skills", duration: 120 } }),
-      prisma.module.upsert({ where: { id: "module-2" }, update: {}, create: { id: "module-2", title: "CV Writing & Job Applications", description: "Master the art of creating professional CVs and compelling job applications.", order: 2, category: "Career Development", duration: 90 } }),
-      prisma.module.upsert({ where: { id: "module-3" }, update: {}, create: { id: "module-3", title: "Interview Skills & Confidence Building", description: "Build confidence and learn practical interview techniques.", order: 3, category: "Career Development", duration: 150 } }),
-    ]);
-
-    await prisma.userModuleProgress.createMany({
-      data: [
-        { userId: neetUser.id, moduleId: modules[0].id, status: ModuleProgressStatus.COMPLETED, completedAt: new Date("2024-01-15") },
-        { userId: neetUser.id, moduleId: modules[1].id, status: ModuleProgressStatus.IN_PROGRESS },
-        { userId: neetUser.id, moduleId: modules[2].id, status: ModuleProgressStatus.NOT_STARTED },
-      ],
-      skipDuplicates: true,
-    });
+    // Curriculum modules are seeded per language via prisma/add-<lang>-modules.ts;
+    // no demo/placeholder modules are created here.
 
     const session = await prisma.counselingSession.create({
       data: {
