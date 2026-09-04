@@ -1,0 +1,116 @@
+{
+    "questions": [
+        {
+            "id": "tw-mc-1",
+            "type": "multiple_choice",
+            "text": "\u00bfCu\u00e1l de las siguientes opciones describe mejor la diferencia entre un grupo y un equipo?",
+            "options": [
+                "Un equipo siempre es m\u00e1s grande que un grupo",
+                "Un grupo tiene l\u00edder y un equipo no",
+                "Un equipo tiene un objetivo compartido y responsabilidad mutua, mientras que un grupo es simplemente un conjunto de personas en el mismo lugar",
+                "No hay una diferencia real, las palabras significan lo mismo"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-1",
+            "type": "true_false",
+            "text": "La seguridad psicol\u00f3gica significa que las personas integrantes del equipo sienten que pueden hablar, cometer errores o compartir ideas sin ser juzgadas.",
+            "correctAnswer": true
+        },
+        {
+            "id": "tw-mc-2",
+            "type": "multiple_choice",
+            "text": "\u00bfCu\u00e1l de las siguientes opciones es un ejemplo de barrera de comunicaci\u00f3n en un equipo?",
+            "options": [
+                "Todas las personas del equipo saben exactamente lo que tienen que hacer",
+                "Una persona env\u00eda un mensaje largo que contiene ocho puntos diferentes y el equipo acaba confundido sobre qu\u00e9 se est\u00e1 pidiendo realmente",
+                "El equipo realiza una breve reuni\u00f3n de seguimiento al inicio de cada sesi\u00f3n",
+                "Las personas integrantes del equipo hacen preguntas aclaratorias antes de responder"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "tw-mc-3",
+            "type": "multiple_choice",
+            "text": "Los silos de comunicaci\u00f3n en un equipo ocurren cuando:",
+            "options": [
+                "El equipo utiliza demasiadas aplicaciones de comunicaci\u00f3n diferentes",
+                "Las personas env\u00edan mensajes demasiado cortos para ser \u00fatiles",
+                "Los subgrupos dentro del equipo dejan de compartir informaci\u00f3n entre s\u00ed, lo que genera duplicaciones y conexiones perdidas",
+                "La persona l\u00edder del equipo se encarga de toda la comunicaci\u00f3n en nombre de las dem\u00e1s personas"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-4",
+            "type": "multiple_choice",
+            "text": "Durante una lluvia de ideas, una persona del equipo propone una idea que parece poco realista. \u00bfCu\u00e1l es la mejor respuesta?",
+            "options": [
+                "Se\u00f1alar inmediatamente por qu\u00e9 no funcionar\u00e1, para ahorrar tiempo",
+                "Ignorarla y seguir adelante",
+                "Anotarla junto con las dem\u00e1s. Juzgar las ideas durante la fase de generaci\u00f3n hace que las personas se cierren",
+                "Pedir a la persona que la piense mejor y vuelva m\u00e1s tarde al grupo"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-5",
+            "type": "multiple_choice",
+            "text": "Seg\u00fan el modelo de Tuckman, \u00bfqu\u00e9 es la etapa de Storming (conflicto)?",
+            "options": [
+                "La etapa en la que el equipo es m\u00e1s productivo y trabaja en su mejor nivel",
+                "La primera etapa, cuando las personas se est\u00e1n conociendo",
+                "La etapa en la que aparecen diferencias y desacuerdos, lo cual es normal y necesario para que un equipo se desarrolle",
+                "La etapa final, cuando el equipo se disuelve al terminar un proyecto"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-2",
+            "type": "true_false",
+            "text": "La etapa de Norming (normalizaci\u00f3n) del modelo de Tuckman viene antes de la etapa de Storming (conflicto).",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-tf-3",
+            "type": "true_false",
+            "text": "Un equipo que nunca tiene desacuerdos probablemente es se\u00f1al de un grupo sano y que funciona bien.",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-mc-6",
+            "type": "multiple_choice",
+            "text": "\u00bfCu\u00e1l de las siguientes opciones describe mejor a un equipo productivo?",
+            "options": [
+                "Un equipo que nunca necesita tener conversaciones dif\u00edciles",
+                "Un equipo en el que una persona hace la mayor parte del trabajo, para que las dem\u00e1s no se retrasen",
+                "Un equipo que realiza seguimientos peri\u00f3dicos, reconoce las contribuciones y reflexiona sobre lo que funciona y lo que no",
+                "Un equipo que lleva mucho tiempo junto y cuyas personas se conocen socialmente"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-match-1",
+            "type": "matching",
+            "text": "Relaciona cada t\u00e9rmino con su descripci\u00f3n correcta.",
+            "pairs": [
+                {
+                    "id": "twm-1",
+                    "left": "Seguridad psicol\u00f3gica",
+                    "right": "La sensaci\u00f3n dentro de un equipo de que puedes hablar, estar en desacuerdo o cometer un error sin ser castigado/a ni juzgado/a"
+                },
+                {
+                    "id": "twm-2",
+                    "left": "SBI",
+                    "right": "Una forma estructurada de dar feedback que se mantiene factual: la Situaci\u00f3n, el Comportamiento y el Impacto que tuvo"
+                },
+                {
+                    "id": "twm-3",
+                    "left": "Performing (ejecuci\u00f3n)",
+                    "right": "La etapa del modelo de Tuckman en la que el equipo trabaja de forma fluida, creativa y en su mejor nivel"
+                }
+            ]
+        }
+    ]
+}

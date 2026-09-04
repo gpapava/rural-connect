@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "it-mc-1",
+            "type": "multiple_choice",
+            "text": "\u00bfCu\u00e1l de los siguientes se describe como un dispositivo port\u00e1til con funciones similares a las de un ordenador de escritorio?",
+            "options": [
+                "Tableta",
+                "Ordenador port\u00e1til",
+                "Tel\u00e9fono inteligente",
+                "Impresora"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-2",
+            "type": "multiple_choice",
+            "text": "\u00bfCu\u00e1l es el objetivo principal de las carpetas en la gesti\u00f3n digital de archivos?",
+            "options": [
+                "Conectarse al Wi-Fi",
+                "Organizar y almacenar archivos",
+                "Enviar correos electr\u00f3nicos m\u00e1s r\u00e1pido",
+                "Crear contrase\u00f1as"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-3",
+            "type": "multiple_choice",
+            "text": "\u00bfQu\u00e9 parte de un correo electr\u00f3nico ofrece una breve descripci\u00f3n del contenido del mensaje?",
+            "options": [
+                "El archivo adjunto",
+                "El campo del destinatario",
+                "La l\u00ednea de asunto",
+                "La firma"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "it-mc-4",
+            "type": "multiple_choice",
+            "text": "\u00bfQu\u00e9 debe hacer un usuario cuidadoso al recibir un correo electr\u00f3nico sospechoso con un enlace desconocido?",
+            "options": [
+                "Hacer clic inmediatamente",
+                "Compartirlo con amigos",
+                "Ignorar las se\u00f1ales de advertencia",
+                "Detenerse y comprobarlo antes de actuar"
+            ],
+            "correctIndex": 3
+        },
+        {
+            "id": "it-tf-1",
+            "type": "true_false",
+            "text": "La competencia digital incluye no solo habilidades operativas, sino tambi\u00e9n comunicaci\u00f3n, creaci\u00f3n de contenidos y seguridad en l\u00ednea.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-tf-2",
+            "type": "true_false",
+            "text": "Una contrase\u00f1a d\u00e9bil es m\u00e1s segura que una contrase\u00f1a larga e impredecible.",
+            "correctAnswer": false
+        },
+        {
+            "id": "it-tf-3",
+            "type": "true_false",
+            "text": "La b\u00fasqueda en internet es m\u00e1s eficaz cuando los usuarios eligen palabras clave espec\u00edficas.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-match-1",
+            "type": "matching",
+            "text": "Relaciona cada t\u00e9rmino con su descripci\u00f3n correcta.",
+            "pairs": [
+                {
+                    "id": "itm-1",
+                    "left": "Navegador (browser)",
+                    "right": "Programa utilizado para acceder a sitios web y buscar en l\u00ednea"
+                },
+                {
+                    "id": "itm-2",
+                    "left": "Hardware",
+                    "right": "Las partes f\u00edsicas de un dispositivo, como la pantalla, el teclado o la bater\u00eda"
+                },
+                {
+                    "id": "itm-3",
+                    "left": "Phishing",
+                    "right": "Un tipo de estafa en l\u00ednea dise\u00f1ada para enga\u00f1ar a los usuarios para que revelen informaci\u00f3n o hagan clic en enlaces da\u00f1inos"
+                }
+            ]
+        }
+    ]
+}

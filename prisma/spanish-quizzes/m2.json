@@ -1,0 +1,165 @@
+{
+    "questions": [
+        {
+            "id": "ps-mc-1",
+            "type": "multiple_choice",
+            "text": "Solicitas un empleo, pero solo buscas rese\u00f1as que dicen que la empresa es excelente, ignorando las negativas. \u00bfQu\u00e9 sesgo cognitivo es este?",
+            "options": [
+                "Aversi\u00f3n a la p\u00e9rdida",
+                "Sesgo de confirmaci\u00f3n",
+                "Efecto anclaje",
+                "Pensamiento grupal"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-mc-2",
+            "type": "multiple_choice",
+            "text": "Sigues incumpliendo plazos en el trabajo y quieres encontrar la causa real. \u00bfQu\u00e9 t\u00e9cnica es m\u00e1s \u00fatil?",
+            "options": [
+                "Lluvia de ideas",
+                "An\u00e1lisis DAFO",
+                "Los 5 porqu\u00e9s",
+                "\u00c1rbol de decisi\u00f3n"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-3",
+            "type": "multiple_choice",
+            "text": "Llevas semanas teniendo la misma discusi\u00f3n con una persona con la que compartes piso. Te das cuenta de que tu descripci\u00f3n inicial del problema (\u00absimplemente no nos llevamos bien\u00bb) podr\u00eda no ser correcta. \u00bfQu\u00e9 t\u00e9cnica de resoluci\u00f3n de problemas deber\u00edas utilizar?",
+            "options": [
+                "Lluvia de ideas",
+                "An\u00e1lisis coste-beneficio",
+                "Reformulaci\u00f3n (reframing)",
+                "Los 5 porqu\u00e9s"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-4",
+            "type": "multiple_choice",
+            "text": "Llevas mucho tiempo bloqueado/a con un problema. Decides dar un paseo corto y dejar de pensar en ello. Unos minutos despu\u00e9s, se te ocurre una soluci\u00f3n. \u00bfQu\u00e9 sistema cerebral es el principal responsable de esto?",
+            "options": [
+                "La corteza prefrontal",
+                "Los ganglios basales",
+                "La red neuronal por defecto",
+                "La corteza parietal"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-5",
+            "type": "multiple_choice",
+            "text": "A Marco lo siguen rechazando despu\u00e9s de entrevistas de trabajo. No sabe si el problema est\u00e1 en su CV, en c\u00f3mo se prepara, en su estilo de comunicaci\u00f3n o en su confianza. \u00bfQu\u00e9 herramienta ser\u00eda m\u00e1s \u00fatil para empezar?",
+            "options": [
+                "Un gr\u00e1fico circular, para ver cu\u00e1nto tiempo dedica a cada actividad de preparaci\u00f3n",
+                "Un diagrama de Ishikawa, para mapear todas las posibles causas de los rechazos",
+                "Un diagrama de dispersi\u00f3n, para comparar sus puntuaciones en entrevistas simuladas a lo largo del tiempo",
+                "Un diagrama de flujo, para describir los pasos de una entrevista t\u00edpica"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-mc-6",
+            "type": "multiple_choice",
+            "text": "Un grupo de estudiantes sigue incumpliendo los plazos de entrega de trabajos. Quieren entender por qu\u00e9 sigue ocurriendo y solucionarlo definitivamente. \u00bfCu\u00e1l ser\u00eda el enfoque m\u00e1s eficaz?",
+            "options": [
+                "Cada persona escribe una lista de excusas y el tutor elige la m\u00e1s razonable",
+                "El grupo construye conjuntamente un diagrama de Ishikawa para mapear todas las posibles causas y despu\u00e9s crea un diagrama de flujo para su nuevo proceso de trabajo",
+                "El grupo acuerda simplemente esforzarse m\u00e1s la pr\u00f3xima vez",
+                "Una persona hace un gr\u00e1fico circular de c\u00f3mo se dividi\u00f3 el trabajo"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-tf-1",
+            "type": "true_false",
+            "text": "Una vez resuelto un problema, el proceso de toma de decisiones est\u00e1 completo y no surgir\u00e1n nuevos problemas.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-2",
+            "type": "true_false",
+            "text": "En la lluvia de ideas, se debe evaluar y criticar cada idea en cuanto aparece, para no perder tiempo con ideas malas.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-3",
+            "type": "true_false",
+            "text": "Durante la fase de generaci\u00f3n de soluciones, se deben descartar inmediatamente las ideas que parezcan poco realistas, para no perder tiempo con ellas.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-4",
+            "type": "true_false",
+            "text": "El estr\u00e9s cr\u00f3nico ayuda a pensar con m\u00e1s claridad porque mantiene a la persona alerta y concentrada.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-5",
+            "type": "true_false",
+            "text": "Las herramientas visuales, como los mapas mentales y los diagramas, son principalmente \u00fatiles cuando se trabaja de forma individual.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-match-1",
+            "type": "matching",
+            "text": "Relaciona cada fase con su posici\u00f3n en el proceso de resoluci\u00f3n de problemas.",
+            "pairs": [
+                {
+                    "id": "psm1-1",
+                    "left": "Paso 1",
+                    "right": "Definir el problema"
+                },
+                {
+                    "id": "psm1-2",
+                    "left": "Paso 2",
+                    "right": "Analizar y descomponer"
+                },
+                {
+                    "id": "psm1-3",
+                    "left": "Paso 3",
+                    "right": "Generar soluciones"
+                },
+                {
+                    "id": "psm1-4",
+                    "left": "Paso 4",
+                    "right": "Evaluar y elegir"
+                },
+                {
+                    "id": "psm1-5",
+                    "left": "Paso 5",
+                    "right": "Actuar y hacer seguimiento"
+                }
+            ]
+        },
+        {
+            "id": "ps-match-2",
+            "type": "matching",
+            "text": "Relaciona cada regi\u00f3n cerebral con su funci\u00f3n.",
+            "pairs": [
+                {
+                    "id": "psm2-1",
+                    "left": "Corteza prefrontal",
+                    "right": "Planifica, organiza y controla impulsos"
+                },
+                {
+                    "id": "psm2-2",
+                    "left": "Sistema l\u00edmbico",
+                    "right": "Procesa emociones y motivaci\u00f3n"
+                },
+                {
+                    "id": "psm2-3",
+                    "left": "Ganglios basales",
+                    "right": "Ajusta estrategias seg\u00fan la retroalimentaci\u00f3n"
+                },
+                {
+                    "id": "psm2-4",
+                    "left": "Red neuronal por defecto",
+                    "right": "Genera ideas creativas durante el descanso"
+                }
+            ]
+        }
+    ]
+}

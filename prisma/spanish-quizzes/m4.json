@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "co-mc-1",
+            "type": "multiple_choice",
+            "text": "\u00bfCu\u00e1l de las siguientes opciones describe mejor la comunicaci\u00f3n tal como se presenta en este m\u00f3dulo?",
+            "options": [
+                "Una habilidad que se utiliza solo en entornos laborales formales",
+                "Un proceso que incluye hablar, escuchar, comprender y responder en diferentes contextos",
+                "Un talento fijo que las personas tienen o no tienen",
+                "Una forma de expresi\u00f3n basada solo en el lenguaje hablado"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-2",
+            "type": "multiple_choice",
+            "text": "\u00bfCu\u00e1l es la principal diferencia entre o\u00edr y escuchar activamente?",
+            "options": [
+                "O\u00edr requiere contacto visual, pero la escucha activa no",
+                "O\u00edr es pasivo, mientras que la escucha activa implica atenci\u00f3n, comprensi\u00f3n y retroalimentaci\u00f3n",
+                "O\u00edr es m\u00e1s importante en el trabajo en equipo que la escucha activa",
+                "La escucha activa solo ocurre en entrevistas formales"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-3",
+            "type": "multiple_choice",
+            "text": "\u00bfCu\u00e1l de las siguientes opciones es un ejemplo de comunicaci\u00f3n no verbal?",
+            "options": [
+                "Escribir un correo electr\u00f3nico",
+                "Dar una explicaci\u00f3n detallada",
+                "Expresiones faciales y postura",
+                "Usar vocabulario formal"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "co-mc-4",
+            "type": "multiple_choice",
+            "text": "\u00bfQu\u00e9 afirmaci\u00f3n describe mejor la comunicaci\u00f3n asertiva?",
+            "options": [
+                "Evitar el desacuerdo para mantener la paz",
+                "Expresar pensamientos y necesidades de forma clara y respetuosa",
+                "Hablar en voz alta para asegurarse de que los dem\u00e1s escuchen",
+                "Permitir que los dem\u00e1s decidan todo"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-tf-1",
+            "type": "true_false",
+            "text": "La empat\u00eda significa comprender los sentimientos y la perspectiva de otra persona, aunque no est\u00e9s totalmente de acuerdo con ella.",
+            "correctAnswer": true
+        },
+        {
+            "id": "co-tf-2",
+            "type": "true_false",
+            "text": "En el trabajo en equipo, el conflicto siempre significa que la comunicaci\u00f3n ha fracasado completamente.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-tf-3",
+            "type": "true_false",
+            "text": "La comunicaci\u00f3n digital es menos importante que la comunicaci\u00f3n cara a cara en contextos de empleo y b\u00fasqueda de trabajo.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-match-1",
+            "type": "matching",
+            "text": "Relaciona cada t\u00e9rmino con su descripci\u00f3n correcta.",
+            "pairs": [
+                {
+                    "id": "com-1",
+                    "left": "Comunicaci\u00f3n paraverbal",
+                    "right": "La manera en que se dice algo, incluido el tono, el ritmo, la entonaci\u00f3n y el volumen"
+                },
+                {
+                    "id": "com-2",
+                    "left": "L\u00edmites",
+                    "right": "L\u00edmites personales que ayudan a las personas a comunicar lo que es aceptable, respetuoso o c\u00f3modo"
+                },
+                {
+                    "id": "com-3",
+                    "left": "Comunicaci\u00f3n en el trabajo en equipo",
+                    "right": "Interacci\u00f3n coordinada que apoya la cooperaci\u00f3n, la claridad de roles y la resoluci\u00f3n de problemas en un grupo"
+                }
+            ]
+        }
+    ]
+}

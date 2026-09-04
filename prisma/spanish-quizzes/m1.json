@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "q1",
+            "type": "multiple_choice",
+            "text": "Seg\u00fan la \u00abParadoja del Tiempo Rural\u00bb, \u00bfcu\u00e1l es uno de los principales desaf\u00edos para un joven en una zona rural?",
+            "options": [
+                "Tener demasiadas ofertas de trabajo para elegir.",
+                "El conflicto entre tener \u00abtodo el tiempo del mundo\u00bb y la realidad de que las tareas simples llevan mucho m\u00e1s tiempo debido a la distancia.",
+                "Tener acceso constante a transporte p\u00fablico de alta velocidad.",
+                "La ausencia de distracciones digitales."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q2",
+            "type": "multiple_choice",
+            "text": "\u00bfQu\u00e9 cuadrante de la Matriz de Eisenhower se conoce como la \u00abZona de Crecimiento\u00bb, donde deber\u00edas invertir entre el 60 % y el 80 % de tu tiempo?",
+            "options": [
+                "Cuadrante 1: Urgente e importante.",
+                "Cuadrante 3: Urgente pero no importante.",
+                "Cuadrante 2: No urgente pero importante.",
+                "Cuadrante 4: Ni urgente ni importante."
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "q3",
+            "type": "multiple_choice",
+            "text": "\u00bfQu\u00e9 significa la letra \u00abA\u00bb en el marco de objetivos SMART, algo especialmente importante en un contexto rural?",
+            "options": [
+                "Acad\u00e9mico (Academic).",
+                "Alcanzable (Achievable).",
+                "An\u00f3nimo (Anonymous).",
+                "Agresivo (Aggressive)."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q4",
+            "type": "multiple_choice",
+            "text": "\u00bfCu\u00e1l es el objetivo principal de la \u00abT\u00e9cnica Pomodoro\u00bb?",
+            "options": [
+                "Trabajar durante 5 horas sin descanso.",
+                "Gestionar la energ\u00eda y mantener la concentraci\u00f3n trabajando en intervalos de 25 minutos seguidos de breves descansos.",
+                "Ignorar todos los plazos.",
+                "Reemplazar las herramientas digitales por relojes anal\u00f3gicos."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q5",
+            "type": "true_false",
+            "text": "La procrastinaci\u00f3n es principalmente un problema de pereza y falta de fuerza de voluntad.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q6",
+            "type": "true_false",
+            "text": "El \u00abresiduo de atenci\u00f3n\u00bb se produce cuando cambias de tarea y parte de tu atenci\u00f3n permanece en la tarea anterior durante varios minutos.",
+            "correctAnswer": true
+        },
+        {
+            "id": "q7",
+            "type": "true_false",
+            "text": "La \u00abRevisi\u00f3n Semanal\u00bb deber\u00eda realizarse una vez al mes para ser efectiva.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q8",
+            "type": "matching",
+            "text": "Relaciona cada t\u00e9rmino con su descripci\u00f3n correcta.",
+            "pairs": [
+                {
+                    "id": "p1",
+                    "left": "C\u00f3mete esa rana (Eat That Frog)",
+                    "right": "El h\u00e1bito de identificar la tarea m\u00e1s dif\u00edcil e importante y completarla a primera hora de la ma\u00f1ana para evitar la procrastinaci\u00f3n."
+                },
+                {
+                    "id": "p2",
+                    "left": "Estado de flujo (Flow State)",
+                    "right": "Un estado mental de funcionamiento en el que una persona que realiza una actividad est\u00e1 completamente inmersa en una sensaci\u00f3n de concentraci\u00f3n y disfrute energizados, perdiendo la noci\u00f3n del tiempo."
+                },
+                {
+                    "id": "p3",
+                    "left": "Bloqueo de tiempo (Time Blocking)",
+                    "right": "Una t\u00e9cnica de productividad que consiste en programar \u00abbloques\u00bb de tiempo espec\u00edficos en el calendario para tareas concretas, trat\u00e1ndolos como citas fijas."
+                }
+            ]
+        }
+    ]
+}

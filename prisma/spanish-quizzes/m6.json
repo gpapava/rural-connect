@@ -1,0 +1,104 @@
+{
+    "questions": [
+        {
+            "id": "sa-mc-1",
+            "type": "multiple_choice",
+            "text": "\u00bfQu\u00e9 describe mejor el autoconocimiento?",
+            "options": [
+                "Saber c\u00f3mo comportarse en cada situaci\u00f3n",
+                "Comprender tus pensamientos, emociones y patrones de comportamiento",
+                "Controlar tus emociones en todo momento",
+                "Cambiarte a ti mismo para cumplir con las expectativas"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "sa-mc-2",
+            "type": "multiple_choice",
+            "text": "Durante una entrevista de trabajo, Sof\u00eda nota que sus manos est\u00e1n temblando y su mente se queda en blanco. M\u00e1s tarde se dice a s\u00ed misma que \u00abfracas\u00f3 por completo\u00bb. \u00bfC\u00f3mo ser\u00eda una respuesta consciente de s\u00ed misma despu\u00e9s de esta experiencia?",
+            "options": [
+                "Evitar entrevistas en el futuro para no sentir lo mismo",
+                "Concluir que no es apta para ning\u00fan trabajo",
+                "Reconocer la ansiedad como una respuesta normal al estr\u00e9s y reflexionar sobre lo que podr\u00eda hacer diferente la pr\u00f3xima vez",
+                "Fingir que la entrevista fue bien y seguir adelante"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-3",
+            "type": "multiple_choice",
+            "text": "Lukas creci\u00f3 en una zona rural y no ha trabajado ni estudiado durante m\u00e1s de un a\u00f1o. Cuando un vecino menciona una oportunidad de formaci\u00f3n local, Lukas inmediatamente piensa: \u00abNo soy lo suficientemente bueno para eso\u00bb. \u00bfQu\u00e9 respuesta muestra mejor autoconocimiento?",
+            "options": [
+                "Estar de acuerdo con el pensamiento y evitar el tema",
+                "Notar el pensamiento, reconocerlo como una respuesta de miedo y buscar informaci\u00f3n sobre la formaci\u00f3n de todos modos",
+                "Pedir al vecino que solicite la plaza en su nombre",
+                "Esperar hasta sentirse m\u00e1s seguro antes de hacer cualquier cosa"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "sa-mc-4",
+            "type": "multiple_choice",
+            "text": "Recibes un comentario que te sorprende. \u00bfCu\u00e1l es la respuesta m\u00e1s autoconsciente?",
+            "options": [
+                "Defender tu comportamiento inmediatamente",
+                "Ignorar el comentario",
+                "Reflexionar sobre lo que la otra persona experiment\u00f3",
+                "Suponer que el comentario es una cr\u00edtica personal"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-5",
+            "type": "multiple_choice",
+            "text": "\u00bfEn qu\u00e9 se centra el autoconocimiento externo?",
+            "options": [
+                "En c\u00f3mo los dem\u00e1s deber\u00edan comunicarse contigo",
+                "En c\u00f3mo quieres que te vean",
+                "En c\u00f3mo tu comportamiento puede ser percibido por los dem\u00e1s",
+                "En c\u00f3mo controlar las interacciones"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-tf-1",
+            "type": "true_false",
+            "text": "El autoconocimiento ayuda a reducir las reacciones autom\u00e1ticas.",
+            "correctAnswer": true
+        },
+        {
+            "id": "sa-tf-2",
+            "type": "true_false",
+            "text": "La motivaci\u00f3n permanece igual durante toda la vida.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-tf-3",
+            "type": "true_false",
+            "text": "La inteligencia emocional significa evitar las emociones.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-match-1",
+            "type": "matching",
+            "text": "Relaciona cada t\u00e9rmino con su descripci\u00f3n correcta.",
+            "pairs": [
+                {
+                    "id": "sam-1",
+                    "left": "Inteligencia emocional",
+                    "right": "Reconocer las emociones y responder de manera m\u00e1s consciente"
+                },
+                {
+                    "id": "sam-2",
+                    "left": "DAFO personal",
+                    "right": "Una herramienta para reflexionar sobre fortalezas, desaf\u00edos, oportunidades y barreras"
+                },
+                {
+                    "id": "sam-3",
+                    "left": "Autoconocimiento",
+                    "right": "Comprender tus pensamientos, emociones y comportamiento"
+                }
+            ]
+        }
+    ]
+}
