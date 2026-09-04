@@ -393,6 +393,12 @@
       "completed": "Pabeigts",
       "inProgress": "Norisinās",
       "notStarted": "Nav sākts"
+    },
+    "resources": {
+      "title": "Papildu Lasāmviela",
+      "subtitle": "Neobligāti dokumenti un saites, lai uzzinātu vairāk par NEET jauniešiem, nodarbinātību lauku apvidos un darba tirgu.",
+      "open": "Atvērt dokumentu",
+      "visit": "Apmeklēt vietni"
     }
   },
   "module": {

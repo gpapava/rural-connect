@@ -1,0 +1,72 @@
+[
+  {
+    "order": 1,
+    "kind": "document",
+    "title": "Youth Guarantee country by country – Latvia (2020)",
+    "description": "European Commission country factsheet on the implementation of the Youth Guarantee in Latvia, including NEET indicators and outreach to young people. In English.",
+    "url": "/api/uploads/pdfs/lv-1-1788514191456.pdf"
+  },
+  {
+    "order": 2,
+    "kind": "document",
+    "title": "Education at a Glance 2024 – Latvia (OECD)",
+    "description": "OECD country note with key education indicators for Latvia, including the share of young people not in employment, education or training. In English.",
+    "url": "/api/uploads/pdfs/lv-2-1788514192668.pdf"
+  },
+  {
+    "order": 3,
+    "kind": "document",
+    "title": "Research on Patterns Among Youth in a NEET Situation (2020)",
+    "description": "Study of family situation, education and work experience patterns among young people in a NEET situation in Latvia. In English.",
+    "url": "/api/uploads/pdfs/lv-3-1788514194961.pdf"
+  },
+  {
+    "order": 4,
+    "kind": "document",
+    "title": "Iekļaušanas stratēģija 2022.–2027. gadam (2023)",
+    "description": "Latvia's inclusion strategy for 2022–2027, covering strategy and measures for young people's social inclusion. In Latvian.",
+    "url": "/api/uploads/pdfs/lv-4-1788514195738.pdf"
+  },
+  {
+    "order": 5,
+    "kind": "document",
+    "title": "Pieaugušo prasmju pētījums 2023 – valstu kopsavilkums: Latvija (2024)",
+    "description": "National summary for Latvia of the 2023 Survey of Adult Skills (PIAAC). In Latvian.",
+    "url": "/api/uploads/pdfs/lv-5-1788514196680.pdf"
+  },
+  {
+    "order": 6,
+    "kind": "document",
+    "title": "Jaunatnes darbinieku kompetenču pašnovērtējums un profesionālais profils Latvijā (2025)",
+    "description": "Study of youth workers in Latvia — their professional profile and a self-assessment of their competences. In Latvian.",
+    "url": "/api/uploads/pdfs/lv-6-1788514198347.pdf"
+  },
+  {
+    "order": 7,
+    "kind": "document",
+    "title": "Jauniešu ar ierobežotām iespējām sociālās iekļaušanas esošās situācijas kartējums (2022)",
+    "description": "Mapping of the current situation regarding the social inclusion of young people with limited opportunities in Latvia. In Latvian.",
+    "url": "/api/uploads/pdfs/lv-7-1788514205283.pdf"
+  },
+  {
+    "order": 8,
+    "kind": "document",
+    "title": "Noslēguma izvērtējums: Jauniešu nodarbinātības iniciatīvas un garantijas jauniešiem shēmas īstenošana (2019)",
+    "description": "Final evaluation of the relevance, effectiveness and impact of European Social Fund support and the special allocation for the Youth Employment Initiative, including the Youth Guarantee scheme, in Latvia. In Latvian.",
+    "url": "/api/uploads/pdfs/lv-8-1788514222576.pdf"
+  },
+  {
+    "order": 9,
+    "kind": "document",
+    "title": "Jauniešu valoda Latvijā: latviešu un angļu valodas prestižs, prasme un lietojums (2024)",
+    "description": "Study on language use among young people in Latvia — the prestige, proficiency and use of Latvian and English. In Latvian.",
+    "url": "/api/uploads/pdfs/lv-9-1788514225472.pdf"
+  },
+  {
+    "order": 10,
+    "kind": "link",
+    "title": "Nodarbinātības valsts aģentūra (NVA)",
+    "description": "The official public employment service in Latvia, operating under the Ministry of Welfare to support job seekers, the unemployed and employers. Regional branches and customer service centres are located in all major Latvian cities.",
+    "url": "https://www.nva.gov.lv/lv"
+  }
+]

@@ -393,6 +393,12 @@
       "completed": "Completed",
       "inProgress": "In Progress",
       "notStarted": "Not Started"
+    },
+    "resources": {
+      "title": "Further Reading",
+      "subtitle": "Optional documents and links to learn more about NEET youth, rural employment and the labour market.",
+      "open": "Open document",
+      "visit": "Visit site"
     }
   },
   "module": {

@@ -393,6 +393,12 @@
       "completed": "Completado",
       "inProgress": "En Curso",
       "notStarted": "No Iniciado"
+    },
+    "resources": {
+      "title": "Lecturas Adicionales",
+      "subtitle": "Documentos y enlaces opcionales para saber más sobre la juventud NEET, el empleo rural y el mercado laboral.",
+      "open": "Abrir documento",
+      "visit": "Visitar sitio"
     }
   },
   "module": {

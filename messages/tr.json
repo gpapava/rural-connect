@@ -393,6 +393,12 @@
       "completed": "Tamamlandı",
       "inProgress": "Devam Ediyor",
       "notStarted": "Başlamadı"
+    },
+    "resources": {
+      "title": "Daha Fazla Okuma",
+      "subtitle": "NEET gençleri, kırsal istihdam ve iş piyasası hakkında daha fazla bilgi edinmek için isteğe bağlı belgeler ve bağlantılar.",
+      "open": "Belgeyi aç",
+      "visit": "Siteyi ziyaret et"
     }
   },
   "module": {
