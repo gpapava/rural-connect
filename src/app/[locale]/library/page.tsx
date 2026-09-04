@@ -14,10 +14,14 @@ export default async function Library({ params: { locale } }: PageProps) {
 
   const language = await resolveModuleLanguage(locale);
 
-  const [modules, userProgress] = await Promise.all([
+  const [modules, userProgress, resources] = await Promise.all([
     prisma.module.findMany({ where: { language }, orderBy: { order: "asc" } }),
     prisma.userModuleProgress.findMany({
       where: { userId: session.user.id },
+    }),
+    prisma.libraryResource.findMany({
+      where: { language: locale },
+      orderBy: { order: "asc" },
     }),
   ]);
 
@@ -30,5 +34,11 @@ export default async function Library({ params: { locale } }: PageProps) {
     };
   });
 
-  return <LibraryPage modules={modulesWithProgress} locale={locale} />;
+  return (
+    <LibraryPage
+      modules={modulesWithProgress}
+      resources={resources}
+      locale={locale}
+    />
+  );
 }

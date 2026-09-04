@@ -276,6 +276,22 @@ model LaborMarketVideo {
   @@map("labor_market_videos")
 }
 
+// Optional "further reading" bibliography shown on the e-Library page,
+// curated per partner language. A resource is either an uploaded document
+// (url points at /api/uploads/pdfs/...) or an external link.
+model LibraryResource {
+  id          String   @id @default(cuid())
+  language    String   // locale code: en | el | es | it | tr | lv | no
+  title       String
+  description String?  @db.Text
+  url         String
+  kind        String   @default("document") // "document" | "link"
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@map("library_resources")
+}
+
 model Notification {
   id        String   @id @default(cuid())
   userId    String

@@ -393,6 +393,12 @@
       "completed": "Fullført",
       "inProgress": "Pågår",
       "notStarted": "Ikke startet"
+    },
+    "resources": {
+      "title": "Videre Lesing",
+      "subtitle": "Valgfrie dokumenter og lenker for å lære mer om NEET-ungdom, sysselsetting i distriktene og arbeidsmarkedet.",
+      "open": "Åpne dokument",
+      "visit": "Besøk nettsted"
     }
   },
   "module": {

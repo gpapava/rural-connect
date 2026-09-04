@@ -11,6 +11,8 @@ import {
   RotateCcw,
   ChevronRight,
   Filter,
+  FileText,
+  ExternalLink,
 } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
 
@@ -26,8 +28,17 @@ type ModuleWithProgress = {
   completedAt: Date | null;
 };
 
+type LibraryResource = {
+  id: string;
+  title: string;
+  description: string | null;
+  url: string;
+  kind: string;
+};
+
 interface LibraryPageProps {
   modules: ModuleWithProgress[];
+  resources: LibraryResource[];
   locale: string;
 }
 
@@ -64,7 +75,7 @@ const categoryColors: Record<string, { bg: string; text: string; border: string 
   },
 };
 
-export default function LibraryPage({ modules, locale }: LibraryPageProps) {
+export default function LibraryPage({ modules, resources, locale }: LibraryPageProps) {
   const t = useTranslations("library");
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -285,6 +296,51 @@ export default function LibraryPage({ modules, locale }: LibraryPageProps) {
             {t("noModules")}
           </p>
         </div>
+      )}
+
+      {/* Further reading / e-Library resources */}
+      {resources.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-lg font-bold text-gray-900">
+            {t("resources.title")}
+          </h2>
+          <p className="mb-4 text-sm text-gray-500">{t("resources.subtitle")}</p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {resources.map((r) => (
+              <a
+                key={r.id}
+                href={r.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card group flex gap-3 transition-shadow hover:shadow-md"
+              >
+                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-[#1a73e8]/10">
+                  {r.kind === "link" ? (
+                    <ExternalLink className="h-4 w-4 text-[#1a73e8]" />
+                  ) : (
+                    <FileText className="h-4 w-4 text-[#1a73e8]" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-[#1a73e8]">
+                    {r.title}
+                  </p>
+                  {r.description && (
+                    <p className="mt-1 text-xs leading-relaxed text-gray-500 line-clamp-3">
+                      {r.description}
+                    </p>
+                  )}
+                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#1a73e8]">
+                    {r.kind === "link"
+                      ? t("resources.visit")
+                      : t("resources.open")}
+                    <ExternalLink className="h-3 w-3" />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
       )}
     </div>
   );

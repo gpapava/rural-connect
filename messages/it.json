@@ -393,6 +393,12 @@
       "completed": "Completato",
       "inProgress": "In Corso",
       "notStarted": "Non Iniziato"
+    },
+    "resources": {
+      "title": "Approfondimenti",
+      "subtitle": "Documenti e link facoltativi per saperne di più sui giovani NEET, l'occupazione rurale e il mercato del lavoro.",
+      "open": "Apri documento",
+      "visit": "Visita il sito"
     }
   },
   "module": {

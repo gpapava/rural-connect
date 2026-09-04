@@ -1,0 +1,79 @@
+[
+  {
+    "order": 1,
+    "kind": "document",
+    "title": "SEPE – Informe del Mercado de Trabajo de los Jóvenes menores de 30 años. Estatal, datos 2025 (2026)",
+    "description": "Informe oficial anual del Observatorio de las Ocupaciones sobre el mercado laboral de las personas menores de 30 años en España: empleo, paro, contratación, ocupaciones, sectores y diferencias territoriales por provincia y comunidad autónoma.",
+    "url": "/api/uploads/pdfs/es-11-1788514261875.pdf"
+  },
+  {
+    "order": 2,
+    "kind": "document",
+    "title": "Ministerio de Trabajo y Economía Social – Informe trimestral de jóvenes y mercado de trabajo. Primer trimestre 2026",
+    "description": "Informe trimestral nacional sobre jóvenes y mercado de trabajo: empleo, paro, inactividad, salarios, nivel educativo, abandono escolar temprano, tasa NEET, acceso al empleo e indicadores de seguimiento de la Garantía Juvenil.",
+    "url": "/api/uploads/pdfs/es-4-1788514267374.pdf"
+  },
+  {
+    "order": 3,
+    "kind": "document",
+    "title": "Observatorio de la Formación Profesional – Indicadores destacados de la Formación Profesional en España (2026)",
+    "description": "Recurso estadístico sobre la Formación Profesional en España: egresados, familias profesionales más demandadas, matriculación, FP dual, jóvenes que ni estudian ni trabajan, prima salarial y ofertas de empleo que requieren titulación de FP.",
+    "url": "/api/uploads/pdfs/es-6-1788514272205.pdf"
+  },
+  {
+    "order": 4,
+    "kind": "document",
+    "title": "Consejo de la Juventud de España – Observatorio de Emancipación 2025: Balance general",
+    "description": "Informe nacional sobre emancipación juvenil, vivienda, educación, condiciones laborales y niveles de vida en España, con indicadores socioeconómicos y de mercado de trabajo relevantes para la inserción laboral y la autonomía de las personas jóvenes.",
+    "url": "/api/uploads/pdfs/es-5-1788514271514.pdf"
+  },
+  {
+    "order": 5,
+    "kind": "document",
+    "title": "INJUVE – Evaluación Intermedia de la Estrategia de Juventud 2030 (Primer Plan de Acción 2022-2024) (2025)",
+    "description": "Evaluación intermedia de la Estrategia de Juventud 2030 de España. Revisa los avances en diez ejes, entre ellos educación y formación, empleo digno y emprendimiento juvenil, protección social, participación, movilidad y juventud rural.",
+    "url": "/api/uploads/pdfs/es-3-1788514265803.pdf"
+  },
+  {
+    "order": 6,
+    "kind": "document",
+    "title": "INJUVE – Plan Estratégico INJUVE 2026-2028",
+    "description": "Documento programático que define prioridades, programas, gobernanza y mecanismos de evaluación de la política y los servicios de juventud para el periodo 2026-2028.",
+    "url": "/api/uploads/pdfs/es-7-1788514274518.pdf"
+  },
+  {
+    "order": 7,
+    "kind": "document",
+    "title": "Plan de Garantía Juvenil Plus 2021-2027 de trabajo digno para las personas jóvenes (2021)",
+    "description": "Marco estratégico oficial de la Garantía Juvenil Plus en España, centrado en la empleabilidad juvenil, la orientación, la formación, el acceso a un trabajo de calidad, el alcance a jóvenes vulnerables y la coordinación entre administraciones. Sigue vigente hasta 2027.",
+    "url": "/api/uploads/pdfs/es-8-1788514275996.pdf"
+  },
+  {
+    "order": 8,
+    "kind": "document",
+    "title": "Rural NEETs in Spain: 2009/2019 Overview (COST Action CA18213, 2020)",
+    "description": "Informe específico sobre NEET rurales en España de 15 a 34 años. Analiza población joven, empleo y desempleo, educación, abandono escolar temprano y tasas NEET según el grado de urbanización. Una de las fuentes más directamente relevantes para RURAL CONNECT.",
+    "url": "/api/uploads/pdfs/es-2-1788514263140.pdf"
+  },
+  {
+    "order": 9,
+    "kind": "document",
+    "title": "REDR – 200 propuestas de jóvenes rurales: la juventud en la toma de decisiones (2025)",
+    "description": "Informe participativo que recoge más de 200 propuestas de jóvenes rurales de España sobre cómo aumentar la participación juvenil en la toma de decisiones y mejorar las oportunidades en el medio rural.",
+    "url": "/api/uploads/pdfs/es-9-1788514278527.pdf"
+  },
+  {
+    "order": 10,
+    "kind": "document",
+    "title": "REDR – Buenas Prácticas de Economía Social en el medio rural (2025)",
+    "description": "Recopilación de 38 buenas prácticas de economía social en el medio rural español: agroalimentación, servicios de cuidados, educación y participación, innovación, turismo, empleo, emprendimiento, arraigo rural y sostenibilidad.",
+    "url": "/api/uploads/pdfs/es-10-1788514259418.pdf"
+  },
+  {
+    "order": 11,
+    "kind": "document",
+    "title": "Juventud y empleo rural en España: factor de desarrollo a través del consumo y el turismo sostenible (2017)",
+    "description": "Artículo académico sobre el empleo juvenil rural en España, con foco en el emprendimiento joven, el turismo sostenible, nuevos nichos de negocio rural, el consumo inteligente y el desarrollo local. Fuente complementaria.",
+    "url": "/api/uploads/pdfs/es-1-1788514256930.pdf"
+  }
+]

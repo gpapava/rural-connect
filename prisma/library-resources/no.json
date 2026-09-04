@@ -1,0 +1,65 @@
+[
+  {
+    "order": 1,
+    "kind": "document",
+    "title": "NEETs in Norway: A Scoping Review (Politics and Governance, 2024)",
+    "description": "Scoping review of Norwegian NEET research. It identifies two dominant strands — NEETs as a social problem, and strategies for re-education and labour-market integration — and highlights that many young people face complex, long-term challenges around mental health, social exclusion and labour-market participation.",
+    "url": "/api/uploads/pdfs/no-1-1788514226600.pdf"
+  },
+  {
+    "order": 2,
+    "kind": "document",
+    "title": "Rural NEETs and Sustainability – Diverse, Multisectoral, and Multifunctional Environments (2022)",
+    "description": "Explores the relationship between rural youth exclusion and sustainable rural development, and how environmental, social, economic and institutional factors shape opportunities for NEETs in rural areas. Argues for integrated, place-based approaches.",
+    "url": "/api/uploads/pdfs/no-2-1788514234665.pdf"
+  },
+  {
+    "order": 3,
+    "kind": "document",
+    "title": "Rooting for the Rural – Changing Narratives and Creating Opportunities for Nordic Rural Youth (Nordregio, 2023)",
+    "description": "Nordic publication on how rural areas can become more attractive and inclusive for young people. It challenges narratives of rural decline and highlights initiatives creating educational, social, cultural and employment opportunities, with a focus on youth participation and place attachment.",
+    "url": "/api/uploads/pdfs/no-3-1788514244980.pdf"
+  },
+  {
+    "order": 4,
+    "kind": "document",
+    "title": "Forskjell mellom NEETs i Norge mellom kommuner i ulike sentralitetsklasse 1–6, 2015–2021 (NORCE, 2022)",
+    "description": "Analyses differences in NEET rates across Norwegian municipalities by level of centrality between 2015 and 2021. Differences between rural and urban municipalities are generally small, but important variations exist among specific population groups.",
+    "url": "/api/uploads/pdfs/no-4-1788514246301.pdf"
+  },
+  {
+    "order": 5,
+    "kind": "document",
+    "title": "Utenforskap fra arbeidslivet (NAV, 2023)",
+    "description": "Examines the growing challenge of labour-market exclusion in Norway — the characteristics of people who remain outside employment for long periods and the economic and social consequences — and stresses early intervention and coordinated support services.",
+    "url": "/api/uploads/pdfs/no-5-1788514247847.pdf"
+  },
+  {
+    "order": 6,
+    "kind": "document",
+    "title": "Unge som står utenfor arbeid, opplæring og utdanning (NEET). En analyse av unge i NEET-kategorien (NORCE, 2021)",
+    "description": "Comprehensive overview of Norwegian research on NEET young people: the characteristics of the population, pathways into exclusion, gaps in support systems, and young people's own experiences of disengagement and contact with welfare services.",
+    "url": "/api/uploads/pdfs/no-6-1788514252172.pdf"
+  },
+  {
+    "order": 7,
+    "kind": "document",
+    "title": "Opplærings- og utdanningstilbud for unge i distriktene (Oxford Research, 2021)",
+    "description": "Explores how local education and training opportunities in rural municipalities can respond to labour-market needs, and how decentralised educational provision can strengthen local communities, improve access to skills and reduce youth outmigration.",
+    "url": "/api/uploads/pdfs/no-7-1788514253783.pdf"
+  },
+  {
+    "order": 8,
+    "kind": "document",
+    "title": "Innsikt fra Ungdommenes distriktspanel (RURALIS, 2020)",
+    "description": "Combines survey data and interviews with young people living in rural Norway on education, employment opportunities, local development and future life choices, highlighting both the challenges and the opportunities experienced by rural youth.",
+    "url": "/api/uploads/pdfs/no-8-1788514256256.pdf"
+  },
+  {
+    "order": 9,
+    "kind": "link",
+    "title": "NAV – Arbeids- og velferdsetaten",
+    "description": "Norway's national public employment and welfare service. NAV provides employment support, welfare benefits, career guidance and inclusion measures for vulnerable groups, including young people at risk of becoming NEET.",
+    "url": "https://www.nav.no/"
+  }
+]

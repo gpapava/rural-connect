@@ -1,0 +1,58 @@
+[
+  {
+    "order": 1,
+    "kind": "link",
+    "title": "MOOC and NEET? Innovative paths towards the social and economic inclusion of vulnerable young people (2021)",
+    "description": "Systematic review of how Massive Open Online Courses (MOOCs) can support the economic and social inclusion of NEET young people across EU countries, comparing teaching models and good practices.",
+    "url": "https://doi.org/10.6092/issn.1825-8670/11593"
+  },
+  {
+    "order": 2,
+    "kind": "link",
+    "title": "Lo svantaggio dei giovani: un indice delle differenze giovanili per orientare le politiche",
+    "description": "Analysis of the growing generational disadvantage of Italian youth across social, economic and professional spheres, introducing the Youth Differences Index (IDG) to measure gaps in resources and opportunities over ten years.",
+    "url": "https://www.giovaniecomunitalocali.it/wp-content/uploads/2022/05/maria-grazia-gambardella_paolo-paroni_marco-mietto_lo-svantaggio-dei-giovani_un-indice-delle-differenze-giovanili-per-orientare-le-politiche.pdf"
+  },
+  {
+    "order": 3,
+    "kind": "document",
+    "title": "NEET tra disuguaglianze e divari. Alla ricerca di nuove politiche pubbliche per i giovani (ActionAid & CGIL, 2022)",
+    "description": "Report on the structural inequalities behind Italy's high NEET rate, with strong gender and regional gaps. It identifies different NEET profiles and calls for integrated policies combining education, employment support and social services.",
+    "url": "/api/uploads/pdfs/it-3-neet-disuguaglianze-1788514181792.pdf"
+  },
+  {
+    "order": 4,
+    "kind": "document",
+    "title": "NEET in Europa e nel mondo: 289 milioni di giovani al centro delle sfide del nostro tempo (INAPP Paper n. 50, 2024)",
+    "description": "INAPP estimates that around 289 million young people worldwide are NEET. The paper offers a comparative perspective across regions and stresses the need for context-specific rather than one-size-fits-all policies.",
+    "url": "/api/uploads/pdfs/it-4-neet-europa-mondo-1788514183939.pdf"
+  },
+  {
+    "order": 5,
+    "kind": "link",
+    "title": "Una generazione in panchina: da NEET a risorsa per il paese (2017)",
+    "description": "Collection of contributions from the first national conference on NEETs in Italy, combining quantitative data and qualitative insights on who NEETs are, the consequences of inactivity, and the impact of policies such as Garanzia Giovani.",
+    "url": "https://www.rapportogiovani.it/new/wp-content/uploads/2017/06/978-88-343-3324-2.pdf"
+  },
+  {
+    "order": 6,
+    "kind": "link",
+    "title": "Are we failing young people not in employment, education or training (NEETs)? A systematic review and meta-analysis of re-engagement interventions (2017)",
+    "description": "Systematic review and meta-analysis of 18 trials assessing the effectiveness of interventions to re-engage NEET young people aged around 16–24, including vocational training, internships, counselling and work placements.",
+    "url": "https://link.springer.com/article/10.1186/s13643-016-0394-2"
+  },
+  {
+    "order": 7,
+    "kind": "document",
+    "title": "An analysis of NEET youths in EU in a longitudinal perspective (Sinappsi, 2023)",
+    "description": "Analysis of NEET youth in Europe using 2008–2016 longitudinal data. It identifies different NEET paths and shows that strong family policies, training opportunities and active labour-market measures reduce the risk of long-term NEET status.",
+    "url": "/api/uploads/pdfs/it-7-neet-eu-longitudinal-1788514186457.pdf"
+  },
+  {
+    "order": 8,
+    "kind": "link",
+    "title": "Unveiling the Complexity of Italian NEET Status through Latent Class Analysis (Social Indicators Research, 2025)",
+    "description": "Using Latent Class Analysis on a survey of 970 young Italian NEETs, this study identifies distinct NEET profiles and explores the socio-demographic, economic and motivational factors behind them and their engagement with Public Employment Services.",
+    "url": "https://link.springer.com/article/10.1007/s11205-025-03684-w"
+  }
+]
