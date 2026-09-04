@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "it-mc-1",
+            "type": "multiple_choice",
+            "text": "Quale dei seguenti \u00e8 descritto come un dispositivo portatile con funzioni simili a quelle di un computer desktop?",
+            "options": [
+                "Tablet",
+                "Laptop (computer portatile)",
+                "Smartphone",
+                "Stampante"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-2",
+            "type": "multiple_choice",
+            "text": "Qual \u00e8 lo scopo principale delle cartelle nella gestione digitale dei file?",
+            "options": [
+                "Connettersi al Wi-Fi",
+                "Organizzare e archiviare i file",
+                "Inviare email pi\u00f9 velocemente",
+                "Creare password"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-3",
+            "type": "multiple_choice",
+            "text": "Quale parte di un'email fornisce una breve descrizione di cosa tratta il messaggio?",
+            "options": [
+                "L'allegato",
+                "Il campo destinatario",
+                "L'oggetto",
+                "La firma"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "it-mc-4",
+            "type": "multiple_choice",
+            "text": "Cosa dovrebbe fare un utente attento quando riceve un'email sospetta con un link sconosciuto?",
+            "options": [
+                "Cliccarci subito",
+                "Condividerla con gli amici",
+                "Ignorare i segnali di allarme",
+                "Fermarsi e controllare prima di agire"
+            ],
+            "correctIndex": 3
+        },
+        {
+            "id": "it-tf-1",
+            "type": "true_false",
+            "text": "La competenza digitale include non solo le competenze operative, ma anche la comunicazione, la creazione di contenuti e la sicurezza online.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-tf-2",
+            "type": "true_false",
+            "text": "Una password debole \u00e8 pi\u00f9 sicura di una lunga e imprevedibile.",
+            "correctAnswer": false
+        },
+        {
+            "id": "it-tf-3",
+            "type": "true_false",
+            "text": "La ricerca su Internet \u00e8 pi\u00f9 efficace quando gli utenti scelgono parole chiave specifiche.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-match-1",
+            "type": "matching",
+            "text": "Abbina ogni termine alla sua descrizione corretta.",
+            "pairs": [
+                {
+                    "id": "itm-1",
+                    "left": "Browser",
+                    "right": "Un programma usato per accedere a siti web e cercare online"
+                },
+                {
+                    "id": "itm-2",
+                    "left": "Hardware",
+                    "right": "Le parti fisiche di un dispositivo, come lo schermo, la tastiera o la batteria"
+                },
+                {
+                    "id": "itm-3",
+                    "left": "Phishing",
+                    "right": "Un tipo di truffa online pensata per ingannare gli utenti facendogli rivelare informazioni o cliccare su link dannosi"
+                }
+            ]
+        }
+    ]
+}

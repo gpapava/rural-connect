@@ -1,0 +1,165 @@
+{
+    "questions": [
+        {
+            "id": "ps-mc-1",
+            "type": "multiple_choice",
+            "text": "Fai domanda per un lavoro ma cerchi solo recensioni che dicono che l'azienda \u00e8 ottima, ignorando quelle negative. Quale bias cognitivo \u00e8 questo?",
+            "options": [
+                "Avversione alla perdita",
+                "Bias di conferma",
+                "L'effetto ancora",
+                "Pensiero di gruppo"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-mc-2",
+            "type": "multiple_choice",
+            "text": "Continui a perdere scadenze al lavoro e vuoi trovare la vera causa. Quale tecnica \u00e8 la pi\u00f9 utile?",
+            "options": [
+                "Brainstorming",
+                "Analisi SWOT",
+                "I 5 Perch\u00e9",
+                "Albero decisionale"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-3",
+            "type": "multiple_choice",
+            "text": "Litighi con un coinquilino da settimane. Ti rendi conto che la tua descrizione originale del problema (\u00absemplicemente non andiamo d'accordo\u00bb) potrebbe non essere accurata. Quale tecnica di problem solving dovresti usare?",
+            "options": [
+                "Brainstorming",
+                "Analisi costi-benefici",
+                "Riformulazione (reframing)",
+                "I 5 Perch\u00e9"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-4",
+            "type": "multiple_choice",
+            "text": "Sei bloccato su un problema da molto tempo. Decidi di fare una breve passeggiata e smettere di pensarci. Pochi minuti dopo ti viene in mente una soluzione. Quale sistema cerebrale \u00e8 pi\u00f9 responsabile di questo?",
+            "options": [
+                "La corteccia prefrontale",
+                "I gangli della base",
+                "La rete in modalit\u00e0 predefinita",
+                "La corteccia parietale"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-5",
+            "type": "multiple_choice",
+            "text": "Marco continua a essere rifiutato dopo i colloqui di lavoro. Non \u00e8 sicuro se il problema sia il suo CV, come si prepara, il suo stile comunicativo o la sua fiducia in s\u00e9 stesso. Quale strumento sarebbe pi\u00f9 utile per lui all'inizio?",
+            "options": [
+                "Un diagramma a torta, per vedere quanto tempo dedica a ogni attivit\u00e0 di preparazione",
+                "Un diagramma a spina di pesce, per mappare tutte le possibili cause dei rifiuti",
+                "Un diagramma a dispersione, per confrontare i suoi punteggi nei colloqui simulati nel tempo",
+                "Un diagramma di flusso, per delineare i passaggi di un colloquio tipico"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-mc-6",
+            "type": "multiple_choice",
+            "text": "Un gruppo di studenti continua a saltare le scadenze dei compiti. Vogliono capire perch\u00e9 succede continuamente e risolvere definitivamente la situazione. Qual \u00e8 l'approccio pi\u00f9 efficace?",
+            "options": [
+                "Ognuno scrive una lista di scuse e il tutor sceglie quella pi\u00f9 ragionevole",
+                "Il gruppo costruisce insieme un diagramma a spina di pesce per mappare tutte le possibili cause, poi crea un diagramma di flusso per il nuovo flusso di lavoro",
+                "Il gruppo accetta semplicemente di impegnarsi di pi\u00f9 la prossima volta",
+                "Una persona crea un diagramma a torta su come \u00e8 stato suddiviso il lavoro"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-tf-1",
+            "type": "true_false",
+            "text": "Una volta risolto un problema, il processo decisionale \u00e8 completo e non emergeranno nuovi problemi.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-2",
+            "type": "true_false",
+            "text": "Nel brainstorming, dovresti valutare e criticare ogni idea appena ti viene, cos\u00ec da non perdere tempo con quelle cattive.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-3",
+            "type": "true_false",
+            "text": "Durante la fase di generazione delle soluzioni, dovresti filtrare immediatamente le idee che sembrano irrealistiche, cos\u00ec da non perdere tempo su di esse.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-4",
+            "type": "true_false",
+            "text": "Lo stress cronico ti aiuta a pensare pi\u00f9 chiaramente perch\u00e9 ti mantiene vigile e concentrato.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-5",
+            "type": "true_false",
+            "text": "Strumenti visivi come mappe mentali e diagrammi sono utili principalmente quando lavori da solo.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-match-1",
+            "type": "matching",
+            "text": "Abbina ogni fase alla sua posizione nel processo di risoluzione dei problemi.",
+            "pairs": [
+                {
+                    "id": "psm1-1",
+                    "left": "Passo 1",
+                    "right": "Definire il problema"
+                },
+                {
+                    "id": "psm1-2",
+                    "left": "Passo 2",
+                    "right": "Analizzarlo e scomporlo"
+                },
+                {
+                    "id": "psm1-3",
+                    "left": "Passo 3",
+                    "right": "Generare soluzioni"
+                },
+                {
+                    "id": "psm1-4",
+                    "left": "Passo 4",
+                    "right": "Valutare e scegliere"
+                },
+                {
+                    "id": "psm1-5",
+                    "left": "Passo 5",
+                    "right": "Agire e monitorare"
+                }
+            ]
+        },
+        {
+            "id": "ps-match-2",
+            "type": "matching",
+            "text": "Abbina ogni regione cerebrale alla sua funzione.",
+            "pairs": [
+                {
+                    "id": "psm2-1",
+                    "left": "Corteccia prefrontale",
+                    "right": "Pianifica, organizza, controlla gli impulsi"
+                },
+                {
+                    "id": "psm2-2",
+                    "left": "Sistema limbico",
+                    "right": "Processa emozioni e motivazione"
+                },
+                {
+                    "id": "psm2-3",
+                    "left": "Gangli della base",
+                    "right": "Adatta le strategie in base al feedback"
+                },
+                {
+                    "id": "psm2-4",
+                    "left": "Rete in modalit\u00e0 predefinita",
+                    "right": "Genera idee creative durante il riposo"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{
+    "questions": [
+        {
+            "id": "sa-mc-1",
+            "type": "multiple_choice",
+            "text": "Cosa descrive meglio la consapevolezza di s\u00e9?",
+            "options": [
+                "Sapere come comportarsi in ogni situazione",
+                "Capire i propri pensieri, emozioni e schemi comportamentali",
+                "Controllare le proprie emozioni in ogni momento",
+                "Cambiare s\u00e9 stessi per soddisfare le aspettative"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "sa-mc-2",
+            "type": "multiple_choice",
+            "text": "Durante un colloquio di lavoro, Sofia nota che le mani le tremano e la mente si svuota. In seguito si dice di aver \u00abfallito completamente\u00bb. Come sarebbe una risposta consapevole dopo questa esperienza?",
+            "options": [
+                "Evitare i colloqui in futuro per non provare la stessa sensazione",
+                "Concludere che non \u00e8 adatta a nessun lavoro",
+                "Riconoscere l'ansia come una normale risposta allo stress e riflettere su cosa potrebbe fare diversamente la prossima volta",
+                "Fingere che il colloquio sia andato bene e andare avanti"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-3",
+            "type": "multiple_choice",
+            "text": "Lukas \u00e8 cresciuto in una zona rurale e non lavora n\u00e9 studia da oltre un anno. Quando un vicino menziona un'opportunit\u00e0 di formazione locale, Lukas pensa subito \u00abNon sono abbastanza bravo per questo\u00bb. Quale risposta mostra meglio consapevolezza di s\u00e9?",
+            "options": [
+                "Concordare con il pensiero ed evitare l'argomento",
+                "Notare il pensiero, riconoscerlo come una risposta di paura e cercare comunque la formazione",
+                "Chiedere al vicino di presentare domanda per suo conto",
+                "Aspettare di sentirsi pi\u00f9 sicuro prima di fare qualsiasi cosa"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "sa-mc-4",
+            "type": "multiple_choice",
+            "text": "Ricevi un feedback che ti sorprende. Qual \u00e8 la risposta pi\u00f9 consapevole?",
+            "options": [
+                "Difendere subito il proprio comportamento",
+                "Ignorare il feedback",
+                "Riflettere su ci\u00f2 che l'altra persona ha vissuto",
+                "Dare per scontato che il feedback sia una critica personale"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-5",
+            "type": "multiple_choice",
+            "text": "Su cosa si concentra la consapevolezza esterna di s\u00e9?",
+            "options": [
+                "Su come gli altri dovrebbero comunicare con te",
+                "Su come vuoi essere visto",
+                "Su come il tuo comportamento pu\u00f2 essere percepito dagli altri",
+                "Su come controllare le interazioni"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-tf-1",
+            "type": "true_false",
+            "text": "La consapevolezza di s\u00e9 aiuta a ridurre le reazioni automatiche.",
+            "correctAnswer": true
+        },
+        {
+            "id": "sa-tf-2",
+            "type": "true_false",
+            "text": "La motivazione rimane la stessa per tutta la vita.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-tf-3",
+            "type": "true_false",
+            "text": "L'intelligenza emotiva significa evitare le emozioni.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-match-1",
+            "type": "matching",
+            "text": "Abbina ogni termine alla sua descrizione corretta.",
+            "pairs": [
+                {
+                    "id": "sam-1",
+                    "left": "Intelligenza emotiva",
+                    "right": "Riconoscere le emozioni e rispondere in modo pi\u00f9 consapevole"
+                },
+                {
+                    "id": "sam-2",
+                    "left": "SWOT personale",
+                    "right": "Uno strumento per riflettere su punti di forza, sfide, opportunit\u00e0 e barriere"
+                },
+                {
+                    "id": "sam-3",
+                    "left": "Consapevolezza di s\u00e9",
+                    "right": "Capire i propri pensieri, emozioni e comportamenti"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "co-mc-1",
+            "type": "multiple_choice",
+            "text": "Quale delle seguenti descrive meglio la comunicazione come presentata in questo modulo?",
+            "options": [
+                "Una competenza usata solo in contesti di lavoro formali",
+                "Un processo che include parlare, ascoltare, comprendere e rispondere in contesti diversi",
+                "Un talento fisso che le persone hanno o non hanno",
+                "Una forma di espressione basata esclusivamente sul linguaggio parlato"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-2",
+            "type": "multiple_choice",
+            "text": "Qual \u00e8 la principale differenza tra sentire e ascoltare attivamente?",
+            "options": [
+                "Sentire richiede il contatto visivo, ma l'ascolto attivo no",
+                "Sentire \u00e8 passivo, mentre l'ascolto attivo coinvolge attenzione, comprensione e feedback",
+                "Sentire \u00e8 pi\u00f9 importante nel lavoro di squadra rispetto all'ascolto attivo",
+                "L'ascolto attivo avviene solo nei colloqui formali"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-3",
+            "type": "multiple_choice",
+            "text": "Quale dei seguenti \u00e8 un esempio di comunicazione non verbale?",
+            "options": [
+                "Scrivere una mail",
+                "Fornire una spiegazione dettagliata",
+                "Espressioni facciali e postura",
+                "Utilizzare un vocabolario formale"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "co-mc-4",
+            "type": "multiple_choice",
+            "text": "Quale affermazione descrive meglio la comunicazione assertiva?",
+            "options": [
+                "Evitare i disaccordi per mantenere la pace",
+                "Esprimere pensieri e bisogni in modo chiaro e rispettoso",
+                "Parlare ad alta voce per assicurarsi che gli altri ascoltino",
+                "Permettere agli altri di decidere tutto"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-tf-1",
+            "type": "true_false",
+            "text": "L'empatia significa comprendere i sentimenti e la prospettiva di un'altra persona, anche se non si \u00e8 pienamente d'accordo con lei.",
+            "correctAnswer": true
+        },
+        {
+            "id": "co-tf-2",
+            "type": "true_false",
+            "text": "Nel lavoro di squadra, il conflitto significa sempre che la comunicazione \u00e8 completamente fallita.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-tf-3",
+            "type": "true_false",
+            "text": "La comunicazione digitale \u00e8 meno importante della comunicazione faccia a faccia nei contesti di lavoro e ricerca di lavoro.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-match-1",
+            "type": "matching",
+            "text": "Abbina ogni termine alla sua descrizione corretta.",
+            "pairs": [
+                {
+                    "id": "com-1",
+                    "left": "Comunicazione paraverbale",
+                    "right": "Il modo in cui qualcosa viene detto, inclusi tono, ritmo, intonazione e volume"
+                },
+                {
+                    "id": "com-2",
+                    "left": "Confini",
+                    "right": "Limiti personali che aiutano le persone a comunicare ci\u00f2 che \u00e8 accettabile, rispettoso o confortevole"
+                },
+                {
+                    "id": "com-3",
+                    "left": "Comunicazione nel lavoro di squadra",
+                    "right": "Interazione coordinata che supporta la cooperazione, la chiarezza dei ruoli e la risoluzione dei problemi in un gruppo"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,116 @@
+{
+    "questions": [
+        {
+            "id": "tw-mc-1",
+            "type": "multiple_choice",
+            "text": "Quale delle seguenti descrive meglio la differenza tra un gruppo e una squadra?",
+            "options": [
+                "Una squadra \u00e8 sempre pi\u00f9 grande di un gruppo",
+                "Un gruppo ha un leader e una squadra no",
+                "Una squadra ha un obiettivo condiviso e una responsabilit\u00e0 reciproca, mentre un gruppo \u00e8 semplicemente composto da persone nello stesso posto",
+                "Non c'\u00e8 una vera differenza, le parole significano la stessa cosa"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-1",
+            "type": "true_false",
+            "text": "La sicurezza psicologica significa che i membri della squadra sentono di poter esprimersi, commettere errori o condividere idee senza essere giudicati.",
+            "correctAnswer": true
+        },
+        {
+            "id": "tw-mc-2",
+            "type": "multiple_choice",
+            "text": "Quale dei seguenti \u00e8 un esempio di barriera comunicativa in una squadra?",
+            "options": [
+                "Tutti nella squadra sanno esattamente cosa devono fare",
+                "Una persona invia un lungo messaggio che copre otto punti diversi e la squadra finisce confusa su cosa venga effettivamente chiesto",
+                "La squadra organizza un breve check-in all'inizio di ogni sessione",
+                "I membri della squadra fanno domande di chiarimento prima di rispondere"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "tw-mc-3",
+            "type": "multiple_choice",
+            "text": "I compartimenti stagni (\u00absilos\u00bb) di comunicazione in una squadra avvengono quando:",
+            "options": [
+                "La squadra utilizza troppe app di comunicazione diverse",
+                "Le persone inviano messaggi troppo brevi per essere utili",
+                "I sottogruppi all'interno della squadra smettono di condividere informazioni tra loro, causando duplicazioni e connessioni perse",
+                "Il capo squadra comunica per conto di tutti gli altri"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-4",
+            "type": "multiple_choice",
+            "text": "Durante un brainstorming, un membro della squadra suggerisce un'idea che sembra irrealistica. Qual \u00e8 la risposta migliore?",
+            "options": [
+                "Far notare subito perch\u00e9 non funzioner\u00e0, per risparmiare tempo",
+                "Ignorarla e andare avanti",
+                "Scriverla insieme a tutto il resto. Giudicare le idee durante la generazione blocca le persone",
+                "Chiedere alla persona di rifletterci meglio e tornare al gruppo pi\u00f9 tardi"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-5",
+            "type": "multiple_choice",
+            "text": "Secondo il modello di Tuckman, cos'\u00e8 la fase Storming (conflitto)?",
+            "options": [
+                "La fase in cui la squadra \u00e8 pi\u00f9 produttiva e al meglio",
+                "La primissima fase, quando le persone si conoscono meglio",
+                "La fase in cui emergono divergenze e disaccordi, cosa normale e necessaria per lo sviluppo di una squadra",
+                "La fase finale, quando la squadra si scioglie al termine di un progetto"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-2",
+            "type": "true_false",
+            "text": "La fase Norming del modello di Tuckman precede la fase Storming.",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-tf-3",
+            "type": "true_false",
+            "text": "Una squadra che non \u00e8 mai in disaccordo \u00e8 probabilmente il segno di un gruppo sano e ben funzionante.",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-mc-6",
+            "type": "multiple_choice",
+            "text": "Quale delle seguenti descrive meglio una squadra produttiva?",
+            "options": [
+                "Una squadra che non ha mai bisogno di conversazioni difficili",
+                "Una squadra in cui una persona fa la maggior parte del lavoro, cos\u00ec che gli altri non restino indietro",
+                "Una squadra che fa check-in regolari, riconosce i contributi e riflette su ci\u00f2 che funziona e ci\u00f2 che non funziona",
+                "Una squadra che \u00e8 insieme da molto tempo e i cui membri si conoscono socialmente"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-match-1",
+            "type": "matching",
+            "text": "Abbina ogni termine alla sua descrizione corretta.",
+            "pairs": [
+                {
+                    "id": "twm-1",
+                    "left": "Sicurezza psicologica",
+                    "right": "La sensazione di poter esprimersi, non essere d'accordo o commettere errori senza essere puniti o giudicati"
+                },
+                {
+                    "id": "twm-2",
+                    "left": "SBI",
+                    "right": "Un modo strutturato di fornire feedback che lo mantiene fattuale: la Situazione, il Comportamento e l'Impatto avuto"
+                },
+                {
+                    "id": "twm-3",
+                    "left": "Performing (Esecuzione)",
+                    "right": "La fase nel modello di Tuckman in cui la squadra lavora in modo fluido, creativo e al suo meglio"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "q1",
+            "type": "multiple_choice",
+            "text": "Secondo il \u00abParadosso del Tempo Rurale\u00bb, qual \u00e8 una delle principali sfide per un giovane in una zona rurale?",
+            "options": [
+                "Avere troppe offerte di lavoro tra cui scegliere.",
+                "Il conflitto tra avere \u00abtutto il tempo del mondo\u00bb e la realt\u00e0 che i compiti semplici richiedono molto pi\u00f9 tempo a causa della distanza.",
+                "Avere accesso costante ai trasporti pubblici ad alta velocit\u00e0.",
+                "L'assenza di qualsiasi distrazione digitale."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q2",
+            "type": "multiple_choice",
+            "text": "Quale quadrante della Matrice di Eisenhower \u00e8 conosciuto come la \u00abZona di Crescita\u00bb, dove dovresti dedicare il 60-80% del tuo tempo?",
+            "options": [
+                "Quadrante 1: Urgente e Importante.",
+                "Quadrante 3: Urgente ma non importante.",
+                "Quadrante 2: Non urgente ma importante.",
+                "Quadrante 4: N\u00e9 urgente n\u00e9 importante."
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "q3",
+            "type": "multiple_choice",
+            "text": "Cosa significa la \u00abA\u00bb nel modello degli obiettivi SMART, particolarmente critica in un contesto rurale?",
+            "options": [
+                "Accademico (Academic).",
+                "Raggiungibile (Achievable).",
+                "Anonimo (Anonymous).",
+                "Aggressivo (Aggressive)."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q4",
+            "type": "multiple_choice",
+            "text": "Qual \u00e8 l'obiettivo principale della \u00abTecnica del Pomodoro\u00bb?",
+            "options": [
+                "Lavorare per 5 ore senza pause.",
+                "Gestire l'energia e mantenere la concentrazione lavorando a intervalli di 25 minuti seguiti da brevi pause.",
+                "Ignorare tutte le scadenze.",
+                "Sostituire gli strumenti digitali con orologi analogici."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q5",
+            "type": "true_false",
+            "text": "La procrastinazione \u00e8 principalmente un problema di pigrizia e mancanza di forza di volont\u00e0.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q6",
+            "type": "true_false",
+            "text": "Il \u00abResiduo di Attenzione\u00bb si verifica quando cambi compito e parte della tua attenzione rimane sul compito precedente per diversi minuti.",
+            "correctAnswer": true
+        },
+        {
+            "id": "q7",
+            "type": "true_false",
+            "text": "La \u00abRevisione Settimanale\u00bb dovrebbe essere effettuata una volta al mese per essere efficace.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q8",
+            "type": "matching",
+            "text": "Abbina ogni termine alla sua descrizione corretta.",
+            "pairs": [
+                {
+                    "id": "p1",
+                    "left": "Mangia quella rana (Eat That Frog)",
+                    "right": "L'abitudine di identificare il compito pi\u00f9 difficile e importante e completarlo appena sveglio, per evitare la procrastinazione."
+                },
+                {
+                    "id": "p2",
+                    "left": "Stato di flusso (Flow State)",
+                    "right": "Uno stato mentale di funzionamento in cui una persona che svolge un'attivit\u00e0 \u00e8 completamente immersa in una sensazione di concentrazione energica e piacere, perdendo la cognizione del tempo."
+                },
+                {
+                    "id": "p3",
+                    "left": "Blocco del tempo (Time Blocking)",
+                    "right": "Una tecnica di produttivit\u00e0 in cui programmi specifici \u00abblocchi\u00bb di tempo nel calendario per compiti dedicati, trattandoli come appuntamenti fissi."
+                }
+            ]
+        }
+    ]
+}
