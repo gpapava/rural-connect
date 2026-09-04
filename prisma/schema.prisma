@@ -190,6 +190,7 @@ model Module {
   description String @db.Text
   order       Int    @default(0)
   category    String @default("general")
+  language    String @default("en") // locale code: en | el | es | it | tr | lv | no
   duration    Int?   // in minutes
   imageUrl    String?
   createdAt   DateTime @default(now())

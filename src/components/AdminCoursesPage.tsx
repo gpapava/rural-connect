@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Plus, BookOpen, Pencil, Trash2, Clock, FileText } from "lucide-react";
+import { localeNames, type Locale } from "@/i18n";
 
 type Module = {
   id: string;
@@ -36,7 +37,7 @@ export default function AdminCoursesPage({ modules: initial, locale }: Props) {
     const res = await fetch("/api/admin/courses", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ ...form, language: locale }),
     });
     if (res.ok) {
       setForm({ title: "", description: "", category: "", duration: "" });
@@ -61,7 +62,13 @@ export default function AdminCoursesPage({ modules: initial, locale }: Props) {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
-          <p className="text-sm text-gray-500">{t("count", { count: modules.length })}</p>
+          <p className="text-sm text-gray-500">
+            {t("count", { count: modules.length })}
+            {" · "}
+            <span className="font-medium text-gray-700">
+              {localeNames[locale as Locale] ?? locale}
+            </span>
+          </p>
         </div>
         <button onClick={() => setShowForm(true)} className="btn-primary">
           <Plus className="h-4 w-4" />

@@ -8,6 +8,7 @@ export default async function AdminCourses({ params: { locale } }: { params: { l
   if (!session || session.user.role !== "ADMIN") redirect(`/${locale}/dashboard`);
 
   const modules = await prisma.module.findMany({
+    where: { language: locale },
     orderBy: { order: "asc" },
     include: { _count: { select: { lessons: true } } },
   });
