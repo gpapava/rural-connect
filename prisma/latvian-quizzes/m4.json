@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "co-mc-1",
+            "type": "multiple_choice",
+            "text": "Kura no zem\u0101k min\u0113taj\u0101m atbild\u0113m vislab\u0101k raksturo komunik\u0101ciju, k\u0101 t\u0101 ir aprakst\u012bta \u0161aj\u0101 modul\u012b?",
+            "options": [
+                "Prasme, ko izmanto tikai form\u0101l\u0101s darba vides situ\u0101cij\u0101s",
+                "Process, kas ietver run\u0101\u0161anu, klaus\u012b\u0161anos, sapra\u0161anu un atbild\u0113\u0161anu da\u017e\u0101dos kontekstos",
+                "Fiks\u0113ts talants, kas cilv\u0113kiem vai nu ir, vai nav",
+                "Izteiksmes veids, kas balst\u0101s tikai uz run\u0101to valodu"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-2",
+            "type": "multiple_choice",
+            "text": "K\u0101da ir galven\u0101 at\u0161\u0137ir\u012bba starp dzird\u0113\u0161anu un akt\u012bvo klaus\u012b\u0161anos?",
+            "options": [
+                "Dzird\u0113\u0161anai ir nepiecie\u0161ams acu kontakts, bet akt\u012bvai klaus\u012b\u0161anai \u2013 n\u0113",
+                "Dzird\u0113\u0161ana ir pas\u012bva, bet akt\u012bv\u0101 klaus\u012b\u0161an\u0101s ietver uzman\u012bbu, sapra\u0161anu un atgriezenisko saiti",
+                "Klaus\u012b\u0161an\u0101s komandas darb\u0101 ir svar\u012bg\u0101ka nek\u0101 akt\u012bv\u0101 klaus\u012b\u0161an\u0101s",
+                "Akt\u012bv\u0101 klaus\u012b\u0161an\u0101s notiek tikai form\u0101l\u0101s intervij\u0101s"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-3",
+            "type": "multiple_choice",
+            "text": "Kur\u0161 no \u0161iem piem\u0113riem ir neverb\u0101l\u0101s komunik\u0101cijas piem\u0113rs?",
+            "options": [
+                "E-pasta rakst\u012b\u0161ana",
+                "Sniegt detaliz\u0113tu paskaidrojumu",
+                "Sejas izteiksme un \u0137erme\u0146a poza",
+                "Form\u0101la leksika"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "co-mc-4",
+            "type": "multiple_choice",
+            "text": "Kur\u0161 no \u0161iem apgalvojumiem vislab\u0101k raksturo asert\u012bvu sazi\u0146u?",
+            "options": [
+                "Izvair\u012b\u0161an\u0101s no domstarp\u012bb\u0101m, lai saglab\u0101tu mieru",
+                "Domu un vajadz\u012bbu skaidra un cie\u0146pilna izteik\u0161ana",
+                "Run\u0101t ska\u013ci, lai p\u0101rliecin\u0101tos, ka citi klaus\u0101s",
+                "\u013baut citiem izlemt visu"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-tf-1",
+            "type": "true_false",
+            "text": "Emp\u0101tija noz\u012bm\u0113 saprast citas personas j\u016btas un viedokli, pat ja j\u016bs ar t\u0101m piln\u012bb\u0101 nepiekr\u012btat.",
+            "correctAnswer": true
+        },
+        {
+            "id": "co-tf-2",
+            "type": "true_false",
+            "text": "Komandas darb\u0101 konflikts vienm\u0113r noz\u012bm\u0113, ka komunik\u0101cija ir piln\u012bb\u0101 izg\u0101zusies.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-tf-3",
+            "type": "true_false",
+            "text": "Digit\u0101l\u0101 komunik\u0101cija ir maz\u0101k svar\u012bga nek\u0101 kl\u0101tienes komunik\u0101cija nodarbin\u0101t\u012bbas un darba mekl\u0113\u0161anas kontekst\u0101.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-match-1",
+            "type": "matching",
+            "text": "Savienojiet katru terminu ar pareizo aprakstu.",
+            "pairs": [
+                {
+                    "id": "com-1",
+                    "left": "Paraverb\u0101l\u0101 komunik\u0101cija",
+                    "right": "Veids, k\u0101 kaut kas tiek pateikts, ieskaitot inton\u0101ciju, tempu, balss augstumu un ska\u013cumu"
+                },
+                {
+                    "id": "com-2",
+                    "left": "Robe\u017eas",
+                    "right": "Person\u012bg\u0101s robe\u017eas, kas pal\u012bdz indiv\u012bdiem izteikt, kas ir pie\u0146emams, cie\u0146pilns vai \u0113rts"
+                },
+                {
+                    "id": "com-3",
+                    "left": "Komunik\u0101cija komandas darb\u0101",
+                    "right": "Koordin\u0113ta mijiedarb\u012bba, kas veicina sadarb\u012bbu, lomu skaidr\u012bbu un probl\u0113mu risin\u0101\u0161anu grup\u0101"
+                }
+            ]
+        }
+    ]
+}

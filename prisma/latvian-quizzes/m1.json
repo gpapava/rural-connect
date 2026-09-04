@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "q1",
+            "type": "multiple_choice",
+            "text": "Saska\u0146\u0101 ar \u00abLauku laika paradoksu\u00bb, k\u0101ds ir viens no galvenajiem izaicin\u0101jumiem jaunietim lauku apvid\u016b?",
+            "options": [
+                "P\u0101r\u0101k daudz darba pied\u0101v\u0101jumu, no kuriem izv\u0113l\u0113ties.",
+                "Konflikts starp to, ka ir \u00abviss pasaules laiks\u00bb, un realit\u0101ti, ka vienk\u0101r\u0161i uzdevumi att\u0101luma d\u0113\u013c aiz\u0146em daudz ilg\u0101ku laiku.",
+                "Past\u0101v\u012bga piek\u013cuve \u0101trgaitas sabiedriskajam transportam.",
+                "Digit\u0101lo izklaides iesp\u0113ju tr\u016bkums."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q2",
+            "type": "multiple_choice",
+            "text": "Kur\u0161 no Eizenhauera matricas kvadrantiem ir paz\u012bstams k\u0101 \u00abizaugsmes zona\u00bb, kur\u0101 jums vajadz\u0113tu pavad\u012bt 60\u201380 % sava laika?",
+            "options": [
+                "1. kvadrants: steidzams un svar\u012bgs.",
+                "3. kvadrants: steidzams, bet nav svar\u012bgs.",
+                "2. kvadrants: nav steidzams, bet svar\u012bgs.",
+                "4. kvadrants: ne steidzams, ne svar\u012bgs."
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "q3",
+            "type": "multiple_choice",
+            "text": "Ko noz\u012bm\u0113 \u00abA\u00bb SMART m\u0113r\u0137u sist\u0113m\u0101, kas ir \u012bpa\u0161i svar\u012bgi lauku apvid\u016b?",
+            "options": [
+                "Akad\u0113misks (Academic).",
+                "Sasniedzams (Achievable).",
+                "Anon\u012bms (Anonymous).",
+                "Agres\u012bvs (Aggressive)."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q4",
+            "type": "multiple_choice",
+            "text": "K\u0101ds ir \u00abPomodoro metodes\u00bb galvenais m\u0113r\u0137is?",
+            "options": [
+                "Str\u0101d\u0101t 5 stundas bez p\u0101rtraukuma.",
+                "P\u0101rvald\u012bt ener\u0123iju un saglab\u0101t koncentr\u0113\u0161anos, str\u0101d\u0101jot 25 min\u016b\u0161u interv\u0101los, kam seko \u012bss p\u0101rtraukums.",
+                "Ignor\u0113t visus termi\u0146us.",
+                "Aizst\u0101t digit\u0101los r\u012bkus ar analogajiem pulkste\u0146iem."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q5",
+            "type": "true_false",
+            "text": "Prokrastin\u0101cija galvenok\u0101rt ir slinkuma un gribassp\u0113ka tr\u016bkuma probl\u0113ma.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q6",
+            "type": "true_false",
+            "text": "\u00abUzman\u012bbas atlikums\u00bb rodas, kad main\u0101t uzdevumus un da\u013ca j\u016bsu uzman\u012bbas vair\u0101kas min\u016btes paliek pie iepriek\u0161\u0113j\u0101 uzdevuma.",
+            "correctAnswer": true
+        },
+        {
+            "id": "q7",
+            "type": "true_false",
+            "text": "Lai \u00abned\u0113\u013cas p\u0101rskats\u00bb b\u016btu efekt\u012bvs, tas j\u0101veic reizi m\u0113nes\u012b.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q8",
+            "type": "matching",
+            "text": "Savienojiet katru terminu ar pareizo aprakstu.",
+            "pairs": [
+                {
+                    "id": "p1",
+                    "left": "Ap\u0113d vardi (Eat That Frog)",
+                    "right": "Ieradums noteikt savu gr\u016bt\u0101ko un svar\u012bg\u0101ko uzdevumu un to paveikt pirmo no r\u012bta, lai izvair\u012btos no prokrastin\u0101cijas."
+                },
+                {
+                    "id": "p2",
+                    "left": "Pl\u016bsmas st\u0101voklis (Flow State)",
+                    "right": "Gar\u012bgais darb\u012bbas st\u0101voklis, kur\u0101 persona, veicot k\u0101du darb\u012bbu, ir piln\u012bb\u0101 iegrimusi ener\u0123ijas piln\u0101 koncentr\u0101cij\u0101 un baud\u0101, zaud\u0113jot laika izj\u016btu."
+                },
+                {
+                    "id": "p3",
+                    "left": "Laika sadal\u012b\u0161ana (Time Blocking)",
+                    "right": "Produktivit\u0101tes pa\u0146\u0113miens, kur\u0101 kalend\u0101r\u0101 tiek iepl\u0101noti konkr\u0113ti laika \u00abbloki\u00bb konkr\u0113tiem uzdevumiem, tos uzskatot par fiks\u0113tiem tik\u0161an\u0101s laikiem."
+                }
+            ]
+        }
+    ]
+}

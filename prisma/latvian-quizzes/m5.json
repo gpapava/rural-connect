@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "it-mc-1",
+            "type": "multiple_choice",
+            "text": "Kura no zem\u0101k min\u0113taj\u0101m ier\u012bc\u0113m ir p\u0101rn\u0113s\u0101jama ier\u012bce ar l\u012bdz\u012bg\u0101m funkcij\u0101m k\u0101 galddatoram?",
+            "options": [
+                "Plan\u0161etdators",
+                "Portat\u012bvais dators",
+                "Viedt\u0101lrunis",
+                "Printeris"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-2",
+            "type": "multiple_choice",
+            "text": "K\u0101ds ir mapju galvenais m\u0113r\u0137is digit\u0101lo failu p\u0101rvald\u012bb\u0101?",
+            "options": [
+                "Lai izveidotu savienojumu ar Wi-Fi",
+                "Lai organiz\u0113tu un uzglab\u0101tu failus",
+                "Lai \u0101tr\u0101k s\u016bt\u012btu e-pastus",
+                "Lai izveidotu paroles"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-3",
+            "type": "multiple_choice",
+            "text": "Kura e-pasta da\u013ca sniedz \u012bsu aprakstu, par ko ir zi\u0146ojums?",
+            "options": [
+                "Pielikums",
+                "Sa\u0146\u0113m\u0113ja lauks",
+                "T\u0113mas rinda",
+                "Paraksts"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "it-mc-4",
+            "type": "multiple_choice",
+            "text": "Ko uzman\u012bgam lietot\u0101jam vajadz\u0113tu dar\u012bt, sa\u0146emot aizdom\u012bgu e-pastu ar nezin\u0101mu saiti?",
+            "options": [
+                "Uzreiz uz to noklik\u0161\u0137in\u0101t",
+                "Dal\u012bties ar to ar draugiem",
+                "Ignor\u0113t br\u012bdin\u0101juma paz\u012bmes",
+                "Apst\u0101ties un p\u0101rbaud\u012bt to, pirms r\u012bkoties"
+            ],
+            "correctIndex": 3
+        },
+        {
+            "id": "it-tf-1",
+            "type": "true_false",
+            "text": "Digit\u0101l\u0101s prasmes ietver ne tikai darb\u012bbas prasmes, bet ar\u012b komunik\u0101ciju, satura veido\u0161anu un dro\u0161\u012bbu internet\u0101.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-tf-2",
+            "type": "true_false",
+            "text": "V\u0101ja parole ir dro\u0161\u0101ka nek\u0101 gara un neparedzama parole.",
+            "correctAnswer": false
+        },
+        {
+            "id": "it-tf-3",
+            "type": "true_false",
+            "text": "Mekl\u0113\u0161ana internet\u0101 ir efekt\u012bv\u0101ka, ja lietot\u0101ji izv\u0113las konkr\u0113tus atsl\u0113gv\u0101rdus.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-match-1",
+            "type": "matching",
+            "text": "Savienojiet katru terminu ar pareizo aprakstu.",
+            "pairs": [
+                {
+                    "id": "itm-1",
+                    "left": "P\u0101rl\u016bks (browser)",
+                    "right": "Programma, ko izmanto, lai piek\u013c\u016btu t\u012bmek\u013ca vietn\u0113m un veiktu mekl\u0113\u0161anu internet\u0101"
+                },
+                {
+                    "id": "itm-2",
+                    "left": "Aparat\u016bra (hardware)",
+                    "right": "Ier\u012bces fizisk\u0101s da\u013cas, piem\u0113ram, ekr\u0101ns, tastat\u016bra vai akumulators"
+                },
+                {
+                    "id": "itm-3",
+                    "left": "Pik\u0161\u0137er\u0113\u0161ana (phishing)",
+                    "right": "T\u0101da veida tie\u0161saistes kr\u0101p\u0161ana, kas izstr\u0101d\u0101ta, lai maldin\u0101tu lietot\u0101jus, liekot tiem atkl\u0101t inform\u0101ciju vai noklik\u0161\u0137in\u0101t uz kait\u012bg\u0101m sait\u0113m"
+                }
+            ]
+        }
+    ]
+}

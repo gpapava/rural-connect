@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "ps-mc-1",
+            "type": "multiple_choice",
+            "text": "Kura no zem\u0101k min\u0113taj\u0101m atbild\u0113m vislab\u0101k raksturo probl\u0113mu risin\u0101\u0161anu k\u0101 dz\u012bves prasmi?",
+            "options": [
+                "Tehnika, ko izmanto tikai profesion\u0101laj\u0101 un korporat\u012bvaj\u0101 vid\u0113",
+                "Struktur\u0113ta sp\u0113ja identific\u0113t probl\u0113mas, analiz\u0113t t\u0101s un atrast efekt\u012bvus risin\u0101jumus ikdienas un profesion\u0101laj\u0101 dz\u012bv\u0113",
+                "Iedzimts talants, ko nevar apg\u016bt vai att\u012bst\u012bt",
+                "Rado\u0161s process, kas apzin\u0101ti izvair\u0101s no lo\u0123iskas argument\u0101cijas"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-mc-2",
+            "type": "multiple_choice",
+            "text": "Piecu posmu probl\u0113mu risin\u0101\u0161anas proces\u0101, k\u0101ds ir PIRM\u0100 posma galvenais m\u0113r\u0137is?",
+            "options": [
+                "Cik \u0101tri vien iesp\u0113jams \u012bstenot izv\u0113l\u0113to risin\u0101jumu",
+                "Izstr\u0101d\u0101t p\u0113c iesp\u0113jas vair\u0101k alternat\u012bvu risin\u0101jumu",
+                "Prec\u012bzi defin\u0113t probl\u0113mu, identific\u0113jot at\u0161\u0137ir\u012bbu starp pa\u0161reiz\u0113jo st\u0101vokli un v\u0113lamo rezult\u0101tu",
+                "Nov\u0113rt\u0113t pieejamo risin\u0101jumu izmaksas un ieguvumus"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-3",
+            "type": "multiple_choice",
+            "text": "Kura kognit\u012bv\u0101 k\u013c\u016bda raksturo tendenci p\u0101r\u0101k liel\u0101 m\u0113r\u0101 pa\u013cauties uz PIRMO sa\u0146emto inform\u0101ciju, pie\u0146emot l\u0113mumu?",
+            "options": [
+                "Apstiprin\u0101juma k\u013c\u016bda",
+                "Pieejam\u012bbas k\u013c\u016bda",
+                "Enkura k\u013c\u016bda",
+                "Optimisma k\u013c\u016bda"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-4",
+            "type": "multiple_choice",
+            "text": "Saska\u0146\u0101 ar moduli, kas ir later\u0101l\u0101 dom\u0101\u0161ana?",
+            "options": [
+                "Soli pa solim izstr\u0101d\u0101ta lo\u0123iska metode, lai risin\u0101tu skaidri defin\u0113tas tehniskas probl\u0113mas",
+                "Rado\u0161a pieeja, ko ieviesa Edvards de Bono, kas apstr\u012bd iedibin\u0101tos dom\u0101\u0161anas mode\u013cus, lai rad\u012btu inovat\u012bvus risin\u0101jumus",
+                "Neirozin\u0101tniska tehnika, kas balst\u0101s uz priek\u0161\u0113j\u0101s smadze\u0146u garozas aktiviz\u0113\u0161anu",
+                "Grupu l\u0113mumu pie\u0146em\u0161anas sist\u0113ma, kas izstr\u0101d\u0101ta, lai samazin\u0101tu l\u012bdzskr\u0113j\u0113ja efektu"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-tf-1",
+            "type": "true_false",
+            "text": "L\u0113mumu pie\u0146em\u0161ana un probl\u0113mu risin\u0101\u0161ana ir divi piln\u012bgi neatkar\u012bgi procesi, kuriem nav noz\u012bm\u012bgas p\u0101rkl\u0101\u0161an\u0101s.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-2",
+            "type": "true_false",
+            "text": "Smadze\u0146u noklus\u0113juma re\u017e\u012bma t\u012bkls (DMN) sp\u0113l\u0113 svar\u012bgu lomu rado\u0161um\u0101 un daudzveid\u012bgaj\u0101 dom\u0101\u0161an\u0101, un to bie\u017ei saista ar p\u0113k\u0161\u0146as atkl\u0101smes br\u012b\u017eiem.",
+            "correctAnswer": true
+        },
+        {
+            "id": "ps-tf-3",
+            "type": "true_false",
+            "text": "Kognit\u012bv\u0101s k\u013c\u016bdas ir retas anom\u0101lijas, kas ietekm\u0113 tikai cilv\u0113kus ar ierobe\u017eotu intelektu vai izgl\u012bt\u012bbu.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-match-1",
+            "type": "matching",
+            "text": "Savienojiet katru terminu ar pareizo aprakstu.",
+            "pairs": [
+                {
+                    "id": "psm-1",
+                    "left": "Apstiprin\u0101juma k\u013c\u016bda",
+                    "right": "Tendence mekl\u0113t tikai t\u0101du inform\u0101ciju, kas apstiprina to, kam jau ticam, ignor\u0113jot pret\u0113jus pier\u0101d\u012bjumus \u2014 piem\u0113ram, lasot tikai t\u0101s zi\u0146as, kas atbalsta m\u016bsu eso\u0161o viedokli."
+                },
+                {
+                    "id": "psm-2",
+                    "left": "Pr\u0101ta v\u0113tra",
+                    "right": "Metode, k\u0101 rad\u012bt daudzus iesp\u0113jamos probl\u0113mas risin\u0101jumus, br\u012bvi apmainoties ar idej\u0101m bez t\u016bl\u012bt\u0113ja v\u0113rt\u0113juma \u2014 noder\u012bga, lemjot par bud\u017eeta p\u0101rvald\u012bbu, pas\u0101kuma pl\u0101no\u0161anu vai jauna darba mekl\u0113\u0161anu."
+                },
+                {
+                    "id": "psm-3",
+                    "left": "Izmaksu un ieguvumu anal\u012bze",
+                    "right": "Metode, lai sal\u012bdzin\u0101tu izv\u0113les priek\u0161roc\u012bbas un tr\u016bkumus \u2014 piem\u0113ram, izsverot izmaksas un ieguvumus, pirms pie\u0146emt jaunu darba pied\u0101v\u0101jumu vai veikt lielu pirkumu."
+                }
+            ]
+        }
+    ]
+}

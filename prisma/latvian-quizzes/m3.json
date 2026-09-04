@@ -1,0 +1,116 @@
+{
+    "questions": [
+        {
+            "id": "tw-mc-1",
+            "type": "multiple_choice",
+            "text": "Kura no zem\u0101k min\u0113taj\u0101m atbild\u0113m vislab\u0101k raksturo at\u0161\u0137ir\u012bbu starp grupu un komandu?",
+            "options": [
+                "Komanda vienm\u0113r ir liel\u0101ka par grupu",
+                "Grupai ir l\u012bderis, bet komandai nav",
+                "Komandai ir kop\u012bgs m\u0113r\u0137is un savstarp\u0113ja atbild\u012bba, bet grupa ir vienk\u0101r\u0161i cilv\u0113ki vien\u0101 viet\u0101",
+                "Nav re\u0101las at\u0161\u0137ir\u012bbas, v\u0101rdi noz\u012bm\u0113 to pa\u0161u"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-1",
+            "type": "true_false",
+            "text": "Psiholo\u0123isk\u0101 dro\u0161\u012bba noz\u012bm\u0113, ka komandas locek\u013ci j\u016btas br\u012bvi izteikties, pie\u013caut k\u013c\u016bdas vai dal\u012bties ar idej\u0101m, nebaidoties tikt nosod\u012bti.",
+            "correctAnswer": true
+        },
+        {
+            "id": "tw-mc-2",
+            "type": "multiple_choice",
+            "text": "Kura no zem\u0101k min\u0113taj\u0101m situ\u0101cij\u0101m ir piem\u0113rs komunik\u0101cijas barjerai komand\u0101?",
+            "options": [
+                "Visi komandas locek\u013ci prec\u012bzi zina, kas vi\u0146iem j\u0101dara",
+                "Viena persona nos\u016bta garu zi\u0146ojumu, kur\u0101 ir aprakst\u012bti asto\u0146i da\u017e\u0101di punkti, un komanda beig\u0101s ir apjukusi par to, kas \u012bsti tiek pras\u012bts",
+                "Komanda katras sesijas s\u0101kum\u0101 r\u012bko \u012bsu apspriedi",
+                "Komandas locek\u013ci pirms atbildes uzdod preciz\u0113jo\u0161us jaut\u0101jumus"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "tw-mc-3",
+            "type": "multiple_choice",
+            "text": "Komunik\u0101cijas \u00absilosi\u00bb komand\u0101 rodas, ja:",
+            "options": [
+                "Komanda izmanto p\u0101r\u0101k daudz da\u017e\u0101du komunik\u0101cijas lietot\u0146u",
+                "Cilv\u0113ki s\u016bta zi\u0146ojumus, kas ir p\u0101r\u0101k \u012bsi, lai b\u016btu noder\u012bgi",
+                "Komandas apak\u0161grupas p\u0101rtrauc dal\u012bties ar inform\u0101ciju sav\u0101 starp\u0101, kas rada dubl\u0113\u0161anos un p\u0101rtrauktas saiknes",
+                "Komandas vad\u012bt\u0101js veic visu sazi\u0146u p\u0101r\u0113jo v\u0101rd\u0101"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-4",
+            "type": "multiple_choice",
+            "text": "Ideju \u0123ener\u0113\u0161anas sesijas laik\u0101 k\u0101ds komandas loceklis ierosina ideju, kas \u0161\u0137iet nere\u0101la. K\u0101da ir lab\u0101k\u0101 reakcija?",
+            "options": [
+                "Uzreiz nor\u0101d\u012bt, k\u0101p\u0113c tas nedarbosies, lai ietaup\u012btu laiku",
+                "Ignor\u0113t to un turpin\u0101t",
+                "Uzrakst\u012bt to kop\u0101 ar p\u0101r\u0113j\u0101m idej\u0101m. Ideju v\u0113rt\u0113\u0161ana to rad\u012b\u0161anas br\u012bd\u012b nom\u0101c cilv\u0113ku iniciat\u012bvu",
+                "L\u016bgt personai to p\u0101rdom\u0101t un v\u0113l\u0101k atgriezties pie grupas"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-5",
+            "type": "multiple_choice",
+            "text": "Saska\u0146\u0101 ar Takmena modeli, kas ir \u00abkonflikta\u00bb (Storming) posms?",
+            "options": [
+                "Posms, kur\u0101 komanda ir visprodukt\u012bv\u0101k\u0101 un str\u0101d\u0101 vislab\u0101k",
+                "Pats pirmais posms, kad cilv\u0113ki iepaz\u012bst viens otru",
+                "Posms, kur\u0101 atkl\u0101jas at\u0161\u0137ir\u012bbas un domstarp\u012bbas, kas ir norm\u0101li un nepiecie\u0161ami komandas att\u012bst\u012bbai",
+                "P\u0113d\u0113jais posms, kad komanda beidz darbu projekta nosl\u0113gum\u0101"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-2",
+            "type": "true_false",
+            "text": "Takmena mode\u013ca normaliz\u0113\u0161an\u0101s (Norming) posms ir pirms konflikta (Storming) posma.",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-tf-3",
+            "type": "true_false",
+            "text": "Komanda, kur\u0101 nekad nav domstarp\u012bbu, visticam\u0101k ir vesel\u012bgas, labi funkcion\u0113jo\u0161as grupas paz\u012bme.",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-mc-6",
+            "type": "multiple_choice",
+            "text": "Kura no zem\u0101k min\u0113taj\u0101m atbild\u0113m vislab\u0101k raksturo produkt\u012bvu komandu?",
+            "options": [
+                "Komanda, kurai nekad nav j\u0101veic gr\u016btas sarunas",
+                "Komanda, kur\u0101 viens cilv\u0113ks veic liel\u0101ko da\u013cu darba, lai p\u0101r\u0113jie neatpaliktu",
+                "Komanda, kas regul\u0101ri sazin\u0101s, atz\u012bst ieguld\u012bjumu un p\u0101rdom\u0101, kas darbojas un kas nedarbojas",
+                "Komanda, kas str\u0101d\u0101 kop\u0101 jau ilgu laiku un kuras locek\u013ci paz\u012bst viens otru ar\u012b \u0101rpus darba"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-match-1",
+            "type": "matching",
+            "text": "Savienojiet katru terminu ar pareizo aprakstu.",
+            "pairs": [
+                {
+                    "id": "twm-1",
+                    "left": "Psiholo\u0123isk\u0101 dro\u0161\u012bba",
+                    "right": "Saj\u016bta komand\u0101, ka var br\u012bvi izteikties, nepiekrist vai pie\u013caut k\u013c\u016bdu, netiekot sod\u012btam vai nosod\u012btam"
+                },
+                {
+                    "id": "twm-2",
+                    "left": "SBI",
+                    "right": "Struktur\u0113ts veids, k\u0101 sniegt atgriezenisko saiti, saglab\u0101jot t\u0101s faktu raksturu: situ\u0101cija (Situation), uzved\u012bba (Behaviour) un t\u0101s ietekme (Impact)"
+                },
+                {
+                    "id": "twm-3",
+                    "left": "Darb\u012bba (Performing)",
+                    "right": "Takmena mode\u013ca posms, kur\u0101 komanda str\u0101d\u0101 raiti, rado\u0161i un vislab\u0101kaj\u0101 form\u0101"
+                }
+            ]
+        }
+    ]
+}

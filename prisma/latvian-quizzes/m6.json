@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "sa-mc-1",
+            "type": "multiple_choice",
+            "text": "Kas vislab\u0101k raksturo pa\u0161apzi\u0146u?",
+            "options": [
+                "Zin\u0101t, k\u0101 r\u012bkoties jebkur\u0101 situ\u0101cij\u0101",
+                "Savu domu, emociju un uzved\u012bbas mode\u013cu izpratne",
+                "Savu emociju kontrol\u0113\u0161ana jebkur\u0101 br\u012bd\u012b",
+                "Main\u012bt sevi, lai atbilstu citu gaid\u0101m"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "sa-mc-2",
+            "type": "multiple_choice",
+            "text": "J\u016bs j\u016btaties nervozs pirms svar\u012bgas sarunas. Kas liecina par emocion\u0101lo apzin\u0101\u0161anos?",
+            "options": [
+                "Ignor\u0113t \u0161o saj\u016btu un turpin\u0101t",
+                "Sevi vainot par to, ka j\u016btaties nervozs",
+                "Paman\u012bt emocijas un uz br\u012bdi apst\u0101ties",
+                "Sarunas atcel\u0161ana"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-3",
+            "type": "multiple_choice",
+            "text": "Tu sa\u0146em atgriezenisko saiti, kas tevi p\u0101rsteidz. K\u0101da ir visapzin\u0101t\u0101k\u0101 reakcija?",
+            "options": [
+                "Uzreiz aizst\u0101v\u0113t savu r\u012bc\u012bbu",
+                "Ignor\u0113t atsauksmi",
+                "P\u0101rdom\u0101t to, ko izjuta otra persona",
+                "Pie\u0146emt, ka atsauksme ir personiska kritika"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-4",
+            "type": "multiple_choice",
+            "text": "Uz ko koncentr\u0113jas \u0101r\u0113j\u0101 pa\u0161apzi\u0146a?",
+            "options": [
+                "Uz to, k\u0101 citiem vajadz\u0113tu ar tevi sazin\u0101ties",
+                "K\u0101 j\u016bs v\u0113laties, lai j\u016bs uztver",
+                "K\u0101 citi var uztvert tavu uzved\u012bbu",
+                "K\u0101 kontrol\u0113t mijiedarb\u012bbu"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-tf-1",
+            "type": "true_false",
+            "text": "Pa\u0161apzi\u0146a pal\u012bdz samazin\u0101t autom\u0101tiskas reakcijas.",
+            "correctAnswer": true
+        },
+        {
+            "id": "sa-tf-2",
+            "type": "true_false",
+            "text": "Motiv\u0101cija paliek nemain\u012bga visas dz\u012bves garum\u0101.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-tf-3",
+            "type": "true_false",
+            "text": "Emocion\u0101l\u0101 inteli\u0123ence noz\u012bm\u0113 izvair\u012bties no emocij\u0101m.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-match-1",
+            "type": "matching",
+            "text": "Savienojiet katru terminu ar pareizo aprakstu.",
+            "pairs": [
+                {
+                    "id": "sam-1",
+                    "left": "Emocion\u0101l\u0101 inteli\u0123ence",
+                    "right": "Emociju atpaz\u012b\u0161ana un apzin\u0101t\u0101ka rea\u0123\u0113\u0161ana"
+                },
+                {
+                    "id": "sam-2",
+                    "left": "Person\u012bgais SWOT",
+                    "right": "L\u012bdzeklis, lai p\u0101rdom\u0101tu stipr\u0101s puses, izaicin\u0101jumus, iesp\u0113jas un \u0161\u0137\u0113r\u0161\u013cus"
+                },
+                {
+                    "id": "sam-3",
+                    "left": "Pa\u0161apzi\u0146a",
+                    "right": "Savu domu, emociju un uzved\u012bbas izpratne"
+                }
+            ]
+        }
+    ]
+}
