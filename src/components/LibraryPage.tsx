@@ -10,7 +10,6 @@ import {
   PlayCircle,
   RotateCcw,
   ChevronRight,
-  Filter,
   FileText,
   ExternalLink,
 } from "lucide-react";
@@ -189,23 +188,25 @@ export default function LibraryPage({ modules, resources, locale }: LibraryPageP
         </div>
       </div>
 
-      {/* Category filter */}
-      <div className="mb-5 flex flex-wrap gap-2">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={cn(
-              "rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
-              selectedCategory === cat
-                ? "border-[#1a73e8] bg-[#1a73e8] text-white"
-                : "border-gray-200 bg-white text-gray-600 hover:border-[#1a73e8]/40 hover:text-[#1a73e8]"
-            )}
-          >
-            {cat === "all" ? t("categories.all") : cat}
-          </button>
-        ))}
-      </div>
+      {/* Category filter — only shown when modules span more than one category */}
+      {categories.length > 2 && (
+        <div className="mb-5 flex flex-wrap gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={cn(
+                "rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
+                selectedCategory === cat
+                  ? "border-[#1a73e8] bg-[#1a73e8] text-white"
+                  : "border-gray-200 bg-white text-gray-600 hover:border-[#1a73e8]/40 hover:text-[#1a73e8]"
+              )}
+            >
+              {cat === "all" ? t("categories.all") : cat}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Module grid */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -223,16 +224,20 @@ export default function LibraryPage({ modules, resources, locale }: LibraryPageP
             >
               {/* Card header */}
               <div className="mb-3 flex items-start justify-between gap-2">
-                <div
-                  className={cn(
-                    "rounded-lg border px-2 py-1 text-xs font-medium",
-                    catStyle.bg,
-                    catStyle.text,
-                    catStyle.border
-                  )}
-                >
-                  {module.category}
-                </div>
+                {module.category && module.category !== "general" ? (
+                  <div
+                    className={cn(
+                      "rounded-lg border px-2 py-1 text-xs font-medium",
+                      catStyle.bg,
+                      catStyle.text,
+                      catStyle.border
+                    )}
+                  >
+                    {module.category}
+                  </div>
+                ) : (
+                  <span />
+                )}
                 {getStatusBadge(module.status)}
               </div>
 
