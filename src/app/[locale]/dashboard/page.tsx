@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { resolveModuleLanguage } from "@/lib/modules";
 import DashboardPage from "@/components/DashboardPage";
 
 interface PageProps {
@@ -13,6 +14,7 @@ export default async function Dashboard({ params: { locale } }: PageProps) {
 
   const counselorSelect = { id: true, name: true, email: true, country: true };
   const userId = session.user.id;
+  const moduleLanguage = await resolveModuleLanguage(locale);
 
   const [user, totalModules, completedModules, pendingSession, upcomingSession, stages, certificate] =
     await Promise.all([
@@ -28,13 +30,14 @@ export default async function Dashboard({ params: { locale } }: PageProps) {
             select: { id: true, summary: true, targetSector: true, updatedAt: true },
           },
           moduleProgress: {
+            where: { module: { language: moduleLanguage } },
             select: { status: true },
           },
         },
       }),
-      prisma.module.count(),
+      prisma.module.count({ where: { language: moduleLanguage } }),
       prisma.userModuleProgress.count({
-        where: { userId, status: "COMPLETED" },
+        where: { userId, status: "COMPLETED", module: { language: moduleLanguage } },
       }),
       prisma.counselingSession.findFirst({
         where: { neetUserId: userId, status: "PENDING" },

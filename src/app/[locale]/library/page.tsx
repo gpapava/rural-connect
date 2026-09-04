@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { resolveModuleLanguage } from "@/lib/modules";
 import LibraryPage from "@/components/LibraryPage";
 
 interface PageProps {
@@ -11,8 +12,10 @@ export default async function Library({ params: { locale } }: PageProps) {
   const session = await auth();
   if (!session) redirect(`/${locale}/auth/login`);
 
+  const language = await resolveModuleLanguage(locale);
+
   const [modules, userProgress] = await Promise.all([
-    prisma.module.findMany({ orderBy: { order: "asc" } }),
+    prisma.module.findMany({ where: { language }, orderBy: { order: "asc" } }),
     prisma.userModuleProgress.findMany({
       where: { userId: session.user.id },
     }),
