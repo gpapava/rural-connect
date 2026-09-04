@@ -1,4 +1,4 @@
-import { PrismaClient, UserRole, ModuleProgressStatus } from "@prisma/client";
+import { PrismaClient, UserRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -94,110 +94,9 @@ async function main() {
     skipDuplicates: true,
   });
 
-  // Create modules
-  const modules = await Promise.all([
-    prisma.module.upsert({
-      where: { id: "module-1" },
-      update: {},
-      create: {
-        id: "module-1",
-        title: "Introduction to Digital Skills",
-        description:
-          "Learn the fundamentals of using computers, internet, and digital tools for everyday tasks and job searching.",
-        order: 1,
-        category: "Digital Skills",
-        duration: 120,
-      },
-    }),
-    prisma.module.upsert({
-      where: { id: "module-2" },
-      update: {},
-      create: {
-        id: "module-2",
-        title: "CV Writing & Job Applications",
-        description:
-          "Master the art of creating professional CVs and compelling job applications tailored to rural and agricultural sectors.",
-        order: 2,
-        category: "Career Development",
-        duration: 90,
-      },
-    }),
-    prisma.module.upsert({
-      where: { id: "module-3" },
-      update: {},
-      create: {
-        id: "module-3",
-        title: "Interview Skills & Confidence Building",
-        description:
-          "Build confidence and learn practical interview techniques through mock sessions and video exercises.",
-        order: 3,
-        category: "Career Development",
-        duration: 150,
-      },
-    }),
-    prisma.module.upsert({
-      where: { id: "module-4" },
-      update: {},
-      create: {
-        id: "module-4",
-        title: "Financial Literacy for Young Adults",
-        description:
-          "Understand budgeting, savings, taxes, and financial planning essentials for independent living.",
-        order: 4,
-        category: "Life Skills",
-        duration: 100,
-      },
-    }),
-    prisma.module.upsert({
-      where: { id: "module-5" },
-      update: {},
-      create: {
-        id: "module-5",
-        title: "Entrepreneurship in Rural Areas",
-        description:
-          "Explore opportunities for self-employment and small business development in rural communities.",
-        order: 5,
-        category: "Entrepreneurship",
-        duration: 180,
-      },
-    }),
-    prisma.module.upsert({
-      where: { id: "module-6" },
-      update: {},
-      create: {
-        id: "module-6",
-        title: "Sustainable Agriculture & Green Jobs",
-        description:
-          "Discover career opportunities in sustainable farming, forestry, and the green economy.",
-        order: 6,
-        category: "Agriculture",
-        duration: 120,
-      },
-    }),
-  ]);
-
-  // Create user module progress
-  await prisma.userModuleProgress.createMany({
-    data: [
-      {
-        userId: neetUser.id,
-        moduleId: modules[0].id,
-        status: ModuleProgressStatus.COMPLETED,
-        completedAt: new Date("2024-01-15"),
-      },
-      {
-        userId: neetUser.id,
-        moduleId: modules[1].id,
-        status: ModuleProgressStatus.IN_PROGRESS,
-      },
-      {
-        userId: neetUser.id,
-        moduleId: modules[2].id,
-        status: ModuleProgressStatus.NOT_STARTED,
-      },
-    ],
-    skipDuplicates: true,
-  });
+  // Curriculum modules are seeded per language via prisma/add-<lang>-modules.ts
+  // (run against the production DB directly). No demo/placeholder modules or
+  // module progress are created here.
 
   // Create counseling session
   const session = await prisma.counselingSession.create({
