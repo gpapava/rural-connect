@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "sa-mc-1",
+            "type": "multiple_choice",
+            "text": "\u00d6z-fark\u0131ndal\u0131\u011f\u0131 en iyi ne tan\u0131mlar?",
+            "options": [
+                "Her durumda nas\u0131l davranaca\u011f\u0131n\u0131 bilmek",
+                "D\u00fc\u015f\u00fcncelerini, duygular\u0131n\u0131 ve davran\u0131\u015f kal\u0131plar\u0131n\u0131 anlamak",
+                "Duygular\u0131n\u0131 her zaman kontrol etmek",
+                "Beklentilere uymak i\u00e7in kendini de\u011fi\u015ftirmek"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "sa-mc-2",
+            "type": "multiple_choice",
+            "text": "\u00d6nemli bir konu\u015fmadan \u00f6nce gergin hissedersin. Duygusal fark\u0131ndal\u0131\u011f\u0131 ne g\u00f6sterir?",
+            "options": [
+                "Hissi g\u00f6rmezden gelip devam etmek",
+                "Gergin hissetti\u011fin i\u00e7in kendini su\u00e7lamak",
+                "Duyguyu fark etmek ve bir an duraklamak",
+                "Konu\u015fmay\u0131 iptal etmek"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-3",
+            "type": "multiple_choice",
+            "text": "Seni \u015fa\u015f\u0131rtan bir geri bildirim al\u0131yorsun. En bilin\u00e7li tepki nedir?",
+            "options": [
+                "Davran\u0131\u015f\u0131n\u0131 hemen savunmak",
+                "Geri bildirimi g\u00f6rmezden gelmek",
+                "Kar\u015f\u0131 taraf\u0131n neler ya\u015fad\u0131\u011f\u0131n\u0131 d\u00fc\u015f\u00fcnmek",
+                "Geri bildirimin ki\u015fisel bir ele\u015ftiri oldu\u011funu varsaymak"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-4",
+            "type": "multiple_choice",
+            "text": "D\u0131\u015f \u00f6z-fark\u0131ndal\u0131k neye odaklan\u0131r?",
+            "options": [
+                "Ba\u015fkalar\u0131n\u0131n seninle nas\u0131l ileti\u015fim kurmas\u0131 gerekti\u011fine",
+                "Nas\u0131l g\u00f6r\u00fclmek istedi\u011fine",
+                "Davran\u0131\u015f\u0131n\u0131n ba\u015fkalar\u0131 taraf\u0131ndan nas\u0131l alg\u0131lanabilece\u011fine",
+                "Etkile\u015fimleri nas\u0131l kontrol edece\u011fine"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-tf-1",
+            "type": "true_false",
+            "text": "\u00d6z-fark\u0131ndal\u0131k, otomatik tepkileri azaltmaya yard\u0131mc\u0131 olur.",
+            "correctAnswer": true
+        },
+        {
+            "id": "sa-tf-2",
+            "type": "true_false",
+            "text": "Motivasyon hayat boyunca ayn\u0131 kal\u0131r.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-tf-3",
+            "type": "true_false",
+            "text": "Duygusal zek\u00e2, duygulardan ka\u00e7\u0131nmak demektir.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-match-1",
+            "type": "matching",
+            "text": "Her terimi do\u011fru tan\u0131m\u0131yla e\u015fle\u015ftirin.",
+            "pairs": [
+                {
+                    "id": "sam-1",
+                    "left": "Duygusal zek\u00e2",
+                    "right": "Duygular\u0131 tan\u0131mak ve daha bilin\u00e7li tepki vermek"
+                },
+                {
+                    "id": "sam-2",
+                    "left": "Ki\u015fisel SWOT",
+                    "right": "G\u00fc\u00e7l\u00fc y\u00f6nler, zorluklar, f\u0131rsatlar ve engeller \u00fczerine d\u00fc\u015f\u00fcnmek i\u00e7in bir ara\u00e7"
+                },
+                {
+                    "id": "sam-3",
+                    "left": "\u00d6z-fark\u0131ndal\u0131k",
+                    "right": "D\u00fc\u015f\u00fcncelerini, duygular\u0131n\u0131 ve davran\u0131\u015flar\u0131n\u0131 anlamak"
+                }
+            ]
+        }
+    ]
+}

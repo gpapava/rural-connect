@@ -1,0 +1,116 @@
+{
+    "questions": [
+        {
+            "id": "tw-mc-1",
+            "type": "multiple_choice",
+            "text": "A\u015fa\u011f\u0131dakilerden hangisi bir grup ile bir tak\u0131m aras\u0131ndaki fark\u0131 en iyi tan\u0131mlar?",
+            "options": [
+                "Bir tak\u0131m her zaman bir gruptan daha b\u00fcy\u00fckt\u00fcr",
+                "Bir grubun bir lideri vard\u0131r, bir tak\u0131m\u0131n ise yoktur",
+                "Bir tak\u0131m\u0131n ortak bir hedefi ve kar\u015f\u0131l\u0131kl\u0131 sorumlulu\u011fu varken, bir grup sadece ayn\u0131 yerde bulunan insanlardan olu\u015fur",
+                "Ger\u00e7ek bir fark yoktur, kelimeler ayn\u0131 \u015feyi ifade eder"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-1",
+            "type": "true_false",
+            "text": "Psikolojik g\u00fcvenlik, ekip \u00fcyelerinin yarg\u0131lanmadan konu\u015fabileceklerini, hata yapabileceklerini veya fikir payla\u015fabileceklerini hissetmeleri anlam\u0131na gelir.",
+            "correctAnswer": true
+        },
+        {
+            "id": "tw-mc-2",
+            "type": "multiple_choice",
+            "text": "A\u015fa\u011f\u0131dakilerden hangisi bir ekipte ileti\u015fim engeline \u00f6rnektir?",
+            "options": [
+                "Tak\u0131mdaki herkes tam olarak ne yapmas\u0131 gerekti\u011fini biliyor",
+                "Bir ki\u015fi sekiz farkl\u0131 noktay\u0131 kapsayan uzun bir mesaj g\u00f6nderiyor ve ekip asl\u0131nda ne istendi\u011fi konusunda kafas\u0131 kar\u0131\u015f\u0131yor",
+                "Tak\u0131m, her oturumun ba\u015f\u0131nda k\u0131sa bir kontrol toplant\u0131s\u0131 yap\u0131yor",
+                "Ekip \u00fcyeleri yan\u0131t vermeden \u00f6nce a\u00e7\u0131klay\u0131c\u0131 sorular soruyor"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "tw-mc-3",
+            "type": "multiple_choice",
+            "text": "Bir ekipte ileti\u015fim silolar\u0131 \u015fu durumlarda ortaya \u00e7\u0131kar:",
+            "options": [
+                "Ekip \u00e7ok fazla farkl\u0131 ileti\u015fim uygulamas\u0131 kullan\u0131r",
+                "\u0130nsanlar i\u015fe yaramayacak kadar k\u0131sa mesajlar g\u00f6nderir",
+                "Ekip i\u00e7indeki alt gruplar birbirleriyle bilgi payla\u015fmay\u0131 b\u0131rak\u0131r, bu da tekrara ve ka\u00e7\u0131r\u0131lan ba\u011flant\u0131lara yol a\u00e7ar",
+                "Tak\u0131m lideri herkes ad\u0131na t\u00fcm ileti\u015fimi y\u00fcr\u00fct\u00fcr"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-4",
+            "type": "multiple_choice",
+            "text": "Bir beyin f\u0131rt\u0131nas\u0131 s\u0131ras\u0131nda bir ekip \u00fcyesi ger\u00e7ek\u00e7i g\u00f6r\u00fcnmeyen bir fikir \u00f6nerir. En iyi yan\u0131t nedir?",
+            "options": [
+                "Zaman kazand\u0131rmak i\u00e7in neden i\u015fe yaramayaca\u011f\u0131n\u0131 hemen belirtmek",
+                "Onu g\u00f6rmezden gelip devam etmek",
+                "Di\u011fer her \u015feyle birlikte yazmak. Fikirleri \u00fcretim a\u015famas\u0131nda yarg\u0131lamak insanlar\u0131n susmas\u0131na neden olur",
+                "Ki\u015fiden daha fazla d\u00fc\u015f\u00fcnmesini ve sonra gruba geri d\u00f6nmesini istemek"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-5",
+            "type": "multiple_choice",
+            "text": "Tuckman'\u0131n modeline g\u00f6re F\u0131rt\u0131na (Storming) a\u015famas\u0131 nedir?",
+            "options": [
+                "Ekibin en verimli ve en iyi \u015fekilde \u00e7al\u0131\u015ft\u0131\u011f\u0131 a\u015fama",
+                "\u0130nsanlar\u0131n birbirini tan\u0131maya ba\u015flad\u0131\u011f\u0131 ilk a\u015fama",
+                "Farkl\u0131l\u0131klar\u0131n ve anla\u015fmazl\u0131klar\u0131n ortaya \u00e7\u0131kt\u0131\u011f\u0131 a\u015fama; bu normaldir ve bir ekibin geli\u015fmesi i\u00e7in gereklidir",
+                "Bir projenin sonunda ekibin da\u011f\u0131ld\u0131\u011f\u0131 son a\u015fama"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-2",
+            "type": "true_false",
+            "text": "Tuckman'\u0131n modelindeki Normla\u015fma (Norming) a\u015famas\u0131, F\u0131rt\u0131na (Storming) a\u015famas\u0131ndan \u00f6nce gelir.",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-tf-3",
+            "type": "true_false",
+            "text": "Asla anla\u015fmazl\u0131k ya\u015famayan bir ekip, muhtemelen sa\u011fl\u0131kl\u0131 ve iyi i\u015fleyen bir grubun i\u015faretidir.",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-mc-6",
+            "type": "multiple_choice",
+            "text": "A\u015fa\u011f\u0131dakilerden hangisi \u00fcretken bir ekibi en iyi tan\u0131mlar?",
+            "options": [
+                "Zor konu\u015fmalara asla ihtiya\u00e7 duymayan bir ekip",
+                "Bir ki\u015finin i\u015fin \u00e7o\u011funu yapt\u0131\u011f\u0131, b\u00f6ylece di\u011ferlerinin geri kalmad\u0131\u011f\u0131 bir ekip",
+                "D\u00fczenli olarak kontrol toplant\u0131lar\u0131 yapan, katk\u0131lar\u0131 takdir eden ve neyin i\u015fe yaray\u0131p neyin yaramad\u0131\u011f\u0131n\u0131 de\u011ferlendiren bir ekip",
+                "Uzun zamand\u0131r birlikte olan ve \u00fcyeleri birbirini sosyal olarak tan\u0131yan bir ekip"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-match-1",
+            "type": "matching",
+            "text": "Her terimi do\u011fru tan\u0131m\u0131yla e\u015fle\u015ftirin.",
+            "pairs": [
+                {
+                    "id": "twm-1",
+                    "left": "Psikolojik g\u00fcvenlik",
+                    "right": "Bir tak\u0131m i\u00e7inde cezaland\u0131r\u0131lmadan veya yarg\u0131lanmadan konu\u015fabilece\u011finiz, farkl\u0131 fikirde olabilece\u011finiz ya da hata yapabilece\u011finiz hissi"
+                },
+                {
+                    "id": "twm-2",
+                    "left": "SBI",
+                    "right": "Geri bildirimi ger\u00e7ek\u00e7i tutan yap\u0131land\u0131r\u0131lm\u0131\u015f bir y\u00f6ntem: Durum (Situation), Davran\u0131\u015f (Behaviour) ve yaratt\u0131\u011f\u0131 Etki (Impact)"
+                },
+                {
+                    "id": "twm-3",
+                    "left": "Performans (Performing)",
+                    "right": "Tuckman modelinde ekibin ak\u0131c\u0131, yarat\u0131c\u0131 ve en iyi haliyle \u00e7al\u0131\u015ft\u0131\u011f\u0131 a\u015fama"
+                }
+            ]
+        }
+    ]
+}

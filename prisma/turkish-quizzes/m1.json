@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "q1",
+            "type": "multiple_choice",
+            "text": "\u00abK\u0131rsal Zaman Paradoksu\u00bbna g\u00f6re, k\u0131rsal bir b\u00f6lgede bir gen\u00e7 i\u00e7in ba\u015fl\u0131ca zorluklardan biri nedir?",
+            "options": [
+                "Se\u00e7mek i\u00e7in \u00e7ok fazla i\u015f teklifi olmas\u0131.",
+                "\u00abD\u00fcnyan\u0131n b\u00fct\u00fcn zaman\u0131na\u00bb sahip olmak ile basit g\u00f6revlerin mesafe nedeniyle \u00e7ok daha uzun s\u00fcrmesi ger\u00e7e\u011fi aras\u0131ndaki \u00e7at\u0131\u015fma.",
+                "Y\u00fcksek h\u0131zl\u0131 toplu ta\u015f\u0131maya s\u00fcrekli eri\u015fim.",
+                "Hi\u00e7bir dijital dikkat da\u011f\u0131t\u0131c\u0131 unsurun olmamas\u0131."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q2",
+            "type": "multiple_choice",
+            "text": "Eisenhower Matrisi'nin hangi \u00e7eyre\u011fi, zaman\u0131n\u0131z\u0131n %60-80'ini ay\u0131rman\u0131z gereken \u00abB\u00fcy\u00fcme B\u00f6lgesi\u00bb olarak bilinir?",
+            "options": [
+                "\u00c7eyrek 1: Acil ve \u00d6nemli.",
+                "\u00c7eyrek 3: Acil ama \u00d6nemli De\u011fil.",
+                "\u00c7eyrek 2: Acil De\u011fil ama \u00d6nemli.",
+                "\u00c7eyrek 4: Ne Acil ne de \u00d6nemli."
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "q3",
+            "type": "multiple_choice",
+            "text": "SMART hedefler \u00e7er\u00e7evesindeki \u00abA\u00bb harfi neyi temsil eder ve \u00f6zellikle k\u0131rsal ba\u011flamda neden kritiktir?",
+            "options": [
+                "Akademik (Academic).",
+                "Ula\u015f\u0131labilir (Achievable).",
+                "Anonim (Anonymous).",
+                "Agresif (Aggressive)."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q4",
+            "type": "multiple_choice",
+            "text": "\u00abPomodoro Tekni\u011fi\u00bbnin ana amac\u0131 nedir?",
+            "options": [
+                "5 saat boyunca hi\u00e7 ara vermeden \u00e7al\u0131\u015fmak.",
+                "25 dakikal\u0131k aral\u0131klarla \u00e7al\u0131\u015f\u0131p ard\u0131ndan k\u0131sa molalar vererek enerjiyi y\u00f6netmek ve odaklanmay\u0131 korumak.",
+                "T\u00fcm son tarihleri g\u00f6rmezden gelmek.",
+                "Dijital ara\u00e7lar\u0131n yerine analog saatler kullanmak."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q5",
+            "type": "true_false",
+            "text": "Erteleme \u00f6ncelikle bir tembellik ve irade eksikli\u011fi sorunudur.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q6",
+            "type": "true_false",
+            "text": "\u00abDikkat Kal\u0131nt\u0131s\u0131\u00bb, g\u00f6rev de\u011fi\u015ftirdi\u011finizde ve dikkatinizin bir k\u0131sm\u0131 birka\u00e7 dakika boyunca \u00f6nceki g\u00f6revde kald\u0131\u011f\u0131nda ortaya \u00e7\u0131kar.",
+            "correctAnswer": true
+        },
+        {
+            "id": "q7",
+            "type": "true_false",
+            "text": "\u00abHaftal\u0131k \u0130nceleme\u00bb, etkili olmas\u0131 i\u00e7in ayda bir kez yap\u0131lmal\u0131d\u0131r.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q8",
+            "type": "matching",
+            "text": "Her terimi do\u011fru tan\u0131m\u0131yla e\u015fle\u015ftirin.",
+            "pairs": [
+                {
+                    "id": "p1",
+                    "left": "O Kurba\u011fay\u0131 Ye (Eat That Frog)",
+                    "right": "En zor ve \u00f6nemli g\u00f6revinizi belirleyip, ertelemeyi \u00f6nlemek i\u00e7in sabah ilk i\u015f olarak bitirme al\u0131\u015fkanl\u0131\u011f\u0131."
+                },
+                {
+                    "id": "p2",
+                    "left": "Ak\u0131\u015f Durumu (Flow State)",
+                    "right": "Bir etkinli\u011fi ger\u00e7ekle\u015ftiren ki\u015finin enerjik bir odaklanma ve keyif hissine tamamen dald\u0131\u011f\u0131, zaman alg\u0131s\u0131n\u0131 kaybetti\u011fi zihinsel bir \u00e7al\u0131\u015fma durumu."
+                },
+                {
+                    "id": "p3",
+                    "left": "Zaman Bloklama (Time Blocking)",
+                    "right": "Takviminizde belirli \u00abzaman bloklar\u0131\u00bb ay\u0131r\u0131p bunlar\u0131 sabit randevular gibi ele ald\u0131\u011f\u0131n\u0131z bir verimlilik tekni\u011fi."
+                }
+            ]
+        }
+    ]
+}

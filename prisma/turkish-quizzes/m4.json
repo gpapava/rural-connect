@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "co-mc-1",
+            "type": "multiple_choice",
+            "text": "Bu mod\u00fclde sunulan ileti\u015fimi en iyi tan\u0131mlayan a\u015fa\u011f\u0131dakilerden hangisidir?",
+            "options": [
+                "Yaln\u0131zca resmi i\u015fyeri ortamlar\u0131nda kullan\u0131lan bir beceri",
+                "Farkl\u0131 ba\u011flamlarda konu\u015fmay\u0131, dinlemeyi, anlamay\u0131 ve yan\u0131t vermeyi i\u00e7eren bir s\u00fcre\u00e7",
+                "\u0130nsanlar\u0131n ya sahip oldu\u011fu ya da olmad\u0131\u011f\u0131 sabit bir yetenek",
+                "Yaln\u0131zca konu\u015fulan dile dayal\u0131 bir ifade bi\u00e7imi"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-2",
+            "type": "multiple_choice",
+            "text": "\u0130\u015fitme ile aktif dinleme aras\u0131ndaki temel fark nedir?",
+            "options": [
+                "\u0130\u015fitme g\u00f6z temas\u0131 gerektirir, aktif dinleme ise gerektirmez",
+                "\u0130\u015fitme pasiftir, aktif dinleme ise dikkat, anlay\u0131\u015f ve geri bildirim gerektirir",
+                "\u0130\u015fitme ekip \u00e7al\u0131\u015fmas\u0131nda aktif dinlemeden daha \u00f6nemlidir",
+                "Aktif dinleme yaln\u0131zca resmi m\u00fclakatlarda olur"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-3",
+            "type": "multiple_choice",
+            "text": "A\u015fa\u011f\u0131dakilerden hangisi s\u00f6zs\u00fcz ileti\u015fim \u00f6rne\u011fidir?",
+            "options": [
+                "E-posta yazmak",
+                "Detayl\u0131 a\u00e7\u0131klama vermek",
+                "Y\u00fcz ifadeleri ve duru\u015f",
+                "Resmi kelime da\u011farc\u0131\u011f\u0131 kullanmak"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "co-mc-4",
+            "type": "multiple_choice",
+            "text": "Hangi ifade iddial\u0131 (assertive) ileti\u015fimi en iyi tan\u0131mlar?",
+            "options": [
+                "Bar\u0131\u015f\u0131 korumak i\u00e7in anla\u015fmazl\u0131ktan ka\u00e7\u0131nmak",
+                "D\u00fc\u015f\u00fcnce ve ihtiya\u00e7lar\u0131 a\u00e7\u0131k ve sayg\u0131l\u0131 bir \u015fekilde ifade etmek",
+                "Ba\u015fkalar\u0131n\u0131n dinlemesini sa\u011flamak i\u00e7in y\u00fcksek sesle konu\u015fmak",
+                "Her \u015feye ba\u015fkalar\u0131n\u0131n karar vermesine izin vermek"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-tf-1",
+            "type": "true_false",
+            "text": "Empati, tam olarak kat\u0131lmasan\u0131z bile ba\u015fka birinin duygular\u0131n\u0131 ve bak\u0131\u015f a\u00e7\u0131s\u0131n\u0131 anlamak demektir.",
+            "correctAnswer": true
+        },
+        {
+            "id": "co-tf-2",
+            "type": "true_false",
+            "text": "Ekip \u00e7al\u0131\u015fmas\u0131nda \u00e7at\u0131\u015fma her zaman ileti\u015fimin tamamen ba\u015far\u0131s\u0131z oldu\u011fu anlam\u0131na gelir.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-tf-3",
+            "type": "true_false",
+            "text": "\u0130stihdam ve i\u015f arama ba\u011flamlar\u0131nda dijital ileti\u015fim, y\u00fcz y\u00fcze ileti\u015fimden daha az \u00f6nemlidir.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-match-1",
+            "type": "matching",
+            "text": "Her terimi do\u011fru tan\u0131m\u0131yla e\u015fle\u015ftirin.",
+            "pairs": [
+                {
+                    "id": "com-1",
+                    "left": "S\u00f6zl\u00fc ileti\u015fim",
+                    "right": "Bir \u015feyin s\u00f6yleni\u015f \u015fekli; ton, tempo, perde ve ses seviyesi d\u00e2hil"
+                },
+                {
+                    "id": "com-2",
+                    "left": "S\u0131n\u0131rlar",
+                    "right": "Bireylerin neyin kabul edilebilir, sayg\u0131l\u0131 veya rahat oldu\u011funu ifade etmelerine yard\u0131mc\u0131 olan ki\u015fisel s\u0131n\u0131rlar"
+                },
+                {
+                    "id": "com-3",
+                    "left": "Ekip \u00e7al\u0131\u015fmas\u0131 ileti\u015fimi",
+                    "right": "Bir grupta i\u015f birli\u011fini, rol netli\u011fini ve problem \u00e7\u00f6zmeyi destekleyen koordineli etkile\u015fim"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "it-mc-1",
+            "type": "multiple_choice",
+            "text": "A\u015fa\u011f\u0131dakilerden hangisi, masa\u00fcst\u00fc bilgisayara benzer i\u015flevlere sahip ta\u015f\u0131nabilir bir cihaz olarak tan\u0131mlan\u0131r?",
+            "options": [
+                "Tablet",
+                "Diz\u00fcst\u00fc bilgisayar (laptop)",
+                "Ak\u0131ll\u0131 telefon",
+                "Yaz\u0131c\u0131"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-2",
+            "type": "multiple_choice",
+            "text": "Dijital dosya y\u00f6netiminde klas\u00f6rlerin ana amac\u0131 nedir?",
+            "options": [
+                "Wi-Fi'ye ba\u011flanmak",
+                "Dosyalar\u0131 d\u00fczenlemek ve depolamak",
+                "Daha h\u0131zl\u0131 e-posta g\u00f6ndermek",
+                "\u015eifre olu\u015fturmak"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-3",
+            "type": "multiple_choice",
+            "text": "Bir e-postan\u0131n hangi k\u0131sm\u0131, mesaj\u0131n ne hakk\u0131nda oldu\u011funu k\u0131saca a\u00e7\u0131klar?",
+            "options": [
+                "Ek dosya",
+                "Al\u0131c\u0131 alan\u0131",
+                "Konu sat\u0131r\u0131",
+                "\u0130mza"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "it-mc-4",
+            "type": "multiple_choice",
+            "text": "Dikkatli bir kullan\u0131c\u0131, bilinmeyen bir ba\u011flant\u0131 i\u00e7eren \u015f\u00fcpheli bir e-posta ald\u0131\u011f\u0131nda ne yapmal\u0131d\u0131r?",
+            "options": [
+                "Hemen t\u0131klamal\u0131",
+                "Arkada\u015flar\u0131yla payla\u015fmal\u0131",
+                "Uyar\u0131 i\u015faretlerini g\u00f6rmezden gelmeli",
+                "Harekete ge\u00e7meden \u00f6nce durup kontrol etmeli"
+            ],
+            "correctIndex": 3
+        },
+        {
+            "id": "it-tf-1",
+            "type": "true_false",
+            "text": "Dijital yeterlilik yaln\u0131zca operasyonel becerileri de\u011fil, ayn\u0131 zamanda ileti\u015fimi, i\u00e7erik olu\u015fturmay\u0131 ve \u00e7evrimi\u00e7i g\u00fcvenli\u011fi de i\u00e7erir.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-tf-2",
+            "type": "true_false",
+            "text": "Zay\u0131f bir \u015fifre, uzun ve \u00f6ng\u00f6r\u00fclemez bir \u015fifreden daha g\u00fcvenlidir.",
+            "correctAnswer": false
+        },
+        {
+            "id": "it-tf-3",
+            "type": "true_false",
+            "text": "\u0130nternet aramas\u0131, kullan\u0131c\u0131lar belirli anahtar kelimeler se\u00e7ti\u011finde daha etkili olur.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-match-1",
+            "type": "matching",
+            "text": "Her terimi do\u011fru tan\u0131m\u0131yla e\u015fle\u015ftirin.",
+            "pairs": [
+                {
+                    "id": "itm-1",
+                    "left": "Taray\u0131c\u0131 (browser)",
+                    "right": "Web sitelerine eri\u015fmek ve \u00e7evrimi\u00e7i arama yapmak i\u00e7in kullan\u0131lan bir program"
+                },
+                {
+                    "id": "itm-2",
+                    "left": "Donan\u0131m (hardware)",
+                    "right": "Bir cihaz\u0131n ekran, klavye veya pil gibi fiziksel par\u00e7alar\u0131"
+                },
+                {
+                    "id": "itm-3",
+                    "left": "Oltalama (phishing)",
+                    "right": "Kullan\u0131c\u0131lar\u0131 bilgi if\u015fa etmeye veya zararl\u0131 ba\u011flant\u0131lara t\u0131klamaya kand\u0131rmak i\u00e7in tasarlanm\u0131\u015f bir t\u00fcr \u00e7evrimi\u00e7i doland\u0131r\u0131c\u0131l\u0131k"
+                }
+            ]
+        }
+    ]
+}
