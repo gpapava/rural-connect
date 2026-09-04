@@ -1,0 +1,165 @@
+{
+    "questions": [
+        {
+            "id": "ps-mc-1",
+            "type": "multiple_choice",
+            "text": "Du s\u00f8ker p\u00e5 en jobb, men ser bare etter anmeldelser som sier at selskapet er bra, og ignorerer de negative. Hvilken kognitiv skjevhet er dette?",
+            "options": [
+                "Tapsaversjon",
+                "Bekreftelsesskjevhet",
+                "Ankereffekten",
+                "Gruppetenkning"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-mc-2",
+            "type": "multiple_choice",
+            "text": "Du g\u00e5r stadig glipp av tidsfrister p\u00e5 jobb og vil finne den virkelige \u00e5rsaken. Hvilken teknikk er mest nyttig?",
+            "options": [
+                "Id\u00e9myldring",
+                "SWOT-analyse",
+                "5 hvorfor-teknikken",
+                "Beslutningstre"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-3",
+            "type": "multiple_choice",
+            "text": "Du har hatt den samme krangelen med en samboer i flere uker. Du innser at den opprinnelige beskrivelsen av problemet (\u00abvi kommer bare ikke overens\u00bb) kanskje ikke er n\u00f8yaktig. Hvilken probleml\u00f8sningsteknikk b\u00f8r du bruke?",
+            "options": [
+                "Id\u00e9myldring",
+                "Kost-nytte-analyse",
+                "Omformulering (reframing)",
+                "De 5 hvorforene"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-4",
+            "type": "multiple_choice",
+            "text": "Du har v\u00e6rt fastl\u00e5st i et problem lenge. Du bestemmer deg for \u00e5 ta en kort spasertur og slutte \u00e5 tenke p\u00e5 det. Noen minutter senere dukker det opp en l\u00f8sning i tankene dine. Hvilket hjernesystem er mest ansvarlig for dette?",
+            "options": [
+                "Den prefrontale cortex",
+                "Basalgangliene",
+                "Standardmodusnettverket",
+                "Parietalbarken"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "ps-mc-5",
+            "type": "multiple_choice",
+            "text": "Marco blir stadig avvist etter jobbintervjuer. Han er ikke sikker p\u00e5 om problemet er CV-en hans, hvordan han forbereder seg, kommunikasjonsstilen hans eller selvtilliten hans. Hvilket verkt\u00f8y ville v\u00e6re mest nyttig for ham \u00e5 begynne med?",
+            "options": [
+                "Et sektordiagram for \u00e5 se hvor mye tid han bruker p\u00e5 hver forberedelsesaktivitet",
+                "Et fiskebeinsdiagram for \u00e5 kartlegge alle mulige \u00e5rsaker til avvisningene",
+                "Et spredningsdiagram for \u00e5 sammenligne poengsummene hans p\u00e5 pr\u00f8veintervjuer over tid",
+                "Et flytskjema for \u00e5 skissere trinnene i et typisk intervju"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-mc-6",
+            "type": "multiple_choice",
+            "text": "En gruppe studenter g\u00e5r stadig glipp av innleveringsfrister. De \u00f8nsker \u00e5 forst\u00e5 hvorfor dette skjer og fikse det for godt. Hva ville v\u00e6re den mest effektive tiln\u00e6rmingen?",
+            "options": [
+                "Hver person skriver en liste med unnskyldninger, og veilederen velger den mest fornuftige",
+                "Gruppen lager et fiskebeinsdiagram sammen for \u00e5 kartlegge alle mulige \u00e5rsaker, og lager deretter et flytskjema for den nye arbeidsflyten",
+                "Gruppen er enig om \u00e5 rett og slett pr\u00f8ve hardere neste gang",
+                "\u00c9n person lager et sektordiagram som viser hvordan arbeidet ble fordelt"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "ps-tf-1",
+            "type": "true_false",
+            "text": "N\u00e5r et problem er l\u00f8st, er beslutningsprosessen fullf\u00f8rt, og ingen nye problemer vil dukke opp.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-2",
+            "type": "true_false",
+            "text": "I id\u00e9myldring b\u00f8r du evaluere og kritisere hver id\u00e9 s\u00e5 snart den dukker opp, slik at du ikke kaster bort tid p\u00e5 de d\u00e5rlige.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-3",
+            "type": "true_false",
+            "text": "I l\u00f8pet av l\u00f8sningsgenereringsfasen b\u00f8r du umiddelbart filtrere ut ideer som virker urealistiske, slik at du ikke kaster bort tid p\u00e5 dem.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-4",
+            "type": "true_false",
+            "text": "Kronisk stress hjelper deg \u00e5 tenke klarere fordi det holder deg v\u00e5ken og fokusert.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-tf-5",
+            "type": "true_false",
+            "text": "Visuelle verkt\u00f8y som tankekart og diagrammer er hovedsakelig nyttige n\u00e5r du jobber alene.",
+            "correctAnswer": false
+        },
+        {
+            "id": "ps-match-1",
+            "type": "matching",
+            "text": "Koble hver fase til dens posisjon i probleml\u00f8sningsprosessen.",
+            "pairs": [
+                {
+                    "id": "psm1-1",
+                    "left": "Trinn 1",
+                    "right": "Definer problemet"
+                },
+                {
+                    "id": "psm1-2",
+                    "left": "Trinn 2",
+                    "right": "Analyser og del det opp"
+                },
+                {
+                    "id": "psm1-3",
+                    "left": "Trinn 3",
+                    "right": "Generer l\u00f8sninger"
+                },
+                {
+                    "id": "psm1-4",
+                    "left": "Trinn 4",
+                    "right": "Evaluer og velg"
+                },
+                {
+                    "id": "psm1-5",
+                    "left": "Trinn 5",
+                    "right": "Handle og overv\u00e5k"
+                }
+            ]
+        },
+        {
+            "id": "ps-match-2",
+            "type": "matching",
+            "text": "Koble hver hjerneregion til dens funksjon.",
+            "pairs": [
+                {
+                    "id": "psm2-1",
+                    "left": "Prefrontal cortex",
+                    "right": "Planlegger, organiserer, kontrollerer impulser"
+                },
+                {
+                    "id": "psm2-2",
+                    "left": "Det limbiske systemet",
+                    "right": "Bearbeider f\u00f8lelser og motivasjon"
+                },
+                {
+                    "id": "psm2-3",
+                    "left": "Basalgangliene",
+                    "right": "Justerer strategier basert p\u00e5 tilbakemeldinger"
+                },
+                {
+                    "id": "psm2-4",
+                    "left": "Standardmodusnettverket",
+                    "right": "Genererer kreative ideer under hvile"
+                }
+            ]
+        }
+    ]
+}

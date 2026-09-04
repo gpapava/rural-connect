@@ -1,0 +1,104 @@
+{
+    "questions": [
+        {
+            "id": "sa-mc-1",
+            "type": "multiple_choice",
+            "text": "Hva beskriver best selvbevissthet?",
+            "options": [
+                "\u00c5 vite hvordan man skal oppf\u00f8re seg i enhver situasjon",
+                "\u00c5 forst\u00e5 tanker, emosjoner og atferdsm\u00f8nstre",
+                "\u00c5 kontrollere f\u00f8lelsene sine til enhver tid",
+                "\u00c5 endre seg selv for \u00e5 m\u00f8te forventningene"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "sa-mc-2",
+            "type": "multiple_choice",
+            "text": "Under et jobbintervju merker Sofia at hendene hennes skjelver og at hun plutselig ikke klarer \u00e5 tenke klart. Etterp\u00e5 sier hun til seg selv at hun \u00abmislyktes helt\u00bb. Hvordan ville en selvbevisst reaksjon sett ut etter denne opplevelsen?",
+            "options": [
+                "Unng\u00e5 jobbintervjuer i fremtiden for \u00e5 slippe samme f\u00f8lelse",
+                "Konkludere med at hun ikke passer til noen jobb",
+                "Forst\u00e5 at angsten er en normal stressreaksjon og reflektere over hva hun kan gj\u00f8re annerledes neste gang",
+                "Late som intervjuet gikk bra og bare g\u00e5 videre"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-3",
+            "type": "multiple_choice",
+            "text": "Lukas vokste opp i et ruralt omr\u00e5de og har verken jobbet eller studert p\u00e5 over ett \u00e5r. N\u00e5r en nabo nevner en lokal oppl\u00e6ringsmulighet, tenker Lukas med en gang: \u00abJeg er ikke god nok for det.\u00bb Hvilket svar viser best selvbevissthet?",
+            "options": [
+                "V\u00e6re enig i tanken og unng\u00e5 temaet",
+                "Legge merke til tanken, forst\u00e5 at det er en fryktreaksjon, og likevel unders\u00f8ke oppl\u00e6ringen",
+                "Be naboen s\u00f8ke p\u00e5 hans vegne",
+                "Vente til han f\u00f8ler seg mer selvsikker f\u00f8r han gj\u00f8r noe"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "sa-mc-4",
+            "type": "multiple_choice",
+            "text": "Du f\u00e5r en tilbakemelding som overrasker deg. Hva er det mest selvbevisste svaret?",
+            "options": [
+                "\u00c5 forsvare oppf\u00f8rselen din umiddelbart",
+                "\u00c5 ignorere tilbakemeldingen",
+                "\u00c5 reflektere over hva den andre personen opplevde",
+                "\u00c5 anta at tilbakemeldingen er personlig kritikk"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-mc-5",
+            "type": "multiple_choice",
+            "text": "Hva fokuserer ekstern selvbevissthet p\u00e5?",
+            "options": [
+                "Hvordan andre b\u00f8r kommunisere med deg",
+                "Hvordan du \u00f8nsker \u00e5 bli oppfattet",
+                "Hvordan oppf\u00f8rselen din kan bli oppfattet av andre",
+                "Hvordan man kontrollerer interaksjoner"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "sa-tf-1",
+            "type": "true_false",
+            "text": "Selvbevissthet bidrar til \u00e5 redusere automatiske reaksjoner.",
+            "correctAnswer": true
+        },
+        {
+            "id": "sa-tf-2",
+            "type": "true_false",
+            "text": "Motivasjonen forblir den samme gjennom hele livet.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-tf-3",
+            "type": "true_false",
+            "text": "Emosjonell intelligens betyr \u00e5 unng\u00e5 f\u00f8lelser.",
+            "correctAnswer": false
+        },
+        {
+            "id": "sa-match-1",
+            "type": "matching",
+            "text": "Koble hvert begrep med riktig beskrivelse.",
+            "pairs": [
+                {
+                    "id": "sam-1",
+                    "left": "Emosjonell intelligens",
+                    "right": "\u00c5 gjenkjenne f\u00f8lelser og svare mer bevisst"
+                },
+                {
+                    "id": "sam-2",
+                    "left": "Personlig SWOT",
+                    "right": "Et verkt\u00f8y for \u00e5 reflektere over styrker, utfordringer, muligheter og barrierer"
+                },
+                {
+                    "id": "sam-3",
+                    "left": "Selvbevissthet",
+                    "right": "\u00c5 forst\u00e5 dine tanker, f\u00f8lelser og atferd"
+                }
+            ]
+        }
+    ]
+}

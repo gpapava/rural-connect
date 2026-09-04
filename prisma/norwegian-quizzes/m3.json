@@ -1,0 +1,116 @@
+{
+    "questions": [
+        {
+            "id": "tw-mc-1",
+            "type": "multiple_choice",
+            "text": "Hvilket av f\u00f8lgende beskriver best forskjellen mellom en gruppe og et team?",
+            "options": [
+                "Et team er alltid st\u00f8rre enn en gruppe",
+                "En gruppe har en leder og et team har ikke det",
+                "Et team har et felles m\u00e5l og gjensidig ansvarlighet, mens en gruppe rett og slett er mennesker p\u00e5 samme sted",
+                "Det er ingen reell forskjell, ordene betyr det samme"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-1",
+            "type": "true_false",
+            "text": "Psykologisk trygghet betyr at teammedlemmer f\u00f8ler at de kan si ifra, gj\u00f8re feil eller dele ideer uten \u00e5 bli d\u00f8mt.",
+            "correctAnswer": true
+        },
+        {
+            "id": "tw-mc-2",
+            "type": "multiple_choice",
+            "text": "Hvilket av f\u00f8lgende er et eksempel p\u00e5 en kommunikasjonsbarriere i et team?",
+            "options": [
+                "Alle i teamet vet n\u00f8yaktig hva de m\u00e5 gj\u00f8re",
+                "\u00c9n person sender en lang melding som dekker \u00e5tte forskjellige punkter, og teamet ender opp med \u00e5 bli forvirret over hva som egentlig blir spurt om",
+                "Teamet har en kort innsjekking i starten av hver \u00f8kt",
+                "Teammedlemmer stiller oppklarende sp\u00f8rsm\u00e5l f\u00f8r de svarer"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "tw-mc-3",
+            "type": "multiple_choice",
+            "text": "Kommunikasjonssiloer i et team oppst\u00e5r n\u00e5r:",
+            "options": [
+                "Teamet bruker for mange forskjellige kommunikasjonsapper",
+                "Folk sender meldinger som er for korte til \u00e5 v\u00e6re nyttige",
+                "Undergrupper i teamet slutter \u00e5 dele informasjon med hverandre, noe som f\u00f8rer til duplisering og tapte forbindelser",
+                "Teamlederen gj\u00f8r all kommunikasjonen p\u00e5 vegne av alle andre"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-4",
+            "type": "multiple_choice",
+            "text": "Under en id\u00e9myldring foresl\u00e5r et teammedlem en id\u00e9 som virker urealistisk. Hva er det beste svaret?",
+            "options": [
+                "P\u00e5pek umiddelbart hvorfor det ikke vil fungere, for \u00e5 spare tid",
+                "Ignorer det og g\u00e5 videre",
+                "Skriv det ned sammen med alt annet. \u00c5 d\u00f8mme ideer under generering sl\u00e5r folk av",
+                "Be personen tenke mer gjennom det, og kom tilbake til gruppen senere"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-mc-5",
+            "type": "multiple_choice",
+            "text": "Hva er stormfasen (Storming) if\u00f8lge Tuckmans modell?",
+            "options": [
+                "Fasen der teamet er mest produktivt og jobber best mulig",
+                "Den aller f\u00f8rste fasen, n\u00e5r folk blir kjent med hverandre",
+                "Stadiet der forskjeller og uenigheter kommer til overflaten, noe som er normalt og n\u00f8dvendig for at et team skal utvikle seg",
+                "Den siste fasen, n\u00e5r teamet avsluttes ved slutten av et prosjekt"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-tf-2",
+            "type": "true_false",
+            "text": "Norming-stadiet i Tuckmans modell kommer f\u00f8r Storming-stadiet.",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-tf-3",
+            "type": "true_false",
+            "text": "Et team som aldri er uenige er sannsynligvis et tegn p\u00e5 en sunn og velfungerende gruppe.",
+            "correctAnswer": false
+        },
+        {
+            "id": "tw-mc-6",
+            "type": "multiple_choice",
+            "text": "Hvilket av f\u00f8lgende beskriver best et produktivt team?",
+            "options": [
+                "Et team som aldri trenger \u00e5 ha vanskelige samtaler",
+                "Et team der \u00e9n person gj\u00f8r mesteparten av arbeidet, slik at de andre ikke henger etter",
+                "Et team som sjekker inn regelmessig, anerkjenner bidrag og reflekterer over hva som fungerer og ikke fungerer",
+                "Et team som har v\u00e6rt sammen lenge og kjenner hverandre sosialt"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "tw-match-1",
+            "type": "matching",
+            "text": "Koble hvert begrep med riktig beskrivelse.",
+            "pairs": [
+                {
+                    "id": "twm-1",
+                    "left": "Psykologisk trygghet",
+                    "right": "F\u00f8lelsen i et team av at man kan si ifra, v\u00e6re uenig eller gj\u00f8re en feil uten \u00e5 bli straffet eller d\u00f8mt"
+                },
+                {
+                    "id": "twm-2",
+                    "left": "SBI",
+                    "right": "En strukturert m\u00e5te \u00e5 gi tilbakemelding p\u00e5 som holder den faktabasert: situasjonen (Situation), atferden (Behaviour) og effekten (Impact) den hadde"
+                },
+                {
+                    "id": "twm-3",
+                    "left": "Utf\u00f8rer (Performing)",
+                    "right": "Stadiet i Tuckmans modell der teamet jobber flytende, kreativt og p\u00e5 sitt beste"
+                }
+            ]
+        }
+    ]
+}

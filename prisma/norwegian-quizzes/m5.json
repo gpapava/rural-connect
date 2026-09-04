@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "it-mc-1",
+            "type": "multiple_choice",
+            "text": "Hvilken av f\u00f8lgende beskrives som en b\u00e6rbar enhet med lignende funksjoner som en stasjon\u00e6r datamaskin?",
+            "options": [
+                "Tablet",
+                "Laptop (b\u00e6rbar datamaskin)",
+                "Smarttelefon",
+                "Skriver"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-2",
+            "type": "multiple_choice",
+            "text": "Hva er hovedform\u00e5let med mapper i digital filbehandling?",
+            "options": [
+                "\u00c5 koble til Wi-Fi",
+                "\u00c5 organisere og lagre filer",
+                "\u00c5 sende e-poster raskere",
+                "\u00c5 lage passord"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "it-mc-3",
+            "type": "multiple_choice",
+            "text": "Hvilken del av en e-post gir en kort beskrivelse av hva meldingen handler om?",
+            "options": [
+                "Vedlegget",
+                "Mottakerfeltet",
+                "Emnelinjen",
+                "Signaturen"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "it-mc-4",
+            "type": "multiple_choice",
+            "text": "Hva b\u00f8r en forsiktig bruker gj\u00f8re n\u00e5r de mottar en mistenkelig e-post med en ukjent lenke?",
+            "options": [
+                "Klikke p\u00e5 den umiddelbart",
+                "Dele den med venner",
+                "Ignorere varselsignaler",
+                "Ta en pause og sjekke den f\u00f8r man handler"
+            ],
+            "correctIndex": 3
+        },
+        {
+            "id": "it-tf-1",
+            "type": "true_false",
+            "text": "Digital kompetanse inkluderer ikke bare operative ferdigheter, men ogs\u00e5 kommunikasjon, innholdsproduksjon og nettsikkerhet.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-tf-2",
+            "type": "true_false",
+            "text": "Et svakt passord er tryggere enn et langt og uforutsigbart passord.",
+            "correctAnswer": false
+        },
+        {
+            "id": "it-tf-3",
+            "type": "true_false",
+            "text": "Internett-s\u00f8k er mer effektivt n\u00e5r brukere velger spesifikke n\u00f8kkelord.",
+            "correctAnswer": true
+        },
+        {
+            "id": "it-match-1",
+            "type": "matching",
+            "text": "Koble hvert begrep med riktig beskrivelse.",
+            "pairs": [
+                {
+                    "id": "itm-1",
+                    "left": "Nettleser (browser)",
+                    "right": "Et program brukt for \u00e5 f\u00e5 tilgang til nettsider og s\u00f8ke p\u00e5 nettet"
+                },
+                {
+                    "id": "itm-2",
+                    "left": "Maskinvare (hardware)",
+                    "right": "De fysiske delene av en enhet, som skjermen, tastaturet eller batteriet"
+                },
+                {
+                    "id": "itm-3",
+                    "left": "Phishing",
+                    "right": "En type nettbasert svindel designet for \u00e5 lure brukere til \u00e5 avsl\u00f8re informasjon eller klikke p\u00e5 skadelige lenker"
+                }
+            ]
+        }
+    ]
+}

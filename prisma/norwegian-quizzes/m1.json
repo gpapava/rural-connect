@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "q1",
+            "type": "multiple_choice",
+            "text": "If\u00f8lge \u00abdet rurale tidsparadokset\u00bb, hva er en av de viktigste utfordringene for en ung person i et ruralt omr\u00e5de?",
+            "options": [
+                "\u00c5 ha for mange jobbtilbud \u00e5 velge mellom.",
+                "Konflikten mellom \u00e5 ha \u00aball verdens tid\u00bb og realiteten at enkle oppgaver tar mye lengre tid p\u00e5 grunn av avstand.",
+                "\u00c5 ha konstant tilgang til h\u00f8yhastighets kollektivtransport.",
+                "Mangelen p\u00e5 digitale distraksjoner."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q2",
+            "type": "multiple_choice",
+            "text": "Hvilken kvadrant i Eisenhower-matrisen er kjent som \u00abvekstsonen\u00bb, der du b\u00f8r bruke 60\u201380 % av tiden din?",
+            "options": [
+                "Kvadrant 1: Haster og er viktig.",
+                "Kvadrant 3: Haster, men er ikke viktig.",
+                "Kvadrant 2: Haster ikke, men er viktig.",
+                "Kvadrant 4: Verken haster eller er viktig."
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "q3",
+            "type": "multiple_choice",
+            "text": "Hva st\u00e5r \u00abA\u00bb for i SMART-m\u00e5lrammeverket, spesielt viktig i en rural kontekst?",
+            "options": [
+                "Akademisk (Academic).",
+                "Oppn\u00e5elig (Achievable).",
+                "Anonym (Anonymous).",
+                "Aggressiv (Aggressive)."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q4",
+            "type": "multiple_choice",
+            "text": "Hva er hovedm\u00e5let med \u00abPomodoro-teknikken\u00bb?",
+            "options": [
+                "\u00c5 jobbe i 5 timer uten pauser.",
+                "\u00c5 h\u00e5ndtere energi og opprettholde fokus ved \u00e5 jobbe i 25-minutters intervaller etterfulgt av korte pauser.",
+                "\u00c5 ignorere alle tidsfrister.",
+                "\u00c5 erstatte digitale verkt\u00f8y med analoge klokker."
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "q5",
+            "type": "true_false",
+            "text": "Prokrastinering er hovedsakelig et problem med latskap og mangel p\u00e5 viljestyrke.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q6",
+            "type": "true_false",
+            "text": "\u00abOppmerksomhetsrester\u00bb oppst\u00e5r n\u00e5r du bytter oppgaver, og en del av fokuset ditt forblir p\u00e5 den forrige oppgaven i flere minutter.",
+            "correctAnswer": true
+        },
+        {
+            "id": "q7",
+            "type": "true_false",
+            "text": "\u00abUkentlig gjennomgang\u00bb b\u00f8r gj\u00f8res \u00e9n gang i m\u00e5neden for \u00e5 v\u00e6re effektiv.",
+            "correctAnswer": false
+        },
+        {
+            "id": "q8",
+            "type": "matching",
+            "text": "Koble hvert begrep med riktig beskrivelse.",
+            "pairs": [
+                {
+                    "id": "p1",
+                    "left": "Spis den frosken (Eat That Frog)",
+                    "right": "Vanen med \u00e5 identifisere din vanskeligste og viktigste oppgave og fullf\u00f8re den f\u00f8rst om morgenen for \u00e5 unng\u00e5 prokrastinering."
+                },
+                {
+                    "id": "p2",
+                    "left": "Flow State (flyttilstand)",
+                    "right": "En mental tilstand der en person er fullstendig oppslukt i en aktivitet, med fokus og glede, og mister tidsf\u00f8lelsen."
+                },
+                {
+                    "id": "p3",
+                    "left": "Tidsblokkering (Time Blocking)",
+                    "right": "En produktivitetsteknikk der du planlegger bestemte \u00abtidsblokker\u00bb i kalenderen for konkrete oppgaver, som faste avtaler."
+                }
+            ]
+        }
+    ]
+}

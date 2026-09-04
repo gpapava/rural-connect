@@ -1,0 +1,92 @@
+{
+    "questions": [
+        {
+            "id": "co-mc-1",
+            "type": "multiple_choice",
+            "text": "Hvilken av f\u00f8lgende beskriver best kommunikasjon slik den presenteres i denne modulen?",
+            "options": [
+                "En ferdighet som kun brukes i formelle arbeidsmilj\u00f8er",
+                "En prosess som inkluderer \u00e5 snakke, lytte, forst\u00e5 og svare i ulike sammenhenger",
+                "Et fast talent som folk enten har eller ikke har",
+                "En uttrykksform basert kun p\u00e5 talespr\u00e5k"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-2",
+            "type": "multiple_choice",
+            "text": "Hva er hovedforskjellen mellom h\u00f8rsel og aktiv lytting?",
+            "options": [
+                "H\u00f8rsel krever \u00f8yekontakt, men aktiv lytting gj\u00f8r det ikke",
+                "H\u00f8rsel er passiv, mens aktiv lytting inneb\u00e6rer oppmerksomhet, forst\u00e5else og tilbakemelding",
+                "H\u00f8rsel er viktigere i samarbeid enn aktiv lytting",
+                "Aktiv lytting skjer kun i formelle intervjuer"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-mc-3",
+            "type": "multiple_choice",
+            "text": "Hvilket av f\u00f8lgende er et eksempel p\u00e5 ikke-verbal kommunikasjon?",
+            "options": [
+                "Skrive en e-post",
+                "Gi en detaljert forklaring",
+                "Ansiktsuttrykk og holdning",
+                "Bruke formelt vokabular"
+            ],
+            "correctIndex": 2
+        },
+        {
+            "id": "co-mc-4",
+            "type": "multiple_choice",
+            "text": "Hvilket utsagn beskriver best assertiv kommunikasjon?",
+            "options": [
+                "Unng\u00e5 uenighet for \u00e5 bevare fred",
+                "Uttrykke tanker og behov klart og respektfullt",
+                "Snakke h\u00f8yt for \u00e5 sikre at andre lytter",
+                "La andre bestemme alt"
+            ],
+            "correctIndex": 1
+        },
+        {
+            "id": "co-tf-1",
+            "type": "true_false",
+            "text": "Empati betyr \u00e5 forst\u00e5 en annens f\u00f8lelser og perspektiv, selv om du ikke er helt enig i dem.",
+            "correctAnswer": true
+        },
+        {
+            "id": "co-tf-2",
+            "type": "true_false",
+            "text": "I teamarbeid betyr konflikt alltid at kommunikasjonen har sviktet fullstendig.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-tf-3",
+            "type": "true_false",
+            "text": "Digital kommunikasjon er mindre viktig enn ansikt-til-ansikt-kommunikasjon i arbeids- og jobbs\u00f8kingskontekster.",
+            "correctAnswer": false
+        },
+        {
+            "id": "co-match-1",
+            "type": "matching",
+            "text": "Koble hvert begrep med riktig beskrivelse.",
+            "pairs": [
+                {
+                    "id": "com-1",
+                    "left": "Paraverbal kommunikasjon",
+                    "right": "M\u00e5ten noe sies p\u00e5, inkludert tone, tempo, toneh\u00f8yde og volum"
+                },
+                {
+                    "id": "com-2",
+                    "left": "Grenser",
+                    "right": "Personlige grenser som hjelper individer \u00e5 kommunisere hva som er akseptabelt, respektfullt eller komfortabelt"
+                },
+                {
+                    "id": "com-3",
+                    "left": "Samarbeidskommunikasjon",
+                    "right": "Koordinert interaksjon som st\u00f8tter samarbeid, rolleklarhet og probleml\u00f8sning i en gruppe"
+                }
+            ]
+        }
+    ]
+}
