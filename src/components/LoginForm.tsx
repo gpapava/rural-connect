@@ -13,7 +13,6 @@ interface LoginFormProps {
 
 export default function LoginForm({ locale }: LoginFormProps) {
   const t = useTranslations("auth");
-  const tRoles = useTranslations("common.roles");
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -144,26 +143,6 @@ export default function LoginForm({ locale }: LoginFormProps) {
           )}
         </button>
       </form>
-
-      <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <p className="mb-2 text-xs font-medium text-gray-500 uppercase tracking-wide">
-          {t("demoAccounts")}
-        </p>
-        <div className="space-y-1.5 text-xs text-gray-600">
-          <div className="flex justify-between">
-            <span className="font-medium">{tRoles("NEET_USER")}:</span>
-            <span>user@ruralconnect.eu / neet123</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="font-medium">{tRoles("COUNSELOR")}:</span>
-            <span>counselor@ruralconnect.eu / counselor123</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="font-medium">{tRoles("ADMIN")}:</span>
-            <span>admin@ruralconnect.eu / admin123</span>
-          </div>
-        </div>
-      </div>
 
       {/* Employer link */}
       <div className="mt-6 border-t border-gray-100 pt-5 text-center">

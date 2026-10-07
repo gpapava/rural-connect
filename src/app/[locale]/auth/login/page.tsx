@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
 import LoginForm from "@/components/LoginForm";
+import LoginLanguageSelect from "@/components/LoginLanguageSelect";
 
 interface LoginPageProps {
   params: { locale: string };
@@ -81,6 +82,9 @@ export default async function LoginPage({ params: { locale } }: LoginPageProps) 
       {/* Right panel - login form */}
       <div className="flex w-full lg:w-1/2 flex-col items-center justify-center bg-white p-8">
         <div className="w-full max-w-md">
+          <div className="mb-6 flex justify-end">
+            <LoginLanguageSelect locale={locale} />
+          </div>
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1a73e8]">
               <svg
