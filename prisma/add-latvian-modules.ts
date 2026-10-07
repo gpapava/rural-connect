@@ -37,13 +37,13 @@ const modules: ModuleSeed[] = [
     order: 1,
     title: "1. Laika plānošana",
     description:
-      "<p>Šis modulis piedāvā visaptverošu ceļvedi, lai lauku apvidu jaunie NEET jaunieši atgūtu kontroli pār savu ikdienu. Vidē, kur strukturēta nodarbinātība ir reta, laiks var kļūt vai nu par ienaidnieku (novedot pie izolācijas un apātijas), vai par stratēģisku sabiedroto. Mēs izpētām pāreju no pasīvas eksistences uz aktīvu pašpārvaldi, koncentrējoties uz lauku vides specifiskajām loģistikas un psiholoģiskajām barjerām.</p>",
+      "<p>Šis modulis piedāvā visaptverošu ceļvedi, lai lauku apvidu NEET jaunieši atgūtu kontroli pār savu ikdienu. Vidē, kur strukturēta nodarbinātība ir reta, laiks var kļūt vai nu par ienaidnieku (novedot pie izolācijas un apātijas), vai par stratēģisku sabiedroto. Mēs izpētām pāreju no pasīvas eksistences uz aktīvu pašpārvaldi, koncentrējoties uz lauku vides specifiskajām loģistikas un psiholoģiskajām barjerām.</p>",
     lessons: [
       {
         type: "PDF",
         title: "Mācību materiāls – Laika plānošana",
         description:
-          "<p>Pilnais 1. moduļa rokasgrāmata. Izejiet cauri četrām apakšvienībām: Lauku laika paradokss, SMART/PURE mērķu izvirzīšana, Eizenhauera matrica un prokrastinācijas pārvarēšana.</p>",
+          "<p>1. moduļa rokasgrāmata. Izejiet cauri četrām nodaļām: Lauku laika paradokss, SMART/PURE mērķu izvirzīšana, Eizenhauera matrica un prokrastinācijas pārvarēšana.</p>",
         content: "/api/uploads/pdfs/module-lv-1-time-management-1788510855591.pdf",
       },
       {
@@ -57,7 +57,7 @@ const modules: ModuleSeed[] = [
         type: "QUIZ",
         title: "Pašnovērtējuma tests",
         description:
-          "<p>Pārbaudiet savu izpratni par 1. moduli. Jautājumi ar atbilžu variantiem, patiesi/nepatiesi un savienošanas jautājumi — varat to atkārtot tik reižu, cik vēlaties.</p>",
+          "<p>Pārbaudiet savu izpratni par 1. moduli. Iekļauti jautājumi ar dažādiem atbilžu variantiem, patiesi/nepatiesi izvēlēm un savienošanas jautājumi. Testu varat atkārtot tik reižu, cik vēlaties.</p>",
         content: quiz("m1"),
       },
     ],
@@ -72,7 +72,7 @@ const modules: ModuleSeed[] = [
         type: "PDF",
         title: "Mācību materiāls – Problēmu risināšana",
         description:
-          "<p>Pilnais 2. moduļa rokasgrāmata. Izejiet cauri sešām vienībām — kas ir problēmu risināšana un kāpēc tā ir svarīga, lēmumu pieņemšana, praktiski analīzes rīki, kognitīvās kļūdas, kas veido mūsu domāšanu, smadzenes un problēmu risināšana, un piecu soļu problēmu risināšanas process.</p>",
+          "<p>2. moduļa rokasgrāmata. Izejiet cauri sešām vienībām — kas ir problēmu risināšana un kāpēc tā ir svarīga, lēmumu pieņemšana, praktiski analīzes rīki, kognitīvās kļūdas, kas veido mūsu domāšanu, smadzenes un problēmu risināšana, un piecu soļu problēmu risināšanas process.</p>",
         content: "/api/uploads/pdfs/module-lv-2-problem-solving-1788510856882.pdf",
       },
       {
@@ -101,7 +101,7 @@ const modules: ModuleSeed[] = [
         type: "PDF",
         title: "Mācību materiāls – Komandas darbs",
         description:
-          "<p>Pilnais 3. moduļa rokasgrāmata. Sekojiet komandai cauri sešām apakšvienībām — komandas un grupas, komunikācija un tās izaicinājumi, sadarbības prasmes, pieci komandas attīstības posmi, domstarpību risināšana un komandas produktivitāte un panākumi.</p>",
+          "<p>3. moduļa rokasgrāmata. Sekojiet komandai cauri sešām nodaļām — komandas un grupas, komunikācija un tās izaicinājumi, sadarbības prasmes, pieci komandas attīstības posmi, domstarpību risināšana un komandas produktivitāte un panākumi.</p>",
         content: "/api/uploads/pdfs/module-lv-3-team-work-1788510858756.pdf",
       },
       {
@@ -130,7 +130,7 @@ const modules: ModuleSeed[] = [
         type: "PDF",
         title: "Mācību materiāls – Komunikācija",
         description:
-          "<p>Pilnais 4. moduļa rokasgrāmata — komunikācijas process, verbālā, neverbālā un paraverbālā komunikācija, aktīvā klausīšanās, asertivitāte un robežas, komunikācijas barjeras, pielāgošanās dažādām auditorijām un profesionālā un digitālā komunikācija.</p>",
+          "<p>4. moduļa rokasgrāmata — komunikācijas process, verbālā, neverbālā un paraverbālā komunikācija, aktīvā klausīšanās, asertivitāte un robežas, komunikācijas barjeras, pielāgošanās dažādām auditorijām un profesionālā un digitālā komunikācija.</p>",
         content: "/api/uploads/pdfs/module-lv-4-communication-1788510859504.pdf",
       },
       {
@@ -159,7 +159,7 @@ const modules: ModuleSeed[] = [
         type: "PDF",
         title: "Mācību materiāls – Pamata IT prasmes",
         description:
-          "<p>Pilnais 5. moduļa rokasgrāmata — digitālās ierīces un datora pamatlietošana, failu pārvaldība, interneta lietošana un meklēšana, e-pasts un tiešsaistes komunikācija, dokumentu izveide, piekļuve tiešsaistes pakalpojumiem un digitālo tehnoloģiju droša, atbildīga lietošana.</p>",
+          "<p>5. moduļa rokasgrāmata — digitālās ierīces un datora pamatlietošana, failu pārvaldība, interneta lietošana un meklēšana, e-pasts un tiešsaistes komunikācija, dokumentu izveide, piekļuve tiešsaistes pakalpojumiem un digitālo tehnoloģiju droša, atbildīga lietošana.</p>",
         content: "/api/uploads/pdfs/module-lv-5-basic-it-skills-1788510860392.pdf",
       },
       {
@@ -188,7 +188,7 @@ const modules: ModuleSeed[] = [
         type: "PDF",
         title: "Mācību materiāls – Pašapziņa",
         description:
-          "<p>Pilnais 6. moduļa rokasgrāmata — pašapziņas izpratne, emocijas un pašregulācija, stiprās puses, vērtības un motivācija, pašapziņa darba tirgū, komunikācija un ārējā pašapziņa, un pāreja no pašapziņas uz darbību.</p>",
+          "<p>6. moduļa rokasgrāmata — pašapziņas izpratne, emocijas un pašregulācija, stiprās puses, vērtības un motivācija, pašapziņa darba tirgū, komunikācija un ārējā pašapziņa, un pāreja no pašapziņas uz darbību.</p>",
         content: "/api/uploads/pdfs/module-lv-6-self-awareness-1788510861387.pdf",
       },
       {
