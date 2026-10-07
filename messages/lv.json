@@ -562,6 +562,7 @@
       "title": "Lietotāju pārvaldība",
       "registeredUsers": "{count, plural, one {# reģistrēts lietotājs} other {# reģistrēti lietotāji}}",
       "newUser": "Jauns lietotājs",
+      "requireChange": "Pieprasīt, lai lietotājs pirmajā pieteikšanās reizē iestata savu paroli (augstāk norādītā parole ir tikai pagaidu)",
       "importTitle": "Reģistrēt NEET jauniešus no faila",
       "importBadge": "Excel / CSV",
       "importHint": "Augšupielādējiet Excel (.xlsx) vai CSV failu (piem., Google Form eksportu) ar kolonnām name un email (neobligāti: country, language). Visi saņem vienu un to pašu vienreizējo paroli un pirmajā pieteikšanās reizē izveido savu.",

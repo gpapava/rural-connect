@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
   if (!session || session.user.role !== "ADMIN")
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { name, email, password, role, country, language } = await req.json();
+  const { name, email, password, role, country, language, requireChange } = await req.json();
 
   if (!name?.trim() || !email?.trim() || !password?.trim() || !role)
     return NextResponse.json({ error: "Name, email, password and role are required." }, { status: 400 });
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
   const passwordHash = await bcrypt.hash(password, 12);
 
   const user = await prisma.user.create({
-    data: { name: name.trim(), email: email.trim().toLowerCase(), passwordHash, role, country: country?.trim() || null, language: language || "en" },
+    data: { name: name.trim(), email: email.trim().toLowerCase(), passwordHash, role, country: country?.trim() || null, language: language || "en", mustChangePassword: role === "NEET_USER" && requireChange === true },
     select: { id: true, name: true, email: true, role: true, country: true, language: true, createdAt: true },
   });
 

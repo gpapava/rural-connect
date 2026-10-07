@@ -562,6 +562,7 @@
       "title": "Brukeradministrasjon",
       "registeredUsers": "{count, plural, one {# registrert bruker} other {# registrerte brukere}}",
       "newUser": "Ny bruker",
+      "requireChange": "Krev at brukeren velger sitt eget passord ved første innlogging (passordet over er da bare midlertidig)",
       "importTitle": "Registrer NEET-ungdom fra en fil",
       "importBadge": "Excel / CSV",
       "importHint": "Last opp en Excel-fil (.xlsx) eller CSV-fil (f.eks. eksportert fra Google Forms) med kolonnene name og email (valgfritt: country, language). Alle får samme engangspassord og må opprette sitt eget ved første innlogging.",

@@ -562,6 +562,7 @@
       "title": "User Management",
       "registeredUsers": "{count, plural, one {# registered user} other {# registered users}}",
       "newUser": "New User",
+      "requireChange": "Require the user to set their own password on first login (the password above is then only temporary)",
       "importTitle": "Register NEETs from a file",
       "importBadge": "Excel / CSV",
       "importHint": "Upload an Excel (.xlsx) or CSV file (e.g. exported from a Google Form) with the columns name and email (optional: country, language). Everyone gets the same one-time password and must create their own on first login.",

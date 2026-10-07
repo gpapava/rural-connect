@@ -35,7 +35,7 @@ const ROLE_ICON: Record<UserRole, React.ElementType> = {
   NEET_USER: User,
 };
 
-const EMPTY_FORM = { name: "", email: "", password: "", role: "NEET_USER" as UserRole, country: "", language: "en" };
+const EMPTY_FORM = { name: "", email: "", password: "", role: "NEET_USER" as UserRole, country: "", language: "en", requireChange: true };
 
 type InviteRow = { id: string; email: string; token: string; used: boolean; expiresAt: Date; createdAt: Date };
 
@@ -363,6 +363,17 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                 ))}
               </select>
             </div>
+            {form.role === "NEET_USER" && (
+              <label className="flex cursor-pointer items-start gap-2 sm:col-span-2">
+                <input
+                  type="checkbox"
+                  checked={form.requireChange}
+                  onChange={(e) => setForm((f) => ({ ...f, requireChange: e.target.checked }))}
+                  className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#1a73e8] focus:ring-[#1a73e8]"
+                />
+                <span className="text-sm text-gray-700">{t("requireChange")}</span>
+              </label>
+            )}
           </div>
 
           <div className="mt-5 flex justify-end gap-3">

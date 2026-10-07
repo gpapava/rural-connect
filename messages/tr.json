@@ -562,6 +562,7 @@
       "title": "Kullanıcı Yönetimi",
       "registeredUsers": "{count, plural, one {# kayıtlı kullanıcı} other {# kayıtlı kullanıcı}}",
       "newUser": "Yeni Kullanıcı",
+      "requireChange": "Kullanıcıdan ilk girişte kendi şifresini belirlemesini iste (yukarıdaki şifre yalnızca geçici olur)",
       "importTitle": "NEET'leri dosyadan kaydedin",
       "importBadge": "Excel / CSV",
       "importHint": "name ve email sütunlarını (isteğe bağlı: country, language) içeren bir Excel (.xlsx) veya CSV dosyası (ör. Google Form dışa aktarımı) yükleyin. Herkes aynı tek kullanımlık şifreyi alır ve ilk girişte kendi şifresini oluşturmalıdır.",

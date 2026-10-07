@@ -562,6 +562,7 @@
       "title": "Gestione Utenti",
       "registeredUsers": "{count, plural, one {# utente registrato} other {# utenti registrati}}",
       "newUser": "Nuovo Utente",
+      "requireChange": "Richiedi all'utente di impostare la propria password al primo accesso (la password sopra è quindi solo temporanea)",
       "importTitle": "Registra NEET da un file",
       "importBadge": "Excel / CSV",
       "importHint": "Carica un file Excel (.xlsx) o CSV (es. esportato da Google Form) con le colonne name ed email (facoltativo: country, language). Tutti ricevono la stessa password monouso e devono crearne una propria al primo accesso.",
