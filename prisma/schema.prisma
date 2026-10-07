@@ -49,6 +49,8 @@ model User {
   language         String   @default("en")
   neetDeclaration  Boolean  @default(false)
   gdprConsent      Boolean  @default(false)
+  // true for bulk-imported users until they set their own password on first login
+  mustChangePassword Boolean @default(false)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 

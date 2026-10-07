@@ -18,6 +18,7 @@ const protectedPathPrefixes = [
 ];
 
 const authPathPrefixes = ["/auth/login"];
+const changePasswordPath = "/auth/change-password";
 
 function getPathnameWithoutLocale(pathname: string): string {
   for (const locale of locales) {
@@ -51,13 +52,22 @@ export default async function middleware(request: NextRequest) {
         new URL(`/${locale}/auth/login`, request.url)
       );
     }
+    // Bulk-imported users must set their own password before using the platform
+    if (session.user?.mustChangePassword) {
+      return NextResponse.redirect(
+        new URL(`/${locale}${changePasswordPath}`, request.url)
+      );
+    }
   }
 
   if (isAuthPath) {
     const session = await auth();
     if (session) {
       return NextResponse.redirect(
-        new URL(`/${locale}/dashboard`, request.url)
+        new URL(
+          `/${locale}${session.user?.mustChangePassword ? changePasswordPath : "/dashboard"}`,
+          request.url
+        )
       );
     }
   }

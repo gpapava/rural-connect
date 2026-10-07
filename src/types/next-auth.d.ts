@@ -7,6 +7,7 @@ declare module "next-auth" {
     role: UserRole;
     language: string;
     country: string | null;
+    mustChangePassword?: boolean;
   }
 
   interface Session {
@@ -17,6 +18,7 @@ declare module "next-auth" {
       role: UserRole;
       language: string;
       country: string | null;
+      mustChangePassword: boolean;
     };
   }
 }
@@ -27,5 +29,6 @@ declare module "next-auth/jwt" {
     role: UserRole;
     language: string;
     country: string | null;
+    mustChangePassword?: boolean;
   }
 }

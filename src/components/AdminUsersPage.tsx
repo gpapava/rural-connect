@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
 import { UserRole } from "@prisma/client";
+import ImportNeetsPanel from "@/components/ImportNeetsPanel";
 
 type UserRow = {
   id: string;
@@ -174,6 +175,9 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
           {t("newUser")}
         </button>
       </div>
+
+      {/* Bulk NEET import (Excel / CSV) */}
+      <ImportNeetsPanel />
 
       {/* Counsellor Invite Panel */}
       <div className="mb-6 rounded-xl border border-green-200 bg-green-50">
