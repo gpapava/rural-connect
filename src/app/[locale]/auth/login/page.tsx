@@ -26,19 +26,19 @@ export default async function LoginPage({ params: { locale } }: LoginPageProps) 
   return (
     <div className="flex min-h-screen">
       {/* Left panel - branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#0f3d47] flex-col items-center p-12 text-white">
+      <div className="hidden lg:flex lg:w-1/2 bg-[#0f3d47] flex-col items-center px-12 py-8 text-white">
         <div className="flex w-full flex-1 items-center justify-center">
         <div className="max-w-md text-center">
-          <div className="mb-8 flex flex-col items-center justify-center gap-4">
-            <BrandMark className="h-28 w-28" rounded="rounded-3xl" />
+          <div className="mb-5 flex flex-col items-center justify-center gap-3">
+            <BrandMark className="h-36 w-36" rounded="rounded-3xl" />
             <span className="text-2xl font-bold tracking-wider">
               RURAL-CONNECT
             </span>
           </div>
-          <h2 className="mb-4 text-3xl font-bold leading-tight">
+          <h2 className="mb-3 text-3xl font-bold leading-tight">
             {t("brandTagline")}
           </h2>
-          <p className="mb-8 text-slate-300 leading-relaxed">
+          <p className="mb-5 text-slate-300 leading-relaxed">
             {t("brandDescription")}
           </p>
           <div className="grid grid-cols-3 gap-6 text-center">
@@ -55,7 +55,7 @@ export default async function LoginPage({ params: { locale } }: LoginPageProps) 
               <div className="mt-1 text-xs text-slate-400">{t("statSupport")}</div>
             </div>
           </div>
-          <div className="mt-10 flex flex-wrap justify-center gap-2">
+          <div className="mt-6 hidden flex-wrap justify-center gap-2 [@media(min-height:900px)]:flex">
             {COUNTRY_CODES.map((code) => (
               <span
                 key={code}

@@ -21,17 +21,17 @@ export default function LoginLanguageSelect({
     <div className="flex flex-col items-end gap-1.5">
       <label
         htmlFor="login-language"
-        className="text-xs font-medium uppercase tracking-wide text-gray-500"
+        className="text-sm font-semibold uppercase tracking-wide text-gray-800"
       >
         {t("chooseLanguage")}
       </label>
       <div className="relative inline-flex items-center">
-        <Globe className="pointer-events-none absolute left-3 h-4 w-4 text-gray-400" />
+        <Globe className="pointer-events-none absolute left-3.5 h-5 w-5 text-[#178593]" />
         <select
           id="login-language"
           value={locale}
           onChange={(e) => router.push(`/${e.target.value}${path}`)}
-          className="appearance-none rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-8 text-sm text-gray-700 hover:border-gray-300 focus:border-[#178593] focus:outline-none focus:ring-2 focus:ring-[#178593]/20"
+          className="appearance-none rounded-lg border-2 border-[#178593]/40 bg-white py-2.5 pl-11 pr-10 text-base font-medium text-gray-900 hover:border-[#178593] focus:border-[#178593] focus:outline-none focus:ring-2 focus:ring-[#178593]/25"
         >
           {locales.map((loc) => (
             <option key={loc} value={loc}>
@@ -40,7 +40,7 @@ export default function LoginLanguageSelect({
           ))}
         </select>
         <svg
-          className="pointer-events-none absolute right-2.5 h-4 w-4 text-gray-400"
+          className="pointer-events-none absolute right-3 h-5 w-5 text-[#178593]"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

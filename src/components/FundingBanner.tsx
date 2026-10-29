@@ -17,26 +17,26 @@ export default function FundingBanner({
 }) {
   if (variant === "panel") {
     return (
-      <div className={cn("w-full max-w-xl self-start rounded-xl bg-white p-4 shadow-lg", className)}>
+      <div className={cn("w-full max-w-[600px] self-center rounded-xl bg-white p-4 shadow-lg", className)}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/brand/funding-banner.png"
           alt="Co-funded by the Erasmus+ Programme of the European Union — Türkiye Ulusal Ajansı (Turkish National Agency)"
           className="h-auto w-full"
         />
-        <p className="mt-3 text-[11px] leading-snug text-gray-500">{DISCLAIMER}</p>
+        <p className="mt-3 text-xs leading-snug text-gray-500">{DISCLAIMER}</p>
       </div>
     );
   }
   return (
-    <footer className={cn("border-t border-gray-200 pt-4", className)}>
+    <footer className={cn("flex flex-col gap-3 border-t border-gray-200 pt-4 md:flex-row md:items-center md:gap-6", className)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/brand/funding-banner.png"
         alt="Co-funded by the Erasmus+ Programme of the European Union — Türkiye Ulusal Ajansı (Turkish National Agency)"
-        className="h-auto w-full max-w-[420px] mix-blend-multiply"
+        className="h-auto w-full max-w-[360px] flex-shrink-0 mix-blend-multiply"
       />
-      <p className="mt-2 max-w-3xl text-[11px] leading-snug text-gray-500">{DISCLAIMER}</p>
+      <p className="text-[11px] leading-snug text-gray-500">{DISCLAIMER}</p>
     </footer>
   );
 }

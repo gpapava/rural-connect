@@ -53,7 +53,7 @@ export default async function InvitePage({ params: { locale, token } }: PageProp
         <div className="flex w-full flex-1 items-center justify-center">
         <div className="max-w-md text-center">
           <div className="mb-8 flex flex-col items-center justify-center gap-4">
-            <BrandMark className="h-28 w-28" rounded="rounded-3xl" />
+            <BrandMark className="h-36 w-36" rounded="rounded-3xl" />
             <span className="text-2xl font-bold tracking-wider">RURAL-CONNECT</span>
           </div>
           <h2 className="mb-4 text-3xl font-bold leading-tight">{t("brandWelcome")}</h2>
