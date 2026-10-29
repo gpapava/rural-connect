@@ -253,13 +253,16 @@ function LiveSessionPanel({
   const [sharedFiles, setSharedFiles] = useState<SharedFile[]>(session.sharedFiles);
   const [uploadingFile, setUploadingFile] = useState(false);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isTypingRef = useRef(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Keep the chat pinned to the latest message. Scroll only the chat box itself:
+  // scrollIntoView() would also scroll the whole page, hiding the header and stage tabs on load.
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = messagesContainerRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
   }, [messages]);
 
   useEffect(() => {
@@ -470,7 +473,7 @@ function LiveSessionPanel({
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-3 space-y-3 min-h-[220px] max-h-[320px]">
+          <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-3 space-y-3 min-h-[220px] max-h-[320px]">
             {messages.length === 0 ? (
               <div className="flex h-full items-center justify-center">
                 <p className="text-xs text-gray-400">{t("chat.noMessages")}</p>
@@ -483,7 +486,6 @@ function LiveSessionPanel({
             {typingUser && (
               <p className="text-xs text-gray-400 italic">{t("typing", { name: typingUser })}</p>
             )}
-            <div ref={messagesEndRef} />
           </div>
 
           <div className="border-t border-gray-100 p-3">
