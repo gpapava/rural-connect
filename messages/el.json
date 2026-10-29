@@ -563,6 +563,11 @@
   },
   "admin": {
     "stats": {
+      "loggedIn": "NEETs που έχουν κάνει login",
+      "active30": "Ενεργοί NEETs (τελευταίες 30 ημέρες)",
+      "counselorsLoggedIn": "Σύμβουλοι που έχουν κάνει login",
+      "ofCounselors": "από {count} συμβούλους",
+      "loginTrackingNote": "Η καταγραφή login ξεκίνησε στις 29 Οκτ 2026, οπότε τα νούμερα μετράνε μόνο συνδέσεις από τότε.",
       "countryRoleTitle": "NEETs και σύμβουλοι ανά χώρα",
       "colCountry": "Χώρα",
       "colNeets": "NEETs",
@@ -614,6 +619,15 @@
     },
     "users": {
       "title": "Διαχείριση Χρηστών",
+      "colLastLogin": "Τελευταίο login",
+      "colCounsellor": "Σύμβουλος",
+      "colCounselling": "Συμβουλευτική",
+      "filterCounselling": "Συμβουλευτική",
+      "counsellingAll": "Όλες οι καταστάσεις",
+      "counsellingCompleted": "Ολοκλήρωσαν τη συμβουλευτική",
+      "counsellingInProgress": "Συμβουλευτική σε εξέλιξη",
+      "counsellingNone": "Χωρίς συμβουλευτική ακόμη",
+      "certificate": "Εκδόθηκε πιστοποιητικό",
       "filterCountry": "Όλες οι χώρες",
       "exportCsv": "Εξαγωγή CSV",
       "inviteEmailSent": "Στάλθηκε email με τον σύνδεσμο εγγραφής στο {email}.",

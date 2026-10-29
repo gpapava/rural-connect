@@ -53,6 +53,8 @@ model User {
   mustChangePassword Boolean @default(false)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+  // set on each successful sign-in (null = no sign-in recorded since tracking started on 2026-10-29)
+  lastLoginAt      DateTime?
 
   // Relations
   neetSessions        CounselingSession[] @relation("NeetUserSessions")

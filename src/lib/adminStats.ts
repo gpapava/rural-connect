@@ -27,6 +27,9 @@ export async function getAdminStats() {
     counselorSessionGroups,
     counselorNeetPairs,
     countryRoleGroups,
+    neetsLoggedIn,
+    neetsActive30,
+    counselorsLoggedIn,
   ] = await Promise.all([
     prisma.user.groupBy({ by: ["role"], _count: { _all: true } }),
     prisma.user.count({ where: { role: "NEET_USER", createdAt: { gte: last30 } } }),
@@ -59,6 +62,9 @@ export async function getAdminStats() {
     prisma.counselingSession.groupBy({ by: ["counselorId", "status"], _count: { _all: true } }),
     prisma.counselingStage.findMany({ distinct: ["neetUserId", "counselorId"], select: { neetUserId: true, counselorId: true } }),
     prisma.user.groupBy({ by: ["country", "role"], _count: { _all: true } }),
+    prisma.user.count({ where: { role: "NEET_USER", lastLoginAt: { not: null } } }),
+    prisma.user.count({ where: { role: "NEET_USER", lastLoginAt: { gte: last30 } } }),
+    prisma.user.count({ where: { role: "COUNSELOR", lastLoginAt: { not: null } } }),
   ]);
 
   const roleCount = (role: string) => roleGroups.find((g) => g.role === role)?._count._all ?? 0;
@@ -149,6 +155,9 @@ export async function getAdminStats() {
       admins: roleCount("ADMIN"),
       neetsLast30,
       neetsGdpr,
+      neetsLoggedIn,
+      neetsActive30,
+      counselorsLoggedIn,
       byCountry,
       byLanguage,
       countryRole,
@@ -188,6 +197,9 @@ export function statsToCsv(s: AdminStats): string {
   add("users", "", "admins", s.users.admins);
   add("users", "", "neets_registered_last_30_days", s.users.neetsLast30);
   add("users", "", "neets_with_gdpr_consent", s.users.neetsGdpr);
+  add("users", "", "neets_logged_in_since_tracking", s.users.neetsLoggedIn);
+  add("users", "", "neets_active_last_30_days", s.users.neetsActive30);
+  add("users", "", "counselors_logged_in_since_tracking", s.users.counselorsLoggedIn);
   s.users.byCountry.forEach((c) => add("neets_by_country", c.key || "unknown", "neets", c.count));
   s.users.countryRole.forEach((c) => {
     add("country_role", c.key || "unknown", "neets", c.neets);

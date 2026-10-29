@@ -71,7 +71,11 @@ export default function AdminStatsPage({ stats, locale }: { stats: AdminStats; l
           <StatCard icon={UserCheck} label={t("counselors")} value={users.counselors} />
           <StatCard icon={Users} label={t("admins")} value={users.admins} />
           <StatCard icon={Award} label={t("gdpr")} value={users.neetsGdpr} hint={t("ofNeets", { count: users.neets })} />
+          <StatCard icon={Users} label={t("loggedIn")} value={users.neetsLoggedIn} hint={t("ofNeets", { count: users.neets })} />
+          <StatCard icon={Users} label={t("active30")} value={users.neetsActive30} hint={t("ofNeets", { count: users.neets })} />
+          <StatCard icon={UserCheck} label={t("counselorsLoggedIn")} value={users.counselorsLoggedIn} hint={t("ofCounselors", { count: users.counselors })} />
         </div>
+        <p className="mt-2 text-xs text-gray-500">{t("loginTrackingNote")}</p>
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-gray-200 bg-white p-4">

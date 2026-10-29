@@ -33,6 +33,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const passwordValid = await bcrypt.compare(password, user.passwordHash);
         if (!passwordValid) return null;
 
+        // Record the sign-in (best effort — never block a login on this)
+        await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } }).catch(() => {});
+
         return {
           id: user.id,
           name: user.name,

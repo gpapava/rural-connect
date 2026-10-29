@@ -563,6 +563,11 @@
   },
   "admin": {
     "stats": {
+      "loggedIn": "NEETs who have logged in",
+      "active30": "NEETs active (last 30 days)",
+      "counselorsLoggedIn": "Counsellors who have logged in",
+      "ofCounselors": "of {count} counsellors",
+      "loginTrackingNote": "Login tracking started on 29 Oct 2026, so these figures only count sign-ins since then.",
       "countryRoleTitle": "NEETs and counsellors by country",
       "colCountry": "Country",
       "colNeets": "NEETs",
@@ -614,6 +619,15 @@
     },
     "users": {
       "title": "Kullanıcı Yönetimi",
+      "colLastLogin": "Last login",
+      "colCounsellor": "Counsellor",
+      "colCounselling": "Counselling",
+      "filterCounselling": "Counselling",
+      "counsellingAll": "All counselling statuses",
+      "counsellingCompleted": "Completed counselling",
+      "counsellingInProgress": "Counselling in progress",
+      "counsellingNone": "No counselling yet",
+      "certificate": "Certificate issued",
       "filterCountry": "All countries",
       "exportCsv": "Export CSV",
       "inviteEmailSent": "An email with the registration link was sent to {email}.",

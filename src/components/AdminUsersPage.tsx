@@ -19,6 +19,13 @@ type UserRow = {
   country: string | null;
   language: string;
   createdAt: Date;
+  lastLoginAt: Date | null;
+  counselling: {
+    counselor: string | null;
+    stagesCompleted: number;
+    certificate: boolean;
+    status: "completed" | "inprogress" | "none";
+  } | null;
 };
 
 const ROLE_VALUES: UserRole[] = ["ADMIN", "COUNSELOR", "NEET_USER"];
@@ -62,6 +69,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [filterRole, setFilterRole] = useState<"all" | UserRole>("all");
   const [filterCountry, setFilterCountry] = useState("all");
+  const [filterCounselling, setFilterCounselling] = useState("all");
   const [invites, setInvites] = useState<InviteRow[]>([]);
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteLoading, setInviteLoading] = useState(false);
@@ -73,12 +81,14 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   const filtered = users.filter(
     (u) =>
       (filterRole === "all" || u.role === filterRole) &&
-      (filterCountry === "all" || (u.country ?? "none") === filterCountry)
+      (filterCountry === "all" || (u.country ?? "none") === filterCountry) &&
+      (filterCounselling === "all" || u.counselling?.status === filterCounselling)
   );
   const countryOptions = Array.from(new Set(users.map((u) => u.country ?? "none"))).sort();
   const exportHref = `/api/admin/users/export?${new URLSearchParams({
     ...(filterRole !== "all" ? { role: filterRole } : {}),
     ...(filterCountry !== "all" ? { country: filterCountry } : {}),
+    ...(filterCounselling !== "all" ? { counselling: filterCounselling } : {}),
   }).toString()}`;
 
   const handleCreate = async () => {
@@ -448,6 +458,18 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
           ))}
         </select>
 
+        <select
+          value={filterCounselling}
+          onChange={(e) => setFilterCounselling(e.target.value)}
+          aria-label={t("colCounselling")}
+          className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:border-[#178593]/40 focus:border-[#178593] focus:outline-none"
+        >
+          <option value="all">{t("counsellingAll")}</option>
+          <option value="completed">{t("counsellingCompleted")}</option>
+          <option value="inprogress">{t("counsellingInProgress")}</option>
+          <option value="none">{t("counsellingNone")}</option>
+        </select>
+
         <a
           href={exportHref}
           className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-[#178593] bg-white px-3 py-1.5 text-xs font-semibold text-[#178593] hover:bg-[#178593] hover:text-white"
@@ -459,14 +481,17 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
 
       {/* User table */}
       <div className="card overflow-x-auto p-0">
-        <table className="w-full min-w-[640px] text-sm">
+        <table className="w-full min-w-[640px] lg:min-w-[1060px] text-sm">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50">
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{t("colUser")}</th>
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{t("colRole")}</th>
               <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 sm:table-cell">{t("colCountry")}</th>
               <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 md:table-cell">{t("colLanguage")}</th>
+              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 lg:table-cell">{t("colCounsellor")}</th>
+              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 lg:table-cell">{t("colCounselling")}</th>
               <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 lg:table-cell">{t("colJoined")}</th>
+              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 lg:table-cell">{t("colLastLogin")}</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -493,7 +518,28 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                   <td className="px-4 py-3">{roleBadge(user.role)}</td>
                   <td className="hidden px-4 py-3 text-gray-600 sm:table-cell">{user.country ? (tCountries.has(user.country) ? tCountries(user.country) : user.country) : "—"}</td>
                   <td className="hidden px-4 py-3 text-gray-600 md:table-cell">{langLabel(user.language)}</td>
+                  <td className="hidden px-4 py-3 text-gray-600 lg:table-cell">{user.counselling?.counselor ?? "—"}</td>
+                  <td className="hidden px-4 py-3 lg:table-cell">
+                    {user.counselling ? (
+                      <span
+                        className={cn(
+                          "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold",
+                          user.counselling.status === "completed"
+                            ? "bg-green-100 text-green-800"
+                            : user.counselling.status === "inprogress"
+                            ? "bg-amber-100 text-amber-800"
+                            : "bg-gray-100 text-gray-500"
+                        )}
+                      >
+                        {user.counselling.stagesCompleted}/5
+                        {user.counselling.certificate && <span title={t("certificate")}> 🎓</span>}
+                      </span>
+                    ) : (
+                      "—"
+                    )}
+                  </td>
                   <td className="hidden px-4 py-3 text-gray-400 lg:table-cell">{formatDate(user.createdAt)}</td>
+                  <td className="hidden px-4 py-3 text-gray-400 lg:table-cell">{user.lastLoginAt ? formatDate(user.lastLoginAt) : "—"}</td>
                   <td className="px-4 py-3 text-right">
                     {!isSelf && (
                       <button
