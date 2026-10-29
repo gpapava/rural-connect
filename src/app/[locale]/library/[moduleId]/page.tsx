@@ -28,12 +28,18 @@ export default async function ModuleDetail({ params: { locale, moduleId } }: Pag
     where: { userId_moduleId: { userId: session.user.id, moduleId } },
   });
 
+  const doneLessons = await prisma.userLessonProgress.findMany({
+    where: { userId: session.user.id, lesson: { moduleId } },
+    select: { lessonId: true },
+  });
+
   return (
     <ModuleDetailPage
       module={module}
       lessons={module.lessons}
       topics={module.topics ?? []}
       status={progress?.status ?? "NOT_STARTED"}
+      completedLessonIds={doneLessons.map((l) => l.lessonId)}
       locale={locale}
     />
   );

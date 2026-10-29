@@ -64,6 +64,7 @@ model User {
   sharedFiles         SharedFile[]
   portfolio           PortfolioEntry?
   moduleProgress      UserModuleProgress[]
+  lessonProgress      UserLessonProgress[]
   notifications       Notification[]
   neetCertificate     Certificate?        @relation("NeetUserCertificate")
   counselorCertificates Certificate[]     @relation("CounselorCertificates")
@@ -232,6 +233,7 @@ model ModuleLesson {
 
   module    Module     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   topic     Topic?     @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  completions UserLessonProgress[]
 
   @@map("module_lessons")
 }
@@ -251,6 +253,19 @@ model UserModuleProgress {
 
   @@unique([userId, moduleId])
   @@map("user_module_progress")
+}
+
+model UserLessonProgress {
+  id          String   @id @default(cuid())
+  userId      String
+  lessonId    String
+  completedAt DateTime @default(now())
+
+  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson ModuleLesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@map("user_lesson_progress")
 }
 
 model LaborMarketLink {

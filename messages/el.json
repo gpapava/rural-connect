@@ -90,7 +90,8 @@
     "admin": "Πίνακας Διαχειριστή",
     "scheduleSession": "Προγραμματισμός Συνεδρίας",
     "adminUsers": "Διαχείριση Χρηστών",
-    "adminJobs": "Αγγελίες Εργασίας"
+    "adminJobs": "Αγγελίες Εργασίας",
+    "adminStats": "Στατιστικά"
   },
   "auth": {
     "login": "Σύνδεση",
@@ -558,6 +559,52 @@
     }
   },
   "admin": {
+    "stats": {
+      "title": "Στατιστικά",
+      "updated": "Ενημερώθηκε {date}",
+      "exportCsv": "Εξαγωγή CSV",
+      "noData": "Δεν υπάρχουν δεδομένα ακόμη",
+      "unknown": "Άγνωστο",
+      "usersTitle": "Χρήστες",
+      "neets": "NEETs",
+      "counselors": "Σύμβουλοι",
+      "admins": "Διαχειριστές",
+      "neetsLast30": "{count} νέοι τις τελευταίες 30 ημέρες",
+      "gdpr": "Συναίνεση GDPR",
+      "ofNeets": "από {count} NEETs",
+      "byCountry": "NEETs ανά χώρα",
+      "byLanguage": "NEETs ανά γλώσσα",
+      "registrations": "Εγγραφές NEETs ανά μήνα (τελευταίοι 12 μήνες)",
+      "learningTitle": "Μάθηση",
+      "activeLearners": "NEETs που ξεκίνησαν module",
+      "pctOfNeets": "{pct}% του συνόλου των NEETs",
+      "module": "Module",
+      "language": "Γλώσσα",
+      "started": "Ξεκίνησαν",
+      "inProgress": "Σε εξέλιξη",
+      "completed": "Ολοκληρώθηκαν",
+      "completionRate": "Ολοκλήρωση",
+      "quizNote": "Τα αποτελέσματα των quiz δεν αποθηκεύονται από την πλατφόρμα, γι' αυτό δεν περιλαμβάνονται.",
+      "counsellingTitle": "Συμβουλευτική",
+      "neetsWithSession": "NEETs με συνεδρία",
+      "sessions": "Συνεδρίες",
+      "messages": "Μηνύματα συνομιλίας",
+      "certificates": "Πιστοποιητικά που εκδόθηκαν",
+      "sessionsByStatus": "Συνεδρίες ανά κατάσταση",
+      "stagesProgress": "Στάδια συμβουλευτικής",
+      "stage": "Στάδιο",
+      "stageActive": "Ενεργά",
+      "counselor": "Σύμβουλος",
+      "country": "Χώρα",
+      "sessionsCompleted": "Ολοκληρωμένες συνεδρίες",
+      "status": {
+        "PENDING": "Σε αναμονή",
+        "SCHEDULED": "Προγραμματισμένη",
+        "IN_PROGRESS": "Σε εξέλιξη",
+        "COMPLETED": "Ολοκληρώθηκε",
+        "CANCELLED": "Ακυρώθηκε"
+      }
+    },
     "users": {
       "title": "Διαχείριση Χρηστών",
       "registeredUsers": "{count, plural, one {# εγγεγραμμένος χρήστης} other {# εγγεγραμμένοι χρήστες}}",

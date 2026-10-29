@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
@@ -51,6 +51,7 @@ interface ModuleDetailPageProps {
   lessons: Lesson[];   // unassigned lessons
   topics: Topic[];
   status: string;
+  completedLessonIds: string[];
   locale: string;
 }
 
@@ -207,7 +208,7 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
   const handleSubmit = () => {
     if (!allAnswered) return;
     setSubmitted(true);
-    if (score === questions.length) onComplete();
+    if (questions.filter(isCorrect).length === questions.length) onComplete();
   };
 
   const setMatchAnswer = (qId: string, pairId: string, value: string) => {
@@ -346,7 +347,7 @@ const LESSON_ICON: Record<LessonType, React.ElementType> = {
   TEXT: BookOpen, PDF: FileText, VIDEO: Video, QUIZ: HelpCircle, SCORM: Package,
 };
 
-export default function ModuleDetailPage({ module, lessons, topics, status, locale }: ModuleDetailPageProps) {
+export default function ModuleDetailPage({ module, lessons, topics, status, completedLessonIds, locale }: ModuleDetailPageProps) {
   const t = useTranslations("module");
   const router = useRouter();
 
@@ -362,7 +363,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
   }, [allLessons]);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
+  const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set(completedLessonIds));
 
   const activeLesson = allLessons[activeIndex];
 
@@ -373,8 +374,24 @@ export default function ModuleDetailPage({ module, lessons, topics, status, loca
   const isLast = activeIndex === allLessons.length - 1;
   const isFirst = activeIndex === 0;
 
+  const saveProgress = (lessonId?: string) => {
+    fetch(`/api/modules/${module.id}/progress`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(lessonId ? { lessonId } : {}),
+    }).catch(() => {});
+  };
+
+  // Opening a module the learner hasn't touched yet marks it as started.
+  useEffect(() => {
+    if (status === "NOT_STARTED") saveProgress();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const markComplete = (id?: string) => {
-    setCompletedLessons((prev) => { const next = new Set(prev); next.add(id ?? activeLesson.id); return next; });
+    const lessonId = id ?? activeLesson.id;
+    if (!completedLessons.has(lessonId)) saveProgress(lessonId);
+    setCompletedLessons((prev) => { const next = new Set(prev); next.add(lessonId); return next; });
   };
 
   if (allLessons.length === 0) {

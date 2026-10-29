@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   CalendarPlus,
   Users,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { locales, localeNames, type Locale } from "@/i18n";
@@ -83,6 +84,12 @@ const navItems = [
     key: "adminJobs",
     href: "/admin/jobs",
     icon: Briefcase,
+    roles: ["ADMIN"],
+  },
+  {
+    key: "adminStats",
+    href: "/admin/stats",
+    icon: BarChart3,
     roles: ["ADMIN"],
   },
 ];

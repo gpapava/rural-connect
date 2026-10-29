@@ -90,7 +90,8 @@
     "admin": "Administrasjonspanel",
     "scheduleSession": "Planlegg økt",
     "adminUsers": "Brukeradministrasjon",
-    "adminJobs": "Jobbstillinger"
+    "adminJobs": "Jobbstillinger",
+    "adminStats": "Statistics"
   },
   "auth": {
     "login": "Logg inn",
@@ -558,6 +559,52 @@
     }
   },
   "admin": {
+    "stats": {
+      "title": "Statistics",
+      "updated": "Updated {date}",
+      "exportCsv": "Export CSV",
+      "noData": "No data yet",
+      "unknown": "Unknown",
+      "usersTitle": "Users",
+      "neets": "NEETs",
+      "counselors": "Counsellors",
+      "admins": "Admins",
+      "neetsLast30": "{count} new in the last 30 days",
+      "gdpr": "GDPR consent given",
+      "ofNeets": "of {count} NEETs",
+      "byCountry": "NEETs by country",
+      "byLanguage": "NEETs by language",
+      "registrations": "NEET registrations per month (last 12 months)",
+      "learningTitle": "Learning",
+      "activeLearners": "NEETs who started a module",
+      "pctOfNeets": "{pct}% of all NEETs",
+      "module": "Module",
+      "language": "Language",
+      "started": "Started",
+      "inProgress": "In progress",
+      "completed": "Completed",
+      "completionRate": "Completion",
+      "quizNote": "Quiz scores are not stored by the platform, so they are not included here.",
+      "counsellingTitle": "Counselling",
+      "neetsWithSession": "NEETs with a session",
+      "sessions": "Sessions",
+      "messages": "Chat messages",
+      "certificates": "Certificates issued",
+      "sessionsByStatus": "Sessions by status",
+      "stagesProgress": "Counselling stages",
+      "stage": "Stage",
+      "stageActive": "Active",
+      "counselor": "Counsellor",
+      "country": "Country",
+      "sessionsCompleted": "Completed sessions",
+      "status": {
+        "PENDING": "Pending",
+        "SCHEDULED": "Scheduled",
+        "IN_PROGRESS": "In progress",
+        "COMPLETED": "Completed",
+        "CANCELLED": "Cancelled"
+      }
+    },
     "users": {
       "title": "Brukeradministrasjon",
       "registeredUsers": "{count, plural, one {# registrert bruker} other {# registrerte brukere}}",
