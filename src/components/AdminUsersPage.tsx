@@ -427,8 +427,8 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
       </div>
 
       {/* User table */}
-      <div className="card overflow-hidden p-0">
-        <table className="w-full text-sm">
+      <div className="card overflow-x-auto p-0">
+        <table className="w-full min-w-[640px] text-sm">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50">
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">{t("colUser")}</th>

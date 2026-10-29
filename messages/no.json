@@ -91,6 +91,7 @@
     "scheduleSession": "Planlegg økt",
     "adminUsers": "Brukeradministrasjon",
     "adminJobs": "Jobbstillinger",
+    "menu": "Meny",
     "adminStats": "Statistics"
   },
   "auth": {

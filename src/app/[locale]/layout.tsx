@@ -6,8 +6,7 @@ import { headers } from "next/headers";
 import { locales, type Locale } from "@/i18n";
 import { auth } from "@/lib/auth";
 import "../globals.css";
-import Sidebar from "@/components/Sidebar";
-import Topbar from "@/components/Topbar";
+import AppShell from "@/components/AppShell";
 
 export const dynamic = "force-dynamic";
 
@@ -54,13 +53,9 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider messages={messages} locale={locale}>
           {showShell ? (
-            <div className="flex h-screen overflow-hidden bg-gray-50">
-              <Sidebar locale={locale} user={session.user} />
-              <div className="flex flex-1 flex-col overflow-hidden">
-                <Topbar locale={locale} user={session.user} />
-                <main className="flex-1 overflow-y-auto p-6">{children}</main>
-              </div>
-            </div>
+            <AppShell locale={locale} user={session.user}>
+              {children}
+            </AppShell>
           ) : (
             <div className="min-h-screen bg-gray-50">{children}</div>
           )}

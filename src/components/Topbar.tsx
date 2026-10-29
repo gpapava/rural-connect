@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
-import { Home, User, LogOut, ChevronDown } from "lucide-react";
+import { Home, User, LogOut, ChevronDown, Menu } from "lucide-react";
 import { UserRole } from "@prisma/client";
 import { getInitials } from "@/lib/utils";
 import NotificationBell from "@/components/NotificationBell";
@@ -17,9 +17,10 @@ interface TopbarProps {
     email: string;
     role: UserRole;
   };
+  onMenuClick?: () => void;
 }
 
-export default function Topbar({ locale, user }: TopbarProps) {
+export default function Topbar({ locale, user, onMenuClick }: TopbarProps) {
   const t = useTranslations("nav");
   const [profileOpen, setProfileOpen] = useState(false);
 
@@ -28,9 +29,17 @@ export default function Topbar({ locale, user }: TopbarProps) {
   };
 
   return (
-    <header className="flex h-14 items-center justify-between border-b border-blue-700/30 bg-[#1a73e8] px-6 shadow-md">
-      {/* Left - Logo/Brand */}
-      <div className="flex items-center gap-3">
+    <header className="flex h-14 items-center justify-between border-b border-blue-700/30 bg-[#1a73e8] px-4 shadow-md sm:px-6">
+      {/* Left - Menu (mobile) + Logo/Brand */}
+      <div className="flex items-center gap-2 sm:gap-3">
+        <button
+          type="button"
+          onClick={onMenuClick}
+          aria-label={t("menu")}
+          className="rounded-lg p-1.5 text-white transition-colors hover:bg-white/10 lg:hidden"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
         <Link
           href={`/${locale}/dashboard`}
           className="flex items-center gap-2 text-white"

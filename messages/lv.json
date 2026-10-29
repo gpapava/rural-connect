@@ -91,6 +91,7 @@
     "scheduleSession": "Ieplānot sesiju",
     "adminUsers": "Lietotāju pārvaldība",
     "adminJobs": "Darba piedāvājumi",
+    "menu": "Izvēlne",
     "adminStats": "Statistics"
   },
   "auth": {

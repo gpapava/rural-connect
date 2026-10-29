@@ -91,6 +91,7 @@
     "scheduleSession": "Programar Sesión",
     "adminUsers": "Gestión de Usuarios",
     "adminJobs": "Ofertas de Empleo",
+    "menu": "Menú",
     "adminStats": "Statistics"
   },
   "auth": {

@@ -29,6 +29,9 @@ interface SidebarProps {
     email: string;
     role: UserRole;
   };
+  /** Mobile drawer state (ignored from the lg breakpoint up, where the sidebar is always visible). */
+  open?: boolean;
+  onClose?: () => void;
 }
 
 const navItems = [
@@ -94,7 +97,7 @@ const navItems = [
   },
 ];
 
-export default function Sidebar({ locale, user }: SidebarProps) {
+export default function Sidebar({ locale, user, open = false, onClose }: SidebarProps) {
   const t = useTranslations("nav");
   const tRoles = useTranslations("common.roles");
   const pathname = usePathname();
@@ -125,7 +128,23 @@ export default function Sidebar({ locale, user }: SidebarProps) {
   const roleBadge = getRoleBadge(user.role);
 
   return (
-    <aside className="flex h-full w-64 flex-col bg-[#1e293b] text-white shadow-xl">
+    <>
+    {/* Mobile backdrop */}
+    <div
+      onClick={onClose}
+      aria-hidden="true"
+      className={cn(
+        "fixed inset-0 z-30 bg-black/50 transition-opacity lg:hidden",
+        open ? "opacity-100" : "pointer-events-none opacity-0"
+      )}
+    />
+    <aside
+      className={cn(
+        "fixed inset-y-0 left-0 z-40 flex h-full w-64 max-w-[85vw] flex-col bg-[#1e293b] text-white shadow-xl transition-transform duration-200",
+        "lg:static lg:z-auto lg:max-w-none lg:translate-x-0",
+        open ? "translate-x-0" : "-translate-x-full"
+      )}
+    >
       {/* Logo */}
       <div className="flex items-center gap-3 border-b border-slate-700/50 px-5 py-4">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1a73e8]">
@@ -181,6 +200,7 @@ export default function Sidebar({ locale, user }: SidebarProps) {
               <Link
                 key={item.key}
                 href={`/${locale}${item.href}`}
+                onClick={onClose}
                 className={cn(
                   "sidebar-link",
                   active && "sidebar-link-active"
@@ -240,5 +260,6 @@ export default function Sidebar({ locale, user }: SidebarProps) {
         </div>
       </div>
     </aside>
+    </>
   );
 }

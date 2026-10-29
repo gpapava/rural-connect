@@ -91,6 +91,7 @@
     "scheduleSession": "Schedule Session",
     "adminUsers": "User Management",
     "adminJobs": "Job Openings",
+    "menu": "Menu",
     "adminStats": "Statistics"
   },
   "auth": {

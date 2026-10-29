@@ -91,6 +91,7 @@
     "scheduleSession": "Oturum Planla",
     "adminUsers": "Kullanıcı Yönetimi",
     "adminJobs": "İş İlanları",
+    "menu": "Menü",
     "adminStats": "Statistics"
   },
   "auth": {
