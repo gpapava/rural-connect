@@ -148,7 +148,7 @@ export default function LoginForm({ locale }: LoginFormProps) {
       <div className="mt-6 border-t border-gray-100 pt-5 text-center">
         <p className="text-xs text-gray-400">
           {t("employerPrompt")}{" "}
-          <Link href={`/${locale}/jobs/new`} className="font-medium text-gray-600 hover:text-[#1a73e8] hover:underline">
+          <Link href={`/${locale}/jobs/new`} className="font-medium text-gray-600 hover:text-[#178593] hover:underline">
             {t("employerLink")}
           </Link>
         </p>
@@ -157,12 +157,12 @@ export default function LoginForm({ locale }: LoginFormProps) {
       <p className="mt-4 text-center text-sm text-gray-500">
         {t("noAccount")}{" "}
         <span className="group relative inline-block">
-          <Link href={`/${locale}/auth/register`} className="font-medium text-[#1a73e8] hover:underline">
+          <Link href={`/${locale}/auth/register`} className="font-medium text-[#178593] hover:underline">
             {t("registerLink")}
           </Link>
-          <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 w-64 rounded-lg bg-[#1e293b] px-3 py-2 text-xs text-white opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 z-10">
+          <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 w-64 rounded-lg bg-[#0f3d47] px-3 py-2 text-xs text-white opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 z-10">
             {t("registerTooltip")}
-            <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#1e293b]" />
+            <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0f3d47]" />
           </span>
         </span>
       </p>

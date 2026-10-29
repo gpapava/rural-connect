@@ -298,7 +298,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
 
       {/* Create form */}
       {showForm && (
-        <div className="card mb-6 border border-[#1a73e8]/20">
+        <div className="card mb-6 border border-[#178593]/20">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-base font-semibold text-gray-900">{t("createNewUser")}</h2>
             <button onClick={() => { setShowForm(false); setError(null); setForm(EMPTY_FORM); }} className="text-gray-400 hover:text-gray-600">
@@ -383,7 +383,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                   type="checkbox"
                   checked={form.requireChange}
                   onChange={(e) => setForm((f) => ({ ...f, requireChange: e.target.checked }))}
-                  className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#1a73e8] focus:ring-[#1a73e8]"
+                  className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#178593] focus:ring-[#178593]"
                 />
                 <span className="text-sm text-gray-700">{t("requireChange")}</span>
               </label>
@@ -417,8 +417,8 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
               filterRole === key
-                ? "border-[#1a73e8] bg-[#1a73e8] text-white"
-                : "border-gray-200 bg-white text-gray-600 hover:border-[#1a73e8]/40 hover:text-[#1a73e8]"
+                ? "border-[#178593] bg-[#178593] text-white"
+                : "border-gray-200 bg-white text-gray-600 hover:border-[#178593]/40 hover:text-[#178593]"
             )}
           >
             {label}
@@ -453,7 +453,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                       <div>
                         <p className="font-medium text-gray-900">
                           {user.name}
-                          {isSelf && <span className="ml-1.5 text-xs text-[#1a73e8]">{t("you")}</span>}
+                          {isSelf && <span className="ml-1.5 text-xs text-[#178593]">{t("you")}</span>}
                         </p>
                         <p className="text-xs text-gray-500">{user.email}</p>
                       </div>

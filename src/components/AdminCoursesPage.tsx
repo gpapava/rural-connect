@@ -129,8 +129,8 @@ export default function AdminCoursesPage({ modules: initial, locale }: Props) {
         ) : (
           modules.map((module) => (
             <div key={module.id} className="card flex items-center gap-4">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#1a73e8]/10">
-                <BookOpen className="h-5 w-5 text-[#1a73e8]" />
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#178593]/10">
+                <BookOpen className="h-5 w-5 text-[#178593]" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="font-semibold text-gray-900 truncate">{module.title}</p>

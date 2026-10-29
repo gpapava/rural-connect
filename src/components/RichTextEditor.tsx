@@ -175,7 +175,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: Props
             <button
               type="button"
               onMouseDown={(e) => { e.preventDefault(); toggleSource(); }}
-              className="rounded-lg bg-[#1a73e8] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#1557b0] transition-colors"
+              className="rounded-lg bg-[#178593] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#1557b0] transition-colors"
             >
               {t("applyHtml")}
             </button>

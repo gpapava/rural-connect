@@ -128,7 +128,7 @@ function FileRow({ file }: { file: SharedFile }) {
         href={file.fileUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex-shrink-0 text-gray-400 hover:text-[#1a73e8]"
+        className="flex-shrink-0 text-gray-400 hover:text-[#178593]"
       >
         <Download className="h-4 w-4" />
       </a>
@@ -458,7 +458,7 @@ function LiveSessionPanel({
         {/* Chat */}
         <div className="flex flex-col rounded-xl border border-gray-200 bg-white shadow-sm">
           <div className="flex items-center gap-3 border-b border-gray-100 px-4 py-3">
-            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#1a73e8]/10 text-xs font-bold text-[#1a73e8]">
+            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#178593]/10 text-xs font-bold text-[#178593]">
               {getInitials(otherUser.name)}
             </div>
             <div className="min-w-0">
@@ -504,12 +504,12 @@ function LiveSessionPanel({
                 onKeyDown={handleKeyDown}
                 placeholder={t("chat.placeholder")}
                 rows={2}
-                className="flex-1 resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+                className="flex-1 resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#178593] focus:outline-none focus:ring-1 focus:ring-[#178593]"
               />
               <button
                 onClick={sendMessage}
                 disabled={!messageInput.trim() || sending}
-                className="flex-shrink-0 rounded-lg bg-[#1a73e8] p-1.5 text-white hover:bg-[#1558b0] disabled:opacity-50"
+                className="flex-shrink-0 rounded-lg bg-[#178593] p-1.5 text-white hover:bg-[#115f6e] disabled:opacity-50"
               >
                 <Send className="h-4 w-4" />
               </button>
@@ -530,7 +530,7 @@ function LiveSessionPanel({
             onChange={(e) => setNotes(e.target.value)}
             placeholder={t("notes.placeholder")}
             rows={3}
-            className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+            className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#178593] focus:outline-none focus:ring-1 focus:ring-[#178593]"
           />
           <label className="mt-2 block text-xs font-medium text-gray-700">
             {t("notes.actionPlan")}
@@ -540,7 +540,7 @@ function LiveSessionPanel({
             onChange={(e) => setActionPlan(e.target.value)}
             placeholder={t("notes.actionPlanPlaceholder")}
             rows={2}
-            className="mt-1.5 w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+            className="mt-1.5 w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#178593] focus:outline-none focus:ring-1 focus:ring-[#178593]"
           />
           <button
             onClick={saveNotes}
@@ -665,7 +665,7 @@ function StageContent({
               onChange={(e) => setSummary(e.target.value)}
               placeholder={t("stage.summaryPlaceholder")}
               rows={4}
-              className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+              className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#178593] focus:outline-none focus:ring-1 focus:ring-[#178593]"
             />
             <button
               onClick={saveSummary}
@@ -730,14 +730,14 @@ function StageContent({
 
       {/* Complete stage button — counselor only, active stages only */}
       {isCounselor && stage.status === "ACTIVE" && stage.number < 5 && (
-        <div className="rounded-xl border border-[#34a853]/20 bg-green-50 p-4">
+        <div className="rounded-xl border border-[#2f9e77]/20 bg-green-50 p-4">
           <p className="mb-3 text-sm text-gray-700">
             {t("stage.completeHint")}
           </p>
           <button
             onClick={completeStage}
             disabled={completing}
-            className="flex items-center gap-2 rounded-lg bg-[#34a853] px-4 py-2 text-sm font-semibold text-white hover:bg-[#2d9147] disabled:opacity-50"
+            className="flex items-center gap-2 rounded-lg bg-[#2f9e77] px-4 py-2 text-sm font-semibold text-white hover:bg-[#26855f] disabled:opacity-50"
           >
             <Flag className="h-4 w-4" />
             {completing ? t("stage.completing") : t("stage.completeAndUnlock", { number: stage.number })}
@@ -747,14 +747,14 @@ function StageContent({
 
       {/* Final stage complete */}
       {isCounselor && stage.status === "ACTIVE" && stage.number === 5 && (
-        <div className="rounded-xl border border-[#34a853]/20 bg-green-50 p-4">
+        <div className="rounded-xl border border-[#2f9e77]/20 bg-green-50 p-4">
           <p className="mb-3 text-sm text-gray-700">
             {t("stage.finalHint")}
           </p>
           <button
             onClick={completeStage}
             disabled={completing}
-            className="flex items-center gap-2 rounded-lg bg-[#34a853] px-4 py-2 text-sm font-semibold text-white hover:bg-[#2d9147] disabled:opacity-50"
+            className="flex items-center gap-2 rounded-lg bg-[#2f9e77] px-4 py-2 text-sm font-semibold text-white hover:bg-[#26855f] disabled:opacity-50"
           >
             <CheckCircle2 className="h-4 w-4" />
             {completing ? t("stage.completing") : t("stage.completeJourney")}
@@ -825,7 +825,7 @@ function JourneyProgress({
     <div className={cn(
       "mb-5 rounded-2xl border p-5",
       allDone && certificate
-        ? "border-[#34a853]/30 bg-gradient-to-r from-green-50 to-emerald-50"
+        ? "border-[#2f9e77]/30 bg-gradient-to-r from-green-50 to-emerald-50"
         : allDone
         ? "border-amber-200 bg-amber-50"
         : "border-gray-200 bg-white"
@@ -833,12 +833,12 @@ function JourneyProgress({
       {/* Header row */}
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Award className={cn("h-5 w-5", allDone && certificate ? "text-[#34a853]" : allDone ? "text-amber-500" : "text-gray-400")} />
+          <Award className={cn("h-5 w-5", allDone && certificate ? "text-[#2f9e77]" : allDone ? "text-amber-500" : "text-gray-400")} />
           <span className="text-sm font-semibold text-gray-800">{t("journey.title")}</span>
         </div>
         <span className={cn(
           "rounded-full px-2.5 py-1 text-xs font-semibold",
-          allDone && certificate ? "bg-[#34a853]/10 text-[#34a853]" : allDone ? "bg-amber-100 text-amber-700" : "bg-gray-100 text-gray-500"
+          allDone && certificate ? "bg-[#2f9e77]/10 text-[#2f9e77]" : allDone ? "bg-amber-100 text-amber-700" : "bg-gray-100 text-gray-500"
         )}>
           {t("journey.stagesComplete", { completed: completedCount })}
         </span>
@@ -852,10 +852,10 @@ function JourneyProgress({
             className={cn(
               "h-full rounded-full transition-all duration-1000 ease-out",
               allDone && certificate
-                ? "bg-gradient-to-r from-[#34a853] to-emerald-400"
+                ? "bg-gradient-to-r from-[#2f9e77] to-emerald-400"
                 : allDone
                 ? "bg-gradient-to-r from-amber-400 to-yellow-300"
-                : "bg-gradient-to-r from-[#1a73e8] to-blue-400"
+                : "bg-gradient-to-r from-[#178593] to-blue-400"
             )}
             style={{ width: `${animPct}%` }}
           />
@@ -874,7 +874,7 @@ function JourneyProgress({
               >
                 <div className={cn(
                   "h-5 w-5 rounded-full border-2 flex items-center justify-center text-white",
-                  isComp ? "border-[#34a853] bg-[#34a853]" : isAct ? "border-[#1a73e8] bg-[#1a73e8]" : "border-gray-300 bg-white"
+                  isComp ? "border-[#2f9e77] bg-[#2f9e77]" : isAct ? "border-[#178593] bg-[#178593]" : "border-gray-300 bg-white"
                 )}>
                   {isComp && <CheckCircle2 className="h-3.5 w-3.5" />}
                   {isAct && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
@@ -922,7 +922,7 @@ function JourneyProgress({
             /* CERTIFICATE IS ISSUED — both roles see download */
             <div className="flex flex-col items-center gap-3 sm:flex-row">
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-[#34a853]">
+                <p className="text-sm font-semibold text-[#2f9e77]">
                   {t("journey.certReady")}
                 </p>
                 <p className="text-xs text-gray-500">
@@ -936,7 +936,7 @@ function JourneyProgress({
               <Link
                 href={`/${locale}/certificate/${certificate.id}`}
                 target="_blank"
-                className="flex flex-shrink-0 items-center gap-2 rounded-xl bg-[#34a853] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#2d9147] transition-colors"
+                className="flex flex-shrink-0 items-center gap-2 rounded-xl bg-[#2f9e77] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#26855f] transition-colors"
               >
                 <Award className="h-4 w-4" />
                 {t("journey.viewDownload")}
@@ -951,7 +951,7 @@ function JourneyProgress({
               <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-amber-200 bg-white p-3">
                 <input
                   type="checkbox"
-                  className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-[#34a853]"
+                  className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-[#2f9e77]"
                   checked={confirmed}
                   onChange={(e) => setConfirmed(e.target.checked)}
                 />
@@ -968,7 +968,7 @@ function JourneyProgress({
               <button
                 onClick={handleIssue}
                 disabled={!confirmed || issuing}
-                className="flex items-center gap-2 rounded-xl bg-[#34a853] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#2d9147] disabled:opacity-50 transition-colors"
+                className="flex items-center gap-2 rounded-xl bg-[#2f9e77] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#26855f] disabled:opacity-50 transition-colors"
               >
                 {issuing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Award className="h-4 w-4" />}
                 {issuing ? t("journey.issuing") : t("journey.issueCert")}
@@ -1041,7 +1041,7 @@ export default function CounselingPage({
       <div className="flex h-[calc(100vh-8rem)] flex-col items-center justify-center">
         <div className="card max-w-md text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
-            <Video className="h-8 w-8 text-[#1a73e8]" />
+            <Video className="h-8 w-8 text-[#178593]" />
           </div>
           <h2 className="mb-2 text-lg font-semibold text-gray-900">{t("noPairTitle")}</h2>
           <p className="text-sm text-gray-500">
@@ -1074,9 +1074,9 @@ export default function CounselingPage({
               className={cn(
                 "h-2 w-2 rounded-full",
                 s.status === "COMPLETED"
-                  ? "bg-[#34a853]"
+                  ? "bg-[#2f9e77]"
                   : s.status === "ACTIVE"
-                  ? "bg-[#1a73e8]"
+                  ? "bg-[#178593]"
                   : "bg-gray-200"
               )}
             />
@@ -1122,9 +1122,9 @@ export default function CounselingPage({
               >
                 {/* Stage status icon */}
                 {isCompleted ? (
-                  <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-[#34a853]" />
+                  <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-[#2f9e77]" />
                 ) : isActive ? (
-                  <span className="h-2 w-2 flex-shrink-0 rounded-full bg-[#1a73e8]" />
+                  <span className="h-2 w-2 flex-shrink-0 rounded-full bg-[#178593]" />
                 ) : (
                   <Lock className="h-3.5 w-3.5 flex-shrink-0 text-gray-300" />
                 )}
@@ -1155,9 +1155,9 @@ export default function CounselingPage({
             className={cn(
               "flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-white",
               selectedStage.status === "COMPLETED"
-                ? "bg-[#34a853]"
+                ? "bg-[#2f9e77]"
                 : selectedStage.status === "ACTIVE"
-                ? "bg-[#1a73e8]"
+                ? "bg-[#178593]"
                 : "bg-gray-300"
             )}
           >

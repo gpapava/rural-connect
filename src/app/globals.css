@@ -6,9 +6,9 @@
 
 @layer base {
   :root {
-    --brand-blue: #1a73e8;
-    --brand-blue-dark: #1558b0;
-    --brand-sidebar: #1e293b;
+    --brand-blue: #178593;
+    --brand-blue-dark: #115f6e;
+    --brand-sidebar: #0f3d47;
   }
 
   html {
@@ -26,15 +26,15 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-[#1a73e8] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1558b0] focus:outline-none focus:ring-2 focus:ring-[#1a73e8] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-[#178593] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#115f6e] focus:outline-none focus:ring-2 focus:ring-[#178593] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#1a73e8] focus:ring-offset-2 disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#178593] focus:ring-offset-2 disabled:opacity-50;
   }
 
   .btn-success {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-[#34a853] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-[#2f9e77] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50;
   }
 
   .btn-warning {
@@ -62,15 +62,15 @@
   }
 
   .sidebar-link {
-    @apply flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 transition-all hover:bg-[#273549] hover:text-white;
+    @apply flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 transition-all hover:bg-[#175562] hover:text-white;
   }
 
   .sidebar-link-active {
-    @apply bg-[#2d3f57] text-white;
+    @apply bg-[#1d6676] text-white;
   }
 
   .input-field {
-    @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#1a73e8] focus:ring-[#1a73e8] sm:text-sm;
+    @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#178593] focus:ring-[#178593] sm:text-sm;
   }
 
   .progress-bar {
@@ -78,7 +78,7 @@
   }
 
   .progress-fill {
-    @apply h-2 rounded-full bg-[#1a73e8] transition-all duration-500;
+    @apply h-2 rounded-full bg-[#178593] transition-all duration-500;
   }
 }
 
@@ -98,7 +98,7 @@
 
 /* Chat message styles */
 .chat-bubble-self {
-  @apply ml-auto rounded-2xl rounded-tr-sm bg-[#1a73e8] px-4 py-2 text-sm text-white;
+  @apply ml-auto rounded-2xl rounded-tr-sm bg-[#178593] px-4 py-2 text-sm text-white;
 }
 
 .chat-bubble-other {

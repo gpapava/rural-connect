@@ -201,14 +201,14 @@ export default function RegisterForm({ locale }: RegisterFormProps) {
         </div>
 
         {/* NEET Declaration */}
-        <div className="rounded-lg border border-[#1a73e8]/20 bg-blue-50 p-4">
+        <div className="rounded-lg border border-[#178593]/20 bg-blue-50 p-4">
           <label className="flex cursor-pointer gap-3">
             <div className="flex-shrink-0 pt-0.5">
               <input
                 type="checkbox"
                 checked={neetDeclaration}
                 onChange={(e) => setNeetDeclaration(e.target.checked)}
-                className="h-4 w-4 rounded border-gray-300 text-[#1a73e8] focus:ring-[#1a73e8]"
+                className="h-4 w-4 rounded border-gray-300 text-[#178593] focus:ring-[#178593]"
               />
             </div>
             <span className="text-sm text-gray-700">
@@ -225,7 +225,7 @@ export default function RegisterForm({ locale }: RegisterFormProps) {
                 type="checkbox"
                 checked={gdprConsent}
                 onChange={(e) => setGdprConsent(e.target.checked)}
-                className="h-4 w-4 rounded border-gray-300 text-[#1a73e8] focus:ring-[#1a73e8]"
+                className="h-4 w-4 rounded border-gray-300 text-[#178593] focus:ring-[#178593]"
               />
             </div>
             <span className="text-sm text-gray-700">
@@ -258,7 +258,7 @@ export default function RegisterForm({ locale }: RegisterFormProps) {
 
       <p className="mt-6 text-center text-sm text-gray-500">
         {t("alreadyHaveAccount")}{" "}
-        <Link href={`/${locale}/auth/login`} className="font-medium text-[#1a73e8] hover:underline">
+        <Link href={`/${locale}/auth/login`} className="font-medium text-[#178593] hover:underline">
           {t("login")}
         </Link>
       </p>

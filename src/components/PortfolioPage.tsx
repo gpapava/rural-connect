@@ -165,7 +165,7 @@ export default function PortfolioPage({
           {/* Contact info */}
           <div className="card">
             <h2 className="mb-4 flex items-center gap-2 text-base font-semibold text-gray-900">
-              <User className="h-4 w-4 text-[#1a73e8]" />
+              <User className="h-4 w-4 text-[#178593]" />
               {t("contact.title")}
             </h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -293,7 +293,7 @@ export default function PortfolioPage({
           <div className="card">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="flex items-center gap-2 text-base font-semibold text-gray-900">
-                <GraduationCap className="h-4 w-4 text-[#1a73e8]" />
+                <GraduationCap className="h-4 w-4 text-[#178593]" />
                 {t("qualifications.title")}
               </h2>
               <button onClick={() => { setShowQualForm(true); setQualError(null); }} className="btn-secondary py-1.5 px-3 text-xs">
@@ -304,7 +304,7 @@ export default function PortfolioPage({
 
             {/* Add qualification form */}
             {showQualForm && (
-              <div className="mb-4 rounded-xl border border-[#1a73e8]/20 bg-blue-50/40 p-4">
+              <div className="mb-4 rounded-xl border border-[#178593]/20 bg-blue-50/40 p-4">
                 <div className="mb-3 flex items-center justify-between">
                   <p className="text-sm font-semibold text-gray-800">{t("qualifications.newTitle")}</p>
                   <button onClick={() => { setShowQualForm(false); setQualError(null); setQualForm({ title: "", institution: "", status: "completed", completedAt: "" }); }} className="text-gray-400 hover:text-gray-600">
@@ -503,7 +503,7 @@ export default function PortfolioPage({
           {/* Counselor feedback */}
           <div className="card">
             <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
-              <MessageSquare className="h-4 w-4 text-[#1a73e8]" />
+              <MessageSquare className="h-4 w-4 text-[#178593]" />
               {t("counselorFeedback.title")}
             </h3>
             {latestSession?.notes ? (

@@ -142,12 +142,12 @@ function FileUploader({
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
         className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-8 transition-colors ${
-          dragging ? "border-[#1a73e8] bg-blue-50" : "border-gray-200 bg-gray-50 hover:border-[#1a73e8]/50 hover:bg-blue-50/30"
+          dragging ? "border-[#178593] bg-blue-50" : "border-gray-200 bg-gray-50 hover:border-[#178593]/50 hover:bg-blue-50/30"
         }`}
       >
         <input ref={inputRef} type="file" accept={accept} className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); }} />
         {uploading ? (
-          <><Loader2 className="h-8 w-8 animate-spin text-[#1a73e8]" /><p className="text-sm font-medium text-gray-600">{t("uploading")}</p></>
+          <><Loader2 className="h-8 w-8 animate-spin text-[#178593]" /><p className="text-sm font-medium text-gray-600">{t("uploading")}</p></>
         ) : uploaded ? (
           <><CheckCircle className="h-8 w-8 text-green-500" /><p className="text-sm font-medium text-green-700">{t("uploadedSuccess", { label })}</p><p className="text-xs text-gray-400">{t("clickToReplace")}</p></>
         ) : (
@@ -160,7 +160,7 @@ function FileUploader({
         <input value={content} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className="input w-full text-xs" />
       </div>
       {content && (
-        <a href={getTestUrl ? getTestUrl(content) : content} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
+        <a href={getTestUrl ? getTestUrl(content) : content} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#178593] hover:underline">
           <ExternalLink className="h-3.5 w-3.5" /> {t("testUrl")}
         </a>
       )}
@@ -193,7 +193,7 @@ function TypeSelector({ value, onChange }: { value: LessonType; onChange: (t: Le
       {ALL_TYPES.map((t) => (
         <button key={t} type="button" onClick={() => onChange(t)}
           className={`flex flex-col items-center gap-1.5 rounded-lg border-2 p-3 text-xs font-medium transition-colors ${
-            value === t ? "border-[#1a73e8] bg-[#1a73e8]/5 text-[#1a73e8]" : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+            value === t ? "border-[#178593] bg-[#178593]/5 text-[#178593]" : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
           }`}
         >
           {TYPE_ICONS[t]}
@@ -229,7 +229,7 @@ function LessonForm({
   const t = useTranslations("admin.courseEditor");
   const showDescription = ["PDF", "VIDEO", "QUIZ"].includes(form.type);
   return (
-    <div className="rounded-xl border border-[#1a73e8]/20 bg-blue-50 p-4 space-y-4">
+    <div className="rounded-xl border border-[#178593]/20 bg-blue-50 p-4 space-y-4">
       <input
         value={form.title}
         onChange={(e) => onChange({ title: e.target.value })}
@@ -663,7 +663,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
                 </div>
               ) : (
                 <div className="flex items-start gap-3 p-3">
-                  <FolderOpen className="h-4 w-4 flex-shrink-0 text-[#1a73e8] mt-0.5" />
+                  <FolderOpen className="h-4 w-4 flex-shrink-0 text-[#178593] mt-0.5" />
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium text-gray-800">{topic.title}</p>
                     <p className="text-xs text-gray-400">{t("lessonsInTopic", { count: topic.lessons.length })}</p>
@@ -698,7 +698,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
         </div>
 
         {addingTopic && (
-          <div className="mt-3 space-y-3 rounded-xl border border-[#1a73e8]/20 bg-blue-50 p-4">
+          <div className="mt-3 space-y-3 rounded-xl border border-[#178593]/20 bg-blue-50 p-4">
             <input
               autoFocus
               value={newTopicTitle}
@@ -764,7 +764,7 @@ export default function AdminCourseEditPage({ module: initial, locale }: { modul
           <div key={topic.id} className="mb-6">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <FolderOpen className="h-4 w-4 text-[#1a73e8]" />
+                <FolderOpen className="h-4 w-4 text-[#178593]" />
                 <h3 className="text-sm font-semibold text-gray-700">{topic.title}</h3>
                 <span className="text-xs text-gray-400">({topic.lessons.length})</span>
               </div>

@@ -157,7 +157,7 @@ export default function LaborMarketPage({ links, jobs, videos, locale }: LaborMa
         </div>
         <Link
           href={`/${locale}/jobs/new`}
-          className="flex flex-shrink-0 items-center gap-2 rounded-lg border border-[#1a73e8]/30 bg-[#1a73e8]/5 px-4 py-2 text-sm font-medium text-[#1a73e8] hover:bg-[#1a73e8]/10 transition-colors"
+          className="flex flex-shrink-0 items-center gap-2 rounded-lg border border-[#178593]/30 bg-[#178593]/5 px-4 py-2 text-sm font-medium text-[#178593] hover:bg-[#178593]/10 transition-colors"
         >
           <Plus className="h-4 w-4" />
           {t("postJob")}
@@ -191,7 +191,7 @@ export default function LaborMarketPage({ links, jobs, videos, locale }: LaborMa
         >
           {t("tabJobs")}
           {jobs.length > 0 && (
-            <span className="ml-2 rounded-full bg-[#1a73e8] px-1.5 py-0.5 text-xs text-white">
+            <span className="ml-2 rounded-full bg-[#178593] px-1.5 py-0.5 text-xs text-white">
               {jobs.length}
             </span>
           )}
@@ -242,8 +242,8 @@ export default function LaborMarketPage({ links, jobs, videos, locale }: LaborMa
                 className={cn(
                   "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
                   selectedFilter === code
-                    ? "border-[#1a73e8] bg-[#1a73e8] text-white"
-                    : "border-gray-200 bg-white text-gray-600 hover:border-[#1a73e8]/40"
+                    ? "border-[#178593] bg-[#178593] text-white"
+                    : "border-gray-200 bg-white text-gray-600 hover:border-[#178593]/40"
                 )}
               >
                 {flag && <span>{flag}</span>}
@@ -344,7 +344,7 @@ export default function LaborMarketPage({ links, jobs, videos, locale }: LaborMa
               <p className="mb-4 text-sm text-gray-500">{t("noOpenings")}</p>
               <Link
                 href={`/${locale}/jobs/new`}
-                className="flex items-center gap-2 rounded-lg bg-[#1a73e8] px-4 py-2 text-sm font-medium text-white hover:bg-[#1558b0]"
+                className="flex items-center gap-2 rounded-lg bg-[#178593] px-4 py-2 text-sm font-medium text-white hover:bg-[#115f6e]"
               >
                 <Plus className="h-4 w-4" />
                 {t("postJob")}
@@ -404,7 +404,7 @@ export default function LaborMarketPage({ links, jobs, videos, locale }: LaborMa
                                   href={job.website}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center gap-1 rounded-lg border border-gray-200 px-2.5 py-1.5 text-xs text-gray-500 hover:border-[#1a73e8]/40 hover:text-[#1a73e8]"
+                                  className="flex items-center gap-1 rounded-lg border border-gray-200 px-2.5 py-1.5 text-xs text-gray-500 hover:border-[#178593]/40 hover:text-[#178593]"
                                 >
                                   <Globe className="h-3 w-3" />
                                   {t("website")}
@@ -412,7 +412,7 @@ export default function LaborMarketPage({ links, jobs, videos, locale }: LaborMa
                               )}
                               <a
                                 href={`mailto:${job.contactEmail}`}
-                                className="flex items-center gap-1 rounded-lg bg-[#1a73e8] px-2.5 py-1.5 text-xs font-medium text-white hover:bg-[#1558b0]"
+                                className="flex items-center gap-1 rounded-lg bg-[#178593] px-2.5 py-1.5 text-xs font-medium text-white hover:bg-[#115f6e]"
                               >
                                 <Mail className="h-3 w-3" />
                                 {t("apply")}
@@ -507,7 +507,7 @@ export default function LaborMarketPage({ links, jobs, videos, locale }: LaborMa
                               href={video.youtubeUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-[#1a73e8]"
+                              className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-[#178593]"
                             >
                               <Youtube className="h-3.5 w-3.5" />
                               {t("watchOnYoutube")}

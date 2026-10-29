@@ -31,7 +31,7 @@ export default function LoginLanguageSelect({
           id="login-language"
           value={locale}
           onChange={(e) => router.push(`/${e.target.value}${path}`)}
-          className="appearance-none rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-8 text-sm text-gray-700 hover:border-gray-300 focus:border-[#1a73e8] focus:outline-none focus:ring-2 focus:ring-[#1a73e8]/20"
+          className="appearance-none rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-8 text-sm text-gray-700 hover:border-gray-300 focus:border-[#178593] focus:outline-none focus:ring-2 focus:ring-[#178593]/20"
         >
           {locales.map((loc) => (
             <option key={loc} value={loc}>

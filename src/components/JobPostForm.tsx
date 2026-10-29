@@ -54,7 +54,7 @@ export default function JobPostForm() {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-          <CheckCircle2 className="h-8 w-8 text-[#34a853]" />
+          <CheckCircle2 className="h-8 w-8 text-[#2f9e77]" />
         </div>
         <h2 className="mb-2 text-xl font-bold text-gray-900">{t("submittedTitle")}</h2>
         <p className="max-w-sm text-sm text-gray-500">
@@ -133,7 +133,7 @@ export default function JobPostForm() {
               onChange={update("description")}
               rows={5}
               placeholder={t("descriptionPlaceholder")}
-              className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+              className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#178593] focus:outline-none focus:ring-1 focus:ring-[#178593]"
             />
           </div>
         </div>

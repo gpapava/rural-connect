@@ -116,7 +116,7 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
               key={s.number}
               className={cn(
                 "h-2 w-2 rounded-full",
-                s.status === "COMPLETED" ? "bg-[#34a853]" : s.status === "ACTIVE" ? "bg-[#1a73e8]" : "bg-gray-200"
+                s.status === "COMPLETED" ? "bg-[#2f9e77]" : s.status === "ACTIVE" ? "bg-[#178593]" : "bg-gray-200"
               )}
             />
           ))
@@ -163,7 +163,7 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
             <button
               onClick={() => respondToSession(pending.id, true)}
               disabled={responding}
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#1a73e8] py-3 text-sm font-semibold text-white hover:bg-[#1558b0] disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#178593] py-3 text-sm font-semibold text-white hover:bg-[#115f6e] disabled:opacity-50"
             >
               <Check className="h-4 w-4" /> {t("accept")}
             </button>
@@ -179,13 +179,13 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
       )}
 
       {nextStep === "session_today" && upcomingSession && (
-        <div className="rounded-2xl border-2 border-[#1a73e8]/20 bg-gradient-to-br from-blue-50 to-indigo-50 p-6">
+        <div className="rounded-2xl border-2 border-[#178593]/20 bg-gradient-to-br from-blue-50 to-indigo-50 p-6">
           <div className="mb-4 flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
-              <Sparkles className="h-4 w-4 text-[#1a73e8]" />
+              <Sparkles className="h-4 w-4 text-[#178593]" />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#1a73e8]">{t("today")}</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#178593]">{t("today")}</p>
               <h2 className="text-lg font-bold text-gray-900">
                 {isToday(upcomingSession.scheduledAt) ? t("sessionTodayTitle") : t("sessionTomorrowTitle")}
               </h2>
@@ -202,7 +202,7 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
           </p>
           <Link
             href={`/${locale}/counseling`}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1a73e8] py-3 text-sm font-semibold text-white hover:bg-[#1558b0]"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#178593] py-3 text-sm font-semibold text-white hover:bg-[#115f6e]"
           >
             <MessageSquare className="h-4 w-4" /> {t("joinSession")}
           </Link>
@@ -235,7 +235,7 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
           </div>
           <Link
             href={`/${locale}/counseling`}
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#1a73e8]/30 bg-[#1a73e8]/5 py-3 text-sm font-semibold text-[#1a73e8] hover:bg-[#1a73e8]/10"
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#178593]/30 bg-[#178593]/5 py-3 text-sm font-semibold text-[#178593] hover:bg-[#178593]/10"
           >
             <MessageSquare className="h-4 w-4" /> {t("viewCounsellingSession")}
           </Link>
@@ -243,13 +243,13 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
       )}
 
       {nextStep === "journey_in_progress" && (
-        <div className="rounded-2xl border-2 border-[#1a73e8]/20 bg-gradient-to-br from-blue-50 to-slate-50 p-6">
+        <div className="rounded-2xl border-2 border-[#178593]/20 bg-gradient-to-br from-blue-50 to-slate-50 p-6">
           <div className="mb-4 flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
-              <MessageSquare className="h-4 w-4 text-[#1a73e8]" />
+              <MessageSquare className="h-4 w-4 text-[#178593]" />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#1a73e8]">{t("nextStep")}</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#178593]">{t("nextStep")}</p>
               <h2 className="text-lg font-bold text-gray-900">{t("continueJourney")}</h2>
             </div>
           </div>
@@ -272,7 +272,7 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
 
           <Link
             href={`/${locale}/counseling`}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1a73e8] py-3 text-sm font-semibold text-white hover:bg-[#1558b0]"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#178593] py-3 text-sm font-semibold text-white hover:bg-[#115f6e]"
           >
             {t("goToCounselling")} <ArrowRight className="h-4 w-4" />
           </Link>
@@ -301,13 +301,13 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
       )}
 
       {nextStep === "all_done" && certificate && (
-        <div className="rounded-2xl border-2 border-[#34a853]/30 bg-gradient-to-br from-green-50 to-emerald-50 p-6">
+        <div className="rounded-2xl border-2 border-[#2f9e77]/30 bg-gradient-to-br from-green-50 to-emerald-50 p-6">
           <div className="mb-4 flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
-              <Award className="h-4 w-4 text-[#34a853]" />
+              <Award className="h-4 w-4 text-[#2f9e77]" />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#34a853]">{t("congratulations")}</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#2f9e77]">{t("congratulations")}</p>
               <h2 className="text-lg font-bold text-gray-900">{t("earnedCertificate")}</h2>
             </div>
           </div>
@@ -317,7 +317,7 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
           <Link
             href={`/${locale}/certificate/${certificate.id}`}
             target="_blank"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#34a853] py-3 text-sm font-semibold text-white hover:bg-[#2d9147]"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#2f9e77] py-3 text-sm font-semibold text-white hover:bg-[#26855f]"
           >
             <Award className="h-4 w-4" /> {t("viewDownloadCertificate")}
           </Link>
@@ -383,13 +383,13 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
           </div>
           <div>
             <p className="text-sm font-semibold text-gray-900">{t("tiles.myProfile")}</p>
-            <p className={cn("text-xs", portfolioComplete ? "text-[#34a853]" : "text-orange-500")}>
+            <p className={cn("text-xs", portfolioComplete ? "text-[#2f9e77]" : "text-orange-500")}>
               {portfolioComplete ? t("tiles.profileComplete") : t("tiles.profileNeedsUpdating")}
             </p>
           </div>
           <div className={cn(
             "rounded-full px-2 py-0.5 text-center text-[10px] font-semibold w-fit",
-            portfolioComplete ? "bg-green-50 text-[#34a853]" : "bg-orange-50 text-orange-600"
+            portfolioComplete ? "bg-green-50 text-[#2f9e77]" : "bg-orange-50 text-orange-600"
           )}>
             {portfolioComplete ? t("tiles.done") : t("tiles.todo")}
           </div>

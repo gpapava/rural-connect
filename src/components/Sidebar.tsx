@@ -20,6 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import { locales, localeNames, type Locale } from "@/i18n";
 import { UserRole } from "@prisma/client";
+import BrandMark from "@/components/BrandMark";
 
 interface SidebarProps {
   locale: string;
@@ -140,28 +141,14 @@ export default function Sidebar({ locale, user, open = false, onClose }: Sidebar
     />
     <aside
       className={cn(
-        "fixed inset-y-0 left-0 z-40 flex h-full w-64 max-w-[85vw] flex-col bg-[#1e293b] text-white shadow-xl transition-transform duration-200",
+        "fixed inset-y-0 left-0 z-40 flex h-full w-64 max-w-[85vw] flex-col bg-[#0f3d47] text-white shadow-xl transition-transform duration-200",
         "lg:static lg:z-auto lg:max-w-none lg:translate-x-0",
         open ? "translate-x-0" : "-translate-x-full"
       )}
     >
       {/* Logo */}
       <div className="flex items-center gap-3 border-b border-slate-700/50 px-5 py-4">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1a73e8]">
-          <svg
-            className="h-5 w-5 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"
-            />
-          </svg>
-        </div>
+        <BrandMark className="h-9 w-9" rounded="rounded-lg" />
         <span className="text-sm font-bold tracking-widest text-white">
           RURAL-CONNECT
         </span>
@@ -170,7 +157,7 @@ export default function Sidebar({ locale, user, open = false, onClose }: Sidebar
       {/* User info */}
       <div className="border-b border-slate-700/50 px-5 py-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1a73e8] text-sm font-semibold text-white">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#178593] text-sm font-semibold text-white">
             {getInitials(user.name)}
           </div>
           <div className="min-w-0 flex-1">
@@ -209,7 +196,7 @@ export default function Sidebar({ locale, user, open = false, onClose }: Sidebar
                 <Icon className="h-4 w-4 flex-shrink-0" />
                 <span>{t(item.key)}</span>
                 {active && (
-                  <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#1a73e8]" />
+                  <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#7fe0e6]" />
                 )}
               </Link>
             );
@@ -221,7 +208,7 @@ export default function Sidebar({ locale, user, open = false, onClose }: Sidebar
         <div className="relative">
           <button
             onClick={() => setLangOpen(!langOpen)}
-            className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-[#273549] hover:text-white"
+            className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-[#175562] hover:text-white"
           >
             <Globe className="h-4 w-4 flex-shrink-0" />
             <span className="flex-1 text-left">
@@ -236,16 +223,16 @@ export default function Sidebar({ locale, user, open = false, onClose }: Sidebar
           </button>
 
           {langOpen && (
-            <div className="absolute bottom-full left-0 mb-1 w-full rounded-lg border border-slate-700 bg-[#1a2640] py-1 shadow-lg">
+            <div className="absolute bottom-full left-0 mb-1 w-full rounded-lg border border-slate-700 bg-[#0c333c] py-1 shadow-lg">
               {locales.map((loc) => (
                 <Link
                   key={loc}
                   href={`/${loc}${pathname.replace(`/${locale}`, "")}`}
                   onClick={() => setLangOpen(false)}
                   className={cn(
-                    "flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-[#273549]",
+                    "flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-[#175562]",
                     loc === locale
-                      ? "font-medium text-[#1a73e8]"
+                      ? "font-medium text-[#178593]"
                       : "text-slate-300"
                   )}
                 >

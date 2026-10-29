@@ -63,8 +63,8 @@ function TextLesson({ content }: { content: string }) {
   return (
     <div
       className="prose prose-sm max-w-none text-gray-700
-        prose-headings:text-gray-900 prose-a:text-[#1a73e8]
-        prose-blockquote:border-[#1a73e8] prose-blockquote:bg-blue-50 prose-blockquote:rounded-r-lg"
+        prose-headings:text-gray-900 prose-a:text-[#178593]
+        prose-blockquote:border-[#178593] prose-blockquote:bg-blue-50 prose-blockquote:rounded-r-lg"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   );
@@ -95,7 +95,7 @@ function PdfLesson({ url }: { url: string }) {
       <div className="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
         <iframe src={`${url}#toolbar=1&navpanes=0&view=FitH`} className="w-full" style={{ height: "clamp(640px, 82vh, 1000px)" }} title={t("pdfDocument")} />
       </div>
-      <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#1a73e8] hover:underline">
+      <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#178593] hover:underline">
         <ExternalLink className="h-4 w-4" /> {t("openInNewTab")}
       </a>
     </div>
@@ -143,7 +143,7 @@ function MatchingQuestion({
               value={selected}
               onChange={(e) => onMatch(pair.id, e.target.value)}
               className={cn(
-                "flex-1 rounded-lg border px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a73e8]",
+                "flex-1 rounded-lg border px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#178593]",
                 submitted && isCorrect ? "border-green-300 bg-green-50" :
                 submitted && !isCorrect ? "border-red-300 bg-red-50" :
                 "border-gray-200 bg-white"
@@ -229,7 +229,7 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
             {score === questions.length ? t("quiz.completed") : t("quiz.reviewAndRetry")}
           </p>
           {score < questions.length && (
-            <button onClick={() => { setAnswers({}); setSubmitted(false); }} className="mt-3 text-sm font-medium text-[#1a73e8] hover:underline">
+            <button onClick={() => { setAnswers({}); setSubmitted(false); }} className="mt-3 text-sm font-medium text-[#178593] hover:underline">
               {t("quiz.tryAgain")}
             </button>
           )}
@@ -252,13 +252,13 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
                 {(q.options ?? []).map((opt, oi) => {
                   const selected = answers[q.id] === oi;
                   const isOpt = oi === q.correctIndex;
-                  let style = "border-gray-200 bg-gray-50 text-gray-700 hover:border-[#1a73e8]/40";
+                  let style = "border-gray-200 bg-gray-50 text-gray-700 hover:border-[#178593]/40";
                   if (submitted) {
                     if (isOpt) style = "border-green-400 bg-green-50 text-green-800";
                     else if (selected) style = "border-red-400 bg-red-50 text-red-700";
                     else style = "border-gray-200 bg-gray-50 text-gray-400";
                   } else if (selected) {
-                    style = "border-[#1a73e8] bg-blue-50 text-[#1a73e8]";
+                    style = "border-[#178593] bg-blue-50 text-[#178593]";
                   }
                   return (
                     <button
@@ -280,13 +280,13 @@ function QuizLesson({ content, onComplete }: { content: string; onComplete: () =
                 {([true, false] as const).map((val) => {
                   const selected = answers[q.id] === val;
                   const isCorrectOpt = val === q.correctAnswer;
-                  let style = "border-gray-200 bg-gray-50 text-gray-700 hover:border-[#1a73e8]/40";
+                  let style = "border-gray-200 bg-gray-50 text-gray-700 hover:border-[#178593]/40";
                   if (submitted) {
                     if (isCorrectOpt) style = "border-green-400 bg-green-50 text-green-800";
                     else if (selected) style = "border-red-400 bg-red-50 text-red-700";
                     else style = "border-gray-200 bg-gray-50 text-gray-400";
                   } else if (selected) {
-                    style = "border-[#1a73e8] bg-blue-50 text-[#1a73e8]";
+                    style = "border-[#178593] bg-blue-50 text-[#178593]";
                   }
                   return (
                     <button
@@ -332,7 +332,7 @@ function ScormLesson({ url, onComplete }: { url: string; onComplete: () => void 
         <iframe src={playerUrl} className="h-full w-full border-0" allow="fullscreen" title={t("scormContent")} />
       </div>
       <div className="flex items-center justify-between">
-        <a href={playerUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#1a73e8] hover:underline">
+        <a href={playerUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-[#178593] hover:underline">
           <ExternalLink className="h-3.5 w-3.5" /> {t("openInNewTab")}
         </a>
         <button onClick={onComplete} className="btn-secondary py-1.5 px-3 text-xs">
@@ -415,11 +415,11 @@ export default function ModuleDetailPage({ module, lessons, topics, status, comp
           <ArrowLeft className="h-5 w-5" />
         </button>
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-[#1a73e8] mb-1">{module.category}</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-[#178593] mb-1">{module.category}</p>
           <h1 className="text-2xl font-bold text-gray-900">{module.title}</h1>
           {module.description && (
             <div
-              className="mt-2 max-w-3xl text-base leading-relaxed text-gray-600 [&_a]:text-[#1a73e8] [&_a]:underline [&_p]:mt-2 first:[&_p]:mt-0"
+              className="mt-2 max-w-3xl text-base leading-relaxed text-gray-600 [&_a]:text-[#178593] [&_a]:underline [&_p]:mt-2 first:[&_p]:mt-0"
               dangerouslySetInnerHTML={{ __html: module.description }}
             />
           )}
@@ -439,7 +439,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, comp
                 {topics.map((topic) => (
                   <div key={topic.id}>
                     <div className="flex items-center gap-1.5 mb-1">
-                      <FolderOpen className="h-3.5 w-3.5 flex-shrink-0 text-[#1a73e8]" />
+                      <FolderOpen className="h-3.5 w-3.5 flex-shrink-0 text-[#178593]" />
                       <p className="text-xs font-semibold text-gray-700 truncate">{topic.title}</p>
                     </div>
                     <div className="space-y-1 pl-1">
@@ -493,7 +493,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, comp
           <div className="rounded-xl border border-gray-200 bg-white p-6">
             <div className="mb-5">
               {activeTopic && (
-                <p className="mb-1 text-lg font-bold text-[#1a73e8]">{activeTopic.title}</p>
+                <p className="mb-1 text-lg font-bold text-[#178593]">{activeTopic.title}</p>
               )}
               <p className="text-xs text-gray-400 uppercase tracking-wide">{t(LESSON_LABEL_KEY[activeLesson.type])}</p>
               <h2 className="text-lg font-semibold text-gray-900">{activeLesson.title}</h2>
@@ -501,7 +501,7 @@ export default function ModuleDetailPage({ module, lessons, topics, status, comp
 
             {activeLesson.description && ["PDF", "VIDEO", "QUIZ"].includes(activeLesson.type) && (
               <div
-                className="mb-4 prose prose-sm max-w-none text-gray-600 prose-a:text-[#1a73e8]"
+                className="mb-4 prose prose-sm max-w-none text-gray-600 prose-a:text-[#178593]"
                 dangerouslySetInnerHTML={{ __html: activeLesson.description }}
               />
             )}
@@ -546,7 +546,7 @@ function LessonNavButton({
       onClick={onClick}
       className={cn(
         "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-all",
-        isActive ? "bg-[#1a73e8] text-white" : "text-gray-600 hover:bg-gray-50"
+        isActive ? "bg-[#178593] text-white" : "text-gray-600 hover:bg-gray-50"
       )}
     >
       {isDone

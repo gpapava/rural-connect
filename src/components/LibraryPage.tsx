@@ -174,7 +174,7 @@ export default function LibraryPage({ modules, resources, locale }: LibraryPageP
             </div>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold text-[#1a73e8]">
+            <div className="text-2xl font-bold text-[#178593]">
               {progressPct}%
             </div>
             <div className="text-xs text-gray-500">{t("overallProgress")}</div>
@@ -198,8 +198,8 @@ export default function LibraryPage({ modules, resources, locale }: LibraryPageP
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
                 selectedCategory === cat
-                  ? "border-[#1a73e8] bg-[#1a73e8] text-white"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-[#1a73e8]/40 hover:text-[#1a73e8]"
+                  ? "border-[#178593] bg-[#178593] text-white"
+                  : "border-gray-200 bg-white text-gray-600 hover:border-[#178593]/40 hover:text-[#178593]"
               )}
             >
               {cat === "all" ? t("categories.all") : cat}
@@ -319,15 +319,15 @@ export default function LibraryPage({ modules, resources, locale }: LibraryPageP
                 rel="noopener noreferrer"
                 className="card group flex gap-3 transition-shadow hover:shadow-md"
               >
-                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-[#1a73e8]/10">
+                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-[#178593]/10">
                   {r.kind === "link" ? (
-                    <ExternalLink className="h-4 w-4 text-[#1a73e8]" />
+                    <ExternalLink className="h-4 w-4 text-[#178593]" />
                   ) : (
-                    <FileText className="h-4 w-4 text-[#1a73e8]" />
+                    <FileText className="h-4 w-4 text-[#178593]" />
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-gray-900 group-hover:text-[#1a73e8]">
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-[#178593]">
                     {r.title}
                   </p>
                   {r.description && (
@@ -335,7 +335,7 @@ export default function LibraryPage({ modules, resources, locale }: LibraryPageP
                       {r.description}
                     </p>
                   )}
-                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#1a73e8]">
+                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#178593]">
                     {r.kind === "link"
                       ? t("resources.visit")
                       : t("resources.open")}

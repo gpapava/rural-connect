@@ -4,6 +4,7 @@ import { useState } from "react";
 import { UserRole } from "@prisma/client";
 import Sidebar from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
+import FundingBanner from "@/components/FundingBanner";
 
 interface AppShellProps {
   locale: string;
@@ -20,7 +21,12 @@ export default function AppShell({ locale, user, children }: AppShellProps) {
       <Sidebar locale={locale} user={user} open={menuOpen} onClose={() => setMenuOpen(false)} />
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <Topbar locale={locale} user={user} onMenuClick={() => setMenuOpen(true)} />
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6">{children}</main>
+        <main className="flex-1 overflow-y-auto">
+          <div className="flex min-h-full flex-col p-4 sm:p-6">
+            <div className="flex-1">{children}</div>
+            <FundingBanner className="mt-10" />
+          </div>
+        </main>
       </div>
     </div>
   );

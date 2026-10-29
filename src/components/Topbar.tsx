@@ -8,6 +8,7 @@ import { Home, User, LogOut, ChevronDown, Menu } from "lucide-react";
 import { UserRole } from "@prisma/client";
 import { getInitials } from "@/lib/utils";
 import NotificationBell from "@/components/NotificationBell";
+import BrandMark from "@/components/BrandMark";
 
 interface TopbarProps {
   locale: string;
@@ -29,7 +30,7 @@ export default function Topbar({ locale, user, onMenuClick }: TopbarProps) {
   };
 
   return (
-    <header className="flex h-14 items-center justify-between border-b border-blue-700/30 bg-[#1a73e8] px-4 shadow-md sm:px-6">
+    <header className="flex h-14 items-center justify-between border-b border-blue-700/30 bg-[#178593] px-4 shadow-md sm:px-6">
       {/* Left - Menu (mobile) + Logo/Brand */}
       <div className="flex items-center gap-2 sm:gap-3">
         <button
@@ -44,21 +45,7 @@ export default function Topbar({ locale, user, onMenuClick }: TopbarProps) {
           href={`/${locale}/dashboard`}
           className="flex items-center gap-2 text-white"
         >
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/20">
-            <svg
-              className="h-4 w-4 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"
-              />
-            </svg>
-          </div>
+          <BrandMark className="h-8 w-8" rounded="rounded-lg" />
           <span className="text-sm font-bold tracking-widest text-white hidden sm:inline">
             RURAL-CONNECT
           </span>

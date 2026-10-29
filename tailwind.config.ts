@@ -10,15 +10,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // RURAL-CONNECT project palette (taken from the project logo's green → teal → blue gradient).
+        // The Tailwind `blue` scale is remapped to the brand teal, so every `*-blue-*` class follows the brand.
+        blue: {
+          50: "#ecf8f9",
+          100: "#d3eef1",
+          200: "#a9dde3",
+          300: "#76c8d1",
+          400: "#3fafbb",
+          500: "#1f9aa8",
+          600: "#178593",
+          700: "#115f6e",
+          800: "#0f4c59",
+          900: "#0f3d47",
+        },
         brand: {
-          blue: "#1a73e8",
-          "blue-dark": "#1558b0",
-          "blue-light": "#e8f0fe",
-          sidebar: "#1e293b",
-          "sidebar-hover": "#273549",
-          "sidebar-active": "#2d3f57",
+          blue: "#178593",
+          "blue-dark": "#115f6e",
+          "blue-light": "#e6f4f6",
+          sidebar: "#0f3d47",
+          "sidebar-hover": "#175562",
+          "sidebar-active": "#1d6676",
           accent: {
-            green: "#34a853",
+            green: "#2f9e77",
             orange: "#fbbc04",
             red: "#ea4335",
           },

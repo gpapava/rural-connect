@@ -94,8 +94,8 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
               filter === key
-                ? "border-[#1a73e8] bg-[#1a73e8] text-white"
-                : "border-gray-200 bg-white text-gray-600 hover:border-[#1a73e8]/40"
+                ? "border-[#178593] bg-[#178593] text-white"
+                : "border-gray-200 bg-white text-gray-600 hover:border-[#178593]/40"
             )}
           >
             {label}
@@ -184,7 +184,7 @@ export default function AdminJobsPage({ jobs: initial }: { jobs: Job[] }) {
                       <button
                         onClick={() => updateStatus(job.id, "APPROVED")}
                         disabled={processing === job.id}
-                        className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#34a853] px-4 py-2 text-sm font-semibold text-white hover:bg-[#2d9147] disabled:opacity-50"
+                        className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#2f9e77] px-4 py-2 text-sm font-semibold text-white hover:bg-[#26855f] disabled:opacity-50"
                       >
                         <CheckCircle2 className="h-4 w-4" />
                         {t("approve")}

@@ -55,14 +55,14 @@ export default function CertificateView({
         <div className="flex items-center gap-3">
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 rounded-xl bg-[#1e293b] px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#0f172a] transition-colors"
+            className="flex items-center gap-2 rounded-xl bg-[#0f3d47] px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#0f172a] transition-colors"
           >
             <Printer className="h-4 w-4" />
             {t("printSave")}
           </button>
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 rounded-xl border border-[#1a73e8]/30 bg-white px-5 py-2.5 text-sm font-semibold text-[#1a73e8] shadow-sm hover:bg-blue-50 transition-colors"
+            className="flex items-center gap-2 rounded-xl border border-[#178593]/30 bg-white px-5 py-2.5 text-sm font-semibold text-[#178593] shadow-sm hover:bg-blue-50 transition-colors"
           >
             <Download className="h-4 w-4" />
             {t("downloadPdf")}
@@ -119,7 +119,7 @@ function CertificatePaper({
       {/* Outer decorative border */}
       <div style={{
         position: "absolute", inset: "12px",
-        border: "2px solid #1e293b",
+        border: "2px solid #0f3d47",
         pointerEvents: "none",
         zIndex: 1,
       }} />
@@ -152,7 +152,7 @@ function CertificatePaper({
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
         opacity: 0.03, pointerEvents: "none", zIndex: 0,
-        fontSize: "180px", fontWeight: "bold", color: "#1e293b",
+        fontSize: "180px", fontWeight: "bold", color: "#0f3d47",
         letterSpacing: "-4px", userSelect: "none",
       }}>
         RC
@@ -160,7 +160,7 @@ function CertificatePaper({
 
       {/* Top dark band */}
       <div style={{
-        background: "#1e293b",
+        background: "#0f3d47",
         padding: "18px 48px",
         display: "flex",
         alignItems: "center",
@@ -173,7 +173,7 @@ function CertificatePaper({
           <div style={{
             width: "44px", height: "44px",
             borderRadius: "10px",
-            background: "linear-gradient(135deg, #1a73e8, #0d47a1)",
+            background: "linear-gradient(135deg, #178593, #0d47a1)",
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: "18px", fontWeight: "bold", color: "white",
             fontFamily: "sans-serif",
@@ -232,7 +232,7 @@ function CertificatePaper({
 
         {/* Recipient name */}
         <div style={{
-          fontSize: "42px", fontWeight: "bold", color: "#1e293b",
+          fontSize: "42px", fontWeight: "bold", color: "#0f3d47",
           letterSpacing: "1px", lineHeight: 1.1, marginBottom: "10px",
           borderBottom: "2px solid #c9a84c",
           paddingBottom: "10px",
@@ -244,7 +244,7 @@ function CertificatePaper({
         {/* Body text */}
         <div style={{ fontSize: "13px", color: "#475569", lineHeight: 1.7, maxWidth: "520px", marginBottom: "16px" }}>
           {t.rich("bodyText", {
-            b: (chunks) => <strong style={{ color: "#1e293b" }}>{chunks}</strong>,
+            b: (chunks) => <strong style={{ color: "#0f3d47" }}>{chunks}</strong>,
           })}
         </div>
 
@@ -286,7 +286,7 @@ function CertificatePaper({
               marginBottom: "6px", height: "24px",
             }} />
             <div style={{ fontSize: "10px", color: "#64748b", fontFamily: "sans-serif" }}>{t("dateOfIssue")}</div>
-            <div style={{ fontSize: "12px", fontWeight: "bold", color: "#1e293b", fontFamily: "sans-serif", marginTop: "2px" }}>
+            <div style={{ fontSize: "12px", fontWeight: "bold", color: "#0f3d47", fontFamily: "sans-serif", marginTop: "2px" }}>
               {formatted}
             </div>
           </div>
@@ -309,7 +309,7 @@ function CertificatePaper({
               marginBottom: "6px", height: "24px",
             }} />
             <div style={{ fontSize: "10px", color: "#64748b", fontFamily: "sans-serif" }}>{t("programmeCounsellor")}</div>
-            <div style={{ fontSize: "12px", fontWeight: "bold", color: "#1e293b", fontFamily: "sans-serif", marginTop: "2px" }}>
+            <div style={{ fontSize: "12px", fontWeight: "bold", color: "#0f3d47", fontFamily: "sans-serif", marginTop: "2px" }}>
               {counselorName}
             </div>
           </div>

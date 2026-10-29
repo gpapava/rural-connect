@@ -13,9 +13,9 @@ function layout(title: string, paragraphs: string[], button: { url: string; labe
   const body = paragraphs.map((p) => `<p style="margin:0 0 14px;line-height:1.55">${p}</p>`).join("");
   return `<!doctype html><html><body style="margin:0;background:#f3f4f6;font-family:Arial,Helvetica,sans-serif;color:#1f2937">
 <div style="max-width:560px;margin:24px auto;background:#fff;border-radius:12px;overflow:hidden">
-<div style="background:#1e293b;color:#fff;padding:18px 24px;font-size:18px;font-weight:bold;letter-spacing:1px">RURAL-CONNECT</div>
+<div style="background:#0f3d47;color:#fff;padding:18px 24px;font-size:18px;font-weight:bold;letter-spacing:1px">RURAL-CONNECT</div>
 <div style="padding:24px"><h2 style="margin:0 0 16px;font-size:20px">${title}</h2>${body}
-<p style="margin:22px 0"><a href="${button.url}" style="background:#1a73e8;color:#fff;text-decoration:none;padding:12px 22px;border-radius:8px;display:inline-block;font-weight:bold">${button.label}</a></p>
+<p style="margin:22px 0"><a href="${button.url}" style="background:#178593;color:#fff;text-decoration:none;padding:12px 22px;border-radius:8px;display:inline-block;font-weight:bold">${button.label}</a></p>
 <p style="margin:0;font-size:12px;color:#6b7280;line-height:1.5">${footer}</p></div></div></body></html>`;
 }
 

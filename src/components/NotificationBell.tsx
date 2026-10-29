@@ -144,8 +144,8 @@ export default function NotificationBell({ userId, locale }: NotificationBellPro
                   )}
                 >
                   <div className="flex items-start gap-3">
-                    <div className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#1a73e8]/10">
-                      <Calendar className="h-3.5 w-3.5 text-[#1a73e8]" />
+                    <div className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#178593]/10">
+                      <Calendar className="h-3.5 w-3.5 text-[#178593]" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="text-xs font-semibold text-gray-900">{n.title}</p>
@@ -156,7 +156,7 @@ export default function NotificationBell({ userId, locale }: NotificationBellPro
                           <button
                             onClick={() => respond(n, true)}
                             disabled={responding === n.id}
-                            className="flex items-center gap-1 rounded-lg bg-[#1a73e8] px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-[#1558b0] disabled:opacity-50"
+                            className="flex items-center gap-1 rounded-lg bg-[#178593] px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-[#115f6e] disabled:opacity-50"
                           >
                             <Check className="h-3 w-3" />
                             {t("accept")}

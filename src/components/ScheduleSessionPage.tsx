@@ -104,7 +104,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
         <div className="card">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-              <Users className="h-4 w-4 text-[#1a73e8]" />
+              <Users className="h-4 w-4 text-[#178593]" />
               {t("selectStudent")}
             </h2>
             <button
@@ -113,7 +113,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
               className={cn(
                 "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors",
                 showMyStudentsOnly
-                  ? "border-[#1a73e8] bg-blue-50 text-[#1a73e8]"
+                  ? "border-[#178593] bg-blue-50 text-[#178593]"
                   : "border-gray-200 text-gray-600 hover:bg-gray-50"
               )}
             >
@@ -129,7 +129,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("searchPlaceholder")}
-              className="w-full rounded-lg border border-gray-200 bg-gray-50 py-2 pl-9 pr-3 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 py-2 pl-9 pr-3 text-sm focus:border-[#178593] focus:outline-none focus:ring-1 focus:ring-[#178593]"
             />
           </div>
 
@@ -147,11 +147,11 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
                   className={cn(
                     "flex w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors",
                     selectedUser?.id === user.id
-                      ? "border-[#1a73e8] bg-blue-50"
+                      ? "border-[#178593] bg-blue-50"
                       : "border-transparent hover:bg-gray-50"
                   )}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#1a73e8]/10 text-xs font-bold text-[#1a73e8]">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#178593]/10 text-xs font-bold text-[#178593]">
                     {user.name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -164,7 +164,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
                     </span>
                   )}
                   {selectedUser?.id === user.id && (
-                    <span className="ml-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#1a73e8]" />
+                    <span className="ml-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#178593]" />
                   )}
                 </button>
               ))}
@@ -175,7 +175,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
         {/* Date & Time */}
         <div className="card">
           <h2 className="mb-4 text-sm font-semibold text-gray-900 flex items-center gap-2">
-            <CalendarPlus className="h-4 w-4 text-[#1a73e8]" />
+            <CalendarPlus className="h-4 w-4 text-[#178593]" />
             {t("dateTime")}
           </h2>
           <div className="grid grid-cols-2 gap-4">
@@ -187,7 +187,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
                 min={minDate}
                 onChange={(e) => setDate(e.target.value)}
                 required
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#178593] focus:outline-none focus:ring-1 focus:ring-[#178593]"
               />
             </div>
             <div>
@@ -197,7 +197,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
                 required
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#178593] focus:outline-none focus:ring-1 focus:ring-[#178593]"
               />
             </div>
           </div>
@@ -211,7 +211,7 @@ export default function ScheduleSessionPage({ locale }: ScheduleSessionPageProps
             onChange={(e) => setNote(e.target.value)}
             placeholder={t("notePlaceholder")}
             rows={3}
-            className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#1a73e8] focus:outline-none focus:ring-1 focus:ring-[#1a73e8]"
+            className="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm focus:border-[#178593] focus:outline-none focus:ring-1 focus:ring-[#178593]"
           />
         </div>
 
