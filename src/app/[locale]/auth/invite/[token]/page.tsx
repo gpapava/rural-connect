@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import CounsellorInviteForm from "@/components/CounsellorInviteForm";
 
 interface PageProps {
@@ -13,14 +14,20 @@ export default async function InvitePage({ params: { locale, token } }: PageProp
 
   const t = await getTranslations({ locale, namespace: "invite" });
 
-  // Validate the token server-side
-  const res = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/auth/invite/${token}`,
-    { cache: "no-store" }
-  );
-  const data = await res.json();
+  // Validate the token server-side (same rules as GET /api/auth/invite/[token])
+  const invite = await prisma.counsellorInvite.findUnique({
+    where: { token },
+    select: { email: true, used: true, expiresAt: true },
+  });
+  const error = !invite
+    ? "Invalid invite link."
+    : invite.used
+      ? "This invite has already been used."
+      : invite.expiresAt < new Date()
+        ? "This invite link has expired."
+        : null;
 
-  if (!res.ok) {
+  if (!invite || error) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 p-8">
         <div className="w-full max-w-md rounded-xl border border-red-200 bg-white p-8 text-center shadow-sm">
@@ -30,7 +37,7 @@ export default async function InvitePage({ params: { locale, token } }: PageProp
             </svg>
           </div>
           <h2 className="mb-2 text-lg font-semibold text-gray-900">{t("invalidTitle")}</h2>
-          <p className="text-sm text-gray-500">{data.error}</p>
+          <p className="text-sm text-gray-500">{error}</p>
         </div>
       </div>
     );
@@ -59,7 +66,7 @@ export default async function InvitePage({ params: { locale, token } }: PageProp
       {/* Right panel */}
       <div className="flex w-full lg:w-1/2 flex-col items-center justify-center bg-white p-8">
         <div className="w-full max-w-md">
-          <CounsellorInviteForm token={token} email={data.email} locale={locale} />
+          <CounsellorInviteForm token={token} email={invite.email} locale={locale} />
         </div>
       </div>
     </div>
