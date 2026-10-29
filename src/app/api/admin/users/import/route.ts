@@ -9,6 +9,8 @@ import {
   readRows,
   type ImportIssue,
 } from "@/lib/neetImport";
+import { appUrl, mailConfigured, sendMailBatch } from "@/lib/mail";
+import { neetWelcomeEmail } from "@/lib/emailTemplates";
 
 const MAX_FILE_BYTES = 2 * 1024 * 1024;
 
@@ -30,6 +32,7 @@ export async function POST(req: NextRequest) {
   const defaultLanguage = (IMPORT_LANGUAGES as readonly string[]).includes(defaultLanguageRaw)
     ? defaultLanguageRaw
     : "en";
+  const sendEmails = String(form.get("sendEmails") ?? "") === "true";
   const defaultCountry = String(form.get("defaultCountry") ?? "").trim().toUpperCase() || null;
 
   if (!file) return NextResponse.json({ error: "No file provided." }, { status: 400 });
@@ -87,9 +90,29 @@ export async function POST(req: NextRequest) {
     skipDuplicates: true,
   });
 
+  // Welcome emails: sent in the background (one by one, paced) so the request returns right away.
+  let emails: { queued: number; configured: boolean } | null = null;
+  if (sendEmails) {
+    const configured = mailConfigured();
+    const queue = configured
+      ? toCreate.map((i) =>
+          neetWelcomeEmail({
+            name: i.name,
+            email: i.email,
+            password: oneTimePassword,
+            language: i.language ?? defaultLanguage,
+            loginUrl: `${appUrl()}/${i.language ?? defaultLanguage}/auth/login`,
+          })
+        )
+      : [];
+    if (queue.length > 0) void sendMailBatch(queue);
+    emails = { queued: queue.length, configured };
+  }
+
   return NextResponse.json({
     created: result.count,
     skipped,
     invalid: issues,
+    emails,
   });
 }

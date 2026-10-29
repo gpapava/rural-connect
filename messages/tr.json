@@ -607,6 +607,11 @@
     },
     "users": {
       "title": "Kullanıcı Yönetimi",
+      "inviteEmailSent": "An email with the registration link was sent to {email}.",
+      "inviteEmailNotSent": "The invite link was created, but the email could not be sent. Copy the link below and send it manually.",
+      "importSendEmails": "Email each new user their login details and the one-time password (in their language)",
+      "importEmailsQueued": "{count, plural, one {# welcome email is being sent} other {# welcome emails are being sent}} in the background.",
+      "importEmailsNotConfigured": "Email sending is not configured, so no welcome emails were sent.",
       "registeredUsers": "{count, plural, one {# kayıtlı kullanıcı} other {# kayıtlı kullanıcı}}",
       "newUser": "Yeni Kullanıcı",
       "requireChange": "Kullanıcıdan ilk girişte kendi şifresini belirlemesini iste (yukarıdaki şifre yalnızca geçici olur)",

@@ -607,6 +607,11 @@
     },
     "users": {
       "title": "Brukeradministrasjon",
+      "inviteEmailSent": "An email with the registration link was sent to {email}.",
+      "inviteEmailNotSent": "The invite link was created, but the email could not be sent. Copy the link below and send it manually.",
+      "importSendEmails": "Email each new user their login details and the one-time password (in their language)",
+      "importEmailsQueued": "{count, plural, one {# welcome email is being sent} other {# welcome emails are being sent}} in the background.",
+      "importEmailsNotConfigured": "Email sending is not configured, so no welcome emails were sent.",
       "registeredUsers": "{count, plural, one {# registrert bruker} other {# registrerte brukere}}",
       "newUser": "Ny bruker",
       "requireChange": "Krev at brukeren velger sitt eget passord ved første innlogging (passordet over er da bare midlertidig)",

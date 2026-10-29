@@ -7,7 +7,12 @@ import { Eye, EyeOff, FileSpreadsheet, Upload, Copy, CheckCircle } from "lucide-
 const LANGUAGE_VALUES = ["en", "el", "tr", "lv", "es", "it", "no"];
 
 type Issue = { line: number; email?: string; reason: string };
-type Result = { created: number; skipped: Issue[]; invalid: Issue[] };
+type Result = {
+  created: number;
+  skipped: Issue[];
+  invalid: Issue[];
+  emails: { queued: number; configured: boolean } | null;
+};
 
 // Readable random password without look-alike characters (no 0/O, 1/l/I)
 function generatePassword(length = 10): string {
@@ -37,6 +42,7 @@ export default function ImportNeetsPanel() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
   const [usedPassword, setUsedPassword] = useState("");
+  const [sendEmails, setSendEmails] = useState(true);
   const [copied, setCopied] = useState(false);
 
   const downloadTemplate = () => {
@@ -61,6 +67,7 @@ export default function ImportNeetsPanel() {
       body.append("file", file);
       body.append("oneTimePassword", password);
       body.append("defaultLanguage", language);
+      body.append("sendEmails", String(sendEmails));
       const res = await fetch("/api/admin/users/import", { method: "POST", body });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -114,6 +121,14 @@ export default function ImportNeetsPanel() {
                 <CheckCircle className="h-4 w-4" />
                 {t("importCreated", { count: result.created })}
               </div>
+
+              {result.emails && (
+                <p className="text-xs text-gray-700">
+                  {result.emails.configured
+                    ? t("importEmailsQueued", { count: result.emails.queued })
+                    : t("importEmailsNotConfigured")}
+                </p>
+              )}
 
               {result.created > 0 && (
                 <div className="rounded-lg border border-blue-200 bg-white p-3">
@@ -239,6 +254,16 @@ export default function ImportNeetsPanel() {
                   </select>
                 </div>
               </div>
+
+              <label className="flex items-start gap-2 text-xs text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={sendEmails}
+                  onChange={(e) => setSendEmails(e.target.checked)}
+                  className="mt-0.5"
+                />
+                <span>{t("importSendEmails")}</span>
+              </label>
 
               <button type="submit" disabled={loading} className="btn-primary text-sm disabled:opacity-50">
                 <Upload className="h-4 w-4" />

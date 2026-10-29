@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { appUrl, mailConfigured, sendMail } from "@/lib/mail";
+import { counsellorInviteEmail } from "@/lib/emailTemplates";
 
 export async function GET() {
   const session = await auth();
@@ -20,7 +22,7 @@ export async function POST(req: NextRequest) {
   if (!session || session.user.role !== "ADMIN")
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { email } = await req.json();
+  const { email, locale } = await req.json();
   if (!email?.trim())
     return NextResponse.json({ error: "Email is required." }, { status: 400 });
 
@@ -41,7 +43,26 @@ export async function POST(req: NextRequest) {
     select: { id: true, email: true, token: true, used: true, expiresAt: true, createdAt: true },
   });
 
-  return NextResponse.json({ invite }, { status: 201 });
+  // Email the invite link to the counsellor (best effort — the link is still shown in the panel).
+  const language = typeof locale === "string" ? locale : "en";
+  let emailSent = false;
+  let emailError: string | null = null;
+  if (mailConfigured()) {
+    const r = await sendMail(
+      counsellorInviteEmail({
+        email: emailLower,
+        language,
+        inviteUrl: `${appUrl()}/${language}/auth/invite/${invite.token}`,
+        validDays: 7,
+      })
+    );
+    emailSent = r.ok;
+    emailError = r.ok ? null : r.error ?? null;
+  } else {
+    emailError = "Email is not configured.";
+  }
+
+  return NextResponse.json({ invite, emailSent, emailError }, { status: 201 });
 }
 
 export async function DELETE(req: NextRequest) {

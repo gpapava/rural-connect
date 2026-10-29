@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Users, Plus, Trash2, X, CheckCircle, Mail,
   Globe, Shield, UserCheck, User, Link2, Copy, Clock,
@@ -45,6 +45,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   const tRoles = useTranslations("common.roles");
   const tLangs = useTranslations("common.languages");
   const router = useRouter();
+  const locale = useLocale();
 
   const roleBadge = (role: UserRole) => (
     <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-semibold", ROLE_COLOR[role])}>
@@ -63,6 +64,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteLoading, setInviteLoading] = useState(false);
   const [inviteError, setInviteError] = useState<string | null>(null);
+  const [inviteNotice, setInviteNotice] = useState<string | null>(null);
   const [showInvites, setShowInvites] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -106,18 +108,24 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
 
   const handleCreateInvite = async () => {
     setInviteError(null);
+    setInviteNotice(null);
     if (!inviteEmail.trim()) { setInviteError(t("emailRequired")); return; }
     setInviteLoading(true);
     const res = await fetch("/api/admin/invites", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: inviteEmail }),
+      body: JSON.stringify({ email: inviteEmail, locale }),
     });
     const data = await res.json();
     if (!res.ok) {
       setInviteError(data.error ?? tc("somethingWentWrong"));
     } else {
       setInvites((prev) => [data.invite, ...prev]);
+      setInviteNotice(
+        data.emailSent
+          ? t("inviteEmailSent", { email: data.invite.email })
+          : t("inviteEmailNotSent")
+      );
       setInviteEmail("");
     }
     setInviteLoading(false);
@@ -204,6 +212,12 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
             {inviteError && (
               <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
                 {inviteError}
+              </div>
+            )}
+
+            {inviteNotice && (
+              <div className="rounded-lg border border-green-200 bg-white px-3 py-2 text-xs text-green-800">
+                {inviteNotice}
               </div>
             )}
 
