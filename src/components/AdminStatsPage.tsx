@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { Users, UserCheck, GraduationCap, MessageSquare, Award, Download, CalendarCheck } from "lucide-react";
 import type { AdminStats } from "@/lib/adminStats";
-import { formatDateTime } from "@/lib/utils";
 
 function StatCard({ icon: Icon, label, value, hint }: { icon: React.ElementType; label: string; value: number | string; hint?: string }) {
   return (
@@ -58,7 +57,7 @@ export default function AdminStatsPage({ stats, locale }: { stats: AdminStats; l
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">{t("title")}</h1>
-          <p className="text-sm text-gray-500">{t("updated", { date: formatDateTime(stats.generatedAt, locale) })}</p>
+          <p className="text-sm text-gray-500">{t("updated", { date: new Date(stats.generatedAt).toLocaleString(locale) })}</p>
         </div>
         <a href="/api/admin/stats/export" className="btn-primary">
           <Download className="h-4 w-4" />
