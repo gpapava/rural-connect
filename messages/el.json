@@ -153,6 +153,8 @@
     "genericError": "Κάτι πήγε στραβά. Παρακαλώ δοκιμάστε ξανά."
   },
   "invite": {
+    "country": "Χώρα",
+    "selectCountry": "Επιλέξτε τη χώρα σας",
     "badge": "Πρόσκληση Συμβούλου",
     "completeRegistration": "Ολοκληρώστε την εγγραφή σας",
     "invitedAsCounsellor": "Έχετε προσκληθεί να συμμετάσχετε ως σύμβουλος.",
@@ -561,6 +563,10 @@
   },
   "admin": {
     "stats": {
+      "countryRoleTitle": "NEETs και σύμβουλοι ανά χώρα",
+      "colCountry": "Χώρα",
+      "colNeets": "NEETs",
+      "colCounselors": "Σύμβουλοι",
       "title": "Στατιστικά",
       "updated": "Ενημερώθηκε {date}",
       "exportCsv": "Εξαγωγή CSV",
@@ -608,6 +614,8 @@
     },
     "users": {
       "title": "Διαχείριση Χρηστών",
+      "filterCountry": "Όλες οι χώρες",
+      "exportCsv": "Εξαγωγή CSV",
       "inviteEmailSent": "Στάλθηκε email με τον σύνδεσμο εγγραφής στο {email}.",
       "inviteEmailNotSent": "Ο σύνδεσμος πρόσκλησης δημιουργήθηκε, αλλά το email δεν στάλθηκε. Αντιγράψτε τον σύνδεσμο παρακάτω και στείλτε τον χειροκίνητα.",
       "importSendEmails": "Αποστολή email σε κάθε νέο χρήστη με τα στοιχεία σύνδεσης και τον προσωρινό κωδικό (στη γλώσσα του)",

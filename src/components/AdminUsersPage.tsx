@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Users, Plus, Trash2, X, CheckCircle, Mail,
-  Globe, Shield, UserCheck, User, Link2, Copy, Clock,
+  Globe, Shield, UserCheck, User, Link2, Copy, Clock, Download,
 } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
 import { UserRole } from "@prisma/client";
@@ -44,6 +44,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   const tc = useTranslations("common");
   const tRoles = useTranslations("common.roles");
   const tLangs = useTranslations("common.languages");
+  const tCountries = useTranslations("common.countries");
   const router = useRouter();
   const locale = useLocale();
 
@@ -60,6 +61,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   const [error, setError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [filterRole, setFilterRole] = useState<"all" | UserRole>("all");
+  const [filterCountry, setFilterCountry] = useState("all");
   const [invites, setInvites] = useState<InviteRow[]>([]);
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteLoading, setInviteLoading] = useState(false);
@@ -68,7 +70,16 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
   const [showInvites, setShowInvites] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const filtered = filterRole === "all" ? users : users.filter((u) => u.role === filterRole);
+  const filtered = users.filter(
+    (u) =>
+      (filterRole === "all" || u.role === filterRole) &&
+      (filterCountry === "all" || (u.country ?? "none") === filterCountry)
+  );
+  const countryOptions = Array.from(new Set(users.map((u) => u.country ?? "none"))).sort();
+  const exportHref = `/api/admin/users/export?${new URLSearchParams({
+    ...(filterRole !== "all" ? { role: filterRole } : {}),
+    ...(filterCountry !== "all" ? { country: filterCountry } : {}),
+  }).toString()}`;
 
   const handleCreate = async () => {
     setError(null);
@@ -424,6 +435,26 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
             {label}
           </button>
         ))}
+
+        <select
+          value={filterCountry}
+          onChange={(e) => setFilterCountry(e.target.value)}
+          aria-label={t("colCountry")}
+          className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:border-[#178593]/40 focus:border-[#178593] focus:outline-none"
+        >
+          <option value="all">{t("filterCountry")}</option>
+          {countryOptions.map((c) => (
+            <option key={c} value={c}>{c === "none" ? "—" : tCountries.has(c) ? tCountries(c) : c}</option>
+          ))}
+        </select>
+
+        <a
+          href={exportHref}
+          className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-[#178593] bg-white px-3 py-1.5 text-xs font-semibold text-[#178593] hover:bg-[#178593] hover:text-white"
+        >
+          <Download className="h-3.5 w-3.5" />
+          {t("exportCsv")} ({filtered.length})
+        </a>
       </div>
 
       {/* User table */}
@@ -460,7 +491,7 @@ export default function AdminUsersPage({ users: initial, currentUserId }: { user
                     </div>
                   </td>
                   <td className="px-4 py-3">{roleBadge(user.role)}</td>
-                  <td className="hidden px-4 py-3 text-gray-600 sm:table-cell">{user.country ?? "—"}</td>
+                  <td className="hidden px-4 py-3 text-gray-600 sm:table-cell">{user.country ? (tCountries.has(user.country) ? tCountries(user.country) : user.country) : "—"}</td>
                   <td className="hidden px-4 py-3 text-gray-600 md:table-cell">{langLabel(user.language)}</td>
                   <td className="hidden px-4 py-3 text-gray-400 lg:table-cell">{formatDate(user.createdAt)}</td>
                   <td className="px-4 py-3 text-right">

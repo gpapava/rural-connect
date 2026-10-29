@@ -153,6 +153,8 @@
     "genericError": "Something went wrong. Please try again."
   },
   "invite": {
+    "country": "Country",
+    "selectCountry": "Select your country",
     "badge": "Counsellor Invitation",
     "completeRegistration": "Complete your registration",
     "invitedAsCounsellor": "You've been invited to join as a counsellor.",
@@ -561,6 +563,10 @@
   },
   "admin": {
     "stats": {
+      "countryRoleTitle": "NEETs and counsellors by country",
+      "colCountry": "Country",
+      "colNeets": "NEETs",
+      "colCounselors": "Counsellors",
       "title": "Statistics",
       "updated": "Updated {date}",
       "exportCsv": "Export CSV",
@@ -608,6 +614,8 @@
     },
     "users": {
       "title": "User Management",
+      "filterCountry": "All countries",
+      "exportCsv": "Export CSV",
       "inviteEmailSent": "An email with the registration link was sent to {email}.",
       "inviteEmailNotSent": "The invite link was created, but the email could not be sent. Copy the link below and send it manually.",
       "importSendEmails": "Email each new user their login details and the one-time password (in their language)",

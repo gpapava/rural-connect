@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+const COUNTRY_CODES = ["NO", "GR", "TR", "LV", "ES", "IT"];
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: { token: string } }
@@ -30,7 +32,7 @@ export async function POST(
   if (invite.used) return NextResponse.json({ error: "This invite has already been used." }, { status: 410 });
   if (invite.expiresAt < new Date()) return NextResponse.json({ error: "This invite link has expired." }, { status: 410 });
 
-  const { name, password } = await req.json();
+  const { name, password, country } = await req.json();
 
   if (!name?.trim() || !password?.trim())
     return NextResponse.json({ error: "Name and password are required." }, { status: 400 });
@@ -50,6 +52,7 @@ export async function POST(
         email: invite.email,
         passwordHash,
         role: "COUNSELOR",
+        country: typeof country === "string" && COUNTRY_CODES.includes(country) ? country : null,
         gdprConsent: true,
       },
       select: { id: true, name: true, email: true, role: true },

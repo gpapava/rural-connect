@@ -15,7 +15,9 @@ interface CounsellorInviteFormProps {
 export default function CounsellorInviteForm({ token, email, locale }: CounsellorInviteFormProps) {
   const t = useTranslations("invite");
   const router = useRouter();
+  const tc = useTranslations("common.countries");
   const [name, setName] = useState("");
+  const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -37,7 +39,7 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
       const res = await fetch(`/api/auth/invite/${token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, password }),
+        body: JSON.stringify({ name, password, country }),
       });
 
       const data = await res.json();
@@ -111,6 +113,26 @@ export default function CounsellorInviteForm({ token, email, locale }: Counsello
             placeholder={t("fullNamePlaceholder")}
             className="input-field"
           />
+        </div>
+
+        <div>
+          <label htmlFor="country" className="mb-1.5 block text-sm font-medium text-gray-700">
+            {t("country")}
+          </label>
+          <select
+            id="country"
+            required
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            className="input-field"
+          >
+            <option value="">{t("selectCountry")}</option>
+            {["NO", "GR", "TR", "LV", "ES", "IT"].map((code) => (
+              <option key={code} value={code}>
+                {tc(code)}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>

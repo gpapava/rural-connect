@@ -94,6 +94,33 @@ export default function AdminStatsPage({ stats, locale }: { stats: AdminStats; l
           </div>
         </div>
 
+        <div className="mt-4 overflow-x-auto rounded-xl border border-gray-200 bg-white">
+          <h3 className="px-4 pt-4 text-sm font-semibold text-gray-700">{t("countryRoleTitle")}</h3>
+          <table className="mt-3 w-full text-sm">
+            <thead className="bg-gray-50 text-left text-xs font-semibold text-gray-500">
+              <tr>
+                <th className="px-4 py-2">{t("colCountry")}</th>
+                <th className="px-4 py-2 text-right">{t("colNeets")}</th>
+                <th className="px-4 py-2 text-right">{t("colCounselors")}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {users.countryRole.map((r) => (
+                <tr key={r.key || "none"}>
+                  <td className="px-4 py-2 text-gray-900">{countryLabel(r.key)}</td>
+                  <td className="px-4 py-2 text-right">{r.neets}</td>
+                  <td className="px-4 py-2 text-right">{r.counselors}</td>
+                </tr>
+              ))}
+              <tr className="bg-gray-50 font-semibold">
+                <td className="px-4 py-2">Σ</td>
+                <td className="px-4 py-2 text-right">{users.countryRole.reduce((n, r) => n + r.neets, 0)}</td>
+                <td className="px-4 py-2 text-right">{users.countryRole.reduce((n, r) => n + r.counselors, 0)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <div className="mt-4 rounded-xl border border-gray-200 bg-white p-4">
           <h3 className="mb-3 text-sm font-semibold text-gray-700">{t("registrations")}</h3>
           <div className="space-y-2">

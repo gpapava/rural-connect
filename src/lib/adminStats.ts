@@ -26,6 +26,7 @@ export async function getAdminStats() {
     counselors,
     counselorSessionGroups,
     counselorNeetPairs,
+    countryRoleGroups,
   ] = await Promise.all([
     prisma.user.groupBy({ by: ["role"], _count: { _all: true } }),
     prisma.user.count({ where: { role: "NEET_USER", createdAt: { gte: last30 } } }),
@@ -57,6 +58,7 @@ export async function getAdminStats() {
     }),
     prisma.counselingSession.groupBy({ by: ["counselorId", "status"], _count: { _all: true } }),
     prisma.counselingStage.findMany({ distinct: ["neetUserId", "counselorId"], select: { neetUserId: true, counselorId: true } }),
+    prisma.user.groupBy({ by: ["country", "role"], _count: { _all: true } }),
   ]);
 
   const roleCount = (role: string) => roleGroups.find((g) => g.role === role)?._count._all ?? 0;
@@ -77,6 +79,13 @@ export async function getAdminStats() {
   const byCountry = neetCountry
     .map((g) => ({ key: g.country ?? "", count: g._count._all }))
     .sort((a, b) => b.count - a.count);
+  const countryRole = Array.from(new Set(countryRoleGroups.map((g) => g.country ?? "")))
+    .map((key) => {
+      const n = (role: string) => countryRoleGroups.find((g) => (g.country ?? "") === key && g.role === role)?._count._all ?? 0;
+      return { key, neets: n("NEET_USER"), counselors: n("COUNSELOR") };
+    })
+    .filter((r) => r.neets > 0 || r.counselors > 0)
+    .sort((a, b) => b.neets + b.counselors - (a.neets + a.counselors));
   const byLanguage = neetLanguage
     .map((g) => ({ key: g.language, count: g._count._all }))
     .sort((a, b) => b.count - a.count);
@@ -142,6 +151,7 @@ export async function getAdminStats() {
       neetsGdpr,
       byCountry,
       byLanguage,
+      countryRole,
       monthly,
     },
     learning: {
@@ -179,6 +189,10 @@ export function statsToCsv(s: AdminStats): string {
   add("users", "", "neets_registered_last_30_days", s.users.neetsLast30);
   add("users", "", "neets_with_gdpr_consent", s.users.neetsGdpr);
   s.users.byCountry.forEach((c) => add("neets_by_country", c.key || "unknown", "neets", c.count));
+  s.users.countryRole.forEach((c) => {
+    add("country_role", c.key || "unknown", "neets", c.neets);
+    add("country_role", c.key || "unknown", "counselors", c.counselors);
+  });
   s.users.byLanguage.forEach((l) => add("neets_by_language", l.key, "neets", l.count));
   s.users.monthly.forEach((m) => add("neet_registrations", m.month, "neets", m.count));
 
