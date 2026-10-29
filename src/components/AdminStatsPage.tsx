@@ -3,6 +3,8 @@
 import { useTranslations } from "next-intl";
 import { Users, UserCheck, GraduationCap, MessageSquare, Award, Download, CalendarCheck } from "lucide-react";
 import type { AdminStats } from "@/lib/adminStats";
+import type { getParticipants } from "@/lib/participants";
+import ParticipantsProgress from "@/components/ParticipantsProgress";
 
 function StatCard({ icon: Icon, label, value, hint }: { icon: React.ElementType; label: string; value: number | string; hint?: string }) {
   return (
@@ -38,7 +40,15 @@ function Bar({ label, value, max }: { label: string; value: number; max: number 
   );
 }
 
-export default function AdminStatsPage({ stats, locale }: { stats: AdminStats; locale: string }) {
+export default function AdminStatsPage({
+  stats,
+  participants,
+  locale,
+}: {
+  stats: AdminStats;
+  participants: Awaited<ReturnType<typeof getParticipants>>;
+  locale: string;
+}) {
   const t = useTranslations("admin.stats");
   const tCountries = useTranslations("common.countries");
   const tLangs = useTranslations("common.languages");
@@ -250,6 +260,8 @@ export default function AdminStatsPage({ stats, locale }: { stats: AdminStats; l
           </table>
         </div>
       </Section>
+
+      <ParticipantsProgress rows={participants.rows} catalog={participants.catalog} locale={locale} />
     </div>
   );
 }
