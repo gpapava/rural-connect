@@ -39,6 +39,14 @@ const videos: {
     youtubeUrl: "https://youtu.be/aziHuGpJGKw",
     order: 1,
   },
+  {
+    language: "tr",
+    title: "Yeni Mezunlar ve İş Deneyimi Olmayanlar Nasıl İş Bulabilir?",
+    description:
+      "An introduction to job searching for new graduates and people without work experience (in Turkish).",
+    youtubeUrl: "https://www.youtube.com/watch?v=FMmDwrmJS3Q",
+    order: 1,
+  },
 
   // --- Add the remaining partner videos below, same shape ---
   // {
