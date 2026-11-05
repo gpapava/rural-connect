@@ -46,9 +46,39 @@ export async function GET(
   const contentType = MIME[ext] ?? "application/octet-stream";
   const buffer = fs.readFileSync(filePath);
 
+  // Range support: Safari/iOS will not play <video>/<audio> unless the server answers 206.
+  const range = _.headers.get("range");
+  if (range) {
+    const m = /^bytes=(\d*)-(\d*)$/.exec(range);
+    if (m) {
+      const size = buffer.length;
+      let start = m[1] ? parseInt(m[1], 10) : size - parseInt(m[2] || "0", 10);
+      let end = m[1] && m[2] ? parseInt(m[2], 10) : size - 1;
+      if (start < 0) start = 0;
+      if (end >= size) end = size - 1;
+      if (start > end || start >= size) {
+        return new NextResponse(null, {
+          status: 416,
+          headers: { "Content-Range": `bytes */${size}` },
+        });
+      }
+      return new NextResponse(buffer.subarray(start, end + 1), {
+        status: 206,
+        headers: {
+          "Content-Type": contentType,
+          "Content-Range": `bytes ${start}-${end}/${size}`,
+          "Content-Length": String(end - start + 1),
+          "Accept-Ranges": "bytes",
+          "Cache-Control": "public, max-age=31536000, immutable",
+        },
+      });
+    }
+  }
+
   return new NextResponse(buffer, {
     headers: {
       "Content-Type": contentType,
+      "Accept-Ranges": "bytes",
       "Cache-Control": "public, max-age=31536000, immutable",
     },
   });
