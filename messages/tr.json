@@ -205,6 +205,8 @@
     "gettingStarted": "Başlarken",
     "journeyAboutToBegin": "Yolculuğunuz başlamak üzere",
     "justStartedBody": "Hesabınız kuruldu. Danışmanınız ilk oturumunuzu planlayacak — hazır olur olmaz burada göreceksiniz.",
+    "counselorStartedTitle": "Danışmanlık panonuz",
+    "counselorStartedBody": "Hesabınız kuruldu. Size atanan NEET kullanıcılarını görmek, oturum planlamak ve onlarla sohbet etmek için Danışmanlık sayfasını açın.",
     "openCounsellingPage": "Danışmanlık Sayfasını Aç",
     "stagesProgress": "{completed}/5 aşama",
     "tiles": {

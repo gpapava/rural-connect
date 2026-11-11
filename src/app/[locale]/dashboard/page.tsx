@@ -70,6 +70,7 @@ export default async function Dashboard({ params: { locale } }: PageProps) {
           name: user?.name ?? "",
           email: user?.email ?? "",
           country: user?.country ?? null,
+          role: session.user.role,
         },
         upcomingSession: upcomingSession ?? null,
         pendingSession: pendingSession ?? null,

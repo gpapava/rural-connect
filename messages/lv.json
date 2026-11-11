@@ -205,6 +205,8 @@
     "gettingStarted": "Sākam",
     "journeyAboutToBegin": "Jūsu ceļš gatavojas sākties",
     "justStartedBody": "Jūsu konts ir izveidots. Jūsu konsultants ieplānos jūsu pirmo sesiju — jūs to redzēsiet šeit, tiklīdz tā būs gatava.",
+    "counselorStartedTitle": "Jūsu konsultēšanas panelis",
+    "counselorStartedBody": "Jūsu konts ir izveidots. Atveriet konsultēšanas lapu, lai redzētu jums piešķirtos NEET lietotājus, plānotu sesijas un tērzētu ar viņiem.",
     "openCounsellingPage": "Atvērt konsultēšanas lapu",
     "stagesProgress": "{completed}/5 posmi",
     "tiles": {

@@ -33,7 +33,7 @@ type SessionSummary = {
 type StageInfo = { number: number; status: "LOCKED" | "ACTIVE" | "COMPLETED" };
 
 interface DashboardData {
-  user: { id: string; name: string; email: string; country: string | null };
+  user: { id: string; name: string; email: string; country: string | null; role?: string };
   upcomingSession: (SessionSummary & { status: string }) | null;
   pendingSession: SessionSummary | null;
   portfolio: { id: string; summary: string | null; targetSector: string | null; updatedAt: Date } | null;
@@ -55,6 +55,7 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
   const [pending, setPending] = useState(pendingSession);
   const [responding, setResponding] = useState(false);
 
+  const isCounselor = user.role === "COUNSELOR" || user.role === "ADMIN";
   const firstName = user.name.split(" ")[0];
   const completedStages = stages.filter((s) => s.status === "COMPLETED").length;
   const activeStage = stages.find((s) => s.status === "ACTIVE");
@@ -332,11 +333,11 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">{t("gettingStarted")}</p>
-              <h2 className="text-lg font-bold text-gray-900">{t("journeyAboutToBegin")}</h2>
+              <h2 className="text-lg font-bold text-gray-900">{isCounselor ? t("counselorStartedTitle") : t("journeyAboutToBegin")}</h2>
             </div>
           </div>
           <p className="mb-5 text-sm text-gray-500">
-            {t("justStartedBody")}
+            {isCounselor ? t("counselorStartedBody") : t("justStartedBody")}
           </p>
           <Link
             href={`/${locale}/counseling`}

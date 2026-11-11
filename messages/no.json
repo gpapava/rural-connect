@@ -205,6 +205,8 @@
     "gettingStarted": "Kom i gang",
     "journeyAboutToBegin": "Reisen din er i ferd med å begynne",
     "justStartedBody": "Kontoen din er satt opp. Veilederen din vil planlegge din første økt — du vil se den her så snart den er klar.",
+    "counselorStartedTitle": "Ditt veiledningspanel",
+    "counselorStartedBody": "Kontoen din er satt opp. Åpne veiledningssiden for å se de tildelte NEET-brukerne, planlegge økter og chatte med dem.",
     "openCounsellingPage": "Åpne veiledningssiden",
     "stagesProgress": "{completed}/5 trinn",
     "tiles": {

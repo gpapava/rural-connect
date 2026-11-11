@@ -205,6 +205,8 @@
     "gettingStarted": "Getting started",
     "journeyAboutToBegin": "Your journey is about to begin",
     "justStartedBody": "Your account is set up. Your counsellor will schedule your first session — you'll see it here as soon as it's ready.",
+    "counselorStartedTitle": "Your counselling dashboard",
+    "counselorStartedBody": "Your account is set up. Open the Counselling page to see your assigned NEET users, schedule sessions and chat with them.",
     "openCounsellingPage": "Open Counselling Page",
     "stagesProgress": "{completed}/5 stages",
     "tiles": {

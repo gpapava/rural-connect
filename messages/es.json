@@ -205,6 +205,8 @@
     "gettingStarted": "Primeros pasos",
     "journeyAboutToBegin": "Tu itinerario está a punto de comenzar",
     "justStartedBody": "Tu cuenta está configurada. Tu orientador programará tu primera sesión: la verás aquí en cuanto esté lista.",
+    "counselorStartedTitle": "Tu panel de orientación",
+    "counselorStartedBody": "Tu cuenta está configurada. Abre la página de Orientación para ver a los usuarios NEET asignados, programar sesiones y chatear con ellos.",
     "openCounsellingPage": "Abrir la Página de Orientación",
     "stagesProgress": "{completed}/5 etapas",
     "tiles": {
