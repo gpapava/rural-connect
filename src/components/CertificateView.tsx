@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Printer, Download } from "lucide-react";
+import { Printer } from "lucide-react";
+import { localeTags, type Locale } from "@/i18n";
 
 interface CertificateViewProps {
   id: string;
@@ -10,10 +11,6 @@ interface CertificateViewProps {
   issuedAt: Date;
   locale: string;
 }
-
-const LOCALE_TAGS: Record<string, string> = {
-  en: "en-GB", el: "el-GR", tr: "tr-TR", lv: "lv-LV", es: "es-ES", it: "it-IT", no: "nb-NO",
-};
 
 export default function CertificateView({
   neetName,
@@ -26,64 +23,61 @@ export default function CertificateView({
   const stageNames = [1, 2, 3, 4, 5].map((n) => tStages(`names.${n}`));
   const handlePrint = () => window.print();
 
-  const formatted = new Date(issuedAt).toLocaleDateString(LOCALE_TAGS[locale] ?? "en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const formatted = new Date(issuedAt).toLocaleDateString(
+    localeTags[locale as Locale] ?? "en-GB",
+    { day: "numeric", month: "long", year: "numeric" }
+  );
 
   return (
-    <>
+    <div className="cert-page min-h-screen bg-gradient-to-br from-slate-100 to-blue-50 py-10 px-4">
       <style>{`
         @media print {
-          html, body { margin: 0; padding: 0; background: white; }
+          @page { size: A4 landscape; margin: 0; }
+          html, body { margin: 0 !important; padding: 0 !important; background: #fff !important; }
           .no-print { display: none !important; }
+          .cert-page { background: #fff !important; padding: 0 !important; min-height: 0 !important; }
+          .cert-scroll { overflow: visible !important; }
+          /* Escape the app shell's clipped (overflow-hidden / h-screen) ancestors */
           #certificate-paper {
             position: fixed !important;
-            top: 0 !important; left: 0 !important;
-            width: 100vw !important; height: 100vh !important;
-            margin: 0 !important; padding: 0 !important;
+            inset: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            min-height: 0 !important;
+            margin: 0 !important;
             box-shadow: none !important;
             border-radius: 0 !important;
           }
-          @page { size: A4 landscape; margin: 0; }
         }
       `}</style>
 
-      {/* Screen wrapper */}
-      <div className="no-print min-h-screen bg-gradient-to-br from-slate-100 to-blue-50 flex flex-col items-center justify-start py-10 px-4 gap-6">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={handlePrint}
-            className="flex items-center gap-2 rounded-xl bg-[#0f3d47] px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#0f172a] transition-colors"
-          >
-            <Printer className="h-4 w-4" />
-            {t("printSave")}
-          </button>
-          <button
-            onClick={handlePrint}
-            className="flex items-center gap-2 rounded-xl border border-[#178593]/30 bg-white px-5 py-2.5 text-sm font-semibold text-[#178593] shadow-sm hover:bg-blue-50 transition-colors"
-          >
-            <Download className="h-4 w-4" />
-            {t("downloadPdf")}
-          </button>
+      {/* Toolbar — screen only */}
+      <div className="no-print mx-auto mb-4 flex max-w-[297mm] items-center justify-center">
+        <button
+          onClick={handlePrint}
+          className="flex items-center gap-2 rounded-xl bg-[#0f3d47] px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#0f172a] transition-colors"
+        >
+          <Printer className="h-4 w-4" />
+          {t("printSave")}
+        </button>
+      </div>
+      <p className="no-print mx-auto mb-6 max-w-[297mm] text-center text-xs text-gray-400">
+        {t("printHint")}
+      </p>
+
+      {/* The certificate — single instance, scrolls horizontally on narrow screens */}
+      <div className="cert-scroll max-w-full overflow-x-auto">
+        <div className="mx-auto w-fit">
+          <CertificatePaper
+            neetName={neetName}
+            counselorName={counselorName}
+            formatted={formatted}
+            stageNames={stageNames}
+            t={t}
+          />
         </div>
-
-        <p className="no-print text-xs text-gray-400">
-          {t("printHint")}
-        </p>
       </div>
-
-      {/* The actual certificate — always rendered, visible both on screen and in print */}
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-100 to-blue-50 print:bg-white print:min-h-0 no-print:hidden print:flex">
-        <CertificatePaper neetName={neetName} counselorName={counselorName} formatted={formatted} stageNames={stageNames} t={t} />
-      </div>
-
-      {/* Duplicate that shows on screen below the buttons */}
-      <div className="no-print flex justify-center pb-12">
-        <CertificatePaper neetName={neetName} counselorName={counselorName} formatted={formatted} stageNames={stageNames} t={t} />
-      </div>
-    </>
+    </div>
   );
 }
 
