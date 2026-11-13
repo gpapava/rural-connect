@@ -16,6 +16,17 @@ export const localeNames: Record<Locale, string> = {
   no: "Norsk",
 };
 
+// BCP-47 tags for Intl formatting (the locale codes above are not all valid tags on their own).
+export const localeTags: Record<Locale, string> = {
+  en: "en-GB",
+  tr: "tr-TR",
+  lv: "lv-LV",
+  el: "el-GR",
+  es: "es-ES",
+  it: "it-IT",
+  no: "nb-NO",
+};
+
 export default getRequestConfig(async ({ locale }) => {
   if (!locales.includes(locale as Locale)) notFound();
 

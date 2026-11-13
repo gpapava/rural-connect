@@ -153,7 +153,7 @@ export default function PortfolioPage({
           {portfolio && (
             <p className="flex items-center gap-1 text-sm text-gray-500">
               <Clock className="h-3.5 w-3.5" />
-              {t("actions.lastUpdated")}: {formatDate(portfolio.updatedAt)}
+              {t("actions.lastUpdated")}: {formatDate(portfolio.updatedAt, locale)}
             </p>
           )}
         </div>
@@ -370,7 +370,7 @@ export default function PortfolioPage({
                       )}
                       {qual.completedAt && (
                         <p className="text-xs text-gray-400">
-                          {formatDate(qual.completedAt)}
+                          {formatDate(qual.completedAt, locale)}
                         </p>
                       )}
                     </div>

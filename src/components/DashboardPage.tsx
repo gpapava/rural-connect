@@ -158,7 +158,7 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
           </p>
           <div className="mb-5 flex items-center gap-1.5 text-sm text-gray-500">
             <Calendar className="h-4 w-4" />
-            {formatDateTime(pending.scheduledAt)}
+            {formatDateTime(pending.scheduledAt, locale)}
           </div>
           <div className="flex gap-3">
             <button
@@ -229,7 +229,7 @@ export default function DashboardPage({ data, locale }: DashboardPageProps) {
           </p>
           <div className="mb-2 flex items-center gap-1.5 text-sm text-gray-500">
             <Clock className="h-4 w-4" />
-            {formatDateTime(upcomingSession.scheduledAt)}
+            {formatDateTime(upcomingSession.scheduledAt, locale)}
           </div>
           <div className="mb-5">
             <StageDots />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import {
   Send,
   Video,
@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { cn, formatDate, formatDateTime, getInitials } from "@/lib/utils";
+import { localeTags, type Locale } from "@/i18n";
 import { UserRole } from "@prisma/client";
 import { createPusherClient } from "@/lib/pusher";
 
@@ -94,6 +95,7 @@ function MessageBubble({
   currentUserId: string;
 }) {
   const isSelf = msg.sender.id === currentUserId;
+  const locale = useLocale();
   return (
     <div className={cn("flex gap-2", isSelf ? "flex-row-reverse" : "flex-row")}>
       {!isSelf && (
@@ -107,7 +109,7 @@ function MessageBubble({
         )}
         <div className={isSelf ? "chat-bubble-self" : "chat-bubble-other"}>{msg.content}</div>
         <p className={cn("mt-0.5 text-xs text-gray-400", isSelf ? "text-right" : "text-left")}>
-          {new Date(msg.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+          {new Date(msg.createdAt).toLocaleTimeString(localeTags[locale as Locale] ?? "en-GB", { hour: "2-digit", minute: "2-digit" })}
         </p>
       </div>
     </div>
@@ -115,13 +117,14 @@ function MessageBubble({
 }
 
 function FileRow({ file }: { file: SharedFile }) {
+  const locale = useLocale();
   return (
     <div className="flex items-center gap-2 rounded-lg border border-gray-100 bg-gray-50 p-2">
       <FileText className="h-4 w-4 flex-shrink-0 text-gray-400" />
       <div className="min-w-0 flex-1">
         <p className="truncate text-xs font-medium text-gray-700">{file.fileName}</p>
         <p className="text-xs text-gray-400">
-          {file.uploadedBy.name} · {formatDate(file.createdAt)}
+          {file.uploadedBy.name} · {formatDate(file.createdAt, locale)}
         </p>
       </div>
       <a
@@ -145,6 +148,7 @@ function SessionHistoryCard({
   currentUserId: string;
 }) {
   const t = useTranslations("counseling");
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
   const statusLabel = t.has(SESSION_STATUS_KEY[session.status] ?? "")
     ? t(SESSION_STATUS_KEY[session.status])
@@ -160,7 +164,7 @@ function SessionHistoryCard({
           <Clock className="h-4 w-4 text-gray-400" />
           <div>
             <p className="text-sm font-medium text-gray-900">
-              {formatDateTime(session.scheduledAt)}
+              {formatDateTime(session.scheduledAt, locale)}
             </p>
             <p className="text-xs text-gray-500">
               {t("stage.historyLine", { status: statusLabel, count: session.messages.length })}
@@ -622,6 +626,7 @@ function StageContent({
   t: ReturnType<typeof useTranslations>;
   onComplete: (stageId: string) => Promise<void>;
 }) {
+  const locale = useLocale();
   const [summary, setSummary] = useState(stage.summary ?? "");
   const [savingSummary, setSavingSummary] = useState(false);
   const [summarySaved, setSummarySaved] = useState(false);
@@ -718,7 +723,7 @@ function StageContent({
             <h3 className="text-sm font-semibold text-gray-900">
               {t("currentSession")} —{" "}
               <span className="font-normal text-gray-500">
-                {formatDateTime(activeSession.scheduledAt)}
+                {formatDateTime(activeSession.scheduledAt, locale)}
               </span>
             </h3>
           </div>
@@ -952,9 +957,10 @@ function JourneyProgress({
                 </p>
                 <p className="text-xs text-gray-500">
                   {t("journey.issuedOn", {
-                    date: new Date(certificate.issuedAt).toLocaleDateString(locale, {
-                      day: "numeric", month: "long", year: "numeric",
-                    }),
+                    date: new Date(certificate.issuedAt).toLocaleDateString(
+                      localeTags[locale as Locale] ?? "en-GB",
+                      { day: "numeric", month: "long", year: "numeric" }
+                    ),
                   })}
                 </p>
               </div>
