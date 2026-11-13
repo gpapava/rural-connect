@@ -250,6 +250,7 @@ function LiveSessionPanel({
   const [savingNotes, setSavingNotes] = useState(false);
   const [typingUser, setTypingUser] = useState<string | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [sharedFiles, setSharedFiles] = useState<SharedFile[]>(session.sharedFiles);
   const [uploadingFile, setUploadingFile] = useState(false);
 
@@ -264,6 +265,24 @@ function LiveSessionPanel({
     const el = messagesContainerRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages]);
+
+  // Fetch the (JWT-signed) video room URL from the server when the call is opened.
+  useEffect(() => {
+    if (!videoOpen) {
+      setVideoUrl(null);
+      return;
+    }
+    let cancelled = false;
+    fetch(`/api/sessions/${session.id}/video`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!cancelled && d?.url) setVideoUrl(d.url);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [videoOpen, session.id]);
 
   useEffect(() => {
     const pusher = createPusherClient();
@@ -419,12 +438,18 @@ function LiveSessionPanel({
           </div>
           {videoOpen ? (
             <div className="flex-1 overflow-hidden rounded-xl bg-gray-900" style={{ minHeight: 480 }}>
-              <iframe
-                src={`https://meet.jit.si/ruralconnect-${session.id}`}
-                allow="camera; microphone; fullscreen; display-capture"
-                className="h-full w-full border-0"
-                style={{ minHeight: 480 }}
-              />
+              {videoUrl ? (
+                <iframe
+                  src={videoUrl}
+                  allow="camera; microphone; fullscreen; display-capture"
+                  className="h-full w-full border-0"
+                  style={{ minHeight: 480 }}
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center text-sm text-white opacity-60" style={{ minHeight: 480 }}>
+                  …
+                </div>
+              )}
             </div>
           ) : (
             <div className="flex flex-1 flex-col">
