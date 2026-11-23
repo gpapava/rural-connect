@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { locales, type Locale } from "@/i18n";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import "../globals.css";
 import AppShell from "@/components/AppShell";
 
@@ -47,6 +48,18 @@ export default async function LocaleLayout({
   const isAuthPage = pathname.includes("/auth/");
 
   const showShell = session && !isAuthPage;
+
+  // Record activity for users who stay signed in (JWT session lasts 30 days, so
+  // authorize() alone misses them). Throttled to once per hour; best effort.
+  if (showShell && session.user?.id) {
+    const hourAgo = new Date(Date.now() - 60 * 60 * 1000);
+    await prisma.user
+      .updateMany({
+        where: { id: session.user.id, OR: [{ lastLoginAt: null }, { lastLoginAt: { lt: hourAgo } }] },
+        data: { lastLoginAt: new Date() },
+      })
+      .catch(() => {});
+  }
 
   return (
     <html lang={locale}>

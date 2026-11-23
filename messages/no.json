@@ -581,7 +581,7 @@
       "colName": "Participant",
       "colModules": "Modules",
       "colStages": "Counselling stages",
-      "colLastLogin": "Last login",
+      "colLastLogin": "Last active",
       "colCounsellor": "Counsellor",
       "modulesOf": "Modules ({language})",
       "moduleCompleted": "Completed",
@@ -644,7 +644,7 @@
     },
     "users": {
       "title": "Brukeradministrasjon",
-      "colLastLogin": "Last login",
+      "colLastLogin": "Last active",
       "colCounsellor": "Counsellor",
       "colCounselling": "Counselling",
       "filterCounselling": "Counselling",

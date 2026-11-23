@@ -581,7 +581,7 @@
       "colName": "Συμμετέχων",
       "colModules": "Modules",
       "colStages": "Στάδια συμβουλευτικής",
-      "colLastLogin": "Τελευταίο login",
+      "colLastLogin": "Τελευταία δραστηριότητα",
       "colCounsellor": "Σύμβουλος",
       "modulesOf": "Modules ({language})",
       "moduleCompleted": "Ολοκληρώθηκε",
@@ -644,7 +644,7 @@
     },
     "users": {
       "title": "Διαχείριση Χρηστών",
-      "colLastLogin": "Τελευταίο login",
+      "colLastLogin": "Τελευταία δραστηριότητα",
       "colCounsellor": "Σύμβουλος",
       "colCounselling": "Συμβουλευτική",
       "filterCounselling": "Συμβουλευτική",
