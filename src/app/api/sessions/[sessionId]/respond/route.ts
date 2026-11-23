@@ -49,5 +49,13 @@ export async function PATCH(
     notification
   );
 
+  // Tell anyone viewing this session (the counsellor) so the UI updates live
+  await pusherServer
+    .trigger(`session-${params.sessionId}`, "session-status", {
+      sessionId: params.sessionId,
+      status: newStatus,
+    })
+    .catch(() => {});
+
   return NextResponse.json({ session: updated });
 }

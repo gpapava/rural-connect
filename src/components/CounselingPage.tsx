@@ -1043,6 +1043,37 @@ export default function CounselingPage({
   const isCounselor = currentUser.role === "COUNSELOR";
   const otherUser = isCounselor ? neetUser : counselor;
 
+  // Live-update session status (e.g. the NEET accepts a PENDING invitation)
+  // without needing a page refresh.
+  const pendingKey = stages
+    .flatMap((st) => st.sessions)
+    .filter((x) => x.status === "PENDING")
+    .map((x) => x.id)
+    .join(",");
+  useEffect(() => {
+    if (!pendingKey) return;
+    const pusher = createPusherClient();
+    const ids = pendingKey.split(",");
+    ids.forEach((id) => {
+      const channel = pusher.subscribe(`session-${id}`);
+      channel.bind("session-status", (data: { sessionId: string; status: string }) => {
+        setStages((prev) =>
+          prev.map((st) => ({
+            ...st,
+            sessions: st.sessions.map((x) => (x.id === data.sessionId ? { ...x, status: data.status } : x)),
+          }))
+        );
+      });
+    });
+    return () => {
+      ids.forEach((id) => {
+        pusher.channel(`session-${id}`)?.unbind_all();
+        pusher.unsubscribe(`session-${id}`);
+      });
+      pusher.disconnect();
+    };
+  }, [pendingKey]);
+
   const handleCompleteStage = async (stageId: string) => {
     const res = await fetch(`/api/stages/${stageId}`, {
       method: "PATCH",
