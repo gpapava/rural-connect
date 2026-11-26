@@ -295,6 +295,20 @@ model LaborMarketVideo {
   @@map("labor_market_videos")
 }
 
+// Anonymous page-view counters (see src/lib/pageViews.ts). One row per
+// day + page + locale + audience. No IP, cookie, user id or device data.
+model PageViewStat {
+  id       String   @id @default(cuid())
+  day      DateTime @db.Date // UTC day
+  path     String   // route without locale, dynamic segments collapsed, e.g. /library/[id]
+  locale   String
+  audience String   // "visitor" (signed out) | "neet" | "counselor"
+  views    Int      @default(0)
+
+  @@unique([day, path, locale, audience])
+  @@map("page_view_stats")
+}
+
 // Optional "further reading" bibliography shown on the e-Library page,
 // curated per partner language. A resource is either an uploaded document
 // (url points at /api/uploads/pdfs/...) or an external link.

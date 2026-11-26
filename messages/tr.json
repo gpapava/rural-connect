@@ -565,6 +565,38 @@
   },
   "admin": {
     "stats": {
+      "viewsTitle": "Sayfa görüntülemeleri",
+      "viewsToday": "Bugün",
+      "viewsLast30": "Son 30 gün",
+      "viewsTotal": "Toplam",
+      "viewsDaily": "Günlük görüntüleme (son 30 gün)",
+      "viewsCount": "{count, plural, one {# görüntüleme} other {# görüntüleme}}",
+      "viewsMax": "En yoğun gün: {count}",
+      "viewsByLanguage": "Dile göre görüntüleme (son 30 gün)",
+      "viewsByAudience": "Ziyaretçi türüne göre görüntüleme (son 30 gün)",
+      "viewsPage": "Sayfa",
+      "viewsSince": "Sayım başlangıcı: {date}.",
+      "viewsNote": "Görüntülemeler anonim olarak sayılır: çerez, IP adresi veya kullanıcı kimliği saklanmaz. Bunlar tekil ziyaretçi değil, sayfa görüntülemesidir. Yönetici etkinliği sayılmaz; günler UTC'ye göredir.",
+      "audience": {
+        "visitor": "Giriş yapmamış",
+        "neet": "NEET'ler",
+        "counselor": "Danışmanlar"
+      },
+      "pages": {
+        "auth_login": "Giriş",
+        "auth_register": "Kayıt",
+        "auth_change_password": "Şifre değiştirme",
+        "auth_invite_id": "Danışman daveti",
+        "dashboard": "Panel",
+        "library": "E-Kütüphane",
+        "library_id": "Eğitim modülü",
+        "counseling": "Danışmanlık",
+        "sessions_new": "Yeni görüşme",
+        "portfolio": "Portfolyo",
+        "labor_market": "İş piyasası",
+        "jobs_new": "İş ilanı formu",
+        "certificate_id": "Sertifika"
+      },
       "participantsTitle": "Progress per participant",
       "participantsSearch": "Search by name or email",
       "allCountries": "All countries",

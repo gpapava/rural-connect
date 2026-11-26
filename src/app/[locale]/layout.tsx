@@ -8,6 +8,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import "../globals.css";
 import AppShell from "@/components/AppShell";
+import PageViewTracker from "@/components/PageViewTracker";
 
 export const dynamic = "force-dynamic";
 
@@ -65,6 +66,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages} locale={locale}>
+          <PageViewTracker />
           {showShell ? (
             <AppShell locale={locale} user={session.user}>
               {children}

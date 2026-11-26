@@ -5,12 +5,13 @@ import { Users, UserCheck, GraduationCap, MessageSquare, Award, Download, Calend
 import type { AdminStats } from "@/lib/adminStats";
 import type { getParticipants } from "@/lib/participants";
 import ParticipantsProgress from "@/components/ParticipantsProgress";
+import PageViewsSection from "@/components/PageViewsSection";
 
 function StatCard({ icon: Icon, label, value, hint }: { icon: React.ElementType; label: string; value: number | string; hint?: string }) {
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4">
       <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
-        <Icon className="h-4 w-4 text-primary-600" />
+        <Icon className="h-4 w-4 text-blue-600" />
         {label}
       </div>
       <p className="mt-2 text-2xl font-bold text-gray-900">{value}</p>
@@ -33,7 +34,7 @@ function Bar({ label, value, max }: { label: string; value: number; max: number 
     <div className="flex items-center gap-3 text-sm">
       <span className="w-32 shrink-0 truncate text-gray-700">{label}</span>
       <div className="h-2.5 flex-1 rounded-full bg-gray-100">
-        <div className="h-2.5 rounded-full bg-primary-600" style={{ width: `${max > 0 ? (value / max) * 100 : 0}%` }} />
+        <div className="h-2.5 rounded-full bg-blue-600" style={{ width: `${max > 0 ? (value / max) * 100 : 0}%` }} />
       </div>
       <span className="w-8 text-right font-medium text-gray-900">{value}</span>
     </div>
@@ -74,6 +75,8 @@ export default function AdminStatsPage({
           {t("exportCsv")}
         </a>
       </div>
+
+      <PageViewsSection views={stats.pageViews} locale={locale} />
 
       <Section title={t("usersTitle")}>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">

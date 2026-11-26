@@ -565,6 +565,38 @@
   },
   "admin": {
     "stats": {
+      "viewsTitle": "Page views",
+      "viewsToday": "Today",
+      "viewsLast30": "Last 30 days",
+      "viewsTotal": "All time",
+      "viewsDaily": "Views per day (last 30 days)",
+      "viewsCount": "{count, plural, one {# view} other {# views}}",
+      "viewsMax": "Busiest day: {count}",
+      "viewsByLanguage": "Views by language (last 30 days)",
+      "viewsByAudience": "Views by visitor type (last 30 days)",
+      "viewsPage": "Page",
+      "viewsSince": "Counting since {date}.",
+      "viewsNote": "Views are counted anonymously: no cookies, IP addresses or user identities are stored. They are page views, not unique visitors. Admin activity is not counted; days follow UTC.",
+      "audience": {
+        "visitor": "Not signed in",
+        "neet": "NEETs",
+        "counselor": "Counsellors"
+      },
+      "pages": {
+        "auth_login": "Sign in",
+        "auth_register": "Registration",
+        "auth_change_password": "Change password",
+        "auth_invite_id": "Counsellor invitation",
+        "dashboard": "Dashboard",
+        "library": "e-Library",
+        "library_id": "Learning module",
+        "counseling": "Counselling",
+        "sessions_new": "New session",
+        "portfolio": "Portfolio",
+        "labor_market": "Labour market",
+        "jobs_new": "Job posting form",
+        "certificate_id": "Certificate"
+      },
       "participantsTitle": "Progress per participant",
       "participantsSearch": "Search by name or email",
       "allCountries": "All countries",

@@ -565,6 +565,38 @@
   },
   "admin": {
     "stats": {
+      "viewsTitle": "Sidevisninger",
+      "viewsToday": "I dag",
+      "viewsLast30": "Siste 30 dager",
+      "viewsTotal": "Totalt",
+      "viewsDaily": "Visninger per dag (siste 30 dager)",
+      "viewsCount": "{count, plural, one {# visning} other {# visninger}}",
+      "viewsMax": "Travleste dag: {count}",
+      "viewsByLanguage": "Visninger etter språk (siste 30 dager)",
+      "viewsByAudience": "Visninger etter besøkstype (siste 30 dager)",
+      "viewsPage": "Side",
+      "viewsSince": "Telles fra {date}.",
+      "viewsNote": "Visningene telles anonymt: ingen informasjonskapsler, IP-adresser eller brukeridentiteter lagres. Dette er sidevisninger, ikke unike besøkende. Administratoraktivitet telles ikke; dagene følger UTC.",
+      "audience": {
+        "visitor": "Ikke innlogget",
+        "neet": "NEET",
+        "counselor": "Veiledere"
+      },
+      "pages": {
+        "auth_login": "Innlogging",
+        "auth_register": "Registrering",
+        "auth_change_password": "Bytte passord",
+        "auth_invite_id": "Veilederinvitasjon",
+        "dashboard": "Oversikt",
+        "library": "E-bibliotek",
+        "library_id": "Læringsmodul",
+        "counseling": "Veiledning",
+        "sessions_new": "Ny time",
+        "portfolio": "Portefølje",
+        "labor_market": "Arbeidsmarked",
+        "jobs_new": "Skjema for stillingsannonse",
+        "certificate_id": "Sertifikat"
+      },
       "participantsTitle": "Progress per participant",
       "participantsSearch": "Search by name or email",
       "allCountries": "All countries",

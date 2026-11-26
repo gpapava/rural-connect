@@ -565,6 +565,38 @@
   },
   "admin": {
     "stats": {
+      "viewsTitle": "Visitas a páginas",
+      "viewsToday": "Hoy",
+      "viewsLast30": "Últimos 30 días",
+      "viewsTotal": "Total",
+      "viewsDaily": "Visitas por día (últimos 30 días)",
+      "viewsCount": "{count, plural, one {# visita} other {# visitas}}",
+      "viewsMax": "Día con más visitas: {count}",
+      "viewsByLanguage": "Visitas por idioma (últimos 30 días)",
+      "viewsByAudience": "Visitas por tipo de visitante (últimos 30 días)",
+      "viewsPage": "Página",
+      "viewsSince": "Recuento desde el {date}.",
+      "viewsNote": "Las visitas se cuentan de forma anónima: no se guardan cookies, direcciones IP ni identidades de usuario. Son páginas vistas, no visitantes únicos. La actividad de administración no se cuenta; los días siguen el horario UTC.",
+      "audience": {
+        "visitor": "Sin sesión iniciada",
+        "neet": "NEET",
+        "counselor": "Orientadores"
+      },
+      "pages": {
+        "auth_login": "Inicio de sesión",
+        "auth_register": "Registro",
+        "auth_change_password": "Cambio de contraseña",
+        "auth_invite_id": "Invitación de orientador",
+        "dashboard": "Panel",
+        "library": "Biblioteca electrónica",
+        "library_id": "Módulo formativo",
+        "counseling": "Orientación",
+        "sessions_new": "Nueva sesión",
+        "portfolio": "Portafolio",
+        "labor_market": "Mercado laboral",
+        "jobs_new": "Formulario de oferta de empleo",
+        "certificate_id": "Certificado"
+      },
       "participantsTitle": "Progress per participant",
       "participantsSearch": "Search by name or email",
       "allCountries": "All countries",

@@ -565,6 +565,38 @@
   },
   "admin": {
     "stats": {
+      "viewsTitle": "Lapu skatījumi",
+      "viewsToday": "Šodien",
+      "viewsLast30": "Pēdējās 30 dienas",
+      "viewsTotal": "Kopā",
+      "viewsDaily": "Skatījumi dienā (pēdējās 30 dienas)",
+      "viewsCount": "{count, plural, zero {# skatījumu} one {# skatījums} other {# skatījumi}}",
+      "viewsMax": "Lielākais dienas skaits: {count}",
+      "viewsByLanguage": "Skatījumi pēc valodas (pēdējās 30 dienas)",
+      "viewsByAudience": "Skatījumi pēc apmeklētāja veida (pēdējās 30 dienas)",
+      "viewsPage": "Lapa",
+      "viewsSince": "Uzskaite kopš {date}.",
+      "viewsNote": "Skatījumi tiek skaitīti anonīmi: sīkdatnes, IP adreses un lietotāju identitāte netiek saglabāta. Tie ir lapu skatījumi, nevis unikālie apmeklētāji. Administratoru darbības netiek skaitītas; dienas atbilst UTC.",
+      "audience": {
+        "visitor": "Nav pierakstījušies",
+        "neet": "NEET",
+        "counselor": "Konsultanti"
+      },
+      "pages": {
+        "auth_login": "Pierakstīšanās",
+        "auth_register": "Reģistrācija",
+        "auth_change_password": "Paroles maiņa",
+        "auth_invite_id": "Konsultanta uzaicinājums",
+        "dashboard": "Informācijas panelis",
+        "library": "E-bibliotēka",
+        "library_id": "Mācību modulis",
+        "counseling": "Konsultācijas",
+        "sessions_new": "Jauna sesija",
+        "portfolio": "Portfolio",
+        "labor_market": "Darba tirgus",
+        "jobs_new": "Darba sludinājuma veidlapa",
+        "certificate_id": "Sertifikāts"
+      },
       "participantsTitle": "Progress per participant",
       "participantsSearch": "Search by name or email",
       "allCountries": "All countries",

@@ -565,6 +565,38 @@
   },
   "admin": {
     "stats": {
+      "viewsTitle": "Visualizzazioni di pagina",
+      "viewsToday": "Oggi",
+      "viewsLast30": "Ultimi 30 giorni",
+      "viewsTotal": "Totale",
+      "viewsDaily": "Visualizzazioni al giorno (ultimi 30 giorni)",
+      "viewsCount": "{count, plural, one {# visualizzazione} other {# visualizzazioni}}",
+      "viewsMax": "Giorno di picco: {count}",
+      "viewsByLanguage": "Visualizzazioni per lingua (ultimi 30 giorni)",
+      "viewsByAudience": "Visualizzazioni per tipo di visitatore (ultimi 30 giorni)",
+      "viewsPage": "Pagina",
+      "viewsSince": "Conteggio dal {date}.",
+      "viewsNote": "Le visualizzazioni sono contate in modo anonimo: non vengono salvati cookie, indirizzi IP o identità degli utenti. Si tratta di visualizzazioni di pagina, non di visitatori unici. L'attività degli amministratori non è conteggiata; i giorni seguono l'orario UTC.",
+      "audience": {
+        "visitor": "Non connessi",
+        "neet": "NEET",
+        "counselor": "Consulenti"
+      },
+      "pages": {
+        "auth_login": "Accesso",
+        "auth_register": "Registrazione",
+        "auth_change_password": "Cambio password",
+        "auth_invite_id": "Invito consulente",
+        "dashboard": "Dashboard",
+        "library": "Biblioteca digitale",
+        "library_id": "Modulo formativo",
+        "counseling": "Consulenza",
+        "sessions_new": "Nuova sessione",
+        "portfolio": "Portfolio",
+        "labor_market": "Mercato del lavoro",
+        "jobs_new": "Modulo annuncio di lavoro",
+        "certificate_id": "Certificato"
+      },
       "participantsTitle": "Progress per participant",
       "participantsSearch": "Search by name or email",
       "allCountries": "All countries",

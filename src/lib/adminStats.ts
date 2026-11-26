@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { getPageViewStats } from "@/lib/pageViews";
 
 export type AdminStats = Awaited<ReturnType<typeof getAdminStats>>;
 
@@ -147,8 +148,11 @@ export async function getAdminStats() {
     };
   });
 
+  const pageViews = await getPageViewStats(now);
+
   return {
     generatedAt: now,
+    pageViews,
     users: {
       neets,
       counselors: roleCount("COUNSELOR"),
@@ -230,6 +234,17 @@ export function statsToCsv(s: AdminStats): string {
     add("counselor", c.name, "sessions", c.sessions);
     add("counselor", c.name, "sessions_completed", c.completed);
   });
+
+  add("page_views", "", "views_total", s.pageViews.total);
+  add("page_views", "", "views_last_30_days", s.pageViews.last30);
+  s.pageViews.daily.forEach((d) => add("page_views_daily", d.day, "views", d.views));
+  s.pageViews.monthly.forEach((m) => add("page_views_monthly", m.month, "views", m.views));
+  s.pageViews.byPage.forEach((p) => {
+    add("page_views_by_page", p.path, "views_last_30_days", p.last30);
+    add("page_views_by_page", p.path, "views_total", p.total);
+  });
+  s.pageViews.byLanguage.forEach((l) => add("page_views_by_language", l.key, "views_last_30_days", l.views));
+  s.pageViews.byAudience.forEach((a) => add("page_views_by_audience", a.key, "views_last_30_days", a.views));
 
   return rows.map((r) => r.map(csvCell).join(",")).join("\n") + "\n";
 }
